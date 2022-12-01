@@ -17,4 +17,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\SimplyRecipes.Common\SimplyRecipes.Common.csproj" />
+    <ProjectReference Include="..\SimplyRecipes.Data.Models\SimplyRecipes.Data.Models.csproj" />
+  </ItemGroup>
+
 </Project>

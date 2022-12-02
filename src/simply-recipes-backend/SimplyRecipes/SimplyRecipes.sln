@@ -11,23 +11,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E9
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{059B9D81-319F-4945-91D1-539B18A6E684}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Web.Models", "Web\SimplyRecipes.Web.Models\SimplyRecipes.Web.Models.csproj", "{E42B444C-9DFA-4F27-9DD6-EF1DC57204CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Web.Models", "Web\SimplyRecipes.Web.Models\SimplyRecipes.Web.Models.csproj", "{E42B444C-9DFA-4F27-9DD6-EF1DC57204CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Data", "Data\SimplyRecipes.Data\SimplyRecipes.Data.csproj", "{69A0D086-6042-4ED1-BC16-2DE420A0D4D6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Data", "Data\SimplyRecipes.Data\SimplyRecipes.Data.csproj", "{69A0D086-6042-4ED1-BC16-2DE420A0D4D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Data.Common", "Data\SimplyRecipes.Data.Common\SimplyRecipes.Data.Common.csproj", "{053DB4F1-47E8-47E5-A4DC-0E59F5586935}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Data.Common", "Data\SimplyRecipes.Data.Common\SimplyRecipes.Data.Common.csproj", "{053DB4F1-47E8-47E5-A4DC-0E59F5586935}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Data.Models", "Data\SimplyRecipes.Data.Models\SimplyRecipes.Data.Models.csproj", "{6882E727-0326-4A8B-9E27-6AC13A1673B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Data.Models", "Data\SimplyRecipes.Data.Models\SimplyRecipes.Data.Models.csproj", "{6882E727-0326-4A8B-9E27-6AC13A1673B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Services.Data", "Services\SimplyRecipes.Services.Data\SimplyRecipes.Services.Data.csproj", "{CBC624F9-253F-473B-B71F-2004BB38F588}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Services.Data", "Services\SimplyRecipes.Services.Data\SimplyRecipes.Services.Data.csproj", "{CBC624F9-253F-473B-B71F-2004BB38F588}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Services.Data.Models", "Services\SimplyRecipes.Services.Data.Models\SimplyRecipes.Services.Data.Models.csproj", "{CB6B1B06-6D34-402F-B239-DA7EF65C7EFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Services.Data.Models", "Services\SimplyRecipes.Services.Data.Models\SimplyRecipes.Services.Data.Models.csproj", "{CB6B1B06-6D34-402F-B239-DA7EF65C7EFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Services.Mapping", "Services\SimplyRecipes.Services.Mapping\SimplyRecipes.Services.Mapping.csproj", "{3F68F0C8-2660-4E72-B67B-07198EA49B8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Services.Mapping", "Services\SimplyRecipes.Services.Mapping\SimplyRecipes.Services.Mapping.csproj", "{3F68F0C8-2660-4E72-B67B-07198EA49B8A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Services.Messaging", "Services\SimplyRecipes.Services.Messaging\SimplyRecipes.Services.Messaging.csproj", "{055E0F47-6ACB-4E0C-82DC-11D53B83409D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Services.Messaging", "Services\SimplyRecipes.Services.Messaging\SimplyRecipes.Services.Messaging.csproj", "{055E0F47-6ACB-4E0C-82DC-11D53B83409D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Common", "SimplyRecipes.Common\SimplyRecipes.Common.csproj", "{1A245674-3275-4B12-BDEC-2A44EF8819C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Common", "SimplyRecipes.Common\SimplyRecipes.Common.csproj", "{1A245674-3275-4B12-BDEC-2A44EF8819C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Tests", "SimplyRecipes.Tests\SimplyRecipes.Tests.csproj", "{F48BD521-0E8E-4B61-B154-DDF84A2F6315}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{1A245674-3275-4B12-BDEC-2A44EF8819C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A245674-3275-4B12-BDEC-2A44EF8819C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A245674-3275-4B12-BDEC-2A44EF8819C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F48BD521-0E8E-4B61-B154-DDF84A2F6315}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F48BD521-0E8E-4B61-B154-DDF84A2F6315}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F48BD521-0E8E-4B61-B154-DDF84A2F6315}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F48BD521-0E8E-4B61-B154-DDF84A2F6315}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

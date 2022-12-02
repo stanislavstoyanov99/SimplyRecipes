@@ -12,7 +12,7 @@
     using SimplyRecipes.Data.Common.Models;
     using SimplyRecipes.Data.Models;
 
-    public class SimplyRecipesDbContext : IdentityDbContext<User, ApplicationRole, string>
+    public class SimplyRecipesDbContext : IdentityDbContext<SimplyRecipesUser, ApplicationRole, string>
     {
         private static readonly MethodInfo SetIsDeletedQueryFilterMethod =
             typeof(SimplyRecipesDbContext).GetMethod(
@@ -23,6 +23,24 @@
             : base(options) 
         { 
         }
+
+        public DbSet<Privacy> Privacies { get; set; }
+
+        public DbSet<FaqEntry> FaqEntries { get; set; }
+
+        public DbSet<ContactFormEntry> ContactFormEntries { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<Article> Articles { get; set; }
+
+        public DbSet<ArticleComment> ArticleComments { get; set; }
+
+        public DbSet<Recipe> Recipes { get; set; }
+
+        public DbSet<Review> Reviews { get; set; }
+
+        public DbSet<ReviewComment> ReviewComments { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

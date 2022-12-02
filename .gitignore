@@ -348,4 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-src/simply-recipes-backend/SimplyRecipes/Web/SimplyRecipes.Web/appsettings.json
+src/simply-recipes-backend/SimplyRecipes/Web/SimplyRecipes.Web/appsettings.Development.json
+src/simply-recipes-backend/SimplyRecipes/Web/SimplyRecipes.Web/appsettings.Production.json

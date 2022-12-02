@@ -53,7 +53,7 @@
         public static IServiceCollection AddIdentity(this IServiceCollection services)
         {
             services
-                .AddIdentity<User, ApplicationRole>(options =>
+                .AddIdentity<SimplyRecipesUser, ApplicationRole>(options =>
                 {
                     // Turn off rules for testing purposes
                     options.Password.RequireDigit = false;

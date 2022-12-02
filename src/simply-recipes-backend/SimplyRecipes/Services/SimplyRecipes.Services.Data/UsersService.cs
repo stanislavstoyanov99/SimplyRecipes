@@ -11,9 +11,9 @@
 
     public class UsersService : IUsersService
     {
-        private readonly IDeletableEntityRepository<User> users;
+        private readonly IDeletableEntityRepository<SimplyRecipesUser> users;
 
-        public UsersService(IDeletableEntityRepository<User> users)
+        public UsersService(IDeletableEntityRepository<SimplyRecipesUser> users)
         {
             this.users = users;
         }

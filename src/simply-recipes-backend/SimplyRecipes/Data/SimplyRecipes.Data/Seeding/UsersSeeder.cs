@@ -20,12 +20,12 @@
             IOptions<ApplicationConfig> appConfig)
         {
             var userManager = serviceProvider
-                .GetRequiredService<UserManager<User>>();
+                .GetRequiredService<UserManager<SimplyRecipesUser>>();
 
             if (!await userManager.Users
                 .AnyAsync(x => x.UserName == appConfig.Value.AdministratorUserName))
             {
-                var user = new User
+                var user = new SimplyRecipesUser
                 {
                     UserName = appConfig.Value.AdministratorUserName,
                     Email = appConfig.Value.AdministratorEmail,

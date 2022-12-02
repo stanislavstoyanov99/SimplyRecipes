@@ -5,9 +5,9 @@
 
     using SimplyRecipes.Data.Models;
 
-    public class SimplyRecipesUserConfiguration : IEntityTypeConfiguration<User>
+    public class SimplyRecipesUserConfiguration : IEntityTypeConfiguration<SimplyRecipesUser>
     {
-        public void Configure(EntityTypeBuilder<User> appUser)
+        public void Configure(EntityTypeBuilder<SimplyRecipesUser> appUser)
         {
             appUser
                 .HasMany(e => e.Claims)

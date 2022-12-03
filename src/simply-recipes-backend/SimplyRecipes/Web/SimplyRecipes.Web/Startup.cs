@@ -9,8 +9,7 @@ namespace SimplyRecipes.Web
     using Microsoft.Extensions.Hosting;
 
     using Newtonsoft.Json;
-
-    using SimplyRecipes.Services.Data.Models;
+    using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Services.Mapping;
     using SimplyRecipes.Web.Infrastructure.Extensions;
 
@@ -47,7 +46,7 @@ namespace SimplyRecipes.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            AutoMapperConfig.RegisterMappings(typeof(ResultModel).GetTypeInfo().Assembly);
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             if (env.IsDevelopment())
             {

@@ -1,4 +1,4 @@
-﻿namespace SimplyRecipes.Services.Data.Models.Users
+﻿namespace SimplyRecipes.Models.InputModels.Users
 {
     public class UserModel
     {

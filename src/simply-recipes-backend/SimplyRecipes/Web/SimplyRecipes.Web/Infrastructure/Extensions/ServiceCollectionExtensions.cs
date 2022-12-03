@@ -17,8 +17,6 @@
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Data.Repositories;
-    using SimplyRecipes.Services.Data;
-    using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Messaging;
     using SimplyRecipes.Web.Infrastructure.Services;
 
@@ -110,9 +108,7 @@
                .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
                .AddScoped<ICurrentUserService, CurrentUserService>()
                .AddTransient<IEmailSender>(
-                    serviceProvider => new SendGridEmailSender(configuration["SendGridSimplyRecipes:ApiKey"], logger))
-               .AddTransient<IUsersService, UsersService>();
-
+                    serviceProvider => new SendGridEmailSender(configuration["SendGridSimplyRecipes:ApiKey"], logger));
             services.AddMemoryCache();
 
             return services;

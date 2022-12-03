@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\SimplyRecipes.Data.Models\SimplyRecipes.Data.Models.csproj" />
+    <ProjectReference Include="..\SimplyRecipes.Models.Common\SimplyRecipes.Models.Common.csproj" />
+    <ProjectReference Include="..\SimplyRecipes.Models.ViewModels\SimplyRecipes.Models.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

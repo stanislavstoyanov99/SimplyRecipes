@@ -12,10 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SimplyRecipes.Data.Models\SimplyRecipes.Data.Models.csproj" />
     <ProjectReference Include="..\..\Models\SimplyRecipes.Models.InputModels\SimplyRecipes.Models.InputModels.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\SimplyRecipes.Services.Messaging\SimplyRecipes.Services.Messaging.csproj" />
   </ItemGroup>
 
 </Project>

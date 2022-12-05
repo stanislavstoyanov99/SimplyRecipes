@@ -1,0 +1,65 @@
+/*------------------------------------------------------------------
+    HEADER
+-------------------------------------------------------------------*/
+.top-navbar {
+    position: relative;
+    z-index: 10;
+    background-color: #c4c4c4;
+}
+
+.top-navbar .navbar {
+    padding: 30px 0px;
+    position: fixed;
+    width: 100%;
+    border-radius: 0px 0px 30px 30px;
+    transition: height .3s ease-out, background .3s ease-out, box-shadow .3s ease-out;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.4);
+    z-index: 100;
+    top: 0;
+
+}
+
+.top-navbar .navbar-light .navbar-nav .nav-link {
+    color: #010101;
+    font-size: 16px;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-transform: uppercase;
+}
+
+.top-navbar .navbar-light .navbar-nav .nav-item .nav-link:hover {
+    background: #540404;
+    color: #ffffff;
+
+}
+
+.top-navbar .navbar-light .navbar-nav .nav-item.active .nav-link {
+    background: #540404;
+    color: #ffffff;
+    border-radius: 4px;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu {
+    border: none;
+    border-radius: 0px;
+    padding: 10px;
+    box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu a {
+    padding: 10px 10px;
+
+    text-transform: uppercase;
+}
+
+.navbar-expand-lg .navbar-nav .dropdown-menu a.dropdown-item:hover {
+    background: #540404;
+    color: #ffffff;
+}
+
+.navbar-light .navbar-toggler:hover {
+    background: #540404;
+}

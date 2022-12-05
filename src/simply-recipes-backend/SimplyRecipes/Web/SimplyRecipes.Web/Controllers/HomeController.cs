@@ -30,7 +30,7 @@
         }
 
         [HttpGet]
-        [Route("/")]
+        [Route("")]
         public async Task<ActionResult> Get()
         {
             var topRecipes = await this

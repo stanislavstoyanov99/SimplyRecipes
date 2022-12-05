@@ -4,7 +4,7 @@
 
     [Produces("application/json")]
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public abstract class ApiController : ControllerBase
     {
     }

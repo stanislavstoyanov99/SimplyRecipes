@@ -2,13 +2,17 @@
     Footer
 -------------------------------------------------------------------*/
 
+h4 {
+    font-size: 16px;
+}
+
 .footer-area {
     padding-top: 50px;
     padding-bottom: 0px;
 }
 
 .bg-f {
-    background-image: url("/src/simply-recipes/src/assets/footer-bg.jpg");
+    background-image: url("/assets/footer-bg.jpg");
     background-attachment: scroll;
     background-clip: initial;
     background-color: rgba(0, 0, 0, 0);

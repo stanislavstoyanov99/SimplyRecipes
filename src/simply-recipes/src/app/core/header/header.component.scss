@@ -8,7 +8,7 @@
 }
 
 .top-navbar .navbar {
-    padding: 30px 0px;
+    padding: 20px 0px;
     position: fixed;
     width: 100%;
     border-radius: 0px 0px 30px 30px;
@@ -51,7 +51,6 @@
 
 .navbar-expand-lg .navbar-nav .dropdown-menu a {
     padding: 10px 10px;
-
     text-transform: uppercase;
 }
 
@@ -62,4 +61,26 @@
 
 .navbar-light .navbar-toggler:hover {
     background: #540404;
+}
+
+#navbar {
+    transition: 0.7s;
+}
+
+.nav-panel {
+    display: none;
+    background-color: transparent;
+    overflow: hidden;
+    padding-left: 23px;
+    transition: 0.4s;
+}
+
+.nav-panel div {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    transition: 0.4s;
+}
+
+.nav-panel div:hover {
+    background-color: #222222;
 }

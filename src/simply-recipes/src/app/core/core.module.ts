@@ -5,7 +5,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarDirective } from './directives/navbar.directive';
-
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -17,7 +17,8 @@ import { NavbarDirective } from './directives/navbar.directive';
   ],
   imports: [
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule
   ],
   exports: [
     HeaderComponent,

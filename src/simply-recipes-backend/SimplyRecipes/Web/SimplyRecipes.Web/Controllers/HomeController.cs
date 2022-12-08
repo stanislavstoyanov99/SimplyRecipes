@@ -3,7 +3,6 @@
     using System.Threading.Tasks;
 
     using SimplyRecipes.Models.ViewModels.Articles;
-    using SimplyRecipes.Models.ViewModels.Home;
     using SimplyRecipes.Models.ViewModels.Privacy;
     using SimplyRecipes.Models.ViewModels.Recipes;
     using SimplyRecipes.Services.Data.Interfaces;
@@ -30,29 +29,36 @@
         }
 
         [HttpGet]
-        [Route("")]
-        public async Task<ActionResult> Get()
+        [Route("top-recipes")]
+        public async Task<ActionResult> GetTopRecipes()
         {
             var topRecipes = await this
                 .recipesService.GetTopRecipesAsync<RecipeListingViewModel>(TopRecipesCounter);
 
+            return this.Ok(topRecipes);
+        }
+
+        [HttpGet]
+        [Route("recent-articles")]
+        public async Task<ActionResult> GetRecentArticles()
+        {
             var recentArticles = await this
                 .articlesService.GetRecentArticlesAsync<ArticleListingViewModel>(RecentArticlesCounter);
 
+            return this.Ok(recentArticles);
+        }
+
+        [HttpGet]
+        [Route("gallery")]
+        public async Task<ActionResult> GetGallery()
+        {
             var gallery = await this
                 .recipesService.GetAllRecipesAsync<GalleryViewModel>();
 
-            var responseModel = new HomePageViewModel
-            {
-                TopRecipes = topRecipes,
-                RecentArticles = recentArticles,
-                Gallery = gallery,
-            };
-
-            return this.Ok(responseModel);
+            return this.Ok(gallery);
         }
 
-        [HttpGet("Privacy")]
+        [HttpGet("privacy")]
         public async Task<ActionResult> Privacy()
         {
             var responseModel = await this.privacyService.GetViewModelAsync<PrivacyDetailsViewModel>();

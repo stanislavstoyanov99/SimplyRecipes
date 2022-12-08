@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
+import { IRecipeListing } from '../shared/interfaces/recipe-listing';
 
 const apiURL = environment.apiURL;
 
 @Injectable({
   providedIn: 'root'
 })
-export class ApiService {
+export class HomeService {
 
   constructor(private httpClient: HttpClient) { }
 
-  loadHome() {
-    return this.httpClient.get(`${apiURL}/Home`);
+  getTopRecipes() {
+    return this.httpClient.get<IRecipeListing[]>(`${apiURL}/Home/top-recipes`);
   }
 }

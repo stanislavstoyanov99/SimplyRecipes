@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from 'src/app/services/home.service';
+import { IRecipeListing } from 'src/app/shared/interfaces/recipe-listing';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  topRecipes: IRecipeListing[] | null = null;
+
+  constructor(private homeService: HomeService) { }
 
   ngOnInit(): void {
+    this.homeService.getTopRecipes().subscribe({
+      next: (value) => {
+        this.topRecipes = value;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 
 }

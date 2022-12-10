@@ -31,7 +31,8 @@
                 <div class="inner-column">
                     <h1>Simply Recipes</h1>
                     <h4>Website created for all you home chefs out there!</h4>
-                    <p class="mt-4">Simply Recipes is an online community webside created for browsing recipes and articles
+                    <p class="mt-4">Simply Recipes is an online community webside created for browsing recipes and
+                        articles
                         about healty lifestyle!</p>
                     <p>Our goal is to make the Internet a user-friendly place for people who want to find fresh ideas
                         for homemade food!</p>
@@ -59,3 +60,113 @@
     </div>
 </div>
 <!-- End QT -->
+
+<!-- Start Menu -->
+<div class="menu-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-title text-center">
+                    <h2>Recipes</h2>
+                    <p>Here are some examples of what you can do in fing in the Recipes page.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row inner-menu-box centered">
+            <div class="col-9 ms-auto me-auto">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
+                        aria-labelledby="v-pills-home-tab">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 special-grid drinks" *ngFor="let topRecipe of topRecipes">
+                                <div class="gallery-single fix">
+                                    <img src="{{topRecipe.imagePath}}" class="img-fluid home-recipe-img"
+                                        alt="Image_{{topRecipe.id}}">
+                                    <div class="why-text">
+                                        <a>
+                                            <h4>{{topRecipe.name}}</h4>
+                                        </a>
+                                        <span>
+                                            <ng-container *ngIf="topRecipe.rate === 0">
+                                                <strong>No Rate yet!</strong>
+                                            </ng-container>
+                                            <ng-container *ngIf="topRecipe.rate !== 0">
+                                                <fa-icon *ngFor="let rate of rate(topRecipe.rate)"
+                                                    [icon]="['fas', 'star']" class="star"></fa-icon>
+                                            </ng-container>
+                                        </span>
+                                        <h5>Difficulty: {{topRecipe.difficulty}}</h5>
+                                        <h5><fa-icon [icon]="['far', 'list-alt']"></fa-icon> {{topRecipe.category.name}}
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-fluid">
+                        <a class="btn btn-dark w-100">To Recipes</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Menu -->
+
+<!-- Start Article -->
+<div class="article-box">
+    <div class="row h-100" style="overflow:visible">
+        <div class="col-lg-12">
+            <div class="heading-title text-center">
+                <h2 style="color:white">Articles</h2>
+                <p>If you are not hungry, feel free to browse our article section</p>
+            </div>
+        </div>
+        <div class="row d-flex h-100  ms-auto me-auto">
+            <div class="col-12 col-md-4" *ngFor="let article of recentArticles">
+                <div class="blog-box-inner">
+                    <div class="blog-img-box">
+                        <img class="img-fluid home-pic" src="{{article.imagePath}}" alt="image_{{article.id}}">
+                    </div>
+                    <div class="blog-detail">
+                        <h4>{{article.title}}</h4>
+                        <ul>
+                            <li>
+                                <span>Posted by <fa-icon [icon]="['fas', 'user']"></fa-icon> {{article.userUsername}}</span>
+                            </li>
+                            <li>|</li>
+                            <li>
+                                <span><fa-icon [icon]="['fas', 'calendar']"></fa-icon> {{article.createdOn | date:'short'}}</span>
+                            </li>
+                        </ul>
+                        <p [innerHtml]="article.sanitizedShortDescription"></p>
+                        <a class="btn btn-lg btn-circle btn-outline-new-white">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4 toArticle-box">
+                <a class="button" id="toArticleBtn"><span>To Articles</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Article -->
+
+<!-- Start Gallery -->
+<div class="gallery-box gallery-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-title text-center">
+                    <h2>Gallery</h2>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <ng-image-slider [images]="slides" [infinite]="true" [autoSlide]="3" [imageSize]="{space: 4}"></ng-image-slider>
+        </div>
+    </div>
+
+    <app-contacts></app-contacts>
+</div>
+<!-- End Gallery -->

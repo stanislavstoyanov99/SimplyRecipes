@@ -147,5 +147,12 @@
 
             return services;
         }
+
+        public static IServiceCollection AddCustomRouting(this IServiceCollection services)
+        {
+            services.AddRouting(options => options.LowercaseUrls = true);
+
+            return services;
+        }
     }
 }

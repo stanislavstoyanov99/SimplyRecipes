@@ -9,7 +9,7 @@ import { faFacebookF, faTwitter, faLinkedinIn, faInstagram } from '@fortawesome/
 })
 export class FooterComponent {
   
-  constructor(library: FaIconLibrary) {
+  constructor(private library: FaIconLibrary) {
     library.addIcons(faFacebookF, faTwitter, faLinkedinIn, faInstagram);
    }
 }

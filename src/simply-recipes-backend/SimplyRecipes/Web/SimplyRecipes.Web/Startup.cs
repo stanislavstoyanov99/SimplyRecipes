@@ -26,6 +26,7 @@ namespace SimplyRecipes.Web
         {
             services
                 .AddDatabase(this.Configuration)
+                .AddCustomRouting()
                 .AddIdentity()
                 .AddAuthentication(services.GetApplicationConfig(this.Configuration))
                 .AddCors(options =>

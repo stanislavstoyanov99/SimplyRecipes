@@ -4,37 +4,37 @@
             <a class="navbar-brand" routerLink="/">
                 <img src="/assets/logo.png" id="logo" alt="Cooking Hub Logo" />
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbars-rs-food"
+            <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed"
                     aria-controls="navbars-rs-food"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbars-rs-food">
+            <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">Home</a>
+                        <a href class="nav-link" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Home</a>
                     </li>
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/recipes" routerLinkActive="active" ariaCurrentWhenActive="page">Recipes</a>
+                        <a href class="nav-link" routerLink="/recipes" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Recipes</a>
                     </li>
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/articles" routerLinkActive="active" ariaCurrentWhenActive="page">Articles</a>
+                        <a href class="nav-link" routerLink="/articles" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Articles</a>
                     </li>
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/contacts" routerLinkActive="active" ariaCurrentWhenActive="page">Contact</a>
+                        <a href class="nav-link" routerLink="/contacts" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Contact</a>
                     </li>
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/privacy" routerLinkActive="active" ariaCurrentWhenActive="page">Privacy</a>
+                        <a href class="nav-link" routerLink="/privacy" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Privacy</a>
                     </li>
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/faq" routerLinkActive="active" ariaCurrentWhenActive="page">FAQ</a>
+                        <a href class="nav-link" routerLink="/faq" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">FAQ</a>
                     </li>
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page">Register</a>
+                        <a href class="nav-link" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Register</a>
                     </li>
                     <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page">Login</a>
+                        <a href class="nav-link" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Login</a>
                     </li>     
                 </ul>     
             </div>

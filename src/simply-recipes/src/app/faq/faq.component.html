@@ -1,0 +1,15 @@
+<div class="faq-box mt-200">
+    <div class="container mb-5">
+        <div class="text-center">
+            <h4 class="display-4">FAQ</h4>
+        </div>
+        <ngb-accordion #acc="ngbAccordion" class="ms-5">
+            <ngb-panel *ngFor="let faq of faqs" id="toggle-{{faq.id}}" title="{{faq.question}}">
+                <ng-template ngbPanelContent>
+                    <div [innerHTML]="faq.sanitizedAnswer"></div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+    </div>
+    <app-contacts></app-contacts>
+</div>

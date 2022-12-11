@@ -7,7 +7,7 @@
 
     using Microsoft.AspNetCore.Mvc;
 
-    public class FaqController : Controller
+    public class FaqController : ApiController
     {
         private readonly IFaqService faqService;
 

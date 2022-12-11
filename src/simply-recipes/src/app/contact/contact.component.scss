@@ -1,0 +1,60 @@
+.all-page-title .container {
+    position: relative;
+    z-index: 2;
+}
+
+.all-page-title::before {
+    background: #010101;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.all-page-title h1 {
+    font-size: 38px;
+    color: #ffffff;
+    font-family: 'Rubik', sans-serif;
+    padding: 0px;
+    font-weight: 500;
+}
+
+.page-breadcrumb {
+    padding: 300px 0 150px;
+    background: url(/assets/images/all-bg.jpg) no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 0 0;
+    position: relative;
+}
+
+.contact-box {
+    padding: 70px 0px;
+}
+
+.contact-form {
+    border-radius: 25px;
+    border-color: #540404;
+    min-height: 50px;
+}
+
+.submit-button {
+    margin-top: 20px;
+}
+
+.btn.btn-common {
+    color: #540404;
+    background-color: transparent;
+    background-image: none;
+    border-color: #540404;
+}
+
+.btn.btn-common:hover {
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+}

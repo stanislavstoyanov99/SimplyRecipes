@@ -10,12 +10,19 @@ import { HomeComponent } from './home/home.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { ContactComponent } from './contact/contact.component';
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FaqComponent } from './faq/faq.component';
+import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    PrivacyComponent
+    PrivacyComponent,
+    ContactComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +33,9 @@ import { PrivacyComponent } from './privacy/privacy.component';
     NgImageSliderModule,
     FontAwesomeModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

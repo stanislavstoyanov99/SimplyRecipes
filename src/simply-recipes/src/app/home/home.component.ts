@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   slides: Array<object> = [];
 
   constructor(private homeService: HomeService, private library: FaIconLibrary) {
-    library.addIcons(faListAlt, faStar, faUser, faCalendar);
+    this.library.addIcons(faListAlt, faStar, faUser, faCalendar);
    }
 
   ngOnInit(): void {

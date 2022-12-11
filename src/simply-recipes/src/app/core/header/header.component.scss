@@ -33,10 +33,9 @@
 .top-navbar .navbar-light .navbar-nav .nav-item .nav-link:hover {
     background: #540404;
     color: #ffffff;
-
 }
 
-.top-navbar .navbar-light .navbar-nav .nav-item.active .nav-link {
+.top-navbar .navbar-light .navbar-nav .nav-item .nav-link.active {
     background: #540404;
     color: #ffffff;
     border-radius: 4px;

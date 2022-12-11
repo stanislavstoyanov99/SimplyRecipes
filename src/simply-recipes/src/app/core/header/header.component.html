@@ -12,29 +12,29 @@
             </button>
             <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Home</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="isMenuCollapsed = true">Home</a>
                     </li>
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/recipes" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Recipes</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/recipes" routerLinkActive="active" (click)="isMenuCollapsed = true">Recipes</a>
                     </li>
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/articles" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Articles</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/articles" routerLinkActive="active" (click)="isMenuCollapsed = true">Articles</a>
                     </li>
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/contacts" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Contact</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/contacts" routerLinkActive="active" (click)="isMenuCollapsed = true">Contact</a>
                     </li>
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/privacy" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Privacy</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/privacy" routerLinkActive="active" (click)="isMenuCollapsed = true">Privacy</a>
                     </li>
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/faq" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">FAQ</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/faq" routerLinkActive="active" (click)="isMenuCollapsed = true">FAQ</a>
                     </li>
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/register" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Register</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/register" routerLinkActive="active" (click)="isMenuCollapsed = true">Register</a>
                     </li>
-                    <li class="nav-item pl-2">
-                        <a href class="nav-link" routerLink="/login" routerLinkActive="active" ariaCurrentWhenActive="page" (click)="isMenuCollapsed = true">Login</a>
+                    <li class="nav-item ps-2">
+                        <a href class="nav-link" routerLink="/login" routerLinkActive="active" (click)="isMenuCollapsed = true">Login</a>
                     </li>     
                 </ul>     
             </div>

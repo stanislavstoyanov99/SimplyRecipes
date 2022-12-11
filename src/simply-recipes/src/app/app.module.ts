@@ -14,7 +14,7 @@ import { ContactComponent } from './contact/contact.component';
 import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FaqComponent } from './faq/faq.component';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxScrollTopModule } from 'ngx-scrolltop';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,8 @@ import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule,
     NgbModule,
     NgImageSliderModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxScrollTopModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true

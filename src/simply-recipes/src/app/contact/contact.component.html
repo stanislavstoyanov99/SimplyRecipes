@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="firstName" [(ngModel)]="contactModel.firstName" #firstName="ngModel"
+                                <input name="firstName" [(ngModel)]="contact.firstName" #firstName="ngModel"
                                     required minlength="3" maxlength="30" placeholder="Enter first name"
                                     class="form-control contact-form">
                                 <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert">
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="lastName" [(ngModel)]="contactModel.lastName" #lastName="ngModel" required
+                                <input name="lastName" [(ngModel)]="contact.lastName" #lastName="ngModel" required
                                     minlength="3" maxlength="30" placeholder="Enter last name"
                                     class="form-control contact-form" />
                                 <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert">
@@ -65,7 +65,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="email" [(ngModel)]="contactModel.email" #email="ngModel" required email
+                                <input name="email" [(ngModel)]="contact.email" #email="ngModel" required email
                                     placeholder="Enter email" class="form-control contact-form">
                                 <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                                 <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="subject" [(ngModel)]="contactModel.subject" #subject="ngModel" required
+                                <input name="subject" [(ngModel)]="contact.subject" #subject="ngModel" required
                                     minlength="5" maxlength="100" placeholder="Enter subject" class="form-control contact-form" />
                                 <div *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="alert">
                                     <div *ngIf="subject.errors?.['required']">
@@ -97,7 +97,7 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea name="content" [(ngModel)]="contactModel.content" #content="ngModel" required
+                                <textarea name="content" [(ngModel)]="contact.content" #content="ngModel" required
                                     minlength="20" maxlength="10000" class="form-control contact-form" rows="6"
                                     placeholder="Enter content">
                                 </textarea>

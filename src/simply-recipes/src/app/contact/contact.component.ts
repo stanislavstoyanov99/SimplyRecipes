@@ -1,7 +1,6 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import { ContactModel } from '../core/models/contact.model';
+import { Contact } from '../shared/interfaces/contact';
 import { ContactService } from '../services/contact.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 
@@ -18,18 +17,17 @@ export class ContactComponent {
   lat = 51.678418;
   lng = 7.809007;
 
-  public contactModel: ContactModel;
+  public contact!: Contact;
 
   constructor(private contactService: ContactService,
     private recaptchaV3Service: ReCaptchaV3Service) {
-    this.contactModel = new ContactModel();
   }
 
   onSubmit(): void {
     if (this.contactForm?.valid) {
       this.recaptchaV3Service.execute('importantAction').subscribe((token: string) => {
-        this.contactModel.recaptchaValue = token;
-        this.contactService.sendContact(this.contactModel);
+        this.contact.recaptchaValue = token;
+        this.contactService.sendContact(this.contact);
         this.contactForm?.reset();
       });
     }

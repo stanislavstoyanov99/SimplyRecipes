@@ -4,12 +4,14 @@
     using System.IO;
     using System.Linq;
     using System.Reflection;
-
+    using System.Text;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
 
     using SimplyRecipes.Common.Config;
@@ -89,8 +91,29 @@
             this IServiceCollection services,
             ApplicationConfig appConfig)
         {
+            var key = Encoding.ASCII.GetBytes(appConfig.JwtSecret);
+
             services
-                .AddAuthentication()
+                .AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false,
+
+                        // Set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
+                        ClockSkew = TimeSpan.Zero
+                    };
+                })
                 .AddCookie();
 
             return services;
@@ -111,6 +134,7 @@
                .AddScoped<ICurrentUserService, CurrentUserService>()
                .AddTransient<IEmailSender>(
                     serviceProvider => new SendGridEmailSender(configuration["SendGridSimplyRecipes:ApiKey"], logger))
+               .AddTransient<IIdentityService, IdentityService>()
                .AddTransient<IArticleCommentsService, ArticleCommentsService>()
                .AddTransient<IArticlesService, ArticlesService>()
                .AddTransient<ICategoriesService, CategoriesService>()
@@ -119,7 +143,8 @@
                .AddTransient<IPrivacyService, PrivacyService>()
                .AddTransient<IRecipesService, RecipesService>()
                .AddTransient<IReviewsService, ReviewsService>()
-               .AddTransient<ISimplyRecipesUsersService, SimplyRecipesUsersService>();
+               .AddTransient<ISimplyRecipesUsersService, SimplyRecipesUsersService>()
+               .AddTransient<IJwtService, JwtService>();
             services.AddMemoryCache();
 
             return services;

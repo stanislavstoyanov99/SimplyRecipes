@@ -9,19 +9,31 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: HomeComponent
+    component: HomeComponent,
+    data: {
+      title: 'Home'
+    }
   },
   {
     path: 'privacy',
-    component: PrivacyComponent
+    component: PrivacyComponent,
+    data: {
+      title: 'Privacy'
+    }
   },
   {
     path: 'contacts',
-    component: ContactComponent
+    component: ContactComponent,
+    data: {
+      title: 'Contacts'
+    }
   },
   {
     path: 'faq',
-    component: FaqComponent
+    component: FaqComponent,
+    data: {
+      title: 'FAQ'
+    }
   }
 ];
 

@@ -11,7 +11,9 @@
 <!-- End All Pages -->
 
 <!-- Start Contact -->
-<!-- <div class="map-full"></div> -->
+<agm-map [latitude]="lat" [longitude]="lng">
+    <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
 <div class="contact-box">
     <div class="container">
         <div class="row">
@@ -23,41 +25,98 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form>
+                <form #contactForm="ngForm" (ngSubmit)="onSubmit()">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="firstName" placeholder="Enter first name" class="form-control contact-form">
-                                <!-- <span asp-validation-for="FirstName" class="text-danger"></span> -->
+                                <input name="firstName" [(ngModel)]="contactModel.firstName" #firstName="ngModel"
+                                    required minlength="3" maxlength="30" placeholder="Enter first name"
+                                    class="form-control contact-form">
+                                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert">
+                                    <div *ngIf="firstName.errors?.['required']">
+                                        First name is required.
+                                    </div>
+                                    <div *ngIf="firstName.errors?.['minlength']">
+                                        First Name must be at least 3 characters long.
+                                    </div>
+                                    <div *ngIf="firstName.errors?.['maxlength']">
+                                        First Name must be no more than 30 characters.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="lastName" placeholder="Enter last name" class="form-control contact-form" />
-                                <!-- <span asp-validation-for="LastName" class="text-danger"></span> -->
+                                <input name="lastName" [(ngModel)]="contactModel.lastName" #lastName="ngModel" required
+                                    minlength="3" maxlength="30" placeholder="Enter last name"
+                                    class="form-control contact-form" />
+                                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert">
+                                    <div *ngIf="lastName.errors?.['required']">
+                                        Last name is required.
+                                    </div>
+                                    <div *ngIf="lastName.errors?.['minlength']">
+                                        Last name must be at least 3 characters long.
+                                    </div>
+                                    <div *ngIf="lastName.errors?.['maxlength']">
+                                        Last name must be no more than 30 characters.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="email" class="form-control contact-form" placeholder="Enter email">
+                                <input name="email" [(ngModel)]="contactModel.email" #email="ngModel" required email
+                                    placeholder="Enter email" class="form-control contact-form">
                                 <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-                                <!-- <span asp-validation-for="Email" class="text-danger"></span> -->
+                                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                                    <div *ngIf="email.errors?.['required']">
+                                        Email is required.
+                                    </div>
+                                    <div *ngIf="email.errors?.['email']">
+                                        Please provide an email.
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <input name="subject" placeholder="Enter subject" class="form-control contact-form" />
-                                <!-- <span asp-validation-for="Subject" class="text-danger"></span> -->
+                                <input name="subject" [(ngModel)]="contactModel.subject" #subject="ngModel" required
+                                    minlength="5" maxlength="100" placeholder="Enter subject" class="form-control contact-form" />
+                                <div *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="alert">
+                                    <div *ngIf="subject.errors?.['required']">
+                                        Subject is required.
+                                    </div>
+                                    <div *ngIf="subject.errors?.['minlength']">
+                                        Subject must be at least 5 characters long.
+                                    </div>
+                                    <div *ngIf="subject.errors?.['maxlength']">
+                                        Subject must be no more than 100 characters.
+                                    </div>
+                                </div>   
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea name="content" class="form-control contact-form" rows="6" placeholder="Enter content"></textarea>
-                                <!-- <span asp-validation-for="Content" class="text-danger"></span> -->
+                                <textarea name="content" [(ngModel)]="contactModel.content" #content="ngModel" required
+                                    minlength="20" maxlength="10000" class="form-control contact-form" rows="6"
+                                    placeholder="Enter content">
+                                </textarea>
+                                <div *ngIf="content.invalid && (content.dirty || content.touched)" class="alert">
+                                    <div *ngIf="content.errors?.['required']">
+                                        Content is required.
+                                    </div>
+                                    <div *ngIf="content.errors?.['minlength']">
+                                        Content must be at least 20 characters long.
+                                    </div>
+                                    <div *ngIf="content.errors?.['maxlength']">
+                                        Content must be no more than 10000 characters.
+                                    </div>
+                                </div> 
                             </div>
                             <div class="submit-button text-center">
-                                <input type="hidden" id="RecaptchaValue" name="RecaptchaValue" />
-                                <button class="btn btn-common" type="submit">Send Message</button>
+                                <button class="btn btn-common" [disabled]="contactForm.invalid" type="submit">
+                                    Send Message
+                                </button>
                                 <div class="clearfix"></div>
                             </div>
                         </div>

@@ -38,7 +38,6 @@
 
 .contact-form {
     border-radius: 25px;
-    border-color: #540404;
     min-height: 50px;
 }
 
@@ -57,4 +56,32 @@
     color: #ffffff;
     background-color: #333333;
     border-color: #333333;
+}
+
+agm-map {
+    height: 300px;
+}
+
+input.ng-invalid.ng-touched {
+    border-left: 5px solid #A94442;
+}
+
+textarea.ng-invalid.ng-touched {
+    border-left: 5px solid #A94442;
+}
+
+input.ng-valid {
+    border-left: 5px solid #42A948;
+}
+
+textarea.ng-valid {
+    border-left: 5px solid #42A948;
+}
+
+.alert div {
+    color: #820000;
+}
+
+.form-group {
+    margin-bottom: 1rem;
 }

@@ -114,7 +114,7 @@
                .AddTransient<IArticleCommentsService, ArticleCommentsService>()
                .AddTransient<IArticlesService, ArticlesService>()
                .AddTransient<ICategoriesService, CategoriesService>()
-               //.AddTransient<IContactsService, ContactsService>() TODO: fix application config injection
+               .AddTransient<IContactsService, ContactsService>()
                .AddTransient<IFaqService, FaqService>()
                .AddTransient<IPrivacyService, PrivacyService>()
                .AddTransient<IRecipesService, RecipesService>()

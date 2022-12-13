@@ -25,5 +25,7 @@
         public string ForgotPasswordSubject { get; set; }
 
         public string ForgotPasswordContent { get; set; }
+
+        public GoogleReCaptcha GoogleReCaptcha { get; set; }
     }
 }

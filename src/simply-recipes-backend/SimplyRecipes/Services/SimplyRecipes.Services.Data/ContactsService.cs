@@ -1,7 +1,7 @@
 ﻿namespace SimplyRecipes.Services.Data
 {
     using System.Threading.Tasks;
-
+    using Microsoft.Extensions.Options;
     using SimplyRecipes.Common.Config;
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
@@ -13,16 +13,16 @@
     {
         private readonly IRepository<ContactFormEntry> userContactsRepository;
         private readonly IEmailSender emailSender;
-        private readonly ApplicationConfig applicationConfig;
+        private readonly IOptions<ApplicationConfig> appConfig;
 
         public ContactsService(
             IRepository<ContactFormEntry> userContactsRepository,
             IEmailSender emailSender,
-            ApplicationConfig applicationConfig)
+            IOptions<ApplicationConfig> appConfig)
         {
             this.userContactsRepository = userContactsRepository;
             this.emailSender = emailSender;
-            this.applicationConfig = applicationConfig;
+            this.appConfig = appConfig;
         }
 
         public async Task SendContactToAdminAsync(ContactFormEntryViewModel contactFormEntryViewModel)
@@ -42,7 +42,7 @@
             await this.emailSender.SendEmailAsync(
                 contactFormEntryViewModel.Email,
                 string.Concat(contactFormEntryViewModel.FirstName, " ", contactFormEntryViewModel.LastName),
-                this.applicationConfig.AdministratorEmail,
+                this.appConfig.Value.AdministratorEmail,
                 contactFormEntryViewModel.Subject,
                 contactFormEntryViewModel.Content);
         }

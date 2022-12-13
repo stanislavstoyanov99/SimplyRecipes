@@ -27,7 +27,6 @@
             await this.contactsService.SendContactToAdminAsync(contactFormViewModel);
 
             return this.Ok();
-            //return this.RedirectToAction("ThankYou");
         }
     }
 }

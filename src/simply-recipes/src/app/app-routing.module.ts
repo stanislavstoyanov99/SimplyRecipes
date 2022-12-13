@@ -34,7 +34,11 @@ const routes: Routes = [
     data: {
       title: 'FAQ'
     }
-  }
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+  },
 ];
 
 @NgModule({

@@ -1,1 +1,43 @@
-<p>register works!</p>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 mt-220 ch-border bg-dark">
+        <h1 class="text-light">Register</h1>
+        <h4 class="text-light">Create a new account.</h4>
+        <hr style="background-color: white;" />
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label class="text-light" for="email">Email</label>
+                <input id="email" name="email" [(ngModel)]="registerRequestModel.email" #email="ngModel" required class="form-control" />
+                <!-- <span asp-validation-for="Input.Email" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="userName">Username</label>
+                <input id="userName" name="userName" [(ngModel)]="registerRequestModel.userName" #userName="ngModel" required class="form-control" />
+                <!-- <span asp-validation-for="Input.Username" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="firstName">First Name</label>
+                <input id="firstName" name="firstName" [(ngModel)]="registerRequestModel.firstName" #firstName="ngModel" required class="form-control" />
+                <!-- <span asp-validation-for="Input.FullName" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="lastName">Last Name</label>
+                <input id="lastName" name="lastName" [(ngModel)]="registerRequestModel.lastName" #lastName="ngModel" required class="form-control" />
+                <!-- <span asp-validation-for="Input.FullName" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="password">Password</label>
+                <input id="password" name="password" [(ngModel)]="registerRequestModel.password" #password="ngModel" required class="form-control" />
+                <!-- <span asp-validation-for="Input.Password" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="confirmPassword">Confirm Password</label>
+                <input id="confirmPassword" name="confirmPassword" [(ngModel)]="registerRequestModel.confirmPassword" #confirmPassword="ngModel" required class="form-control" />
+                <!-- <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span> -->
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" form="register">Register</button>
+            </div>
+        </form>
+    </div>
+</div>

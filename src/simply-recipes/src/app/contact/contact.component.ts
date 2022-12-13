@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Contact } from '../shared/interfaces/contact';
+import { ContactModel } from '../shared/models/contact.model';
 import { ContactService } from '../services/contact.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 
@@ -17,10 +17,11 @@ export class ContactComponent {
   lat = 51.678418;
   lng = 7.809007;
 
-  public contact!: Contact;
+  public contact!: ContactModel;
 
   constructor(private contactService: ContactService,
     private recaptchaV3Service: ReCaptchaV3Service) {
+      this.contact = new ContactModel();
   }
 
   onSubmit(): void {

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Contact } from '../shared/interfaces/contact';
+import { ContactModel } from '../shared/models/contact.model';
 
 const apiURL = environment.apiURL;
 
@@ -13,7 +13,7 @@ export class ContactService {
 
   constructor(private httpClient: HttpClient) { }
 
-  sendContact(contact: Contact) {
+  sendContact(contact: ContactModel) {
     return this.httpClient.post(`${apiURL}/contacts`, contact).pipe(catchError(this.handleError));
   }
 

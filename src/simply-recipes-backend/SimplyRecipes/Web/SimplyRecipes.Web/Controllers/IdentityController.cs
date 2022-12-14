@@ -22,39 +22,58 @@
 
         [AllowAnonymous]
         [HttpPost]
-        [ProducesResponseType(typeof(IdentityResult), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(RegisterResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterRequestModel model)
         {
             try
             {
-                var response = await this.identityService.RegisterAsync(model);
+                if (!this.ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+
+                var result = await this.identityService.RegisterAsync(model);
+                var response = new RegisterResponseModel
+                {
+                    Succeeded = true
+                };
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new RegisterResponseModel { Succeeded = false, Errors = ex.Message });
             }
         }
 
         [AllowAnonymous]
         [HttpPost]
-        [ProducesResponseType(typeof(AuthenticateResponseModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(LoginResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Route(nameof(Login))]
         public async Task<ActionResult> Login(LoginRequestModel model)
         {
             try
             {
-                var response = await this.identityService.LoginAsync(model);
+                if (!this.ModelState.IsValid)
+                {
+                    return BadRequest(model);
+                }
+
+                var result = await this.identityService.LoginAsync(model);
+                var response = new LoginResponseModel
+                {
+                    IsAuthSuccessful = result.IsAuthSuccessful,
+                    Token = result.Token
+                };
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new LoginResponseModel { IsAuthSuccessful = false, Errors = ex.Message });
             }
         }
     }

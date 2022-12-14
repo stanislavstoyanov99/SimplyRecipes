@@ -5,6 +5,8 @@
         public const string NameLengthError = "Name must be between {2} and {1} symbols.";
         public const string EmptyFieldLengthError = "Please enter the field.";
         public const string IdDisplayName = "No.";
+        public const int FirstNameMaxLength = 30;
+        public const int LastNameMaxLength = 30;
 
         public static class PrivacyValidation
         {

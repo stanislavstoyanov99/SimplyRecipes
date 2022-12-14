@@ -5,11 +5,9 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
 
     using SimplyRecipes.Common.Config;
-    using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Data.Models.Enumerations;
     using SimplyRecipes.Models.ViewModels.Identity;
@@ -17,24 +15,24 @@
 
     public class IdentityService : IIdentityService
     {
-        private readonly IDeletableEntityRepository<SimplyRecipesUser> users;
         private readonly IOptions<ApplicationConfig> appConfig;
         private readonly UserManager<SimplyRecipesUser> userManager;
+        private readonly SignInManager<SimplyRecipesUser> signInManager;
         private readonly IJwtService jwtService;
 
         public IdentityService(
-            IDeletableEntityRepository<SimplyRecipesUser> users,
             IOptions<ApplicationConfig> appConfig,
             UserManager<SimplyRecipesUser> userManager,
+            SignInManager<SimplyRecipesUser> signInManager,
             IJwtService jwtService)
         {
-            this.users = users;
             this.appConfig = appConfig;
             this.userManager = userManager;
             this.jwtService = jwtService;
+            this.signInManager = signInManager;
         }
 
-        public async Task<AuthenticateResponseModel> LoginAsync(LoginRequestModel model)
+        public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model)
         {
             var user = await this.userManager.FindByNameAsync(model.UserName);
 
@@ -52,17 +50,29 @@
                 throw new NullReferenceException("Missing JWT token.");
             }
 
-            return new AuthenticateResponseModel(token, true);
+            var result = await this.signInManager
+                .PasswordSignInAsync(model.UserName, model.Password, true, lockoutOnFailure: true);
+
+            if (result.Succeeded)
+            {
+                return new LoginResponseModel
+                {
+                    IsAuthSuccessful = true,
+                    Token = token,
+                };
+            }
+            else
+            {
+                return new LoginResponseModel
+                {
+                    IsAuthSuccessful = false,
+                };
+            }
         }
 
         public async Task<IdentityResult> RegisterAsync(RegisterRequestModel model)
         {
             // TODO: get this from Angular checkbox Enum.TryParse<Gender>(this.Input.SelectedGender, out Gender gender);
-
-            if (model.Password != model.ConfirmPassword)
-            {
-                throw new ArgumentException("Confirm password is different from password.");
-            }
 
             var user = new SimplyRecipesUser
             {

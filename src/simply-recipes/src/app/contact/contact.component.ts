@@ -28,8 +28,9 @@ export class ContactComponent {
     if (this.contactForm?.valid) {
       this.recaptchaV3Service.execute('importantAction').subscribe((token: string) => {
         this.contact.recaptchaValue = token;
-        this.contactService.sendContact(this.contact);
-        this.contactForm?.reset();
+        this.contactService.sendContact(this.contact).subscribe(() => {
+          this.contactForm?.reset();
+        });
       });
     }
   }

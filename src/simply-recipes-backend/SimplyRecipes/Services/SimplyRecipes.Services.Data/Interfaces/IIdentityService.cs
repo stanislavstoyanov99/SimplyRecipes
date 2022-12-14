@@ -6,7 +6,7 @@
 
     public interface IIdentityService
     {
-        Task<AuthenticateResponseModel> LoginAsync(LoginRequestModel model);
+        Task<LoginResponseModel> LoginAsync(LoginRequestModel model);
 
         Task<IdentityResult> RegisterAsync(RegisterRequestModel model);
     }

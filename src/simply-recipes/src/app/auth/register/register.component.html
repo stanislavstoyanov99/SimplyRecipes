@@ -5,38 +5,86 @@
         <h4 class="text-light">Create a new account.</h4>
         <hr style="background-color: white;" />
         <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+            <div *ngIf="showError" class="alert alert-danger" role="alert">
+                <span [innerHTML]="errorMessage"></span>
+            </div>
             <div class="form-group">
                 <label class="text-light" for="email">Email</label>
-                <input id="email" name="email" [(ngModel)]="registerRequestModel.email" #email="ngModel" required class="form-control" />
-                <!-- <span asp-validation-for="Input.Email" class="text-danger"></span> -->
+                <input id="email" name="email" [(ngModel)]="registerRequestModel.email" #email="ngModel" placeholder="Enter email" email
+                    required class="form-control" />
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                    <div *ngIf="email.errors?.['required']">
+                        Email is required.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-light" for="userName">Username</label>
-                <input id="userName" name="userName" [(ngModel)]="registerRequestModel.userName" #userName="ngModel" required class="form-control" />
-                <!-- <span asp-validation-for="Input.Username" class="text-danger"></span> -->
+                <input id="userName" name="userName" [(ngModel)]="registerRequestModel.userName" #userName="ngModel" placeholder="Enter username"
+                    required class="form-control" />
+                <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert">
+                    <div *ngIf="userName.errors?.['required']">
+                        Username is required.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-light" for="firstName">First Name</label>
-                <input id="firstName" name="firstName" [(ngModel)]="registerRequestModel.firstName" #firstName="ngModel" required class="form-control" />
-                <!-- <span asp-validation-for="Input.FullName" class="text-danger"></span> -->
+                <input id="firstName" name="firstName" [(ngModel)]="registerRequestModel.firstName" #firstName="ngModel" placeholder="Enter first name"
+                    required maxlength="30" class="form-control" />
+                <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert">
+                    <div *ngIf="firstName.errors?.['required']">
+                        First Name is required.
+                    </div>
+                    <div *ngIf="firstName.errors?.['maxlength']">
+                        First Name must be no more than 30 characters.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-light" for="lastName">Last Name</label>
-                <input id="lastName" name="lastName" [(ngModel)]="registerRequestModel.lastName" #lastName="ngModel" required class="form-control" />
-                <!-- <span asp-validation-for="Input.FullName" class="text-danger"></span> -->
+                <input id="lastName" name="lastName" [(ngModel)]="registerRequestModel.lastName" #lastName="ngModel" placeholder="Enter last name"
+                    required maxlength="30" class="form-control" />
+                <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert">
+                    <div *ngIf="lastName.errors?.['required']">
+                        Last Name is required.
+                    </div>
+                    <div *ngIf="lastName.errors?.['maxlength']">
+                        Last Name must be no more than 30 characters.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-light" for="password">Password</label>
-                <input id="password" name="password" [(ngModel)]="registerRequestModel.password" #password="ngModel" required class="form-control" />
-                <!-- <span asp-validation-for="Input.Password" class="text-danger"></span> -->
+                <input id="password" name="password" [(ngModel)]="registerRequestModel.password" #password="ngModel" placeholder="Enter password"
+                    required minlength="6" maxlength="100" class="form-control" />
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                    <div *ngIf="password.errors?.['required']">
+                        Password is required.
+                    </div>
+                    <div *ngIf="password.errors?.['minlength']">
+                        Password must be at least 6 characters long.
+                    </div>
+                    <div *ngIf="password.errors?.['maxlength']">
+                        Password must be no more than 100 characters.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
                 <label class="text-light" for="confirmPassword">Confirm Password</label>
-                <input id="confirmPassword" name="confirmPassword" [(ngModel)]="registerRequestModel.confirmPassword" #confirmPassword="ngModel" required class="form-control" />
-                <!-- <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span> -->
+                <input id="confirmPassword" name="confirmPassword" [(ngModel)]="registerRequestModel.confirmPassword" #confirmPassword="ngModel" placeholder="Enter confirm password"
+                    required class="form-control" appPasswordConfirmationValidator="{{registerRequestModel.password}}" />
+                <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="alert">
+                    <div *ngIf="confirmPassword.errors?.['required']">
+                        Confirmation of password is required.
+                    </div>
+                    <div *ngIf="confirmPassword.errors?.['mustMatch']">
+                        The password and confirmation password should match.
+                    </div>
+                </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" form="register">Register</button>
+                <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
             </div>
         </form>
     </div>

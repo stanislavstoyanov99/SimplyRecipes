@@ -3,23 +3,26 @@ import { CommonModule } from '@angular/common';
 import { ContactsComponent } from './contacts/contacts.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { AppRoutingModule } from '../app-routing.module';
+import { PasswordConfirmationValidatorDirective } from './custom-validators/password-confirmation-validator.directive';
+import { SharedRoutingModule } from './shared-routing.module';
 
 
 
 @NgModule({
   declarations: [
     ContactsComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PasswordConfirmationValidatorDirective
   ],
   imports: [
-    AppRoutingModule,
     CommonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    SharedRoutingModule
   ],
   exports: [
     ContactsComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    PasswordConfirmationValidatorDirective
   ]
 })
 export class SharedModule { }

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { RegisterRequestModel } from '../models/registerRequest.model';
@@ -9,7 +9,7 @@ import { RegisterRequestModel } from '../models/registerRequest.model';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   @ViewChild('registerForm') registerForm!: NgForm;
 
@@ -19,9 +19,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService) { 
     this.registerRequestModel = new RegisterRequestModel();
-  }
-
-  ngOnInit(): void {
   }
 
   onSubmit(): void {

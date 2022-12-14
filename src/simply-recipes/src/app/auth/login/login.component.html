@@ -1,1 +1,43 @@
-<p>login works!</p>
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 mt-220 ch-border bg-dark">
+        <h1 class="text-light">Login</h1>
+        <h4 class="text-light">Use a local account to log in.</h4>
+        <hr />
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+            <div *ngIf="showError" class="alert alert-danger" role="alert">
+                <span [innerHTML]="errorMessage"></span>
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="userName">Username</label>
+                <input id="userName" name="userName" [(ngModel)]="loginRequestModel.userName" #userName="ngModel"
+                    placeholder="Enter username" required class="form-control" />
+                <div *ngIf="userName.invalid && (userName.dirty || userName.touched)" class="alert">
+                    <div *ngIf="userName.errors?.['required']">
+                        Username is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="password">Password</label>
+                <input id="password" name="password" [(ngModel)]="loginRequestModel.password" #password="ngModel"
+                    placeholder="Enter password" required class="form-control" />
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                    <div *ngIf="password.errors?.['required']">
+                        Password is required.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Log in</button>
+            </div>
+            <div class="form-group">
+                <p class="text-light">
+                    You do not have a registration ?
+                </p>
+                <button class="btn btn-primary" routerLink="/auth/register" type="button">Register as a new
+                    user</button>
+            </div>
+        </form>
+    </div>
+</div>

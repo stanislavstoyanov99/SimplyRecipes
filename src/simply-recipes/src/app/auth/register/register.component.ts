@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { RegisterRequestModel } from '../models/registerRequest.model';
 
@@ -17,7 +18,7 @@ export class RegisterComponent {
   public errorMessage: string = '';
   public showError: boolean = false;
 
-  constructor(private authService: AuthService) { 
+  constructor(private authService: AuthService, private router: Router) { 
     this.registerRequestModel = new RegisterRequestModel();
   }
 
@@ -26,8 +27,7 @@ export class RegisterComponent {
       this.authService.register(this.registerRequestModel).subscribe({
         next: () => 
         {
-          console.log("Successful registration");
-          this.registerForm?.reset();
+          this.router.navigate(["/auth/login"]);
         },
         error: (err: HttpErrorResponse) =>
         {

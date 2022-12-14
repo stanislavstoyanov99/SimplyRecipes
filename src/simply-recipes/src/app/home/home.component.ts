@@ -6,6 +6,7 @@ import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { IArticleListing } from 'src/app/shared/interfaces/article-listing';
 import { IGallery } from 'src/app/shared/interfaces/gallery';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -19,18 +20,27 @@ export class HomeComponent implements OnInit {
   gallery: IGallery[] | null = null;
   
   slides: Array<object> = [];
+  public isUserAuthenticated!: boolean;
 
-  constructor(private homeService: HomeService, private library: FaIconLibrary) {
+  constructor(
+    private homeService: HomeService,
+    private library: FaIconLibrary,
+    private authService: AuthService) {
     this.library.addIcons(faListAlt, faStar, faUser, faCalendar);
    }
 
   ngOnInit(): void {
+    this.authService.authChanged
+      .subscribe(result => {
+        this.isUserAuthenticated = result;
+    });
+
     this.homeService.getTopRecipes().subscribe({
       next: (value) => {
         this.topRecipes = value;
       },
       error: (err) => {
-        console.error(err);
+        console.error(err); // TODO: Add global error handler
       }
     });
 
@@ -39,7 +49,7 @@ export class HomeComponent implements OnInit {
         this.recentArticles = value;
       },
       error: (err) => {
-        console.error(err);
+        console.error(err); // TODO: Add global error handler
       }
     });
 
@@ -54,7 +64,7 @@ export class HomeComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error(err);
+        console.error(err); // TODO: Add global error handler
       }
     });
   }

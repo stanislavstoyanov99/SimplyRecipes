@@ -36,9 +36,14 @@
         {
             var user = await this.userManager.FindByNameAsync(model.UserName);
 
-            if (user == null || !await this.userManager.CheckPasswordAsync(user, model.Password))
+            if (user == null)
             {
                 throw new NullReferenceException("User does not exist.");
+            }
+
+            if (!await this.userManager.CheckPasswordAsync(user, model.Password))
+            {
+                throw new ArgumentException("Invalid username or password.");
             }
 
             var roles = await this.userManager.GetRolesAsync(user);

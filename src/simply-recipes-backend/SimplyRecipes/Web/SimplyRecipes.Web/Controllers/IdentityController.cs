@@ -71,9 +71,13 @@
 
                 return Ok(response);
             }
-            catch (Exception ex)
+            catch (NullReferenceException nre)
             {
-                return BadRequest(new LoginResponseModel { IsAuthSuccessful = false, Errors = ex.Message });
+                return BadRequest(new LoginResponseModel { IsAuthSuccessful = false, Errors = nre.Message });
+            }
+            catch (ArgumentException ae)
+            {
+                return Unauthorized(new LoginResponseModel { IsAuthSuccessful = false, Errors = ae.Message });
             }
         }
     }

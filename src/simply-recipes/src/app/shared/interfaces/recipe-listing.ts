@@ -1,4 +1,5 @@
 import { Difficulty } from "../enums/difficulty";
+import { ICategory } from "./category";
 
 export interface IRecipeListing {
     id: number;
@@ -7,5 +8,5 @@ export interface IRecipeListing {
     rate: number;
     difficulty: Difficulty;
     createdOn: Date;
-    category: any; // fix this when I add Category model
+    category: ICategory;
 }

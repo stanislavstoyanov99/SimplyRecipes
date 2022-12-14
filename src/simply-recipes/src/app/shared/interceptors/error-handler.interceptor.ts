@@ -26,6 +26,9 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     else if(error.status === 400){
       return this.handleBadRequest(error);
     }
+    else if(error.status === 401) {
+      return this.handleUnauthorized(error);
+    }
     return '';
   }
 
@@ -44,7 +47,17 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       return message.slice(0, -4);
     }
     else{
-      return error.error ? error.error : error.message;
+      return error.error ? error.error.errors : error.message;
+    }
+  }
+
+  private handleUnauthorized = (error: HttpErrorResponse) => {
+    if(this.router.url === '/auth/login') {
+      return error.error.errors;
+    }
+    else {
+      this.router.navigate(['/auth/login']);
+      return error.message;
     }
   }
 }

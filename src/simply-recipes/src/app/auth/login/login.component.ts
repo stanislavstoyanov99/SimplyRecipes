@@ -33,9 +33,10 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm?.valid) {
       this.authService.login(this.loginRequestModel).subscribe({
-        next: (result) => 
+        next: (response) => 
         {
-          localStorage.setItem("token", result.token);
+          localStorage.setItem("token", response.token);
+          this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
           this.router.navigate([this.returnUrl]);
         },
         error: (err: HttpErrorResponse) =>

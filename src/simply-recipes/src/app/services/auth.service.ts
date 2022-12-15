@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { LoginRequestModel } from './models/loginRequest.model';
-import { RegisterRequestModel } from './models/registerRequest.model';
-import { LoginResponse } from './interfaces/loginResponse';
-import { RegisterResponse } from './interfaces/registerResponse';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { RegisterRequestModel } from '../auth/models/registerRequest.model';
+import { RegisterResponse } from '../auth/interfaces/registerResponse';
+import { LoginRequestModel } from '../auth/models/loginRequest.model';
+import { LoginResponse } from '../auth/interfaces/loginResponse';
 
 const apiURL = environment.apiURL;
 
@@ -14,10 +15,19 @@ const apiURL = environment.apiURL;
 })
 export class AuthService {
 
-  private authChangeSub = new Subject<boolean>();
+  private authChangeSub = new BehaviorSubject<boolean>(false);
   public authChanged = this.authChangeSub.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
+  }
+
+  public isUserAuthenticated = (): boolean => {
+    const token = localStorage.getItem("token");
+ 
+    if (token && !this.jwtHelper.isTokenExpired(token)) {
+      return true;
+    }
+    return false;
   }
 
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {

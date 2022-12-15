@@ -7,11 +7,13 @@
             cooking and healthy life! <br>
         </p>
 
-        <p style="font-size: 22px;" *ngIf="!isUserAuthenticated">
-            If you want you can join our community<br>
-            and create free account
-        </p>
-        <a class="btn btn-light" routerLink="/auth/register" *ngIf="!isUserAuthenticated">Sign up</a>
+        <ng-container *ngIf="!isUserAuthenticated">
+            <p style="font-size: 22px;">
+                If you want you can join our community<br>
+                and create free account
+            </p>
+            <a class="btn btn-light" routerLink="/auth/register">Sign up</a>
+        </ng-container>
     </div>
     <div class="cover-slides" style="z-index:-1;">
         <ul>

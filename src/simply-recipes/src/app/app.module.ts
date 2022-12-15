@@ -20,6 +20,11 @@ import { FormsModule } from '@angular/forms';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
 import { ErrorHandlerInterceptor } from './shared/interceptors/error-handler.interceptor';
+import { JwtModule } from "@auth0/angular-jwt";
+
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 
 @NgModule({
   declarations: [
@@ -42,7 +47,13 @@ import { ErrorHandlerInterceptor } from './shared/interceptors/error-handler.int
       apiKey: 'YOUR-API-KEY-HERE'
     }),
     FormsModule,
-    RecaptchaV3Module
+    RecaptchaV3Module,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:5001"]
+      }
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

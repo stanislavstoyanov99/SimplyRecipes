@@ -6,7 +6,7 @@ import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { IArticleListing } from 'src/app/shared/interfaces/article-listing';
 import { IGallery } from 'src/app/shared/interfaces/gallery';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -27,14 +27,19 @@ export class HomeComponent implements OnInit {
     private library: FaIconLibrary,
     private authService: AuthService) {
     this.library.addIcons(faListAlt, faStar, faUser, faCalendar);
-   }
+  }
 
   ngOnInit(): void {
     this.authService.authChanged
-      .subscribe(result => {
-        this.isUserAuthenticated = result;
+      .subscribe({
+        next: (value) => {
+          this.isUserAuthenticated = value;
+        },
+        error: (err) => {
+          console.error(err); // TODO: Add global error handler
+        }
     });
-
+    
     this.homeService.getTopRecipes().subscribe({
       next: (value) => {
         this.topRecipes = value;

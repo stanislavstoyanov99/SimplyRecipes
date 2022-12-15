@@ -56,7 +56,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       return error.error.errors;
     }
     else {
-      this.router.navigate(['/auth/login']);
+      this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.router.url }});
       return error.message;
     }
   }

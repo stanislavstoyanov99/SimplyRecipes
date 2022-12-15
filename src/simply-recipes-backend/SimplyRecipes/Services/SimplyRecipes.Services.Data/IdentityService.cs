@@ -62,7 +62,7 @@
             {
                 return new LoginResponseModel
                 {
-                    IsAuthSuccessful = true,
+                    IsAuthSuccessful = result.Succeeded,
                     Token = token,
                 };
             }
@@ -70,7 +70,7 @@
             {
                 return new LoginResponseModel
                 {
-                    IsAuthSuccessful = false,
+                    IsAuthSuccessful = false
                 };
             }
         }

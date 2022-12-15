@@ -5,7 +5,6 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
     using SimplyRecipes.Models.ViewModels.Identity;
@@ -52,6 +51,7 @@
         [HttpPost]
         [ProducesResponseType(typeof(LoginResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [Route(nameof(Login))]
         public async Task<ActionResult> Login(LoginRequestModel model)
         {

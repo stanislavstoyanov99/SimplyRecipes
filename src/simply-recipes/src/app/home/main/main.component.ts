@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { HomeService } from 'src/app/services/home.service';
-import { IRecipeListing } from 'src/app/shared/interfaces/recipe-listing';
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from 'src/app/services/auth.service';
+import { HomeService } from 'src/app/services/home.service';
 import { IArticleListing } from 'src/app/shared/interfaces/article-listing';
 import { IGallery } from 'src/app/shared/interfaces/gallery';
-import { AuthService } from '../services/auth.service';
+import { IRecipeListing } from 'src/app/shared/interfaces/recipe-listing';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  selector: 'app-main',
+  templateUrl: './main.component.html',
+  styleUrls: ['./main.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class MainComponent implements OnInit {
 
   topRecipes: IRecipeListing[] | null = null;
   recentArticles: IArticleListing[] | null = null;
@@ -77,5 +77,5 @@ export class HomeComponent implements OnInit {
   rate(i: number) {
     return new Array(i);
   }
-  
+
 }

@@ -6,8 +6,6 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { HomeComponent } from './home/home.component';
-import { NgImageSliderModule } from 'ng-image-slider';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
@@ -29,7 +27,6 @@ export function tokenGetter() {
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     PrivacyComponent,
     ContactComponent,
     FaqComponent
@@ -40,7 +37,6 @@ export function tokenGetter() {
     CoreModule,
     SharedModule,
     NgbModule,
-    NgImageSliderModule,
     FontAwesomeModule,
     NgxScrollTopModule,
     AgmCoreModule.forRoot({

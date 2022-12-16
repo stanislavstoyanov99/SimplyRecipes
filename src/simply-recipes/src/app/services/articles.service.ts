@@ -2,18 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IFaq } from '../shared/interfaces/faq';
+import { IArticleListing } from '../shared/interfaces/article-listing';
 
 const apiURL = environment.apiURL;
 
 @Injectable({
   providedIn: 'root'
 })
-export class FaqService {
+export class ArticlesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getFaqs(): Observable<IFaq[]> {
-    return this.httpClient.get<IFaq[]>(`${apiURL}/faq`);
+  getArticles(): Observable<IArticleListing[]> {
+    return this.httpClient.get<IArticleListing[]>(`${apiURL}/articles`);
   }
 }

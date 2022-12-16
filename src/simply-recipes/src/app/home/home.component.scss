@@ -162,8 +162,6 @@
     margin: 0px;
 }
 
-.inner-menu-box {}
-
 .inner-menu-box .nav-pills .nav-link.active {
     background: #540404;
 }
@@ -260,12 +258,12 @@
     position: relative;
     margin-bottom: 30px;
     min-height: 120px;
+    margin-left: 50px;
 }
 
 #toArticleBtn {
     position: absolute;
     text-align: center;
-    font-size: 18px;
     width: 100%;
     height: 100%;
     margin-left: -15px;

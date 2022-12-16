@@ -1,0 +1,144 @@
+.all-page-title .container {
+    position: relative;
+    z-index: 2;
+}
+
+.all-page-title::before {
+    background: #010101;
+    content: "";
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    opacity: 0.8;
+}
+
+.all-page-title h1 {
+    font-size: 38px;
+    color: #ffffff;
+    font-family: 'Rubik', sans-serif;
+    padding: 0px;
+    font-weight: 500;
+}
+
+.page-breadcrumb {
+    padding: 250px 0 150px;
+    background: url(/assets/images/all-bg.jpg) no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: 0 0;
+    position: relative;
+}
+
+.heading-title {
+    margin-bottom: 50px;
+}
+
+.blog-box {
+    padding: 20px;
+}
+
+.blog-box-inner {
+    position: relative;
+    height: 100%;
+    max-height: 300px;
+    margin-bottom: 30px;
+}
+
+.blog-box-inner .blog-img-box {
+    position: relative;
+    display: block;
+    height: 100%;
+    margin-bottom: 30px;
+}
+
+.blog-box-inner .blog-detail {
+    position: absolute;
+    top: 0;
+    background: #fff;
+    padding: 30px 25px;
+    border: 1px solid #ddd;
+    transition-duration: .5s;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 30px;
+    color: black;
+}
+
+.blog-detail h4 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #222222;
+}
+
+.blog-detail ul li {
+    display: inline-block;
+    padding: 0px 5px;
+}
+
+.blog-detail ul li span {
+    color: #540404;
+    cursor: pointer;
+}
+
+.blog-detail ul li span:hover {
+    color: #010101;
+}
+
+.blog-detail ul li:first-child {
+    padding-left: 0px;
+}
+
+.blog-detail p {
+    padding: 10px 0px 0 0;
+    margin: 0px;
+    font-size: 13px;
+}
+
+.blog-detail a {
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.blog-box-inner .blog-detail:hover {
+    background: rgba(255, 255, 255, .9);
+}
+
+.blog-inner-box {
+    position: relative;
+    margin: 0px 10px;
+    margin-bottom: 30px;
+}
+
+.home-pic {
+    width: 100%;
+    height: 100%;
+}
+
+.btn-outline-new-white {
+    color: #fff;
+    background-color: #540404;
+    background-image: none;
+    border-color: #540404;
+}
+
+.btn-outline-new-white:hover {
+    color: #ffffff;
+    background-color: #333333;
+    border-color: #333333;
+}
+
+.heading-title h2 {
+    color: #010101;
+    font-size: 28px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+}
+
+.heading-title p {
+    font-size: 18px;
+    font-weight: 200;
+    margin: 0px;
+}

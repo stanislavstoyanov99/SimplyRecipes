@@ -8,13 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
   declarations: [
     HeaderComponent,
     FooterComponent,
-    NavbarDirective
+    NavbarDirective,
+    PageNotFoundComponent
   ],
   imports: [
     AppRoutingModule,
@@ -27,7 +29,8 @@ import { AppRoutingModule } from '../app-routing.module';
   exports: [
     HeaderComponent,
     FooterComponent,
-    NavbarDirective
+    NavbarDirective,
+    PageNotFoundComponent
   ]
 })
 export class CoreModule { }

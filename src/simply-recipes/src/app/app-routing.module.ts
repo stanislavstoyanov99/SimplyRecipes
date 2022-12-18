@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
+import { PageNotFoundComponent } from './core/page-not-found/page-not-found.component';
 import { FaqComponent } from './faq/faq.component';
 import { PrivacyComponent } from './privacy/privacy.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -37,11 +39,21 @@ const routes: Routes = [
   },
   {
     path: 'recipes',
-    loadChildren: () => import('./recipes/recipes.module').then(m => m.RecipesModule)
+    loadChildren: () => import('./recipes/recipes.module').then(m => m.RecipesModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'articles',
-    loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule)
+    loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'not-found',
+    component: PageNotFoundComponent
+  },
+  {
+    path: '**',
+    redirectTo: '/not-found'
   }
 ];
 

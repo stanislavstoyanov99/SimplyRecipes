@@ -37,7 +37,7 @@
             return Ok(responseModel);
         }
 
-        [HttpGet("Details/{id}")]
+        [HttpGet("details/{id}")]
         public async Task<ActionResult> Details([FromRoute] int id)
         {
             var article = await this.articlesService
@@ -60,7 +60,7 @@
         }
 
         [HttpGet]
-        [Route("Search/{pageNumber?}/{searchTitle}")]
+        [Route("search/{pageNumber?}/{searchTitle}")]
         public async Task<ActionResult> Search([FromRoute] int? pageNumber, [FromRoute] string searchTitle)
         {
             if (string.IsNullOrEmpty(searchTitle))
@@ -84,7 +84,7 @@
         }
 
         [HttpGet]
-        [Route("ByName/{pageNumber?}/{searchTitle}")]
+        [Route("byName/{pageNumber?}/{searchTitle}")]
         public async Task<ActionResult> ByName([FromRoute] int? pageNumber, [FromRoute] string categoryName)
         {
             var articlesByCategoryName = await Task.Run(() => this.articlesService

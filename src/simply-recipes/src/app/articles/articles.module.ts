@@ -4,12 +4,14 @@ import { MainComponent } from './main/main.component';
 import { SharedModule } from '../shared/shared.module';
 import { ArticlesRoutingModule } from './articles-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DetailsComponent } from './details/details.component';
 
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,

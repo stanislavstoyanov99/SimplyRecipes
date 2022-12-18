@@ -1,0 +1,113 @@
+<!-- Start All Pages -->
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Article details</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End All Pages -->
+<!-- Start article details -->
+<div class="blog-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="heading-title text-center">
+                    <h2>Article details</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-12">
+                <div class="blog-inner-details-page">
+                    <div class="blog-inner-box">
+                        <div class="side-blog-img">
+                            <img class="img-fluid" src="{{articleDetails?.articleListingViewModel?.imagePath}}"
+                                alt="Article Image">
+                            <div class="date-blog-up">
+                                {{articleDetails?.articleListingViewModel?.createdOn | date:'short'}}
+                            </div>
+                        </div>
+                        <div class="inner-blog-detail details-page">
+                            <h3>{{articleDetails?.articleListingViewModel?.title}}</h3>
+                            <ul>
+                                <li>
+                                    <fa-icon [icon]="['fas', 'user']"></fa-icon> Posted By :
+                                    <span>{{articleDetails?.articleListingViewModel?.userUsername}}</span>
+                                </li>
+                                <li>|</li>
+                                <li>
+                                    <fa-icon [icon]="['fas', 'calendar']"></fa-icon> Date :
+                                    <span>{{articleDetails?.articleListingViewModel?.createdOn | date:'short'}}</span>
+                                </li>
+                                <li>|</li>
+                                <li>
+                                    <fa-icon [icon]="['fas', 'list']"></fa-icon> Category :
+                                    <span>{{articleDetails?.articleListingViewModel?.categoryName}}</span>
+                                </li>
+                            </ul>
+                            <p [innerHTML]="articleDetails?.articleListingViewModel?.sanitizedDescription"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 col-12 blog-sidebar">
+                <div class="right-side-blog">
+                    <h3>Search</h3>
+                    <form asp-action="Search" method="get">
+                        <div class="blog-search-form">
+                            <input name="searchTitle" placeholder="Search by article title" type="text">
+                            <button class="search-btn" type="submit">
+                                <fa-icon [icon]="['fas', 'search']"></fa-icon>
+                            </button>
+                        </div>
+                    </form>
+                    <h3>Categories</h3>
+                    <div class="blog-categories">
+                        <ul *ngFor="let category of articleDetails?.categories">
+                            <li>
+                                <a>
+                                    <span>{{category.name}}</span>
+                                    <span>nbrsp | {{articleDetails?.categories?.length}} articles</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3>Recent Articles</h3>
+                    <div>
+                        <div class="recent-post-box">
+                            <div class="recent-box-blog" *ngFor="let article of articleDetails?.recentArticles">
+                                <div class="recent-img">
+                                    <img id="article-size" class="img-fluid" src={{article.imagePath}}
+                                        alt="Article Image">
+                                </div>
+                                <div class="recent-info">
+                                    <ul>
+                                        <li>
+                                            <fa-icon [icon]="['fas', 'user']"></fa-icon> Posted By :
+                                            <span>{{article.userUsername}}</span>
+                                        </li>
+                                        <li>
+                                            <fa-icon [icon]="['fas', 'calendar']"></fa-icon> Date :
+                                            <span>{{article.createdOn | date:'short'}}</span>
+                                        </li>
+                                    </ul>
+                                    <a routerLink="/articles/details/{{article.id}}">
+                                        <h4>{{article.title}}</h4>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <app-contacts></app-contacts>
+</div>
+<!-- End details -->

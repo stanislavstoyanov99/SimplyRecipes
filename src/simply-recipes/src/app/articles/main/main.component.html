@@ -39,7 +39,7 @@
                             </li>
                         </ul>
                         <p [innerHTML]="article.sanitizedShortDescription"></p>
-                        <a class="btn btn-lg btn-circle btn-outline-new-white">Read More</a>
+                        <a class="btn btn-lg btn-circle btn-outline-new-white" routerLink="/articles/details/{{article.id}}">Read More</a>
                     </div>
                 </div>
             </div>

@@ -4,9 +4,9 @@ import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/auth.service';
 import { HomeService } from 'src/app/services/home.service';
-import { IArticleListing } from 'src/app/shared/interfaces/article-listing';
+import { IArticleListing } from 'src/app/shared/interfaces/articles/article-listing';
 import { IGallery } from 'src/app/shared/interfaces/gallery';
-import { IRecipeListing } from 'src/app/shared/interfaces/recipe-listing';
+import { IRecipeListing } from 'src/app/shared/interfaces/recipes/recipe-listing';
 
 @Component({
   selector: 'app-main',

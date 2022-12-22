@@ -44,8 +44,7 @@ const routes: Routes = [
   },
   {
     path: 'articles',
-    loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule),
-    canActivate: [AuthGuard]
+    loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule)
   },
   {
     path: 'not-found',

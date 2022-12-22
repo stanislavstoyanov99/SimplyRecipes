@@ -51,7 +51,7 @@
 
             var responseModel = new DetailsListingViewModel
             {
-                ArticleListingViewModel = article,
+                ArticleListing = article,
                 Categories = categories,
                 RecentArticles = recentArticles,
             };
@@ -84,8 +84,8 @@
         }
 
         [HttpGet]
-        [Route("byName/{pageNumber?}/{searchTitle}")]
-        public async Task<ActionResult> ByName([FromRoute] int? pageNumber, [FromRoute] string categoryName)
+        [Route("by-category/{categoryName}/{pageNumber?}")]
+        public async Task<ActionResult> ByCategory(string categoryName, int? pageNumber)
         {
             var articlesByCategoryName = await Task.Run(() => this.articlesService
                 .GetAllArticlesByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName));

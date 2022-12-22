@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { ArticlesService } from 'src/app/services/articles.service';
-import { IArticleListing } from 'src/app/shared/interfaces/article-listing';
+import { IArticleListing } from 'src/app/shared/interfaces/articles/article-listing';
 
 @Component({
   selector: 'app-main',

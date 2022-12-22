@@ -9,7 +9,7 @@
     {
         public CreateArticleCommentInputModel CreateArticleCommentInputModel { get; set; }
 
-        public ArticleListingViewModel ArticleListingViewModel { get; set; }
+        public ArticleListingViewModel ArticleListing { get; set; }
 
         public IEnumerable<CategoryListingViewModel> Categories { get; set; }
 

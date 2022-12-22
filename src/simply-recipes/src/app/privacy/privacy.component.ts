@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../services/home.service';
-import { IPrivacy } from '../shared/interfaces/privacy';
+import { IPrivacy } from '../shared/interfaces/privacy/privacy';
 
 @Component({
   selector: 'app-privacy',

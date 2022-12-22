@@ -48,7 +48,7 @@
 
                 var responseModel = new DetailsListingViewModel
                 {
-                    ArticleListingViewModel = article,
+                    ArticleListing = article,
                     Categories = categories,
                     RecentArticles = recentArticles,
                     CreateArticleCommentInputModel = viewModel.CreateArticleCommentInputModel,

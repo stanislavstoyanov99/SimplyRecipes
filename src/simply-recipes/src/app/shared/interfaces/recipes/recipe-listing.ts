@@ -1,5 +1,5 @@
-import { Difficulty } from "../enums/difficulty";
-import { ICategory } from "./category";
+import { Difficulty } from "../../enums/difficulty";
+import { ICategory } from "../categories/category";
 
 export interface IRecipeListing {
     id: number;

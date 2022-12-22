@@ -1,9 +1,9 @@
 import { IArticleListing } from "./article-listing";
-import { ICategory } from "./category";
+import { ICategory } from "../categories/category";
 import { IRecentArticle } from "./recent-article";
 
 export interface IArticleDetails {
-    articleListingViewModel: IArticleListing;
+    articleListing: IArticleListing;
     categories: ICategory[];
     recentArticles: IRecentArticle[];
 }

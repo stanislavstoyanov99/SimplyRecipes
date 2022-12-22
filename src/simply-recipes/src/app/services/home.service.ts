@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
-import { IRecipeListing } from '../shared/interfaces/recipe-listing';
-import { IArticleListing } from '../shared/interfaces/article-listing';
+import { IRecipeListing } from '../shared/interfaces/recipes/recipe-listing';
+import { IArticleListing } from '../shared/interfaces/articles/article-listing';
 import { IGallery } from '../shared/interfaces/gallery';
-import { IPrivacy } from '../shared/interfaces/privacy';
+import { IPrivacy } from '../shared/interfaces/privacy/privacy';
 import { Observable } from 'rxjs';
 
 const apiURL = environment.apiURL;

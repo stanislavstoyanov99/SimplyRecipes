@@ -20,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label class="text-light" for="password">Password</label>
-                <input id="password" name="password" [(ngModel)]="loginRequestModel.password" #password="ngModel"
+                <input id="password" name="password" type="password" [(ngModel)]="loginRequestModel.password" #password="ngModel"
                     placeholder="Enter password" required class="form-control" />
                 <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
                     <div *ngIf="password.errors?.['required']">

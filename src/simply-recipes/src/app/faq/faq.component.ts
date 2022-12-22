@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../services/faq.service';
-import { IFaq } from '../shared/interfaces/faq';
+import { IFaq } from '../shared/interfaces/faq/faq';
 
 @Component({
   selector: 'app-faq',

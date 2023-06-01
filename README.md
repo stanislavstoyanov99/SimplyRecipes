@@ -4,7 +4,7 @@
 
 ## :point_right: Project Introduction :point_left:
 
-**Simply Recipes** is a project for Angular course of SoftUni as an individual assignment. It is a ready-to-use Angular + ASP.NET Core application.
+**Simply Recipes** is a ready-to-use Angular + ASP.NET Core application.
 
 ## :pencil: Project Description | Main Information EN
 Simply Recipes is a basic user web-based software, created for all kind of needs related to home cooking and healty life. The main goal of the software is to create a comfortable and easy environment, for users to browse cooking recipes and articles about health-based lifestyles, as well as to share their personal experience, by joining the growing application community. The data will be open for all users of the application, so noone will be forced to register in order to access. However, if the user wants to write a personal recipe/article, review, rate or comment an existing one, would need to create a profile.

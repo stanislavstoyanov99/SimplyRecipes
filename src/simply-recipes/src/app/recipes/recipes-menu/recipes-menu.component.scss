@@ -1,0 +1,97 @@
+.menu-box {
+    padding: 70px 0px;
+}
+
+.inner-menu-box .nav-pills .nav-link.active {
+    background: #540404;
+}
+
+.inner-menu-box .nav-pills .nav-link {
+    font-size: 18px;
+}
+
+.inner-menu-box .nav-pills .nav-link:hover {
+    background: #540404;
+    color: #ffffff;
+}
+
+.heading-title {
+    margin-bottom: 50px;
+}
+
+.heading-title h2 {
+    color: #010101;
+    font-size: 28px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+}
+
+.heading-title p {
+    font-size: 18px;
+    font-weight: 200;
+    margin: 0px;
+}
+
+.gallery-single {
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.gallery-single:hover .why-text {
+    bottom: 0px;
+}
+
+.home-recipe-img {
+    width: 300px;
+    height: 200px;
+}
+
+.why-text {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    right: 0;
+    height: 100%;
+    background-color: #222634;
+    opacity: 0.9;
+    padding: 12px 12px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.why-text h4 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Rubik', sans-serif;
+}
+
+.why-text p {
+    color: #ffffff;
+    font-size: 13px;
+    border-bottom: 1px dashed #010101;
+    margin: 0px;
+    padding-bottom: 15px;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+.why-text h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.star {
+    color: yellow;
+}
+
+.centered {
+    align-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}

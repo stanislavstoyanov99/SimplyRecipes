@@ -83,3 +83,14 @@
 .nav-panel div:hover {
     background-color: #222222;
 }
+
+.header-title {
+    color: #540404;
+    font-size: 1.8rem;
+    padding: 0;
+}
+
+.header-title:hover {
+    transition: .2s;
+    font-weight: bold;
+}

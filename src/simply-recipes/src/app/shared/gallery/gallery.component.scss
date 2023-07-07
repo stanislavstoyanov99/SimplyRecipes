@@ -1,0 +1,26 @@
+.heading-title {
+    margin-bottom: 50px;
+}
+
+.heading-title h2 {
+    color: #010101;
+    font-size: 28px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+}
+
+.gallery-box {
+    max-width: 100%;
+    height: auto;
+}
+
+.gallery-bg {
+    background-image: url('/assets/images/body-bg.jpg');
+    background-size: cover;
+    color: white;
+    padding: 20px;
+}
+
+.gallery-bg h2 {
+    color: white;
+}

@@ -5,6 +5,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordConfirmationValidatorDirective } from './custom-validators/password-confirmation-validator.directive';
 import { SharedRoutingModule } from './shared-routing.module';
+import { GalleryComponent } from './gallery/gallery.component';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 
@@ -12,17 +14,20 @@ import { SharedRoutingModule } from './shared-routing.module';
   declarations: [
     ContactsComponent,
     SpinnerComponent,
-    PasswordConfirmationValidatorDirective
+    PasswordConfirmationValidatorDirective,
+    GalleryComponent
   ],
   imports: [
     CommonModule,
     FontAwesomeModule,
-    SharedRoutingModule
+    SharedRoutingModule,
+    NgImageSliderModule
   ],
   exports: [
     ContactsComponent,
     SpinnerComponent,
-    PasswordConfirmationValidatorDirective
+    PasswordConfirmationValidatorDirective,
+    GalleryComponent
   ]
 })
 export class SharedModule { }

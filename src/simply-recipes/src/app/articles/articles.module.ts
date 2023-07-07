@@ -7,6 +7,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DetailsComponent } from './details/details.component';
 import { FormsModule } from '@angular/forms';
 import { ByCategoryComponent } from './by-category/by-category.component';
+import { ArticlesMenuComponent } from './articles-menu/articles-menu.component';
 
 
 
@@ -14,7 +15,8 @@ import { ByCategoryComponent } from './by-category/by-category.component';
   declarations: [
     MainComponent,
     DetailsComponent,
-    ByCategoryComponent
+    ByCategoryComponent,
+    ArticlesMenuComponent
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,9 @@ import { ByCategoryComponent } from './by-category/by-category.component';
     FormsModule,
     ArticlesRoutingModule,
     FontAwesomeModule
+  ],
+  exports: [
+    ArticlesMenuComponent
   ]
 })
 export class ArticlesModule { }

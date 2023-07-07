@@ -1,0 +1,36 @@
+<div class="article-box">
+    <div class="row h-100" style="overflow:visible">
+        <div class="col-lg-12">
+            <div class="heading-title text-center">
+                <h2 style="color:white">Articles</h2>
+                <p>If you are not hungry, feel free to browse our article section</p>
+            </div>
+        </div>
+        <div class="row d-flex h-100  ms-auto me-auto">
+            <div class="col-12 col-md-4" *ngFor="let article of recentArticles">
+                <div class="blog-box-inner">
+                    <div class="blog-img-box">
+                        <img class="img-fluid home-pic" src="{{article.imagePath}}" alt="image_{{article.id}}">
+                    </div>
+                    <div class="blog-detail">
+                        <h4>{{article.title}}</h4>
+                        <ul>
+                            <li>
+                                <span>Posted by <fa-icon [icon]="['fas', 'user']"></fa-icon> {{article.userUsername}}</span>
+                            </li>
+                            <li>|</li>
+                            <li>
+                                <span><fa-icon [icon]="['fas', 'calendar']"></fa-icon> {{article.createdOn | date:'short'}}</span>
+                            </li>
+                        </ul>
+                        <p [innerHtml]="article.sanitizedShortDescription"></p>
+                        <a class="btn btn-lg btn-circle btn-outline-new-white" routerLink="/articles/details/{{article.id}}">Read More</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 toArticle-box">
+                <a class="button" id="toArticleBtn" routerLink="/articles/main"><span>To Articles</span></a>
+            </div>
+        </div>
+    </div>
+</div>

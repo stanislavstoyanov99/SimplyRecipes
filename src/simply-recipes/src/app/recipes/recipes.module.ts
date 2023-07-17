@@ -5,13 +5,15 @@ import { SharedModule } from '../shared/shared.module';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { RecipesMenuComponent } from './recipes-menu/recipes-menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RecipesListComponent } from './recipes-list/recipes-list.component';
 
 
 
 @NgModule({
   declarations: [
     MainComponent,
-    RecipesMenuComponent
+    RecipesMenuComponent,
+    RecipesListComponent
   ],
   imports: [
     CommonModule,

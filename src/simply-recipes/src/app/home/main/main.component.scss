@@ -86,29 +86,6 @@
     padding: 0;
 }
 
-.slides-navigation a {
-    background: #540404;
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    top: 50%;
-    font-size: 20px;
-    display: block;
-    color: #fff;
-    border-radius: 4px;
-    line-height: 63px;
-    text-align: center;
-    transition: all .3s ease-in-out;
-}
-
-.slides-navigation a i {
-    font-size: 40px;
-}
-
-.slides-navigation a:hover {
-    background: #010101;
-}
-
 .cover-slides {
     height: 100%;
 }

@@ -20,18 +20,17 @@ export class NavbarDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    fromEvent(window, 'scroll').pipe(takeUntil(this.destroy$))
+    fromEvent(window, 'scroll')
+      .pipe(takeUntil(this.destroy$))
       .subscribe(() => this.onScroll());
   }
 
   private onScroll(): void {
     if (this.document.body.scrollTop > 80 || this.document.documentElement.scrollTop > 80) {
-      this.renderer.setStyle(this.element.nativeElement, "padding", "0px 10px");
-      this.renderer.setStyle(this.document.querySelector('#logo'), "width", "150px");
+      this.renderer.setStyle(this.element.nativeElement, "padding", "5px 10px");
 			
 		} else {
       this.renderer.setStyle(this.element.nativeElement, "padding", "20px 10px");
-      this.renderer.setStyle(this.document.querySelector('#logo'), "width", "300px");
 		}
   }
 }

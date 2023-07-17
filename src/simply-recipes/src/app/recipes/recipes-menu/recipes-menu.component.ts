@@ -29,7 +29,7 @@ export class RecipesMenuComponent implements OnInit {
     });
   }
 
-  rate(i: number) {
+  rate(i: number): Array<number> {
     return new Array(i);
   }
 }

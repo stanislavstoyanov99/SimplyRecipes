@@ -16,8 +16,7 @@
                         <div class="row">
                             <div class="col-lg-4 col-md-6" *ngFor="let topRecipe of topRecipes">
                                 <div class="gallery-single fix">
-                                    <img src="{{topRecipe.imagePath}}" class="img-fluid home-recipe-img"
-                                        alt="Image_{{topRecipe.id}}">
+                                    <img src="{{topRecipe.imagePath}}" class="img-fluid home-recipe-img" alt="Image_{{topRecipe.id}}">
                                     <div class="why-text">
                                         <a>
                                             <h4>{{topRecipe.name}}</h4>
@@ -27,9 +26,7 @@
                                                 <strong>No Rate yet!</strong>
                                             </ng-container>
                                             <ng-container *ngIf="topRecipe.rate !== 0">
-                                                <fa-icon *ngFor="let rate of rate(topRecipe.rate)"
-                                                    [icon]="['fas', 'star']" class="star">
-                                                </fa-icon>
+                                                <fa-icon *ngFor="let rate of rate(topRecipe.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
                                             </ng-container>
                                         </span>
                                         <h5>Difficulty: {{topRecipe.difficulty}}</h5>

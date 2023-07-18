@@ -51,14 +51,17 @@ export function tokenGetter() {
       }
     })
   ],
-  providers: [{
+  providers: [
+  {
     provide: HTTP_INTERCEPTORS,
     useClass: LoadingInterceptor,
     multi: true
-  }, {
+  },
+  {
     provide: RECAPTCHA_V3_SITE_KEY,
     useValue: environment.recaptcha.siteKey,
-  }, {
+  },
+  {
     provide: HTTP_INTERCEPTORS,
     useClass: ErrorHandlerInterceptor,
     multi: true

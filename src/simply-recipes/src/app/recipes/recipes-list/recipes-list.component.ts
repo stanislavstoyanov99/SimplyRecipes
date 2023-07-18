@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipesService } from 'src/app/services/recipes.service';
-import { IRecipeListing } from 'src/app/shared/interfaces/recipes/recipe-listing';
+import { IRecipeList } from 'src/app/shared/interfaces/recipes/recipe-list';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faListAlt } from '@fortawesome/free-regular-svg-icons';
+import { faStar, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recipes-list',
@@ -9,14 +12,16 @@ import { IRecipeListing } from 'src/app/shared/interfaces/recipes/recipe-listing
 })
 export class RecipesListComponent implements OnInit {
 
-  recipes: IRecipeListing[] | null = null;
+  recipesList: IRecipeList | null = null;
 
-  constructor(private recipesService: RecipesService) { }
+  constructor(private recipesService: RecipesService, private library: FaIconLibrary) {
+    this.library.addIcons(faListAlt, faStar, faTachometerAlt);
+  }
 
   ngOnInit(): void {
     this.recipesService.getRecipesList().subscribe({
       next: (value) => {
-        this.recipes = value;
+        this.recipesList = value;
       },
       error: (err) => {
         console.error(err); // TODO: Add global error handler
@@ -24,4 +29,7 @@ export class RecipesListComponent implements OnInit {
     });
   }
 
+  rate(i: number): Array<number> {
+    return new Array(i);
+  }
 }

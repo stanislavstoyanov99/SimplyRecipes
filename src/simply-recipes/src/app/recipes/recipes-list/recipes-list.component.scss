@@ -10,3 +10,81 @@
     background: #540404;
     color: #ffffff;
 }
+
+.nav .nav-link.active {
+    color: #ffffff;
+}
+
+.nav .nav-link {
+    color: #010101;
+}
+
+.nav .nav-link:hover {
+    color: #540404;
+}
+
+.why-text {
+    position: absolute;
+    left: 0;
+    bottom: -100%;
+    right: 0;
+    height: 100%;
+    background-color: #222634;
+    opacity: 0.9;
+    padding: 12px 12px;
+    -webkit-transition: all .3s ease;
+    transition: all .3s ease;
+}
+
+.why-text h4 {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: 'Rubik', sans-serif;
+}
+
+.why-text p {
+    color: #ffffff;
+    font-size: 13px;
+    border-bottom: 1px solid #ffffff;
+    padding-bottom: 15px;
+    margin: 0px;
+    margin-bottom: 15px;
+    margin-top: 0px;
+}
+
+.why-text h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.star {
+    color: yellow;
+}
+
+.gallery-single {
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+
+.gallery-single:hover .why-text {
+    bottom: 0px;
+}
+
+.recipe-card {
+    width: 300px;
+    height: 200px;
+}
+
+.recipe-card img {
+    width: 300px;
+    height: 200px;
+}
+
+.col-lg-6, .col-md-6 {
+    padding: 0 5px !important;
+}

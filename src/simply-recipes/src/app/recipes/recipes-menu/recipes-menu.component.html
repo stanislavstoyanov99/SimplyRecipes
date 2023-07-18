@@ -18,17 +18,15 @@
                                 <div class="gallery-single fix">
                                     <img src="{{topRecipe.imagePath}}" class="img-fluid home-recipe-img" alt="Image_{{topRecipe.id}}">
                                     <div class="why-text">
-                                        <a>
+                                        <a routerLink="/recipes/details/{{topRecipe.id}}">
                                             <h4>{{topRecipe.name}}</h4>
                                         </a>
-                                        <span>
-                                            <ng-container *ngIf="topRecipe.rate === 0">
-                                                <strong>No Rate yet!</strong>
-                                            </ng-container>
-                                            <ng-container *ngIf="topRecipe.rate !== 0">
-                                                <fa-icon *ngFor="let rate of rate(topRecipe.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
-                                            </ng-container>
-                                        </span>
+                                        <p *ngIf="topRecipe.rate === 0">
+                                            <strong>No Rate yet!</strong>
+                                        </p>
+                                        <p *ngIf="topRecipe.rate !== 0">
+                                            <fa-icon *ngFor="let rate of rate(topRecipe.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
+                                        </p>
                                         <h5>Difficulty: {{topRecipe.difficulty}}</h5>
                                         <h5><fa-icon [icon]="['far', 'list-alt']"></fa-icon> {{topRecipe.category.name}}</h5>
                                     </div>

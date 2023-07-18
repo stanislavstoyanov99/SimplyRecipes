@@ -29,7 +29,7 @@
 
         [HttpPost]
         [Authorize]
-        [Route("Post")]
+        [Route("post")]
         public async Task<ActionResult> Post([FromBody] RecipeDetailsPageViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -64,7 +64,7 @@
         }
 
         [HttpPost]
-        [Route("Remove")]
+        [Route("remove")]
         public async Task<ActionResult> Remove([FromBody] int reviewId, int recipeId)
         {
             await this.reviewsService.DeleteByIdAsync(reviewId);

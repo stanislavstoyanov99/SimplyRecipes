@@ -1,5 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
 import { MainComponent } from "./main/main.component";
+import { RecipesDetailsComponent } from "./recipes-details/recipes-details.component";
+import { RecipeResolver } from "./resolvers/recipe.resolver";
 
 const routes: Routes = [
   {
@@ -8,6 +10,16 @@ const routes: Routes = [
     data: {
       title: 'Recipes'
     }
+  },
+  {
+    path: 'details/:id',
+    component: RecipesDetailsComponent,
+    data: {
+      title: 'Details'
+    },
+    resolve: {
+      recipe: RecipeResolver
+    },
   }
 ];
 

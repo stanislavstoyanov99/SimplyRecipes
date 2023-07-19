@@ -1,1 +1,28 @@
-<p>by-category works!</p>
+<div class="category-breadcrumb text-center">
+    <div class="col-lg-12 text-center">
+        <h1>Category: {{categoryName}}</h1>
+    </div>
+</div>
+<div class="containter pt-4 pb-4">
+    <div class="card-deck">
+        <div class="card" *ngFor="let article of articlesByCategory">
+            <img class="card-img-top zoom" src="{{article.imagePath}}" alt="Image_{{article.id}}">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <a routerLink="/articles/details/{{article.id}}">{{article.title}}</a>
+                </h5>
+                <p class="card-text" [innerHTML]="article.sanitizedShortDescription"></p>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <fa-icon [icon]="['fas', 'user']" class="fa-icon"></fa-icon> {{article.userUsername}}
+                    <br />
+                    <fa-icon [icon]="['fas', 'calendar']" class="fa-icon"></fa-icon> {{article.createdOn | date:'short'}}
+                    <br />
+                    <fa-icon [icon]="['fas', 'comments']" class="fa-icon"></fa-icon> {{article.articleComments.length}}
+                </small>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" routerLink="/articles/main">Back to articles</a>
+</div>

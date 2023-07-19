@@ -9,4 +9,5 @@ export interface IArticleListing {
     userUsername: string;
     createdOn: Date;
     categoryName: string;
+    articleComments: []; // TODO: Add interface for this
 }

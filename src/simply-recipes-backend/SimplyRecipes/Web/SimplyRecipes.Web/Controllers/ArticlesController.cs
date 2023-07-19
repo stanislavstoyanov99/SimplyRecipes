@@ -43,15 +43,20 @@
             var article = await this.articlesService
                 .GetViewModelByIdAsync<ArticleListingViewModel>(id);
 
+            return this.Ok(article);
+        }
+
+        [HttpGet("sidebar")]
+        public async Task<ActionResult> Sidebar()
+        {
             var categories = await this.categoriesService
                 .GetAllCategoriesAsync<CategoryListingViewModel>();
 
             var recentArticles = await this.articlesService
                 .GetRecentArticlesAsync<RecentArticleListingViewModel>(RecentArticlesCount);
 
-            var responseModel = new DetailsListingViewModel
+            var responseModel = new ArticleSidebarViewModel
             {
-                ArticleListing = article,
                 Categories = categories,
                 RecentArticles = recentArticles,
             };
@@ -84,8 +89,8 @@
         }
 
         [HttpGet]
-        [Route("by-category/{categoryName}/{pageNumber?}")]
-        public async Task<ActionResult> ByCategory(string categoryName, int? pageNumber)
+        [Route("by-category")]
+        public async Task<ActionResult> ByCategory(string categoryName)
         {
             var articlesByCategoryName = await Task.Run(() => this.articlesService
                 .GetAllArticlesByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName));
@@ -96,7 +101,7 @@
             }
 
             var responseModel = await PaginatedList<ArticleListingViewModel>
-                    .CreateAsync(articlesByCategoryName, pageNumber ?? 1, ArticlesByCategoryCount);
+                    .CreateAsync(articlesByCategoryName, 1, ArticlesByCategoryCount);
 
             return this.Ok(responseModel);
         }

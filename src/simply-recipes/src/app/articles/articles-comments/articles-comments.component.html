@@ -1,0 +1,23 @@
+<div class="blog-comment-box">
+    <h3><fa-icon [icon]="['fas', 'comments']"></fa-icon> Comments (0)</h3>
+</div>
+<div class="comment-respond-box">
+    <h3>Leave your comment</h3>
+    <div>
+        <ng-container *ngIf="isUserAuthenticated">
+            <form class="comment-form-respond row" #commentForm="ngForm" (ngSubmit)="onSubmitHandler()">
+                <div class="col-12">
+                    <div class="form-group">
+                        <textarea id="content-textarea" name="content" class="form-control" placeholder="Your Comment"></textarea>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 pt-2">
+                    <button class="btn btn-primary" type="submit">Submit comment</button>
+                </div>
+            </form>
+        </ng-container>
+        <ng-container *ngIf="!isUserAuthenticated">
+            <a class="btn btn-primary" routerLink="/auth/login" [queryParams]="{returnUrl: returnUrl}">Login to write comment</a>
+        </ng-container>
+    </div>
+</div>

@@ -8,6 +8,9 @@ import { DetailsComponent } from './details/details.component';
 import { FormsModule } from '@angular/forms';
 import { ByCategoryComponent } from './by-category/by-category.component';
 import { ArticlesMenuComponent } from './articles-menu/articles-menu.component';
+import { ArticlesListComponent } from './articles-list/articles-list.component';
+import { ArticlesCommentsComponent } from './articles-comments/articles-comments.component';
+import { ArticlesSidebarComponent } from './articles-sidebar/articles-sidebar.component';
 
 
 
@@ -16,7 +19,10 @@ import { ArticlesMenuComponent } from './articles-menu/articles-menu.component';
     MainComponent,
     DetailsComponent,
     ByCategoryComponent,
-    ArticlesMenuComponent
+    ArticlesMenuComponent,
+    ArticlesListComponent,
+    ArticlesCommentsComponent,
+    ArticlesSidebarComponent
   ],
   imports: [
     CommonModule,

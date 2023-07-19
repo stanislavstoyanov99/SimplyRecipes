@@ -1,0 +1,47 @@
+.blog-comment-box {
+    clear: both;
+    margin: 20px 0px;
+    float: left;
+    width: 100%;
+}
+
+.blog-comment-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    padding-bottom: 20px;
+}
+
+.blog-comment-box .children {
+    margin-left: 0px;
+}
+
+.comment-respond-box {
+    clear: both;
+}
+
+.comment-form-respond input {
+    min-height: 38px;
+    border: 1px solid #010101;
+    border-radius: 0px;
+    padding: 10px;
+}
+
+.comment-form-respond textarea {
+    border: 1px solid #010101;
+    border-radius: 0px;
+    padding: 10px;
+    min-height: 110px;
+}
+
+#content-textarea {
+    border: 2px solid;
+    border-radius: 25px;
+    border-color: #540404;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #540404;
+    background-image: none;
+    border-color: #540404;
+}

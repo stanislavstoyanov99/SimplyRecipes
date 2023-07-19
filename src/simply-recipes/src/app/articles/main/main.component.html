@@ -21,29 +21,8 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-12" *ngFor="let article of articles">
-                <div class="blog-box-inner">
-                    <div class="blog-img-box">
-                        <img class="img-fluid home-pic" src="{{article.imagePath}}" alt="image_{{article.id}}">
-                    </div>
-                    <div class="blog-detail">
-                        <h4>{{article.title}}</h4>
-                        <ul>
-                            <li>
-                                <span>Post by <fa-icon [icon]="['fas', 'user']"></fa-icon> {{article.userUsername}}</span>
-                            </li>
-                            <li>|</li>
-                            <li>
-                                <span><fa-icon [icon]="['fas', 'calendar']"></fa-icon> {{article.createdOn | date:'short'}}</span>
-                            </li>
-                        </ul>
-                        <p [innerHTML]="article.sanitizedShortDescription"></p>
-                        <a class="btn btn-lg btn-circle btn-outline-new-white" routerLink="/articles/details/{{article.id}}">Read More</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
+        <app-articles-list></app-articles-list>
     </div>
 
     <app-contacts></app-contacts>

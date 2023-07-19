@@ -24,113 +24,39 @@
                 <div class="blog-inner-details-page">
                     <div class="blog-inner-box">
                         <div class="side-blog-img">
-                            <img class="img-fluid" src="{{articleDetails.articleListing.imagePath}}"
-                                alt="Article Image">
+                            <img class="img-fluid" src="{{article.imagePath}}" alt="Image_{{article.id}}">
                             <div class="date-blog-up">
-                                {{articleDetails.articleListing.createdOn | date:'short'}}
+                                {{article.createdOn | date:'short'}}
                             </div>
                         </div>
                         <div class="inner-blog-detail details-page">
-                            <h3>{{articleDetails.articleListing.title}}</h3>
+                            <h3>{{article.title}}</h3>
                             <ul>
                                 <li>
                                     <fa-icon [icon]="['fas', 'user']"></fa-icon> Posted By :
-                                    <span>{{articleDetails.articleListing.userUsername}}</span>
+                                    <span>{{article.userUsername}}</span>
                                 </li>
                                 <li>|</li>
                                 <li>
                                     <fa-icon [icon]="['fas', 'calendar']"></fa-icon> Date :
-                                    <span>{{articleDetails.articleListing.createdOn | date:'short'}}</span>
+                                    <span>{{article.createdOn | date:'short'}}</span>
                                 </li>
                                 <li>|</li>
                                 <li>
                                     <fa-icon [icon]="['fas', 'list']"></fa-icon> Category :
-                                    <span>{{articleDetails.articleListing.categoryName}}</span>
+                                    <span>{{article.categoryName}}</span>
                                 </li>
                             </ul>
-                            <p [innerHTML]="articleDetails.articleListing.sanitizedDescription"></p>
+                            <p [innerHTML]="article.sanitizedDescription"></p>
                         </div>
-                        <div class="blog-comment-box">
-                            <h3><fa-icon [icon]="['fas', 'comments']"></fa-icon> Comments (0)</h3>
-                        </div>
-                        <div class="comment-respond-box">
-                            <h3>Leave your comment</h3>
-                            <div>
-                                <ng-container *ngIf="isUserAuthenticated">
-                                    <form class="comment-form-respond row" #commentForm="ngForm" (ngSubmit)="onSubmit()">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <textarea id="content-textarea" name="content" class="form-control" placeholder="Your Comment"></textarea>
-                                            </div>
-                                            <!-- <div class="form-group">
-                                                <span asp-validation-for="@Model.CreateArticleCommentInputModel.Content" class="text-danger"></span>
-                                            </div> -->
-                                        </div>
-                                        <div class="col-lg-12 col-md-12 col-sm-12 pt-2">
-                                            <button class="btn btn-primary" type="submit">Submit comment</button>
-                                        </div>
-                                    </form>
-                                </ng-container>
-                                <ng-container *ngIf="!isUserAuthenticated">
-                                    <a class="btn btn-primary" routerLink="/auth/login" [queryParams]="{returnUrl: returnUrl}">Login to write comment</a>
-                                </ng-container>
-                            </div>
-                        </div>
+
+                        <app-articles-comments></app-articles-comments>
                     </div>
                 </div>
             </div>
-
             <div class="col-xl-4 col-lg-4 col-md-6 col-sm-8 col-12 blog-sidebar">
-                <div class="right-side-blog">
-                    <h3>Search</h3>
-                    <form asp-action="Search" method="get">
-                        <div class="blog-search-form">
-                            <input name="searchTitle" placeholder="Search by article title" type="text">
-                            <button class="search-btn" type="submit">
-                                <fa-icon [icon]="['fas', 'search']"></fa-icon>
-                            </button>
-                        </div>
-                    </form>
-                    <h3>Categories</h3>
-                    <div class="blog-categories">
-                        <ul *ngFor="let category of articleDetails.categories">
-                            <li>
-                                <a routerLink="/articles/by-category" [queryParams]="{categoryName: category.name}">
-                                    <span>{{category.name}}</span>
-                                    <span>&nbsp; | {{category.articles.length}} articles</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <h3>Recent Articles</h3>
-                    <div>
-                        <div class="recent-post-box">
-                            <div class="recent-box-blog" *ngFor="let article of articleDetails.recentArticles">
-                                <div class="recent-img">
-                                    <img id="article-size" class="img-fluid" src={{article.imagePath}}
-                                        alt="Article Image">
-                                </div>
-                                <div class="recent-info">
-                                    <ul>
-                                        <li>
-                                            <fa-icon [icon]="['fas', 'user']"></fa-icon> Posted By :
-                                            <span>{{article.userUsername}}</span>
-                                        </li>
-                                        <li>
-                                            <fa-icon [icon]="['fas', 'calendar']"></fa-icon> Date :
-                                            <span>{{article.createdOn | date:'short'}}</span>
-                                        </li>
-                                    </ul>
-                                    <a routerLink="/articles/details/{{article.id}}">
-                                        <h4>{{article.title}}</h4>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <app-articles-sidebar></app-articles-sidebar>
             </div>
-
         </div>
     </div>
 

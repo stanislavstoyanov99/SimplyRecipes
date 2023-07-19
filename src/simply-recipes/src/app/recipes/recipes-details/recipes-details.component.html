@@ -53,7 +53,7 @@
                                 <fa-icon [icon]="['fas', 'user']"></fa-icon> Author: {{review.userUsername}}
                             </span><br>
                             <span>
-                                <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon> {{review.createdOn}}
+                                <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon> {{review.createdOn | date:'short'}}
                             </span><br>
                             <span>Rate:
                                 <fa-icon *ngFor="let rate of rate(review.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>

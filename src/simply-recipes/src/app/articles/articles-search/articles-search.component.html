@@ -1,0 +1,53 @@
+<div class="container mt-100">
+    <div class="row text-center">
+        <div class="col-md-12 text-center pt-3">
+            <h3>Not happy with the results?</h3>
+            <p>Type your search again</p>
+            <div class="small-search-wrap">
+                <div class="me-auto ms-auto" style="max-width: 50%;">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search something here" maxlength="100" class="form-control search" #searchInput>
+                        <button class="search-btn" type="button" (click)="onSearchHandler(searchInput.value)">
+                            <fa-icon [icon]="['fas', 'search']"></fa-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 pt-3 pb-3">
+            <div>
+                <h4>About {{articles.length}} results</h4>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix mt-40">
+        <div class="preloader"></div>
+        <ng-container *ngIf="!articles.length">
+            <div class="alert alert-info" role="alert">No results found.</div>
+        </ng-container>
+        <ng-container *ngIf="articles.length > 0">
+            <ul id="search-results" class="xsearch-items">
+                <li class="search-item" *ngFor="let article of articles">
+                    <div class="search-item-img">
+                        <img src="{{article.imagePath}}" alt="Image_{{article.id}}">
+                    </div>
+                    <div class="search-item-content">
+                        <h3 class="search-item-caption">
+                            <a routerLink="/articles/details/{{article.id}}">{{article.title}}</a>
+                        </h3>
+                        <div class="search-item-meta mb-15">
+                            <ul class="list-inline">
+                                <li class="time">
+                                    <fa-icon [icon]="['fas', 'calendar']"></fa-icon> {{article.createdOn | date:'short'}}
+                                </li>
+                                <li>{{article.articleComments.length}} Comments</li>
+                                <li class="pl-0"><a href="#">Category: {{article.categoryName}}</a></li>
+                            </ul>
+                        </div>
+                        <div [innerHTML]="article.sanitizedShortDescription"></div>
+                    </div>
+                </li>
+            </ul>
+        </ng-container>
+    </div>
+</div>

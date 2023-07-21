@@ -1,13 +1,11 @@
 <div class="right-side-blog">
     <h3>Search</h3>
-    <form asp-action="Search" method="get">
-        <div class="blog-search-form">
-            <input name="searchTitle" placeholder="Search by article title" type="text">
-            <button class="search-btn" type="submit">
-                <fa-icon [icon]="['fas', 'search']"></fa-icon>
-            </button>
-        </div>
-    </form>
+    <div class="blog-search-form">
+        <input placeholder="Search by article title" type="text" #searchInput>
+        <button class="search-btn" type="button" (click)="onSearchHandler(searchInput.value)">
+            <fa-icon [icon]="['fas', 'search']"></fa-icon>
+        </button>
+    </div>
     <h3>Categories</h3>
     <div class="blog-categories">
         <ul *ngFor="let category of sidebar?.categories">

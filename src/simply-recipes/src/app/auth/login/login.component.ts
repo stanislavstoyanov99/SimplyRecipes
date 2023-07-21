@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
   public errorMessage: string = '';
   public showError: boolean = false;
   
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute) { 
     this.loginRequestModel = new LoginRequestModel();

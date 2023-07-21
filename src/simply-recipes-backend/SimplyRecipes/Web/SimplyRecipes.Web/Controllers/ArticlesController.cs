@@ -65,8 +65,8 @@
         }
 
         [HttpGet]
-        [Route("search/{pageNumber?}/{searchTitle}")]
-        public async Task<ActionResult> Search([FromRoute] int? pageNumber, [FromRoute] string searchTitle)
+        [Route("search")]
+        public async Task<ActionResult> Search(string searchTitle)
         {
             if (string.IsNullOrEmpty(searchTitle))
             {
@@ -77,13 +77,8 @@
                 .GetAllArticlesAsQueryeable<ArticleListingViewModel>()
                 .Where(a => a.Title.ToLower().Contains(searchTitle.ToLower())));
 
-            if (articles.Count() == 0)
-            {
-                return this.NotFound();
-            }
-
             var responseModel = await PaginatedList<ArticleListingViewModel>
-                .CreateAsync(articles, pageNumber ?? 1, ArticlesInSearchPage);
+                .CreateAsync(articles, 1, ArticlesInSearchPage);
 
             return this.Ok(responseModel);
         }

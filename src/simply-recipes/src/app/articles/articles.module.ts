@@ -11,6 +11,7 @@ import { ArticlesMenuComponent } from './articles-menu/articles-menu.component';
 import { ArticlesListComponent } from './articles-list/articles-list.component';
 import { ArticlesCommentsComponent } from './articles-comments/articles-comments.component';
 import { ArticlesSidebarComponent } from './articles-sidebar/articles-sidebar.component';
+import { ArticlesSearchComponent } from './articles-search/articles-search.component';
 
 
 
@@ -22,7 +23,8 @@ import { ArticlesSidebarComponent } from './articles-sidebar/articles-sidebar.co
     ArticlesMenuComponent,
     ArticlesListComponent,
     ArticlesCommentsComponent,
-    ArticlesSidebarComponent
+    ArticlesSidebarComponent,
+    ArticlesSearchComponent
   ],
   imports: [
     CommonModule,

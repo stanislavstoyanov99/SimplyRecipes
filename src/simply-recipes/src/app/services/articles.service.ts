@@ -29,4 +29,8 @@ export class ArticlesService {
   getArticlesByCategoryName(categoryName: string): Observable<IArticleListing[]> {
     return this.httpClient.get<IArticleListing[]>(`${apiURL}/articles/by-category?categoryName=${categoryName}`);
   }
+
+  getArticlesBySearchTitle(searchTitle: string): Observable<IArticleListing[]> {
+    return this.httpClient.get<IArticleListing[]>(`${apiURL}/articles/search?searchTitle=${searchTitle}`);
+  }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IRecipeDetails } from 'src/app/shared/interfaces/recipes/recipe-details';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faStar, faCalendarAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faCalendarAlt, faUser, faClock, faUtensils } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-recipes-details',
@@ -15,7 +15,7 @@ export class RecipesDetailsComponent implements OnInit {
   isReviewAlreadyMade!: boolean;
 
   constructor(private activatedRoute: ActivatedRoute, private library: FaIconLibrary) {
-    this.library.addIcons(faStar, faCalendarAlt, faUser);
+    this.library.addIcons(faStar, faCalendarAlt, faUser, faClock, faUtensils);
   }
 
   ngOnInit(): void {

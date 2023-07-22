@@ -7,7 +7,6 @@
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Models.ViewModels.Categories;
     using SimplyRecipes.Models.ViewModels.Recipes;
-    using SimplyRecipes.Models.ViewModels.Reviews;
     using SimplyRecipes.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Authorization;
@@ -19,46 +18,30 @@
         private const int PageSize = 12;
 
         private readonly IRecipesService recipesService;
-        private readonly IReviewsService reviewsService;
         private readonly ICategoriesService categoriesService;
         private readonly UserManager<SimplyRecipesUser> userManager;
 
         public RecipesController(
             IRecipesService recipesService,
             ICategoriesService categoriesService,
-            IReviewsService reviewsService,
             UserManager<SimplyRecipesUser> userManager)
         {
             this.recipesService = recipesService;
             this.categoriesService = categoriesService;
             this.userManager = userManager;
-            this.reviewsService = reviewsService;
         }
 
         [HttpGet]
-        [Route("{categoryName}/{pageNumber?}")]
-        public async Task<IActionResult> Get(string categoryName, int? pageNumber)
+        [Route("by-category")]
+        public async Task<IActionResult> ByCategory(string categoryName)
         {
             var recipes = this.recipesService
                 .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
 
             var recipesPaginated = await PaginatedList<RecipeListingViewModel>
-                .CreateAsync(recipes, pageNumber ?? 1, PageSize);
+                .CreateAsync(recipes, 1, PageSize);
 
-            var categories = await this.categoriesService
-                .GetAllCategoriesAsync<CategoryListingViewModel>();
-
-            var reviews = await this.reviewsService
-                .GetTopReviews<ReviewListingViewModel>();
-
-            var responseModel = new RecipeIndexPageViewModel
-            {
-                RecipesPaginated = recipesPaginated,
-                Categories = categories,
-                Reviews = reviews,
-            };
-
-            return this.Ok(responseModel);
+            return this.Ok(recipesPaginated);
         }
 
         [HttpGet("details/{id}")]

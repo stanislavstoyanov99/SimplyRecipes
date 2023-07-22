@@ -19,6 +19,29 @@ export class RecipesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getRecipesList();
+  }
+
+  rate(i: number): Array<number> {
+    return new Array(i);
+  }
+
+  onCategoryClickHandler(categoryName: string): void {
+    this.recipesService.getRecipesByCategoryName(categoryName).subscribe({
+      next: (value) => {
+        this.recipesList!.recipes = value;
+      },
+      error: (err) => {
+        console.error(err); // TODO: Add global error handler
+      }
+    });
+  }
+
+  onAllClickHandler(): void {
+    this.getRecipesList();
+  }
+
+  private getRecipesList(): void {
     this.recipesService.getRecipesList().subscribe({
       next: (value) => {
         this.recipesList = value;
@@ -27,9 +50,5 @@ export class RecipesListComponent implements OnInit {
         console.error(err); // TODO: Add global error handler
       }
     });
-  }
-
-  rate(i: number): Array<number> {
-    return new Array(i);
   }
 }

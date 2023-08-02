@@ -4,6 +4,7 @@ import { ContactModel } from '../shared/models/contact.model';
 import { ContactService } from '../services/contact.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Subscription } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -23,12 +24,19 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   constructor(
     private contactService: ContactService,
-    private recaptchaV3Service: ReCaptchaV3Service) {
+    private recaptchaV3Service: ReCaptchaV3Service,
+    private spinner: NgxSpinnerService) {
       this.contact = new ContactModel();
   }
 
   // TODO: Could not find another way without using DOM to show/hide recaptcha badge
   ngOnInit(): void {
+    this.spinner.show();
+
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 1000);
+
     const element = document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement;
     if (element) {
       element.style.visibility = 'visible';

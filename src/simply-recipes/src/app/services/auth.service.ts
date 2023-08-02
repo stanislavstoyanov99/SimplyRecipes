@@ -15,8 +15,8 @@ const apiURL = environment.apiURL;
 })
 export class AuthService {
 
-  private authChangeSub = new BehaviorSubject<boolean>(false);
-  public authChanged = this.authChangeSub.asObservable();
+  private authChangeSub$$ = new BehaviorSubject<boolean>(false);
+  public authChanged$ = this.authChangeSub$$.asObservable();
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
   }
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
-    this.authChangeSub.next(isAuthenticated);
+    this.authChangeSub$$.next(isAuthenticated);
   }
 
   public register(registerRequestModel: RegisterRequestModel) {

@@ -3,6 +3,9 @@
         <div class="text-center">
             <h4 class="display-4">FAQ</h4>
         </div>
+        <ng-container *ngIf="loadingService.isLoading$ | async">
+            <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#540404" size="medium"></ngx-spinner>
+        </ng-container>
         <ngb-accordion #acc="ngbAccordion" class="ms-5">
             <ngb-panel *ngFor="let faq of faqs" id="toggle-{{faq.id}}" title="{{faq.question}}">
                 <ng-template ngbPanelContent>

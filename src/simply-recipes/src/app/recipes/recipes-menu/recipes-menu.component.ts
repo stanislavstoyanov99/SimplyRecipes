@@ -4,6 +4,7 @@ import { IRecipeListing } from 'src/app/shared/interfaces/recipes/recipe-listing
 import { HomeService } from 'src/app/services/home.service';
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-recipes-menu',
@@ -14,7 +15,10 @@ export class RecipesMenuComponent implements OnInit {
 
   topRecipes: IRecipeListing[] | null = null;
 
-  constructor(private homeService: HomeService, private library: FaIconLibrary) {
+  constructor(
+    public loadingService: LoadingService,
+    private homeService: HomeService,
+    private library: FaIconLibrary) {
     this.library.addIcons(faListAlt, faStar);
   }
 

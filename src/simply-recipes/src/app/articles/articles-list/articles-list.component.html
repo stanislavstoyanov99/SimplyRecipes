@@ -1,4 +1,7 @@
 <div class="row">
+    <ng-container *ngIf="loadingService.isLoading$ | async">
+        <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#540404" size="medium"></ngx-spinner>
+    </ng-container>
     <div class="col-lg-4 col-md-6 col-12" *ngFor="let article of articles">
         <div class="blog-box-inner">
             <div class="blog-img-box">

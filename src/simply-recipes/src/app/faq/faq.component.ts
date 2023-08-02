@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../services/faq.service';
 import { IFaq } from '../shared/interfaces/faq/faq';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-faq',
@@ -9,9 +10,9 @@ import { IFaq } from '../shared/interfaces/faq/faq';
 })
 export class FaqComponent implements OnInit {
 
-  faqs: IFaq[] | null = null;
+  faqs: IFaq[] = [];
 
-  constructor(private faqService: FaqService) { }
+  constructor(public loadingService: LoadingService, private faqService: FaqService) { }
 
   ngOnInit(): void {
     this.faqService.getFaqs().subscribe({

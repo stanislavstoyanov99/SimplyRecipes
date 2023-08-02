@@ -7,6 +7,11 @@
                 </div>
             </div>
         </div>
+        <div class="row gallery-list">
+            <ng-container *ngIf="loadingService.isLoading$ | async">
+                <ngx-spinner [fullScreen]="false" color="#fff" size="medium"></ngx-spinner>
+            </ng-container>
+        </div>
         <div class="container">
             <ng-image-slider [images]="slides" [infinite]="true" [autoSlide]="3" [imageSize]="{space: 4}"></ng-image-slider>
         </div>

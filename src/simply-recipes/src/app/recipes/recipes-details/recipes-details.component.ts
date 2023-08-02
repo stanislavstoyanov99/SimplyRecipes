@@ -14,7 +14,9 @@ export class RecipesDetailsComponent implements OnInit {
   recipe: IRecipeDetails | null = null;
   isReviewAlreadyMade!: boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private library: FaIconLibrary) {
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private library: FaIconLibrary) {
     this.library.addIcons(faStar, faCalendarAlt, faUser, faClock, faUtensils);
   }
 

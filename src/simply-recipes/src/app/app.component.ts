@@ -17,6 +17,16 @@ export class AppComponent implements OnInit {
     private pageTitle: Title,
     private authService: AuthService
   ) {
+    this.setPageTitle();
+  }
+
+  ngOnInit(): void {
+    if(this.authService.isUserAuthenticated()) {
+      this.authService.sendAuthStateChangeNotification(true);
+    }
+  }
+  
+  private setPageTitle(): void {
     this.router.events.pipe(
       filter((e): e is ActivationStart => e instanceof ActivationStart),
       map(e => this.title + ' | ' + e.snapshot.data?.['title']),
@@ -24,11 +34,5 @@ export class AppComponent implements OnInit {
     ).subscribe((pageTitle) => {
       this.pageTitle.setTitle(pageTitle);
     });
-  }
-
-  ngOnInit(): void {
-    if(this.authService.isUserAuthenticated()) {
-      this.authService.sendAuthStateChangeNotification(true);
-    }
   }
 }

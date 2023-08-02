@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IGallery } from 'src/app/shared/interfaces/gallery';
 import { HomeService } from 'src/app/services/home.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-gallery',
@@ -12,7 +13,7 @@ export class GalleryComponent implements OnInit {
   gallery: IGallery[] | null = null;
   slides: Array<object> = [];
 
-  constructor(private homeService: HomeService) { }
+  constructor(public loadingService: LoadingService, private homeService: HomeService) { }
 
   ngOnInit(): void {
     this.homeService.getGallery().subscribe({

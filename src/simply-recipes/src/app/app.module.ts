@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -9,7 +9,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
-import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FaqComponent } from './faq/faq.component';
 import { NgxScrollTopModule } from 'ngx-scrolltop';
@@ -19,6 +18,8 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, ReCaptchaV3Service } from 'ng
 import { environment } from 'src/environments/environment';
 import { ErrorHandlerInterceptor } from './shared/interceptors/error-handler.interceptor';
 import { JwtModule } from "@auth0/angular-jwt";
+import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -33,6 +34,7 @@ export function tokenGetter() {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,
@@ -51,15 +53,16 @@ export function tokenGetter() {
       }
     })
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: LoadingInterceptor,
-    multi: true
-  },
   {
     provide: RECAPTCHA_V3_SITE_KEY,
     useValue: environment.recaptcha.siteKey,
+  },
+  { 
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoadingInterceptor,
+    multi: true
   },
   {
     provide: HTTP_INTERCEPTORS,

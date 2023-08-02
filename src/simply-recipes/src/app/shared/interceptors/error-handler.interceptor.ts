@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
+import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -16,17 +16,17 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
         let errorMessage = this.handleError(error);
         return throwError(() => new Error(errorMessage));
       })
-    )
+    );
   }
 
   private handleError = (error: HttpErrorResponse): string => {
-    if(error.status === 404){
+    if (error.status === HttpStatusCode.NotFound) {
       return this.handleNotFound(error);
     }
-    else if(error.status === 400){
+    else if (error.status === HttpStatusCode.BadRequest) {
       return this.handleBadRequest(error);
     }
-    else if(error.status === 401) {
+    else if (error.status === HttpStatusCode.Unauthorized) {
       return this.handleUnauthorized(error);
     }
     return '';
@@ -38,7 +38,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   }
 
   private handleBadRequest = (error: HttpErrorResponse): string => {
-    if(this.router.url === '/auth/register'){
+    if (this.router.url === '/auth/register') {
       let message = '';
       const errors = error.error.errors.split(', ');
       errors.map((m: string) => {
@@ -46,13 +46,13 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       });
       return message.slice(0, -4);
     }
-    else{
+    else {
       return error.error ? error.error.errors : error.message;
     }
   }
 
   private handleUnauthorized = (error: HttpErrorResponse) => {
-    if(this.router.url === '/auth/login') {
+    if (this.router.url === '/auth/login') {
       return error.error.errors;
     }
     else {

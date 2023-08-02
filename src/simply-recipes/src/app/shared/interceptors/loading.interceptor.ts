@@ -7,25 +7,26 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
-import { LoaderService } from 'src/app/services/loader.service';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
 
   private totalRequests = 0;
 
-  constructor(private loadingService: LoaderService) {}
+  constructor(private loadingService: LoadingService) {}
 
-  intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     this.totalRequests++;
     this.loadingService.setLoading(true);
 
     return next.handle(request).pipe(
       finalize(() => {
         this.totalRequests--;
-        if (this.totalRequests == 0) {
+        if (this.totalRequests === 0) {
           this.loadingService.setLoading(false);
         }
-      }));
+      })
+    );
   }
 }

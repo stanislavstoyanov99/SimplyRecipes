@@ -4,6 +4,7 @@ import { IRecipeList } from 'src/app/shared/interfaces/recipes/recipe-list';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-recipes-list',
@@ -12,9 +13,15 @@ import { faStar, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 })
 export class RecipesListComponent implements OnInit {
 
-  recipesList: IRecipeList | null = null;
-
-  constructor(private recipesService: RecipesService, private library: FaIconLibrary) {
+  recipesList: IRecipeList = {
+    recipes: [],
+    categories: []
+  };
+  
+  constructor(
+    public loadingService: LoadingService,
+    private recipesService: RecipesService,
+    private library: FaIconLibrary) {
     this.library.addIcons(faListAlt, faStar, faTachometerAlt);
   }
 
@@ -29,7 +36,7 @@ export class RecipesListComponent implements OnInit {
   onCategoryClickHandler(categoryName: string): void {
     this.recipesService.getRecipesByCategoryName(categoryName).subscribe({
       next: (value) => {
-        this.recipesList!.recipes = value;
+        this.recipesList.recipes = value;
       },
       error: (err) => {
         console.error(err); // TODO: Add global error handler

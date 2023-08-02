@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authService.authChanged
+    this.authService.authChanged$
       .subscribe({
         next: (value) => {
           this.isUserAuthenticated = value;

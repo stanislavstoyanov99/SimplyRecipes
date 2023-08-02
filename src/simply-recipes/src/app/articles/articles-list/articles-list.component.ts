@@ -3,6 +3,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { IArticleListing } from 'src/app/shared/interfaces/articles/article-listing';
 import { faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-articles-list',
@@ -11,9 +12,10 @@ import { faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
 })
 export class ArticlesListComponent implements OnInit {
 
-  articles: IArticleListing[] | null = null;
+  articles: IArticleListing[] = [];
   
   constructor(
+    public loadingService: LoadingService,
     private articlesService: ArticlesService,
     private library: FaIconLibrary) {
       this.library.addIcons(faUser, faCalendar);

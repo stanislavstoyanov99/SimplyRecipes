@@ -4,7 +4,7 @@
     align-items: center;
     padding-top: 20px;
     color: white;
-    padding-bottom: 30px;
+    padding-bottom: 40px;
 }
 
 .toArticle-box {
@@ -158,4 +158,8 @@
 .button:hover span:after {
     opacity: 1;
     right: 0;
+}
+
+.articles-list {
+    position: relative;
 }

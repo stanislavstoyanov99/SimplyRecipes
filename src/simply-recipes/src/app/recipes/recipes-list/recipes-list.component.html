@@ -1,9 +1,12 @@
 <div class="row inner-menu-box">
+    <ng-container *ngIf="loadingService.isLoading$ | async">
+        <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#540404" size="medium"></ngx-spinner>
+    </ng-container>
     <div class="col-3">
         <div class="nav nav-pills" id="v-pills-tab" role="tabpanel" aria-orientation="vertical">
             <div id="myTab" class="nav flex-column nav-tabs" role="tablist">
                 <a class="nav-link mb-1" type="button" routerLink="/recipes/main" routerLinkActive="active" (click)="onAllClickHandler()">All</a>
-                <a class="nav-link mb-1" type="button" routerLink="/recipes/by-category" [queryParams]="{categoryName: category.name}" routerLinkActive="active" *ngFor="let category of recipesList?.categories" (click)="onCategoryClickHandler(category.name)">{{category.name}}</a>
+                <a class="nav-link mb-1" type="button" routerLink="/recipes/by-category" [queryParams]="{categoryName: category.name}" routerLinkActive="active" *ngFor="let category of recipesList.categories" (click)="onCategoryClickHandler(category.name)">{{category.name}}</a>
             </div>
         </div>
     </div>
@@ -11,8 +14,8 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                 <div class="row">
-                    <ng-container *ngIf="recipesList?.recipes!.length > 0">
-                        <div class="col-lg-4 col-md-6 mt-3 recipe-card" *ngFor="let recipe of recipesList?.recipes">
+                    <ng-container *ngIf="recipesList.recipes.length > 0">
+                        <div class="col-lg-4 col-md-6 mt-3 recipe-card" *ngFor="let recipe of recipesList.recipes">
                             <div class="gallery-single fix">
                                 <img src="{{recipe.imagePath}}" class="img-fluid" alt="Image_{{recipe.id}}">
                                 <div class="why-text">
@@ -31,7 +34,7 @@
                             </div>
                         </div>
                     </ng-container>
-                    <ng-container *ngIf="recipesList?.recipes!.length === 0">
+                    <ng-container *ngIf="recipesList.recipes.length === 0 && !(loadingService.isLoading$ | async)">
                         <div class="alert alert-danger" role="alert">We have no recipes provided for that category.</div>
                     </ng-container>
                 </div>

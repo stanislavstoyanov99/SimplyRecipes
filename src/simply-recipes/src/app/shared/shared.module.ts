@@ -2,18 +2,17 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactsComponent } from './contacts/contacts.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SpinnerComponent } from './spinner/spinner.component';
 import { PasswordConfirmationValidatorDirective } from './custom-validators/password-confirmation-validator.directive';
 import { SharedRoutingModule } from './shared-routing.module';
 import { GalleryComponent } from './gallery/gallery.component';
 import { NgImageSliderModule } from 'ng-image-slider';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
 @NgModule({
   declarations: [
     ContactsComponent,
-    SpinnerComponent,
     PasswordConfirmationValidatorDirective,
     GalleryComponent
   ],
@@ -21,13 +20,14 @@ import { NgImageSliderModule } from 'ng-image-slider';
     CommonModule,
     FontAwesomeModule,
     SharedRoutingModule,
-    NgImageSliderModule
+    NgImageSliderModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-spin-fade' })
   ],
   exports: [
     ContactsComponent,
-    SpinnerComponent,
     PasswordConfirmationValidatorDirective,
-    GalleryComponent
+    GalleryComponent,
+    NgxSpinnerModule
   ]
 })
 export class SharedModule { }

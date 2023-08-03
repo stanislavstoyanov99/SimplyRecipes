@@ -18,8 +18,7 @@ export class AuthService {
   private authChangeSub$$ = new BehaviorSubject<boolean>(false);
   public authChanged$ = this.authChangeSub$$.asObservable();
 
-  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {
-  }
+  constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   public isUserAuthenticated = (): boolean => {
     const token = localStorage.getItem("token");

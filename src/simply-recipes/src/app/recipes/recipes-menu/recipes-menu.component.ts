@@ -5,6 +5,8 @@ import { HomeService } from 'src/app/services/home.service';
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-recipes-menu',
@@ -18,17 +20,22 @@ export class RecipesMenuComponent implements OnInit {
   constructor(
     public loadingService: LoadingService,
     private homeService: HomeService,
-    private library: FaIconLibrary) {
+    private library: FaIconLibrary,
+    private dialog: MatDialog) {
     this.library.addIcons(faListAlt, faStar);
   }
 
   ngOnInit(): void {
     this.homeService.getTopRecipes().subscribe({
-      next: (value) => {
-        this.topRecipes = value;
+      next: (topRecipes) => {
+        this.topRecipes = topRecipes;
       },
-      error: (err) => {
-        console.error(err); // TODO: Add global error handler
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
       }
     });
   }

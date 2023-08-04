@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/services/auth.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-main',
@@ -10,7 +12,7 @@ export class MainComponent implements OnInit {
 
   public isUserAuthenticated!: boolean;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authService.authChanged$
@@ -18,10 +20,13 @@ export class MainComponent implements OnInit {
         next: (value) => {
           this.isUserAuthenticated = value;
         },
-        error: (err) => {
-          console.error(err); // TODO: Add global error handler
+        error: (err: string) => {
+          this.dialog.open(ErrorDialogComponent, {
+            data: {
+              message: err
+            }
+          });
         }
     });
   }
-
 }

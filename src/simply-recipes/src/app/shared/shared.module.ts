@@ -7,6 +7,7 @@ import { SharedRoutingModule } from './shared-routing.module';
 import { GalleryComponent } from './gallery/gallery.component';
 import { NgImageSliderModule } from 'ng-image-slider';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -21,13 +22,15 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     FontAwesomeModule,
     SharedRoutingModule,
     NgImageSliderModule,
-    NgxSpinnerModule.forRoot({ type: 'ball-spin-fade' })
+    NgxSpinnerModule.forRoot({ type: 'ball-spin-fade' }),
+    MatDialogModule
   ],
   exports: [
     ContactsComponent,
     PasswordConfirmationValidatorDirective,
     GalleryComponent,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

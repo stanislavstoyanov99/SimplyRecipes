@@ -4,6 +4,8 @@ import { HomeService } from 'src/app/services/home.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-articles-menu',
@@ -17,17 +19,22 @@ export class ArticlesMenuComponent implements OnInit {
   constructor(
     public loadingService: LoadingService,
     private homeService: HomeService,
-    private library: FaIconLibrary) {
+    private library: FaIconLibrary,
+    private dialog: MatDialog) {
     this.library.addIcons(faUser, faCalendar);
    }
 
   ngOnInit(): void {
     this.homeService.getRecentArticles().subscribe({
-      next: (value) => {
-        this.recentArticles = value;
+      next: (recentArticles) => {
+        this.recentArticles = recentArticles;
       },
-      error: (err) => {
-        console.error(err); // TODO: Add global error handler
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
       }
     });
   }

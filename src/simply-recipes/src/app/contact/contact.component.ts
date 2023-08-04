@@ -5,6 +5,8 @@ import { ContactService } from '../services/contact.service';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from '../shared/error-dialog/error-dialog.component';
 
 
 @Component({
@@ -25,7 +27,8 @@ export class ContactComponent implements OnInit, OnDestroy {
   constructor(
     private contactService: ContactService,
     private recaptchaV3Service: ReCaptchaV3Service,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private dialog: MatDialog) {
       this.contact = new ContactModel();
   }
 
@@ -37,7 +40,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.spinner.hide();
     }, 1000);
 
-    const element = document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement;
+    const element = this.getRecaptchaBadge();
     if (element) {
       element.style.visibility = 'visible';
     }
@@ -47,8 +50,17 @@ export class ContactComponent implements OnInit, OnDestroy {
     if (this.contactForm?.valid) {
       this.subscription = this.recaptchaV3Service.execute('importantAction').subscribe((token: string) => {
         this.contact.recaptchaValue = token;
-        this.contactService.sendContact(this.contact).subscribe(() => {
-          this.contactForm?.reset();
+        this.contactService.sendContact(this.contact).subscribe({
+          next: () => {
+            this.contactForm?.reset();
+          },
+          error: (err: string) => {
+            this.dialog.open(ErrorDialogComponent, {
+              data: {
+                message: err
+              }
+            });
+          }
         });
       });
     }
@@ -59,9 +71,13 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.subscription.unsubscribe();
     }
 
-    const element = document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement;
+    const element = this.getRecaptchaBadge();
     if (element) {
       element.style.visibility = 'hidden';
     }
+  }
+
+  private getRecaptchaBadge(): HTMLElement {
+    return document.getElementsByClassName('grecaptcha-badge')[0] as HTMLElement;
   }
 }

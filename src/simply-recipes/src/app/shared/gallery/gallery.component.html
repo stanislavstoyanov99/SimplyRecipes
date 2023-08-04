@@ -13,7 +13,12 @@
             </ng-container>
         </div>
         <div class="container">
-            <ng-image-slider [images]="slides" [infinite]="true" [autoSlide]="3" [imageSize]="{space: 4}"></ng-image-slider>
+            <ng-container *ngIf="slides.length === 0">
+                <div class="alert alert-danger" role="alert">We have no images yet.</div>
+            </ng-container>
+            <ng-container *ngIf="slides.length > 0">
+                <ng-image-slider [images]="slides" [infinite]="true" [autoSlide]="3" [imageSize]="{space: 4}"></ng-image-slider>
+            </ng-container>
         </div>
     </div>
 </div>

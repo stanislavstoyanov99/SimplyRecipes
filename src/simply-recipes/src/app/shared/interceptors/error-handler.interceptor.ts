@@ -47,7 +47,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       return message.slice(0, -4);
     }
     else {
-      return error.error ? error.error.errors : error.message;
+      return error.error ? error.error : error.message;
     }
   }
 

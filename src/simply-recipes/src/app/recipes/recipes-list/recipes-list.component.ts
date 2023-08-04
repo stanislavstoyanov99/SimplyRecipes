@@ -5,6 +5,8 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-recipes-list',
@@ -21,7 +23,8 @@ export class RecipesListComponent implements OnInit {
   constructor(
     public loadingService: LoadingService,
     private recipesService: RecipesService,
-    private library: FaIconLibrary) {
+    private library: FaIconLibrary,
+    private dialog: MatDialog) {
     this.library.addIcons(faListAlt, faStar, faTachometerAlt);
   }
 
@@ -35,11 +38,15 @@ export class RecipesListComponent implements OnInit {
 
   onCategoryClickHandler(categoryName: string): void {
     this.recipesService.getRecipesByCategoryName(categoryName).subscribe({
-      next: (value) => {
-        this.recipesList.recipes = value;
+      next: (recipes) => {
+        this.recipesList.recipes = recipes;
       },
-      error: (err) => {
-        console.error(err); // TODO: Add global error handler
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
       }
     });
   }
@@ -50,11 +57,15 @@ export class RecipesListComponent implements OnInit {
 
   private getRecipesList(): void {
     this.recipesService.getRecipesList().subscribe({
-      next: (value) => {
-        this.recipesList = value;
+      next: (recipesList) => {
+        this.recipesList = recipesList;
       },
-      error: (err) => {
-        console.error(err); // TODO: Add global error handler
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
       }
     });
   }

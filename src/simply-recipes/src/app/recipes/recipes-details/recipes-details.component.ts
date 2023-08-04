@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { IRecipeDetails } from 'src/app/shared/interfaces/recipes/recipe-details';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faStar, faCalendarAlt, faUser, faClock, faUtensils } from '@fortawesome/free-solid-svg-icons';
+import { MatDialog } from '@angular/material/dialog';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-recipes-details',
@@ -16,14 +18,25 @@ export class RecipesDetailsComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private library: FaIconLibrary) {
+    private library: FaIconLibrary,
+    private dialog: MatDialog) {
     this.library.addIcons(faStar, faCalendarAlt, faUser, faClock, faUtensils);
   }
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ recipe }) => {
-      this.recipe = recipe;
+    this.activatedRoute.data.subscribe({
+      next: ({ recipe }) => {
+        this.recipe = recipe;
+      },
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
+      }
     });
+
     this.isReviewAlreadyMade = this.recipe?.reviews.some(x => x.userId === this.recipe?.userId) || false;
   }
 

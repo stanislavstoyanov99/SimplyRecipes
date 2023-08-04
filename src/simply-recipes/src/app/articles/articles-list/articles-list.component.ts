@@ -4,6 +4,8 @@ import { ArticlesService } from 'src/app/services/articles.service';
 import { IArticleListing } from 'src/app/shared/interfaces/articles/article-listing';
 import { faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
+import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-articles-list',
@@ -17,17 +19,22 @@ export class ArticlesListComponent implements OnInit {
   constructor(
     public loadingService: LoadingService,
     private articlesService: ArticlesService,
-    private library: FaIconLibrary) {
+    private library: FaIconLibrary,
+    private dialog: MatDialog) {
       this.library.addIcons(faUser, faCalendar);
   }
 
   ngOnInit(): void {
     this.articlesService.getArticles().subscribe({
-      next: (value) => {
-        this.articles = value;
+      next: (articles) => {
+        this.articles = articles;
       },
-      error: (err) => {
-        console.error(err); // TODO: Add global error handler
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
       }
     });
   }

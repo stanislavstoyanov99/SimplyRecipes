@@ -6,6 +6,7 @@ import { HomeRoutingModule } from './home-routing.module';
 import { RecipesModule } from '../recipes/recipes.module';
 import { ArticlesModule } from '../articles/articles.module';
 import { CalorieCalculatorComponent } from './calorie-calculator/calorie-calculator.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -19,7 +20,8 @@ import { CalorieCalculatorComponent } from './calorie-calculator/calorie-calcula
     SharedModule,
     HomeRoutingModule,
     RecipesModule,
-    ArticlesModule
+    ArticlesModule,
+    FormsModule
   ]
 })
 export class HomeModule { }

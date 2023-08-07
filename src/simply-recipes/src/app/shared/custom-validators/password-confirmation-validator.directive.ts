@@ -3,7 +3,11 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 
 @Directive({
   selector: '[appPasswordConfirmationValidator]',
-  providers: [{provide: NG_VALIDATORS, useExisting: PasswordConfirmationValidatorDirective, multi: true}]
+  providers: [{
+    provide: NG_VALIDATORS,
+    useExisting: PasswordConfirmationValidatorDirective,
+    multi: true
+  }]
 })
 export class PasswordConfirmationValidatorDirective implements Validator {
 

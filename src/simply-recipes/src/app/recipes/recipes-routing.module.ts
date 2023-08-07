@@ -2,6 +2,8 @@ import { RouterModule, Routes } from "@angular/router";
 import { MainComponent } from "./main/main.component";
 import { RecipesDetailsComponent } from "./recipes-details/recipes-details.component";
 import { RecipeResolver } from "./resolvers/recipe.resolver";
+import { SubmitRecipeComponent } from "./submit-recipe/submit-recipe.component";
+import { RecipesViewComponent } from "./recipes-view/recipes-view.component";
 
 const routes: Routes = [
   {
@@ -26,6 +28,20 @@ const routes: Routes = [
     component: MainComponent,
     data: {
       title: 'By Category'
+    }
+  },
+  {
+    path: 'submit',
+    component: SubmitRecipeComponent,
+    data: {
+      title: 'Submit Recipe'
+    }
+  },
+  {
+    path: 'view',
+    component: RecipesViewComponent,
+    data: {
+      title: 'View Own Recipe'
     }
   },
 ];

@@ -7,6 +7,8 @@ import { RecipesMenuComponent } from './recipes-menu/recipes-menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipesDetailsComponent } from './recipes-details/recipes-details.component';
+import { SubmitRecipeComponent } from './submit-recipe/submit-recipe.component';
+import { RecipesViewComponent } from './recipes-view/recipes-view.component';
 
 
 
@@ -15,7 +17,9 @@ import { RecipesDetailsComponent } from './recipes-details/recipes-details.compo
     MainComponent,
     RecipesMenuComponent,
     RecipesListComponent,
-    RecipesDetailsComponent
+    RecipesDetailsComponent,
+    SubmitRecipeComponent,
+    RecipesViewComponent
   ],
   imports: [
     CommonModule,

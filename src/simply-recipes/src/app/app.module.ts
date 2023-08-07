@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
@@ -38,7 +37,6 @@ export function tokenGetter() {
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    NgbModule,
     FontAwesomeModule,
     NgxScrollTopModule,
     AgmCoreModule.forRoot({

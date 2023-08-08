@@ -9,7 +9,14 @@ import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipesDetailsComponent } from './recipes-details/recipes-details.component';
 import { SubmitRecipeComponent } from './submit-recipe/submit-recipe.component';
 import { RecipesViewComponent } from './recipes-view/recipes-view.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -25,10 +32,24 @@ import { RecipesViewComponent } from './recipes-view/recipes-view.component';
     CommonModule,
     SharedModule,
     RecipesRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatSelectModule
   ],
   exports: [
     RecipesMenuComponent
+  ],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false, showError: true }
+    }
   ]
 })
 export class RecipesModule { }

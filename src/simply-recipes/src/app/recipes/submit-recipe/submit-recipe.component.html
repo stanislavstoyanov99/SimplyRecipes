@@ -1,1 +1,97 @@
-<p>submit-recipe works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="heading-title text-center">
+                <h2>Submit Recipe</h2>
+                <p>Fill all form fields to go to next step</p>
+            </div>
+        </div>
+    </div>
+</div>
+<form [formGroup]="formGroup">
+    <mat-stepper formArrayName="formArray" class="recipe-stepper" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
+        <mat-step formGroupName="0" [stepControl]="formArray.get([0])!" label="Main Info">
+            <div class="mt-3">
+              <mat-form-field [style.width.%]=35>
+                  <mat-label>Name</mat-label>
+                  <input matInput placeholder="Recipe name" formControlName="name" required>
+                  <mat-error *ngIf="mainFormGroup.get('name')!.hasError('required')">You must enter a name.</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="mt-3">
+              <mat-form-field [style.width.%]=35>
+                  <mat-label>Description</mat-label>
+                  <textarea matInput placeholder="Recipe description" formControlName="description" required></textarea>
+                  <mat-error *ngIf="mainFormGroup.get('description')!.hasError('required')">You must enter a description.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mt-3">
+              <mat-form-field [style.width.%]=35>
+                  <mat-label>Ingredients</mat-label>
+                  <textarea matInput placeholder="Recipe ingredients" formControlName="ingredients" required></textarea>
+                  <mat-error *ngIf="mainFormGroup.get('ingredients')!.hasError('required')">You must enter ingredients.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mt-3">
+              <mat-form-field [style.width.%]=25>
+                  <mat-label>Preparation Time</mat-label>
+                  <input matInput formControlName="preparationTime">
+                  <mat-hint>How long will it take to prepare the recipe ?</mat-hint>
+                  <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
+              </mat-form-field>
+            </div>
+            <div class="mt-3">
+              <mat-form-field [style.width.%]=25>
+                  <mat-label>Cooking Time</mat-label>
+                  <input matInput formControlName="cookingTime">
+                  <mat-hint>How many minutes you are going to cook ?</mat-hint>
+                  <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
+              </mat-form-field>
+            </div>
+            <div class="mt-3">
+              <mat-form-field [style.width.%]=25>
+                  <mat-label>Portions Number</mat-label>
+                  <input matInput formControlName="portionsNumber">
+                  <mat-hint>How many portions you are going to make ?</mat-hint>
+                  <span matSuffix><mat-icon>restaurant</mat-icon>&nbsp;portions</span>
+              </mat-form-field>
+            </div>
+            <div class="mt-3">
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+        </mat-step>
+        <mat-step formGroupName="1" [stepControl]="formArray.get([1])!" label="Extra Info">
+            <div class="mt-3 mb-3">
+                <mat-form-field>
+                    <mat-label>Difficulty</mat-label>
+                    <mat-select formControlName="difficulty" required>
+                        <mat-option>Select Difficulty</mat-option>
+                      <mat-option *ngFor="let difficulty of difficulties" [value]="difficulty">{{difficulty}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="extraFormGroup.get('difficulty')!.hasError('required')">Please select difficulty.</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mt-3 mb-3">
+                <mat-form-field>
+                    <mat-label>Category</mat-label>
+                    <mat-select formControlName="category" required>
+                        <mat-option>Select Category</mat-option>
+                      <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="extraFormGroup.get('category')!.hasError('required')">Please select category.</mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+            </div>
+        </mat-step>
+        <mat-step>
+          <ng-template matStepLabel>Confirmation</ng-template>
+          <p>You Have Successfully Created Recipe!</p>
+          <div>
+            <button mat-button matStepperPrevious type="button">Back</button>
+          </div>
+        </mat-step>
+    </mat-stepper>
+</form>

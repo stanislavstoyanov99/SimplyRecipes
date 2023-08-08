@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { IRecipeList } from '../shared/interfaces/recipes/recipe-list';
 import { IRecipeDetails } from '../shared/interfaces/recipes/recipe-details';
 import { IRecipeListing } from '../shared/interfaces/recipes/recipe-listing';
+import { ICategoryList } from '../shared/interfaces/categories/category-list';
 
 const apiURL = environment.apiURL;
 
@@ -25,5 +26,9 @@ export class RecipesService {
 
   getRecipesByCategoryName(categoryName: string): Observable<IRecipeListing[]> {
     return this.httpClient.get<IRecipeListing[]>(`${apiURL}/recipes/by-category?categoryName=${categoryName}`);
+  }
+
+  getRecipesCategories(): Observable<ICategoryList[]> {
+    return this.httpClient.get<ICategoryList[]>(`${apiURL}/recipes/submit`);
   }
 }

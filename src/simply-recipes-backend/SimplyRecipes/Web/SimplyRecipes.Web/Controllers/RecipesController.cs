@@ -75,12 +75,7 @@
             var categories = await this.categoriesService
                 .GetAllCategoriesAsync<CategoryDetailsViewModel>();
 
-            var responseModel = new RecipeCreateInputModel
-            {
-                Categories = categories,
-            };
-
-            return this.Ok(responseModel);
+            return this.Ok(categories);
         }
 
         [Authorize]

@@ -1,4 +1,8 @@
 export interface LoginResponse {
-    isAuthSuccessful: boolean;
+    userId: string;
+    email: string;
+    username: string;
+    isAdmin: boolean;
     token: string;
+    isAuthSuccessful: boolean;
 }

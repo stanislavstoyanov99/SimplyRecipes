@@ -7,6 +7,7 @@ import { RegisterRequestModel } from '../auth/models/registerRequest.model';
 import { RegisterResponse } from '../auth/interfaces/registerResponse';
 import { LoginRequestModel } from '../auth/models/loginRequest.model';
 import { LoginResponse } from '../auth/interfaces/loginResponse';
+import { IUser } from '../shared/interfaces/user';
 
 const apiURL = environment.apiURL;
 
@@ -29,6 +30,14 @@ export class AuthService {
     return false;
   }
 
+  public getUser = (): IUser | null => {
+    const user = localStorage.getItem('user');
+    if (user === null) {
+      return null;
+    }
+    return JSON.parse(user);
+  }
+
   public sendAuthStateChangeNotification = (isAuthenticated: boolean) => {
     this.authChangeSub$$.next(isAuthenticated);
   }
@@ -43,6 +52,7 @@ export class AuthService {
 
   public logout() {
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
     this.sendAuthStateChangeNotification(false);
   }
 }

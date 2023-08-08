@@ -60,8 +60,14 @@
 
             if (result.Succeeded)
             {
+                var isAdmin = await this.userManager.IsInRoleAsync(user, appConfig.Value.AdministratorRoleName);
+
                 return new LoginResponseModel
                 {
+                    UserId = user.Id,
+                    Email = user.Email,
+                    Username = user.UserName,
+                    IsAdmin = isAdmin,
                     IsAuthSuccessful = result.Succeeded,
                     Token = token,
                 };

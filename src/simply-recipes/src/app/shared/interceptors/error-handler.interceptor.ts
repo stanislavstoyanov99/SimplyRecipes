@@ -29,7 +29,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     else if (error.status === HttpStatusCode.Unauthorized) {
       return this.handleUnauthorized(error);
     }
-    return '';
+    return error.message;
   }
 
   private handleNotFound = (error: HttpErrorResponse): string => {

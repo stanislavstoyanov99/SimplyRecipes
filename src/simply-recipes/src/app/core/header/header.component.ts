@@ -15,6 +15,8 @@ export class HeaderComponent implements OnInit {
 
   isMenuCollapsed = true;
   public isUserAuthenticated: boolean = false;
+  public isUserAdmin: boolean | undefined = false;
+  public username: string | undefined;
   
   constructor(
     private authService: AuthService,
@@ -29,6 +31,9 @@ export class HeaderComponent implements OnInit {
       .subscribe({
         next: (value) => {
           this.isUserAuthenticated = value;
+          const user = this.authService.getUser();
+          this.username = user?.username;
+          this.isUserAdmin = user?.isAdmin;
         },
         error: (err) => {
           this.dialog.open(ErrorDialogComponent, {

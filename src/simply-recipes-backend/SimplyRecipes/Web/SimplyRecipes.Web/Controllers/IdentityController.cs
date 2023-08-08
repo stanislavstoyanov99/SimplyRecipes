@@ -63,13 +63,8 @@
                 }
 
                 var result = await this.identityService.LoginAsync(model);
-                var response = new LoginResponseModel
-                {
-                    IsAuthSuccessful = result.IsAuthSuccessful,
-                    Token = result.Token
-                };
 
-                return Ok(response);
+                return Ok(result);
             }
             catch (NullReferenceException nre)
             {

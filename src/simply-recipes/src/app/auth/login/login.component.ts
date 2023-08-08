@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRequestModel } from '../models/loginRequest.model';
+import { IUser } from 'src/app/shared/interfaces/user';
 
 @Component({
   selector: 'app-login',
@@ -37,6 +38,14 @@ export class LoginComponent implements OnInit {
         next: (response) => 
         {
           localStorage.setItem("token", response.token);
+          const user: IUser = {
+            id: response.userId,
+            email: response.email,
+            username: response.username,
+            isAdmin: response.isAdmin
+          };
+          
+          localStorage.setItem("user", JSON.stringify(user));
           this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
           this.router.navigate([this.returnUrl]);
         },

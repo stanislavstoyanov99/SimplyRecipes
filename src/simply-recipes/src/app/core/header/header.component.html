@@ -42,7 +42,7 @@
                         <div ngbDropdown>
                             <div class="dropdown ps-2">
                                 <button type="button" class="btn dropdown-toggle" id="profile-dropdown-menu-button" aria-expanded="false" ngbDropdownToggle>
-                                    <fa-icon [icon]="['fas', 'user']"></fa-icon> TEST
+                                    <fa-icon [icon]="['fas', 'user']"></fa-icon> {{username}}
                                 </button>
                             </div>
                             <ul ngbDropdownMenu aria-labelledby="profile-dropdown-menu-button">
@@ -55,6 +55,11 @@
                                 <li class="nav-item ps-2 pe-2">
                                     <a ngbDropdownItem href class="nav-link" routerLink="/identity/manage-profile">Manage Profile</a>
                                 </li>
+                                <ng-container *ngIf="isUserAdmin">
+                                    <li class="nav-item ps-2 pe-2">
+                                        <a ngbDropdownItem href class="nav-link" routerLink="/identity/administration/dashboard">Admin Dashboard</a>
+                                    </li>
+                                </ng-container>
                                 <li class="nav-item ps-2 pe-2" *ngIf="isUserAuthenticated">
                                     <a ngbDropdownItem href class="nav-link" (click)="isMenuCollapsed = true; logout();">Logout</a>
                                 </li> 

@@ -7,6 +7,7 @@ import { faStar, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Difficulty } from 'src/app/shared/enums/difficulty';
 
 @Component({
   selector: 'app-recipes-list',
@@ -19,6 +20,7 @@ export class RecipesListComponent implements OnInit {
     recipes: [],
     categories: []
   };
+  Difficulty = Difficulty;
   
   constructor(
     public loadingService: LoadingService,

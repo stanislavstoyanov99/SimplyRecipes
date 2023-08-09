@@ -8,50 +8,62 @@
         </div>
     </div>
 </div>
-<form [formGroup]="formGroup">
+<form [formGroup]="formGroup" (ngSubmit)="submitRecipeHandler(formGroup)">
     <mat-stepper formArrayName="formArray" class="recipe-stepper" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
         <mat-step formGroupName="0" [stepControl]="formArray.get([0])!" label="Main Info">
             <div class="mt-3">
-              <mat-form-field [style.width.%]=35>
+              <mat-form-field [style.width.%]=40>
                   <mat-label>Name</mat-label>
                   <input matInput placeholder="Recipe name" formControlName="name" required>
                   <mat-error *ngIf="mainFormGroup.get('name')!.hasError('required')">You must enter a name.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('name')!.hasError('maxlength')">Name should be less than 30 symbols.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('name')!.hasError('minlength')">Name should be bigger than 3 symbols.</mat-error>
               </mat-form-field>
             </div>
             <div class="mt-3">
-              <mat-form-field [style.width.%]=35>
+              <mat-form-field [style.width.%]=40>
                   <mat-label>Description</mat-label>
                   <textarea matInput placeholder="Recipe description" formControlName="description" required></textarea>
                   <mat-error *ngIf="mainFormGroup.get('description')!.hasError('required')">You must enter a description.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('description')!.hasError('maxlength')">Description should be less than 20000 symbols.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('description')!.hasError('minlength')">Description should be bigger than 50 symbols.</mat-error>
                 </mat-form-field>
             </div>
             <div class="mt-3">
-              <mat-form-field [style.width.%]=35>
+              <mat-form-field [style.width.%]=40>
                   <mat-label>Ingredients</mat-label>
                   <textarea matInput placeholder="Recipe ingredients" formControlName="ingredients" required></textarea>
                   <mat-error *ngIf="mainFormGroup.get('ingredients')!.hasError('required')">You must enter ingredients.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('ingredients')!.hasError('maxlength')">Ingredients should be less than 20000 symbols.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('ingredients')!.hasError('minlength')">Ingredients should be bigger than 10 symbols.</mat-error>
                 </mat-form-field>
             </div>
             <div class="mt-3">
-              <mat-form-field [style.width.%]=25>
+              <mat-form-field [style.width.%]=30>
                   <mat-label>Preparation Time</mat-label>
-                  <input matInput formControlName="preparationTime">
+                  <input matInput formControlName="preparationTime" type="number">
+                  <mat-error *ngIf="mainFormGroup.get('preparationTime')!.hasError('max')">Preparation time should be less than 180 minutes.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('preparationTime')!.hasError('min')">Preparation time should be bigger than 0 minutes.</mat-error>
                   <mat-hint>How long will it take to prepare the recipe ?</mat-hint>
                   <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
               </mat-form-field>
             </div>
             <div class="mt-3">
-              <mat-form-field [style.width.%]=25>
+              <mat-form-field [style.width.%]=30>
                   <mat-label>Cooking Time</mat-label>
-                  <input matInput formControlName="cookingTime">
+                  <input matInput formControlName="cookingTime" type="number">
+                  <mat-error *ngIf="mainFormGroup.get('cookingTime')!.hasError('max')">Cooking time should be less than 180 minutes.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('cookingTime')!.hasError('min')">Cooking time should be bigger than 0 minutes.</mat-error>
                   <mat-hint>How many minutes you are going to cook ?</mat-hint>
                   <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
               </mat-form-field>
             </div>
             <div class="mt-3">
-              <mat-form-field [style.width.%]=25>
+              <mat-form-field [style.width.%]=30>
                   <mat-label>Portions Number</mat-label>
-                  <input matInput formControlName="portionsNumber">
+                  <input matInput formControlName="portionsNumber" type="number">
+                  <mat-error *ngIf="mainFormGroup.get('portionsNumber')!.hasError('max')">Portions number should be less than 12.</mat-error>
+                  <mat-error *ngIf="mainFormGroup.get('portionsNumber')!.hasError('min')">Portions number should be bigger than 0.</mat-error>
                   <mat-hint>How many portions you are going to make ?</mat-hint>
                   <span matSuffix><mat-icon>restaurant</mat-icon>&nbsp;portions</span>
               </mat-form-field>
@@ -76,14 +88,14 @@
                     <mat-label>Category</mat-label>
                     <mat-select formControlName="category" required>
                         <mat-option>Select Category</mat-option>
-                      <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+                      <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="extraFormGroup.get('category')!.hasError('required')">Please select category.</mat-error>
                 </mat-form-field>
             </div>
             <div>
               <button mat-button matStepperPrevious type="button">Back</button>
-              <button mat-button matStepperNext type="button">Next</button>
+              <button mat-button matStepperNext type="submit">Next</button>
             </div>
         </mat-step>
         <mat-step>

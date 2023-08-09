@@ -15,20 +15,20 @@
                         <div class="col-auto recipeProperty">
                             Difficulty:<br>
                             <ng-container *ngIf="recipe?.difficulty === 2">
-                                <strong style="color:green">{{recipe?.difficulty}}</strong>
+                                <strong style="color:green">{{(Difficulty[recipe?.difficulty!])}}</strong>
                             </ng-container>
                             <ng-container *ngIf="recipe?.difficulty === 1">
-                                <strong style="color:orange">{{recipe?.difficulty}}</strong>
+                                <strong style="color:orange">{{(Difficulty[recipe?.difficulty!])}}</strong>
                             </ng-container>
                             <ng-container *ngIf="recipe?.difficulty === 0">
-                                <strong style="color:darkred">{{recipe?.difficulty}}</strong>
+                                <strong style="color:darkred">{{(Difficulty[recipe?.difficulty!])}}</strong>
                             </ng-container>
                         </div>
                         <div class="col-auto recipeProperty">
                             Preperation time:<br> <fa-icon [icon]="['fas', 'clock']"></fa-icon> {{recipe?.preparationTime}} mins
                         </div>
                         <div class="col-auto recipeProperty">
-                            Portions Number:<br> {{recipe?.portionsNumber}} <fa-icon [icon]="['fas', 'utensils']"></fa-icon>
+                            Portions Number:<br> <fa-icon [icon]="['fas', 'utensils']"></fa-icon> {{recipe?.portionsNumber}}
                         </div>
                         <div class="col-auto recipeProperty">
                             Cooking Time:<br> <fa-icon [icon]="['fas', 'clock']"></fa-icon> {{recipe?.cookingTime}} mins

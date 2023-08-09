@@ -84,19 +84,8 @@
         {
             var user = await this.userManager.GetUserAsync(this.User);
 
-            if (!this.ModelState.IsValid)
-            {
-                var categories = await this.categoriesService
-                  .GetAllCategoriesAsync<CategoryDetailsViewModel>();
-
-                recipeCreateInputModel.Categories = categories;
-
-                return this.Ok(recipeCreateInputModel);
-            }
-
             var recipe = await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
-            return this.Ok();
-            //return this.RedirectToAction("Details", "Recipes", new { id = recipe.Id });
+            return this.Ok(recipe);
         }
 
         [Authorize]

@@ -5,6 +5,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faStar, faCalendarAlt, faUser, faClock, faUtensils } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { Difficulty } from 'src/app/shared/enums/difficulty';
 
 @Component({
   selector: 'app-recipes-details',
@@ -15,6 +16,7 @@ export class RecipesDetailsComponent implements OnInit {
 
   recipe: IRecipeDetails | null = null;
   isReviewAlreadyMade!: boolean;
+  Difficulty = Difficulty;
 
   constructor(
     private activatedRoute: ActivatedRoute,

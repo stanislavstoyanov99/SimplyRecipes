@@ -56,6 +56,7 @@
                 Ingredients = recipeCreateInputModel.Ingredients,
                 PreparationTime = recipeCreateInputModel.PreparationTime,
                 CookingTime = recipeCreateInputModel.CookingTime,
+                PortionsNumber = recipeCreateInputModel.PortionsNumber,
                 Difficulty = difficulty,
             };
 
@@ -69,7 +70,7 @@
                     string.Format(ExceptionMessages.RecipeAlreadyExists, recipe.Name));
             }
 
-            recipe.ImagePath = "";
+            recipe.ImagePath = "https://res.cloudinary.com/healthyfoodcloud/image/upload/v1682536321/Spaggeti%20Bolonezze_Article.jpg";
 
             await this.recipesRepository.AddAsync(recipe);
             await this.recipesRepository.SaveChangesAsync();

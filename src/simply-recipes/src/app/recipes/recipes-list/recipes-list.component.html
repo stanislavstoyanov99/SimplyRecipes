@@ -28,7 +28,7 @@
                                     <p *ngIf="recipe.rate !== 0">
                                         <fa-icon *ngFor="let rate of rate(recipe.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
                                     </p>
-                                    <h5><fa-icon [icon]="['fas', 'tachometer-alt']"></fa-icon> {{recipe.difficulty}}</h5>
+                                    <h5><fa-icon [icon]="['fas', 'tachometer-alt']"></fa-icon> {{(Difficulty[recipe.difficulty])}}</h5>
                                     <h5><fa-icon [icon]="['far', 'list-alt']"></fa-icon> {{recipe.category.name}}</h5>
                                 </div>
                             </div>

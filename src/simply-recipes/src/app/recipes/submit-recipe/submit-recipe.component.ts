@@ -7,6 +7,9 @@ import { RecipesService } from 'src/app/services/recipes.service';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ICategoryList } from 'src/app/shared/interfaces/categories/category-list';
+import { Router } from '@angular/router';
+import { IRecipeCreate } from 'src/app/shared/interfaces/recipes/recipe-create';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-submit-recipe',
@@ -29,7 +32,8 @@ export class SubmitRecipeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private breakpointObserver: BreakpointObserver,
     private recipesService: RecipesService,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private router: Router) {
     this.stepperOrientation = this.breakpointObserver
       .observe('(min-width: 800px)')
       .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
@@ -37,12 +41,12 @@ export class SubmitRecipeComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       formArray: this.formBuilder.array([
         this.formBuilder.group({
-          name: ['', Validators.required],
-          description: ['', Validators.required],
-          ingredients: ['', Validators.required],
-          preparationTime: [0],
-          cookingTime: [0],
-          portionsNumber: [0]
+          name: ['', [Validators.required, Validators.maxLength(30), Validators.minLength(3)]],
+          description: ['', [Validators.required, Validators.maxLength(20000), Validators.minLength(50)]],
+          ingredients: ['', [Validators.required, Validators.maxLength(20000), Validators.minLength(10)]],
+          preparationTime: [0, [Validators.max(180), Validators.min(0)]],
+          cookingTime: [0, [Validators.max(180), Validators.min(0)]],
+          portionsNumber: [0, [Validators.max(12), Validators.min(0)]]
         }),
         this.formBuilder.group({
           difficulty: [null, Validators.required],
@@ -67,4 +71,33 @@ export class SubmitRecipeComponent implements OnInit {
     });
   }
 
+  submitRecipeHandler(formGroup: FormGroup): void {
+    if (formGroup.invalid) { return; }
+    const { cookingTime, description, ingredients, name, portionsNumber, preparationTime } = formGroup.value['formArray'][0];
+    const { category, difficulty } = formGroup.value['formArray'][1];
+    const recipeCreateInputModel: IRecipeCreate = {
+      name: name,
+      description: description,
+      ingredients: ingredients,
+      preparationTime: preparationTime,
+      cookingTime: cookingTime,
+      portionsNumber: portionsNumber,
+      difficulty: difficulty,
+      categoryId: category,
+      imagePath: ''
+    };
+
+    this.recipesService.submitRecipe(recipeCreateInputModel).subscribe({
+      next: (recipe) => {
+        this.router.navigate([`/recipes/details/${recipe.id}`]);
+      },
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
+      }
+    });
+  }
 }

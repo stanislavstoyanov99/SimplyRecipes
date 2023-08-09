@@ -1,11 +1,9 @@
 ﻿namespace SimplyRecipes.Models.InputModels.Administration.Recipes
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using SimplyRecipes.Data.Models;
-    using SimplyRecipes.Models.ViewModels.Categories;
 
     using Microsoft.AspNetCore.Http;
 
@@ -43,14 +41,12 @@
 
         public string ImagePath { get; set; }
 
-        [Required(ErrorMessage = EmptyFieldLengthError)]
-        [DataType(DataType.Upload)]
-        public IFormFile Image { get; set; }
+        //[Required(ErrorMessage = EmptyFieldLengthError)]
+        //[DataType(DataType.Upload)]
+        //public IFormFile Image { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
         [Display(Name = nameof(Category))]
         public int CategoryId { get; set; }
-
-        public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }
     }
 }

@@ -1,0 +1,27 @@
+.recipe-card {
+    display: inline-block;
+    max-width: 350px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+    margin-top: 20px;
+}
+
+.mat-card-container {
+    width: 100%;
+    text-align:center;
+}
+
+.heading-title {
+    padding-top: 120px;
+}
+
+.heading-title h2 {
+    color: #540404;
+    font-size: 25px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+}
+
+.star {
+    color: yellow;
+}

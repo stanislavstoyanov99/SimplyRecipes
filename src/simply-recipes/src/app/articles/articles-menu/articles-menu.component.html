@@ -3,12 +3,12 @@
         <div class="col-lg-12">
             <div class="heading-title text-center">
                 <h2 style="color:white">Articles</h2>
-                <p>If you are not hungry, feel free to browse our article section</p>
+                <p class="mb-3">If you are not hungry, feel free to browse our article section</p>
             </div>
         </div>
-        <div class="row d-flex h-100 ms-auto me-auto articles-list">
+        <div class="row d-flex h-100 ms-auto me-auto">
             <ng-container *ngIf="loadingService.isLoading$ | async">
-                <ngx-spinner [fullScreen]="false" color="#fff" size="medium"></ngx-spinner>
+                <ngx-spinner [fullScreen]="false" color="#fff" size="medium" class="articles-list"></ngx-spinner>
             </ng-container>
             <div class="col-12 col-md-4" *ngFor="let article of recentArticles">
                 <div class="blog-box-inner">

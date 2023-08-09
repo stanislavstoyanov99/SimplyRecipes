@@ -211,13 +211,13 @@
 
         public async Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(string userId)
         {
-            var recipe = await this.recipesRepository
+            var recipes = await this.recipesRepository
                 .All()
                 .Where(r => r.UserId == userId)
                 .To<TViewModel>()
                 .ToListAsync();
 
-            return recipe;
+            return recipes;
         }
     }
 }

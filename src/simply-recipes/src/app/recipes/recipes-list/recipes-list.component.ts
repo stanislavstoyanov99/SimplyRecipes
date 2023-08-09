@@ -8,6 +8,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Difficulty } from 'src/app/shared/enums/difficulty';
+import { rate } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-recipes-list',
@@ -21,6 +22,7 @@ export class RecipesListComponent implements OnInit {
     categories: []
   };
   Difficulty = Difficulty;
+  rate = rate;
   
   constructor(
     public loadingService: LoadingService,
@@ -32,10 +34,6 @@ export class RecipesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getRecipesList();
-  }
-
-  rate(i: number): Array<number> {
-    return new Array(i);
   }
 
   onCategoryClickHandler(categoryName: string): void {

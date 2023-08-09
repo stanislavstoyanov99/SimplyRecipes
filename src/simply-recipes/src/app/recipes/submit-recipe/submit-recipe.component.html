@@ -9,7 +9,7 @@
     </div>
 </div>
 <form [formGroup]="formGroup" (ngSubmit)="submitRecipeHandler(formGroup)">
-    <mat-stepper formArrayName="formArray" class="recipe-stepper" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
+    <mat-stepper formArrayName="formArray" class="recipe-stepper" [linear]="true" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
         <mat-step formGroupName="0" [stepControl]="formArray.get([0])!" label="Main Info">
             <div class="mt-3">
               <mat-form-field [style.width.%]=40>
@@ -38,7 +38,7 @@
                   <mat-error *ngIf="mainFormGroup.get('ingredients')!.hasError('minlength')">Ingredients should be bigger than 10 symbols.</mat-error>
                 </mat-form-field>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 mb-5">
               <mat-form-field [style.width.%]=30>
                   <mat-label>Preparation Time</mat-label>
                   <input matInput formControlName="preparationTime" type="number">
@@ -48,7 +48,7 @@
                   <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
               </mat-form-field>
             </div>
-            <div class="mt-3">
+            <div class="mt-5 mb-5">
               <mat-form-field [style.width.%]=30>
                   <mat-label>Cooking Time</mat-label>
                   <input matInput formControlName="cookingTime" type="number">
@@ -58,7 +58,7 @@
                   <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
               </mat-form-field>
             </div>
-            <div class="mt-3">
+            <div class="mt-5">
               <mat-form-field [style.width.%]=30>
                   <mat-label>Portions Number</mat-label>
                   <input matInput formControlName="portionsNumber" type="number">
@@ -100,10 +100,7 @@
         </mat-step>
         <mat-step>
           <ng-template matStepLabel>Confirmation</ng-template>
-          <p>You Have Successfully Created Recipe!</p>
-          <div>
-            <button mat-button matStepperPrevious type="button">Back</button>
-          </div>
+          <p *ngIf="isSuccessfullyCreated">You Have Successfully Created Recipe!</p>
         </mat-step>
     </mat-stepper>
 </form>

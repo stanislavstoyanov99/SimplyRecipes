@@ -6,6 +6,7 @@ export interface IRecipeDetails {
     id: number;
     name: string;
     sanitizedDescription: string;
+    sanitizedShortDescription: string;
     sanitizedIngredients: string;
     preparationTime: number;
     cookingTime: number;

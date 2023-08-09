@@ -41,7 +41,7 @@ const routes: Routes = [
     path: 'view',
     component: RecipesViewComponent,
     data: {
-      title: 'View Own Recipe'
+      title: 'View Own Recipes'
     }
   },
 ];

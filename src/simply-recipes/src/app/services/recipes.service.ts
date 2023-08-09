@@ -36,4 +36,12 @@ export class RecipesService {
   submitRecipe(recipeCreateInputModel: IRecipeCreate): Observable<IRecipeDetails> {
     return this.httpClient.post<IRecipeDetails>(`${apiURL}/recipes/submit`, recipeCreateInputModel);
   }
+
+  getUserRecipes(): Observable<IRecipeDetails[]> {
+    return this.httpClient.get<IRecipeDetails[]>(`${apiURL}/recipes/user-recipes`);
+  }
+
+  removeRecipe(recipeId: number): Observable<any> {
+    return this.httpClient.delete(`${apiURL}/recipes/remove/${recipeId}`);
+  }
 }

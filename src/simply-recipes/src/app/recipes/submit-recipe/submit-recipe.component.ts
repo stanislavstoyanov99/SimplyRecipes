@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ICategoryList } from 'src/app/shared/interfaces/categories/category-list';
 import { Router } from '@angular/router';
 import { IRecipeCreate } from 'src/app/shared/interfaces/recipes/recipe-create';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-submit-recipe',
@@ -23,6 +22,7 @@ export class SubmitRecipeComponent implements OnInit {
 
   formGroup: FormGroup;
   stepperOrientation: Observable<StepperOrientation>;
+  isSuccessfullyCreated: boolean = false;
 
   get formArray(): AbstractControl { return this.formGroup.get('formArray')!; }
   get mainFormGroup(): AbstractControl { return this.formArray.get([0])!; }
@@ -73,6 +73,7 @@ export class SubmitRecipeComponent implements OnInit {
 
   submitRecipeHandler(formGroup: FormGroup): void {
     if (formGroup.invalid) { return; }
+
     const { cookingTime, description, ingredients, name, portionsNumber, preparationTime } = formGroup.value['formArray'][0];
     const { category, difficulty } = formGroup.value['formArray'][1];
     const recipeCreateInputModel: IRecipeCreate = {
@@ -89,7 +90,10 @@ export class SubmitRecipeComponent implements OnInit {
 
     this.recipesService.submitRecipe(recipeCreateInputModel).subscribe({
       next: (recipe) => {
-        this.router.navigate([`/recipes/details/${recipe.id}`]);
+        this.isSuccessfullyCreated = true;
+        setTimeout(() => {
+          this.router.navigate([`/recipes/details/${recipe.id}`]);
+        }, 3000);
       },
       error: (err: string) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -97,6 +101,7 @@ export class SubmitRecipeComponent implements OnInit {
             message: err
           }
         });
+        this.router.navigate(['/']);
       }
     });
   }

@@ -7,6 +7,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { rate } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-recipes-menu',
@@ -16,6 +17,7 @@ import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.c
 export class RecipesMenuComponent implements OnInit {
 
   topRecipes: IRecipeListing[] | null = null;
+  rate = rate;
 
   constructor(
     public loadingService: LoadingService,
@@ -38,9 +40,5 @@ export class RecipesMenuComponent implements OnInit {
         });
       }
     });
-  }
-
-  rate(i: number): Array<number> {
-    return new Array(i);
   }
 }

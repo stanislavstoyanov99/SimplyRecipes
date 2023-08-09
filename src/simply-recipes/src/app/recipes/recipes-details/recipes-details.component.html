@@ -7,7 +7,12 @@
                         <h1><span>{{recipe?.name}}</span></h1>
                         <p>
                             Author: {{recipe?.userUsername}} | Category: {{recipe?.category?.name}} | Rating:
-                            <fa-icon *ngFor="let rate of rate(recipe?.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
+                            <ng-container *ngIf="recipe?.rate! > 0">
+                                ({{recipe?.rate}}) <fa-icon *ngFor="let rate of rate(recipe?.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
+                            </ng-container>
+                            <ng-container *ngIf="recipe?.rate! === 0">
+                                <fa-icon [icon]="['fas', 'face-frown']"></fa-icon> No rate yet!
+                            </ng-container>
                         </p>
                     </div>
                     <div class="flex-grow-1 recipeText" [innerHTML]="recipe?.sanitizedDescription"></div>
@@ -56,7 +61,7 @@
                                 <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon> {{review.createdOn | date:'short'}}
                             </span><br>
                             <span>Rate:
-                                <fa-icon *ngFor="let rate of rate(review.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
+                                ({{review.rate}}) <fa-icon *ngFor="let rate of rate(review.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
                             </span>
                         </div>
                         <div class="review-body">

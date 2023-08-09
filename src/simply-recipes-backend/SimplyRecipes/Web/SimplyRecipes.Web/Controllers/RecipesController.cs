@@ -55,9 +55,7 @@
         [HttpGet("list")]
         public async Task<ActionResult> List()
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
-            var recipes = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user.Id);
+            var recipes = await this.recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
             var categories = await this.categoriesService.GetAllCategoriesAsync<CategoryDetailsViewModel>();
 
             var responseModel = new RecipeListViewModel
@@ -67,6 +65,15 @@
             };
 
             return this.Ok(responseModel);
+        }
+
+        [HttpGet("user-recipes")]
+        public async Task<ActionResult> UserRecipes()
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+            var recipes = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user.Id);
+
+            return this.Ok(recipes);
         }
 
         [HttpGet("submit")]
@@ -89,13 +96,12 @@
         }
 
         [Authorize]
-        [HttpPost("remove")]
-        public async Task<IActionResult> Remove([FromBody] int id)
+        [HttpDelete("remove/{id}")]
+        public async Task<IActionResult> Remove(int id)
         {
             await this.recipesService.DeleteByIdAsync(id);
 
             return this.Ok();
-            //return this.RedirectToAction("RecipeList", "Recipes");
         }
 
         [Authorize]
@@ -109,7 +115,6 @@
 
             await this.recipesService.EditAsync(model.RecipeEditViewModel);
             return this.Ok();
-            //return this.RedirectToAction("RecipeList", "Recipes");
         }
 
         [HttpGet("recipe/{id}")]

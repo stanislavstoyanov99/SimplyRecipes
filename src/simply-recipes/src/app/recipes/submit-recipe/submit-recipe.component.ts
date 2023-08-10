@@ -8,7 +8,8 @@ import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.c
 import { MatDialog } from '@angular/material/dialog';
 import { ICategoryList } from 'src/app/shared/interfaces/categories/category-list';
 import { Router } from '@angular/router';
-import { IRecipeCreate } from 'src/app/shared/interfaces/recipes/recipe-create';
+import { FileTypeValidatorDirective } from 'src/app/shared/custom-validators/file-type-validator.directive';
+import { Difficulty } from 'src/app/shared/enums/difficulty';
 
 @Component({
   selector: 'app-submit-recipe',
@@ -17,7 +18,7 @@ import { IRecipeCreate } from 'src/app/shared/interfaces/recipes/recipe-create';
 })
 export class SubmitRecipeComponent implements OnInit {
 
-  difficulties: string[] = ['Difficult', 'Medium', 'Easy'];
+  difficulties: string[] = Object.keys(Difficulty).filter((key) => Number.isNaN(parseInt(key, 10)));
   categories: ICategoryList[] = [];
 
   formGroup: FormGroup;
@@ -27,6 +28,9 @@ export class SubmitRecipeComponent implements OnInit {
   get formArray(): AbstractControl { return this.formGroup.get('formArray')!; }
   get mainFormGroup(): AbstractControl { return this.formArray.get([0])!; }
   get extraFormGroup(): AbstractControl { return this.formArray.get([1])!; }
+
+  imageName: string = '';
+  image!: File;
   
   constructor(
     private formBuilder: FormBuilder,
@@ -49,6 +53,8 @@ export class SubmitRecipeComponent implements OnInit {
           portionsNumber: [0, [Validators.max(12), Validators.min(0)]]
         }),
         this.formBuilder.group({
+          image: [null, [FileTypeValidatorDirective.validate]],
+          imageName: ['Choose Image'],
           difficulty: [null, Validators.required],
           category: [null, Validators.required]
         }),
@@ -76,17 +82,16 @@ export class SubmitRecipeComponent implements OnInit {
 
     const { cookingTime, description, ingredients, name, portionsNumber, preparationTime } = formGroup.value['formArray'][0];
     const { category, difficulty } = formGroup.value['formArray'][1];
-    const recipeCreateInputModel: IRecipeCreate = {
-      name: name,
-      description: description,
-      ingredients: ingredients,
-      preparationTime: preparationTime,
-      cookingTime: cookingTime,
-      portionsNumber: portionsNumber,
-      difficulty: difficulty,
-      categoryId: category,
-      imagePath: ''
-    };
+    const recipeCreateInputModel = new FormData();
+    recipeCreateInputModel.append('name', name);
+    recipeCreateInputModel.append('description', description);
+    recipeCreateInputModel.append('ingredients', ingredients);
+    recipeCreateInputModel.append('preparationTime', preparationTime);
+    recipeCreateInputModel.append('cookingTime', cookingTime);
+    recipeCreateInputModel.append('portionsNumber', portionsNumber);
+    recipeCreateInputModel.append('difficulty', difficulty);
+    recipeCreateInputModel.append('categoryId', category);
+    recipeCreateInputModel.append('image', this.image);
 
     this.recipesService.submitRecipe(recipeCreateInputModel).subscribe({
       next: (recipe) => {
@@ -104,5 +109,17 @@ export class SubmitRecipeComponent implements OnInit {
         this.router.navigate(['/']);
       }
     });
+  }
+
+  uploadImageHandler(imgFile: any): void {
+    if (imgFile.target.files && imgFile.target.files[0]) {
+      this.image = imgFile.target.files[0];
+      this.imageName = this.image.name;
+      this.extraFormGroup.patchValue({
+        imageName: this.imageName
+      });
+    } else {
+      this.imageName = 'Choose Image';
+    }
   }
 }

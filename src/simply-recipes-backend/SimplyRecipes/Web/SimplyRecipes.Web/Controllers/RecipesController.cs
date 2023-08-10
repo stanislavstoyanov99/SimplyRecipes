@@ -87,7 +87,7 @@
 
         [Authorize]
         [HttpPost("submit")]
-        public async Task<IActionResult> Submit([FromBody] RecipeCreateInputModel recipeCreateInputModel)
+        public async Task<IActionResult> Submit([FromForm] RecipeCreateInputModel recipeCreateInputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
 

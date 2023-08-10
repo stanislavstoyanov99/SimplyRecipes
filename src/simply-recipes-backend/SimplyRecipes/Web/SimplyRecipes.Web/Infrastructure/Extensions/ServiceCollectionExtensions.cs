@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -144,8 +145,18 @@
                .AddTransient<IRecipesService, RecipesService>()
                .AddTransient<IReviewsService, ReviewsService>()
                .AddTransient<ISimplyRecipesUsersService, SimplyRecipesUsersService>()
-               .AddTransient<IJwtService, JwtService>();
+               .AddTransient<IJwtService, JwtService>()
+               .AddTransient<ICloudinaryService, CloudinaryService>();
+
             services.AddMemoryCache();
+
+            var account = new Account(
+               configuration["Cloudinary:AppName"],
+               configuration["Cloudinary:AppKey"],
+               configuration["Cloudinary:AppSecret"]);
+            Cloudinary cloudinary = new Cloudinary(account);
+
+            services.AddSingleton(cloudinary);
 
             return services;
         }

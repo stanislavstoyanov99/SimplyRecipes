@@ -8,8 +8,8 @@
         </div>
     </div>
 </div>
-<form [formGroup]="formGroup" (ngSubmit)="submitRecipeHandler(formGroup)">
-    <mat-stepper formArrayName="formArray" class="recipe-stepper" [linear]="true" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
+<form [formGroup]="formGroup" (ngSubmit)="submitRecipeHandler(formGroup)" enctype="multipart/form-data">
+    <mat-stepper formArrayName="formArray" class="recipe-stepper" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
         <mat-step formGroupName="0" [stepControl]="formArray.get([0])!" label="Main Info">
             <div class="mt-3">
               <mat-form-field [style.width.%]=40>
@@ -73,6 +73,26 @@
             </div>
         </mat-step>
         <mat-step formGroupName="1" [stepControl]="formArray.get([1])!" label="Extra Info">
+          <div class="mt-3 mb-3">
+            <mat-form-field class="browse-file-field">
+              <div>
+                <mat-toolbar>
+                  <input matInput formControlName="imageName" readonly name="imageName" />
+                  <button mat-flat-button color="primary">Browse...</button>
+                </mat-toolbar>
+                <input
+                  required
+                  type="file"
+                  id="uploadFile"
+                  (change)="uploadImageHandler($event)"
+                  accept="image/*"
+                  formControlName="image"
+                />
+                <mat-error *ngIf="extraFormGroup.get('image')!.hasError('required')">Please select an image.</mat-error>
+                <mat-error *ngIf="extraFormGroup.get('image')!.hasError('notSupportedFileType')">Allowed image formats are only jpg/png/jpeg.</mat-error>
+              </div>
+            </mat-form-field>
+          </div>
             <div class="mt-3 mb-3">
                 <mat-form-field>
                     <mat-label>Difficulty</mat-label>

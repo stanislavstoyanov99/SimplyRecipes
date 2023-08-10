@@ -76,13 +76,15 @@
                     </div>
                 </ng-container>
             </div>
-            <div class="row review-action-buttons">
-                <button type="button" class="btn btn-SR" data-toggle="modal" data-target="#reviewsModal" *ngIf="!isReviewAlreadyMade">
-                    Create Review
-                </button>
-                <button type="button" class="btn btn-SR" data-toggle="modal" data-target="#existingReviewModal" *ngIf="isReviewAlreadyMade">
-                    You have already created review!
-                </button>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-SR float-end" data-toggle="modal" data-target="#reviewsModal" *ngIf="!isReviewAlreadyMade">
+                        Create Review
+                    </button>
+                    <button type="button" class="btn btn-SR float-end btn-block" data-toggle="modal" data-target="#existingReviewModal" *ngIf="isReviewAlreadyMade">
+                        You have already created review!
+                    </button>
+                </div>
             </div>
         </div>
     </div>

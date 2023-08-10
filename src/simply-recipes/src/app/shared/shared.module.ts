@@ -9,6 +9,7 @@ import { NgImageSliderModule } from 'ng-image-slider';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FileTypeValidatorDirective } from './custom-validators/file-type-validator.directive';
 
 
 
@@ -16,7 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
   declarations: [
     ContactsComponent,
     PasswordConfirmationValidatorDirective,
-    GalleryComponent
+    GalleryComponent,
+    FileTypeValidatorDirective
   ],
   imports: [
     CommonModule,

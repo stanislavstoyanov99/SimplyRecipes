@@ -6,7 +6,6 @@ import { IRecipeList } from '../shared/interfaces/recipes/recipe-list';
 import { IRecipeDetails } from '../shared/interfaces/recipes/recipe-details';
 import { IRecipeListing } from '../shared/interfaces/recipes/recipe-listing';
 import { ICategoryList } from '../shared/interfaces/categories/category-list';
-import { IRecipeCreate } from '../shared/interfaces/recipes/recipe-create';
 
 const apiURL = environment.apiURL;
 
@@ -33,7 +32,7 @@ export class RecipesService {
     return this.httpClient.get<ICategoryList[]>(`${apiURL}/recipes/submit`);
   }
 
-  submitRecipe(recipeCreateInputModel: IRecipeCreate): Observable<IRecipeDetails> {
+  submitRecipe(recipeCreateInputModel: FormData): Observable<IRecipeDetails> {
     return this.httpClient.post<IRecipeDetails>(`${apiURL}/recipes/submit`, recipeCreateInputModel);
   }
 

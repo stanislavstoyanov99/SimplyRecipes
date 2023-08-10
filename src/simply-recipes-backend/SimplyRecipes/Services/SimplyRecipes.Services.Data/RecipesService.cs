@@ -21,13 +21,16 @@
         private const string AllPaginationFilter = "All";
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
+        private readonly ICloudinaryService cloudinaryService;
 
         public RecipesService(
             IDeletableEntityRepository<Recipe> recipesRepository,
-            IDeletableEntityRepository<Category> categoriesRepository)
+            IDeletableEntityRepository<Category> categoriesRepository,
+            ICloudinaryService cloudinaryService)
         {
             this.recipesRepository = recipesRepository;
             this.categoriesRepository = categoriesRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<RecipeDetailsViewModel> CreateAsync(RecipeCreateInputModel recipeCreateInputModel, string userId)
@@ -70,7 +73,9 @@
                     string.Format(ExceptionMessages.RecipeAlreadyExists, recipe.Name));
             }
 
-            recipe.ImagePath = "https://res.cloudinary.com/healthyfoodcloud/image/upload/v1682536321/Spaggeti%20Bolonezze_Article.jpg";
+            var imageUrl = await this.cloudinaryService
+                .UploadAsync(recipeCreateInputModel.Image, recipeCreateInputModel.Name + Suffixes.RecipeSuffix);
+            recipe.ImagePath = imageUrl;
 
             await this.recipesRepository.AddAsync(recipe);
             await this.recipesRepository.SaveChangesAsync();

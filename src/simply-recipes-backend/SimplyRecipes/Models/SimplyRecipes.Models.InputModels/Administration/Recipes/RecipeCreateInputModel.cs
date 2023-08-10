@@ -41,9 +41,9 @@
 
         public string ImagePath { get; set; }
 
-        //[Required(ErrorMessage = EmptyFieldLengthError)]
-        //[DataType(DataType.Upload)]
-        //public IFormFile Image { get; set; }
+        [Required(ErrorMessage = EmptyFieldLengthError)]
+        [DataType(DataType.Upload)]
+        public IFormFile Image { get; set; }
 
         [Required(ErrorMessage = EmptyFieldLengthError)]
         [Display(Name = nameof(Category))]

@@ -1,18 +1,19 @@
 .recipe-card {
-    display: inline-block;
-    max-width: 350px;
     margin-bottom: 20px;
-    margin-right: 20px;
-    margin-top: 20px;
 }
 
 .mat-card-container {
+    display: grid;
     width: 100%;
-    text-align:center;
+    text-align: center;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    grid-auto-rows: auto;
+    grid-gap: 2rem;
 }
 
 .heading-title {
     padding-top: 120px;
+    margin-bottom: 20px;
 }
 
 .heading-title h2 {

@@ -3,7 +3,7 @@ import { FaqService } from '../services/faq.service';
 import { IFaq } from '../shared/interfaces/faq/faq';
 import { LoadingService } from '../services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-faq',

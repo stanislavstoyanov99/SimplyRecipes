@@ -4,7 +4,7 @@ import { IArticleListing } from 'src/app/shared/interfaces/articles/article-list
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCalendar, faUser, faComments } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-by-category',

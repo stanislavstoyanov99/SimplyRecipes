@@ -4,7 +4,7 @@ import { ArticlesService } from 'src/app/services/articles.service';
 import { IArticleListing } from 'src/app/shared/interfaces/articles/article-listing';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

@@ -4,7 +4,7 @@ import { HomeService } from 'src/app/services/home.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUser, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

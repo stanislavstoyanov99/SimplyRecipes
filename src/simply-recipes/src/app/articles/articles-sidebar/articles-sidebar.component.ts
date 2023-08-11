@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCalendar, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ArticlesService } from 'src/app/services/articles.service';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { IArticleSidebar } from 'src/app/shared/interfaces/articles/article-sidebar';
 
 @Component({

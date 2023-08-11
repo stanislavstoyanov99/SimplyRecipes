@@ -4,7 +4,7 @@ import { StepperOrientation } from '@angular/material/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RecipesService } from 'src/app/services/recipes.service';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ICategoryList } from 'src/app/shared/interfaces/categories/category-list';
 import { Router } from '@angular/router';

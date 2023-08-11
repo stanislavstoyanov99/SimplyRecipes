@@ -4,7 +4,7 @@ import { ArticlesService } from 'src/app/services/articles.service';
 import { IArticleListing } from 'src/app/shared/interfaces/articles/article-listing';
 import { faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({

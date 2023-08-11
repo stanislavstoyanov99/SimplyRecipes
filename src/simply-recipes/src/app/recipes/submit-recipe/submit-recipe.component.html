@@ -9,7 +9,7 @@
     </div>
 </div>
 <form [formGroup]="formGroup" (ngSubmit)="submitRecipeHandler(formGroup)" enctype="multipart/form-data">
-    <mat-stepper formArrayName="formArray" class="recipe-stepper" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
+    <mat-stepper formArrayName="formArray" class="recipe-stepper" [linear]="true" [orientation]="(stepperOrientation | async)!" [animationDuration]="'800'">
         <mat-step formGroupName="0" [stepControl]="formArray.get([0])!" label="Main Info">
             <div class="mt-3">
               <mat-form-field [style.width.%]=40>
@@ -85,11 +85,11 @@
                   type="file"
                   id="uploadFile"
                   (change)="uploadImageHandler($event)"
-                  accept="image/*"
+                  accept="image/jpg, image/jpeg, image/png"
                   formControlName="image"
                 />
                 <mat-error *ngIf="extraFormGroup.get('image')!.hasError('required')">Please select an image.</mat-error>
-                <mat-error *ngIf="extraFormGroup.get('image')!.hasError('notSupportedFileType')">Allowed image formats are only jpg/png/jpeg.</mat-error>
+                <mat-error *ngIf="extraFormGroup.get('image')!.hasError('notSupportedFileType')">Allowed image formats are only .jpg/.png/.jpeg.</mat-error>
               </div>
             </mat-form-field>
           </div>

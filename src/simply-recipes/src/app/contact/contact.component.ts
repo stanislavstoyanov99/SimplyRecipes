@@ -6,7 +6,7 @@ import { ReCaptchaV3Service } from 'ng-recaptcha';
 import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialog.component';
 
 
 @Component({

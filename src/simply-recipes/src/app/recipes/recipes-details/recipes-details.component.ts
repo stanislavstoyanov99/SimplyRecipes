@@ -4,7 +4,7 @@ import { IRecipeDetails } from 'src/app/shared/interfaces/recipes/recipe-details
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faStar, faCalendarAlt, faUser, faClock, faUtensils, faFaceFrown } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { Difficulty } from 'src/app/shared/enums/difficulty';
 import { rate } from 'src/app/shared/utils/utils';
 

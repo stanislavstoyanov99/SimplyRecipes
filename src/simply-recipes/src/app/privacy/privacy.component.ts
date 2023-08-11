@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../services/home.service';
 import { IPrivacy } from '../shared/interfaces/privacy/privacy';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-privacy',

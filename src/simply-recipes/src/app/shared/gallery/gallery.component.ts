@@ -3,7 +3,7 @@ import { IGallery } from 'src/app/shared/interfaces/gallery';
 import { HomeService } from 'src/app/services/home.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from '../dialogs/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-gallery',

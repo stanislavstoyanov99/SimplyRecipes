@@ -5,7 +5,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faListAlt } from '@fortawesome/free-regular-svg-icons';
 import { faStar, faTachometerAlt } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Difficulty } from 'src/app/shared/enums/difficulty';
 import { rate } from 'src/app/shared/utils/utils';

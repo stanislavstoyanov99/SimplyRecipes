@@ -4,7 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUtensils, faUser } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
-import { ErrorDialogComponent } from 'src/app/shared/error-dialog/error-dialog.component';
+import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 
 @Component({
   selector: 'app-header',

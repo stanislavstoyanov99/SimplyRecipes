@@ -50,7 +50,7 @@
                             <p [innerHTML]="article.sanitizedDescription"></p>
                         </div>
 
-                        <app-articles-comments></app-articles-comments>
+                        <app-articles-comments [articleComments]="article.articleComments" [articleId]="article.id"></app-articles-comments>
                     </div>
                 </div>
             </div>

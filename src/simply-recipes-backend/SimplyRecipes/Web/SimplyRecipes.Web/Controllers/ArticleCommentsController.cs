@@ -4,9 +4,8 @@
     using System.Threading.Tasks;
 
     using SimplyRecipes.Data.Models;
-    using SimplyRecipes.Models.ViewModels.Articles;
-    using SimplyRecipes.Models.ViewModels.Categories;
     using SimplyRecipes.Services.Data.Interfaces;
+    using SimplyRecipes.Models.ViewModels.ArticleComments;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -15,54 +14,25 @@
     public class ArticleCommentsController : ApiController
     {
         private readonly IArticleCommentsService articleCommentsService;
-        private readonly IArticlesService articlesService;
-        private readonly ICategoriesService categoriesService;
         private readonly UserManager<SimplyRecipesUser> userManager;
 
         public ArticleCommentsController(
             IArticleCommentsService articleCommentsService,
-            UserManager<SimplyRecipesUser> userManager,
-            IArticlesService articlesService,
-            ICategoriesService categoriesService)
+            UserManager<SimplyRecipesUser> userManager)
         {
             this.articleCommentsService = articleCommentsService;
             this.userManager = userManager;
-            this.articlesService = articlesService;
-            this.categoriesService = categoriesService;
         }
 
-        [HttpPost]
+        [HttpPost("comment")]
         [Authorize]
-        public async Task<ActionResult> Post([FromBody] DetailsListingViewModel viewModel)
+        public async Task<ActionResult> Comment([FromBody] CreateArticleCommentInputModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                var article = await this.articlesService
-                    .GetViewModelByIdAsync<ArticleListingViewModel>(viewModel.CreateArticleCommentInputModel.ArticleId);
-
-                var categories = await this.categoriesService
-                    .GetAllCategoriesAsync<CategoryListingViewModel>();
-
-                var recentArticles = await this.articlesService
-                    .GetRecentArticlesAsync<RecentArticleListingViewModel>(6);
-
-                var responseModel = new DetailsListingViewModel
-                {
-                    ArticleListing = article,
-                    Categories = categories,
-                    RecentArticles = recentArticles,
-                    CreateArticleCommentInputModel = viewModel.CreateArticleCommentInputModel,
-                };
-
-                return this.Ok(responseModel);
-            }
-
-            var parentId = viewModel.CreateArticleCommentInputModel.ParentId == 0 ?
-                    (int?)null : viewModel.CreateArticleCommentInputModel.ParentId;
+            var parentId = model.ParentId == 0 ? null : model.ParentId;
 
             if (parentId.HasValue)
             {
-                if (!await this.articleCommentsService.IsInArticleId(parentId.Value, viewModel.CreateArticleCommentInputModel.ArticleId))
+                if (!await this.articleCommentsService.IsInArticleId(parentId.Value, model.ArticleId))
                 {
                     return this.BadRequest();
                 }
@@ -72,19 +42,18 @@
 
             try
             {
-                await this.articleCommentsService.CreateAsync(
-                    viewModel.CreateArticleCommentInputModel.ArticleId,
+                var articleComment = await this.articleCommentsService.CreateAsync(
+                    model.ArticleId,
                     userId,
-                    viewModel.CreateArticleCommentInputModel.Content.Trim(),
+                    model.Content.Trim(),
                     parentId);
+
+                return this.Ok(articleComment);
             }
             catch (ArgumentException aex)
             {
                 return this.BadRequest(aex.Message);
             }
-
-            return this.Ok();
-            // return this.RedirectToAction("Details", "Articles", new { id = viewModel.CreateArticleCommentInputModel.ArticleId });
         }
     }
 }

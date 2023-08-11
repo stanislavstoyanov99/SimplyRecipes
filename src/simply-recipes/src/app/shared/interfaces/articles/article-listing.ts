@@ -1,3 +1,5 @@
+import { IArticleComment } from "../article-comments/article-comment";
+
 export interface IArticleListing {
     id: number;
     title: string;
@@ -9,5 +11,5 @@ export interface IArticleListing {
     userUsername: string;
     createdOn: Date;
     categoryName: string;
-    articleComments: []; // TODO: Add interface for this
+    articleComments: IArticleComment[];
 }

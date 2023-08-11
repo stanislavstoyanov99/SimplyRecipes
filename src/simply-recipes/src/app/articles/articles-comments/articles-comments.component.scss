@@ -19,6 +19,21 @@
     clear: both;
 }
 
+.comment-item {
+    margin-bottom: 0px;
+}
+
+.comment-item-left {
+    float: left;
+    width: 90px;
+    height: 90px;
+}
+
+.comment-item-right {
+    padding-left: 60px;
+    color:#540404;
+}
+
 .comment-form-respond input {
     min-height: 38px;
     border: 1px solid #010101;
@@ -44,4 +59,31 @@
     background-color: #540404;
     background-image: none;
     border-color: #540404;
+}
+
+#avatar-img {
+    max-width: 65px;
+    border-radius: 50px;
+}
+
+.comment-item-left img {
+    width: 100%;
+    border-radius: 20px;
+}
+
+.des-l {
+    display: inline-block;
+    width: 90%;
+    margin-bottom: 38px;
+}
+
+.error {
+    margin-top: 10px;
+    color: red;
+}
+
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #540404;
+    border-color: #fff;
 }

@@ -1,18 +1,41 @@
 <div class="blog-comment-box">
-    <h3><fa-icon [icon]="['fas', 'comments']"></fa-icon> Comments (0)</h3>
+    <h3><fa-icon [icon]="['fas', 'comments']"></fa-icon> Comments ({{articleComments.length}})</h3>
+    <div class="comment-item children" *ngFor="let comment of articleComments">
+        <div class="comment-item-left">
+            <img id="avatar-img" src="./assets/images/avt-img-2.jpg" alt="User image for {{comment.userUserName}}">
+        </div>
+        <div class="comment-item-right">
+            <div class="float-start">
+                <strong>{{comment.userUserName}}</strong>
+            </div>
+            <div class="float-end">
+                <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
+                <span>&nbsp;{{comment.createdOn | date:'short'}}</span>
+            </div>
+            <div class="des-l" [innerHTML]="comment.sanitizedContent"></div>
+        </div>
+    </div>
 </div>
 <div class="comment-respond-box">
     <h3>Leave your comment</h3>
     <div>
         <ng-container *ngIf="isUserAuthenticated">
-            <form class="comment-form-respond row" #commentForm="ngForm" (ngSubmit)="onSubmitHandler()">
+            <form class="comment-form-respond row" #commentForm="ngForm" (ngSubmit)="onSubmitHandler(commentForm)">
                 <div class="col-12">
-                    <div class="form-group">
-                        <textarea id="content-textarea" name="content" class="form-control" placeholder="Your Comment"></textarea>
+                    <div class="form-group col-9">
+                        <textarea type="text" id="content-textarea" name="content" #content="ngModel" ngModel class="form-control" placeholder="Your Comment" required [maxlength]="300"></textarea>
+                    </div>
+                    <div *ngIf="content.invalid && (content.dirty || content.touched)">
+                        <div *ngIf="content.errors?.['required']" class="error">
+                            You should write comment in order to submit it.
+                        </div>
+                        <div *ngIf="content.errors?.['maxlength']" class="error">
+                            Comment should be less than 300 symbols.
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 pt-2">
-                    <button class="btn btn-primary" type="submit">Submit comment</button>
+                    <button class="btn btn-primary" type="submit" [disabled]="commentForm.invalid">Submit comment</button>
                 </div>
             </form>
         </ng-container>

@@ -8,6 +8,8 @@
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
+    using SimplyRecipes.Services.Mapping;
+    using SimplyRecipes.Models.ViewModels.ArticleComments;
 
     using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +22,7 @@
             this.articleCommentsRepository = articleCommentsrepository;
         }
 
-        public async Task CreateAsync(int articleId, string userId, string content, int? parentId = null)
+        public async Task<PostArticleCommentViewModel> CreateAsync(int articleId, string userId, string content, int? parentId = null)
         {
             var articleComment = new ArticleComment
             {
@@ -41,6 +43,10 @@
 
             await this.articleCommentsRepository.AddAsync(articleComment);
             await this.articleCommentsRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<PostArticleCommentViewModel>(articleComment.Id);
+
+            return viewModel;
         }
 
         public async Task<bool> IsInArticleId(int commentId, int articleId)
@@ -53,5 +59,22 @@
 
             return commentArticleId == articleId;
         }
+
+        public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)
+        {
+            var articleCommentViewModel = await this.articleCommentsRepository
+                .All()
+                .Where(a => a.Id == id)
+                .To<TViewModel>()
+                .FirstOrDefaultAsync();
+
+            if (articleCommentViewModel == null)
+            {
+                throw new NullReferenceException(string.Format(ExceptionMessages.ArticleCommentNotFound, id));
+            }
+
+            return articleCommentViewModel;
+        }
+
     }
 }

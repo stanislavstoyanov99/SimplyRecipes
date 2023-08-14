@@ -28,20 +28,20 @@
             this.recipesRepository = recipesRepository;
         }
 
-        public async Task CreateAsync(CreateReviewInputModel createReviewInputModel)
+        public async Task<ReviewDetailsViewModel> CreateAsync(CreateReviewInputModel createReviewInputModel, string userId)
         {
             var review = new Review
             {
                 Title = createReviewInputModel.Title,
                 RecipeId = createReviewInputModel.RecipeId,
-                UserId = createReviewInputModel.UserId,
+                UserId = userId,
                 Description = createReviewInputModel.Content,
                 Rate = createReviewInputModel.Rate,
             };
 
             var doesExist = await this.reviewsRepository
                 .All()
-                .Where(x => x.UserId == createReviewInputModel.UserId && x.RecipeId == createReviewInputModel.RecipeId)
+                .Where(x => x.UserId == userId && x.RecipeId == createReviewInputModel.RecipeId)
                 .AnyAsync();
 
             if (doesExist)
@@ -53,11 +53,10 @@
                 await this.reviewsRepository.AddAsync(review);
                 await this.reviewsRepository.SaveChangesAsync();
 
-                var reviews = this.reviewsRepository
+                var reviews = await this.reviewsRepository
                     .All()
                     .Where(o => o.RecipeId == createReviewInputModel.RecipeId)
-                    .ToList();
-                var reviewsCount = reviews.Count;
+                    .ToListAsync();
                 var oldRecipeRate = 0;
 
                 foreach (var currReview in reviews)
@@ -65,15 +64,19 @@
                     oldRecipeRate += currReview.Rate;
                 }
 
-                var newRating = oldRecipeRate / reviewsCount;
+                var newRating = oldRecipeRate / reviews.Count;
 
-                var newrecipe = await this.recipesRepository
+                var newRecipe = await this.recipesRepository
                     .All()
                     .FirstOrDefaultAsync(x => x.Id == createReviewInputModel.RecipeId);
-                newrecipe.Rate = newRating;
+                newRecipe.Rate = newRating;
 
-                this.recipesRepository.Update(newrecipe);
+                this.recipesRepository.Update(newRecipe);
                 await this.reviewsRepository.SaveChangesAsync();
+
+                var viewModel = await this.GetViewModelByIdAsync<ReviewDetailsViewModel>(review.Id);
+
+                return viewModel;
             }
         }
 

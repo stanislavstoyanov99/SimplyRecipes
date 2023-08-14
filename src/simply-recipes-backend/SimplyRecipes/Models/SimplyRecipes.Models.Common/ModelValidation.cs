@@ -119,5 +119,14 @@
             public const string RoleSelectedError = "Please select role.";
             public const string CreatedOnDisplayName = "Created On";
         }
+
+        public static class ReviewValidation
+        {
+            public const int TitleMaxLength = 30;
+            public const int TitleMinLength = 3;
+
+            public const int ContentMaxLength = 1500;
+            public const int ContentMinLength = 10;
+        }
     }
 }

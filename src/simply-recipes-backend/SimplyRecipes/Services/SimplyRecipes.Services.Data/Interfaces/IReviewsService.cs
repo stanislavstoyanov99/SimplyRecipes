@@ -7,7 +7,7 @@
 
     public interface IReviewsService : IBaseDataService
     {
-        public Task CreateAsync(CreateReviewInputModel createReviewInputModel);
+        public Task<ReviewDetailsViewModel> CreateAsync(CreateReviewInputModel createReviewInputModel, string userId);
 
         public Task<IEnumerable<TViewModel>> GetAll<TViewModel>(int recipeId);
 

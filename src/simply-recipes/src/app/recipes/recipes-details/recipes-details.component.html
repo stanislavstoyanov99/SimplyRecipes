@@ -6,7 +6,7 @@
                     <div id="recipeHeading">
                         <h1><span>{{recipe?.name}}</span></h1>
                         <p>
-                            Author: {{recipe?.userUsername}} | Category: {{recipe?.category?.name}} | Rating:
+                            Author: {{recipe?.userUsername}} | Category: <a routerLink="/recipes/by-category" [queryParams]="{categoryName: recipe?.category?.name}">{{recipe?.category?.name}}</a> | Rating:
                             <ng-container *ngIf="recipe?.rate! > 0">
                                 ({{recipe?.rate}}) <fa-icon *ngFor="let rate of rate(recipe?.rate)" [icon]="['fas', 'star']" class="star"></fa-icon>
                             </ng-container>
@@ -78,10 +78,10 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-SR float-end" data-toggle="modal" data-target="#reviewsModal" *ngIf="!isReviewAlreadyMade">
-                        Create Review
+                    <button type="button" class="btn btn-SR float-end" (click)="onCreateReviewHandler(recipe?.name, recipe?.id)" *ngIf="!isReviewAlreadyMade">
+                        Send Review
                     </button>
-                    <button type="button" class="btn btn-SR float-end btn-block" data-toggle="modal" data-target="#existingReviewModal" *ngIf="isReviewAlreadyMade">
+                    <button type="button" class="btn btn-SR float-end btn-block" *ngIf="isReviewAlreadyMade">
                         You have already created review!
                     </button>
                 </div>

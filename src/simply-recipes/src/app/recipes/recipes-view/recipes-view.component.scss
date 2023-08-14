@@ -8,6 +8,17 @@
     cursor: pointer;
 }
 
+.recipe-card-button {
+    border: 2px solid #540404;
+    background-color: #fff;
+}
+
+.recipe-card-button:hover {
+    border: 2px solid #fff;
+    background-color: #540404;
+    color: #fff;
+}
+
 .mat-card-container {
     display: grid;
     width: 100%;

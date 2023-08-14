@@ -6,6 +6,7 @@ export interface IReviewDetails {
     description: string;
     rate: number;
     recipe: IRecipeDetails;
+    recipeId: number;
     userId: string;
     userUsername: string;
     createdOn: Date;

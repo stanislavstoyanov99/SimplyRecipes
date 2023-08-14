@@ -7,6 +7,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { Difficulty } from 'src/app/shared/enums/difficulty';
 import { rate } from 'src/app/shared/utils/utils';
+import { CreateRecipeReviewDialogComponent, RecipeReviewDialogModel } from 'src/app/shared/dialogs/create-recipe-review-dialog/create-recipe-review-dialog.component';
+import { ReviewsService } from 'src/app/services/reviews.service';
+import { IUser } from 'src/app/shared/interfaces/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-recipes-details',
@@ -16,14 +20,19 @@ import { rate } from 'src/app/shared/utils/utils';
 export class RecipesDetailsComponent implements OnInit {
 
   recipe: IRecipeDetails | null = null;
-  isReviewAlreadyMade!: boolean;
+  user: IUser | null = null;
+  get isReviewAlreadyMade(): boolean {
+    return this.recipe?.reviews.some(x => x.userId === this.user?.id) || false;
+  }
   Difficulty = Difficulty;
   rate = rate;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private library: FaIconLibrary,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private reviewService: ReviewsService,
+    private authService: AuthService) {
     this.library.addIcons(faStar, faCalendarAlt, faUser, faClock, faUtensils, faFaceFrown);
   }
 
@@ -41,6 +50,30 @@ export class RecipesDetailsComponent implements OnInit {
       }
     });
 
-    this.isReviewAlreadyMade = this.recipe?.reviews.some(x => x.userId === this.recipe?.userId) || false;
+    this.user = this.authService.getUser();
+  }
+
+  onCreateReviewHandler(recipeName: string | undefined, recipeId: number | undefined): void {
+    const title = `Give Us your opinion for ${recipeName}`;
+    const dialogData = new RecipeReviewDialogModel(title, recipeId);
+    const dialogRef = this.dialog.open(CreateRecipeReviewDialogComponent, {
+      data: dialogData
+    });
+
+    dialogRef.afterClosed().subscribe(review => {
+      if (review) {
+        this.reviewService.submitReview(review).subscribe({
+          next: (review) => {
+            this.recipe!.reviews = [...this.recipe!.reviews, review];
+            this.recipe!.rate = review.recipe.rate;
+          },
+          error: (err: string) => {
+            this.dialog.open(ErrorDialogComponent, {
+              data: { message: err }
+            });
+          }
+        });  
+      }
+    });
   }
 }

@@ -4,73 +4,58 @@
     using System.Threading.Tasks;
 
     using SimplyRecipes.Data.Models;
-    using SimplyRecipes.Models.ViewModels.Recipes;
     using SimplyRecipes.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using SimplyRecipes.Models.ViewModels.Reviews;
 
     public class ReviewsController : ApiController
     {
         private readonly IReviewsService reviewsService;
-        private readonly IRecipesService recipesService;
         private readonly UserManager<SimplyRecipesUser> userManager;
 
         public ReviewsController(
             IReviewsService reviewsService,
-            UserManager<SimplyRecipesUser> userManager,
-            IRecipesService recipesService)
+            UserManager<SimplyRecipesUser> userManager)
         {
             this.reviewsService = reviewsService;
-            this.recipesService = recipesService;
             this.userManager = userManager;
         }
 
         [HttpPost]
         [Authorize]
-        [Route("post")]
-        public async Task<ActionResult> Post([FromBody] RecipeDetailsPageViewModel input)
+        [Route("send-review")]
+        public async Task<ActionResult> SendReview([FromBody] CreateReviewInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
-                var recipe = await this.recipesService
-                    .GetViewModelByIdAsync<RecipeDetailsViewModel>(input.Recipe.Id);
-
-                var model = new RecipeDetailsPageViewModel
-                {
-                    Recipe = recipe,
-                    CreateReviewInputModel = input.CreateReviewInputModel,
-                };
-
-                return this.Ok(model);
-                // return this.View("/Views/Recipes/Details.cshtml", model);
+                return this.BadRequest(model);
             }
 
             var userId = this.userManager.GetUserId(this.User);
-            input.CreateReviewInputModel.UserId = userId;
 
             try
             {
-                await this.reviewsService.CreateAsync(input.CreateReviewInputModel);
+                var review = await this.reviewsService.CreateAsync(model, userId);
+
+                return this.Ok(review);
             }
             catch (ArgumentException aex)
             {
                 return this.BadRequest(aex.Message);
             }
-
-            return this.Ok();
-            // return this.RedirectToAction("Details", "Recipes", new { id = input.CreateReviewInputModel.RecipeId });
         }
 
-        [HttpPost]
-        [Route("remove")]
-        public async Task<ActionResult> Remove([FromBody] int reviewId, int recipeId)
+        [HttpDelete]
+        [Authorize]
+        [Route("remove/{id}")]
+        public async Task<ActionResult> Remove([FromBody] int id)
         {
-            await this.reviewsService.DeleteByIdAsync(reviewId);
+            await this.reviewsService.DeleteByIdAsync(id);
 
             return this.Ok();
-            // return this.RedirectToAction("Details", "Recipes", new { id = recipeId });
         }
     }
 }

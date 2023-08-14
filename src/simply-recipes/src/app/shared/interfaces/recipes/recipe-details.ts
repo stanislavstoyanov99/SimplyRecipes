@@ -16,6 +16,7 @@ export interface IRecipeDetails {
     difficulty: Difficulty;
     createdOn: Date;
     category: ICategory;
+    categoryId: number;
     userUsername: string;
     userId: string;
     reviews: IReviewDetails[];

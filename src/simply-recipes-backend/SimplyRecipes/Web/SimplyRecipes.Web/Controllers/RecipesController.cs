@@ -89,6 +89,11 @@
         [HttpPost("submit")]
         public async Task<IActionResult> Submit([FromForm] RecipeCreateInputModel recipeCreateInputModel)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(recipeCreateInputModel);
+            }
+
             var user = await this.userManager.GetUserAsync(this.User);
 
             var recipe = await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
@@ -105,16 +110,16 @@
         }
 
         [Authorize]
-        [HttpPost("edit")]
-        public async Task<IActionResult> Edit([FromBody] MyRecipeDetailsViewModel model)
+        [HttpPut("edit")]
+        public async Task<IActionResult> Edit([FromForm] RecipeEditViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.BadRequest(model.RecipeEditViewModel);
+                return this.BadRequest(model);
             }
 
-            await this.recipesService.EditAsync(model.RecipeEditViewModel);
-            return this.Ok();
+            var recipe = await this.recipesService.EditAsync(model);
+            return this.Ok(recipe);
         }
 
         [HttpGet("recipe/{id}")]

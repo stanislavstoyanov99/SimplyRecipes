@@ -100,7 +100,7 @@
             await this.recipesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(RecipeEditViewModel recipeEditViewModel)
+        public async Task<RecipeDetailsViewModel> EditAsync(RecipeEditViewModel recipeEditViewModel)
         {
             if (!Enum.TryParse(recipeEditViewModel.Difficulty, true, out Difficulty difficulty))
             {
@@ -118,6 +118,13 @@
                     string.Format(ExceptionMessages.RecipeNotFound, recipeEditViewModel.Id));
             }
 
+            if (recipeEditViewModel.Image != null)
+            {
+                var newImageUrl = await this.cloudinaryService
+                    .UploadAsync(recipeEditViewModel.Image, recipeEditViewModel.Name + Suffixes.RecipeSuffix);
+                recipe.ImagePath = newImageUrl;
+            }
+
             recipe.Name = recipeEditViewModel.Name;
             recipe.Description = recipeEditViewModel.Description;
             recipe.Ingredients = recipeEditViewModel.Ingredients;
@@ -129,6 +136,10 @@
 
             this.recipesRepository.Update(recipe);
             await this.recipesRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<RecipeDetailsViewModel>(recipe.Id);
+
+            return viewModel;
         }
 
         public IQueryable<TViewModel> GetAllRecipesAsQueryeable<TViewModel>()

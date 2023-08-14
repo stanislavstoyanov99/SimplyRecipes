@@ -11,7 +11,7 @@
     {
         Task<RecipeDetailsViewModel> CreateAsync(RecipeCreateInputModel recipeCreateInputModel, string userId);
 
-        Task EditAsync(RecipeEditViewModel recipeEditViewModel);
+        Task<RecipeDetailsViewModel> EditAsync(RecipeEditViewModel recipeEditViewModel);
 
         Task<IEnumerable<TViewModel>> GetAllRecipesAsync<TViewModel>();
 

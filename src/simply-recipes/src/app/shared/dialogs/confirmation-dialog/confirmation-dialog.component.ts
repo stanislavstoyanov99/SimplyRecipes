@@ -15,7 +15,8 @@ export class ConfirmationDialogComponent {
   title: string;
   message: string;
 
-  constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmationDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel) {
       this.title = data.title;
       this.message = data.message;

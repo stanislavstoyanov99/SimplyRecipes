@@ -1,0 +1,95 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="false">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+  
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formGroup" id="ngForm" (ngSubmit)="onConfirm(formGroup)" enctype="multipart/form-data">
+        <mat-form-field class="form-element">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Recipe name" formControlName="name" required>
+            <mat-error *ngIf="formGroup.get('name')!.hasError('required')">You must enter a name.</mat-error>
+            <mat-error *ngIf="formGroup.get('name')!.hasError('maxlength')">Name should be less than 30 symbols.</mat-error>
+            <mat-error *ngIf="formGroup.get('name')!.hasError('minlength')">Name should be bigger than 3 symbols.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Recipe description" formControlName="description" required rows="4"></textarea>
+            <mat-error *ngIf="formGroup.get('description')!.hasError('required')">You must enter a description.</mat-error>
+            <mat-error *ngIf="formGroup.get('description')!.hasError('maxlength')">Description should be less than 20000 symbols.</mat-error>
+            <mat-error *ngIf="formGroup.get('description')!.hasError('minlength')">Description should be bigger than 50 symbols.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Ingredients</mat-label>
+            <textarea matInput placeholder="Recipe ingredients" formControlName="ingredients" required rows="7"></textarea>
+            <mat-error *ngIf="formGroup.get('ingredients')!.hasError('required')">You must enter ingredients.</mat-error>
+            <mat-error *ngIf="formGroup.get('ingredients')!.hasError('maxlength')">Ingredients should be less than 20000 symbols.</mat-error>
+            <mat-error *ngIf="formGroup.get('ingredients')!.hasError('minlength')">Ingredients should be bigger than 10 symbols.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Preparation Time</mat-label>
+            <input matInput formControlName="preparationTime" type="number">
+            <mat-error *ngIf="formGroup.get('preparationTime')!.hasError('max')">Preparation time should be less than 180 minutes.</mat-error>
+            <mat-error *ngIf="formGroup.get('preparationTime')!.hasError('min')">Preparation time should be bigger than 0 minutes.</mat-error>
+            <mat-hint>How long will it take to prepare the recipe ?</mat-hint>
+            <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Cooking Time</mat-label>
+            <input matInput formControlName="cookingTime" type="number">
+            <mat-error *ngIf="formGroup.get('cookingTime')!.hasError('max')">Cooking time should be less than 180 minutes.</mat-error>
+            <mat-error *ngIf="formGroup.get('cookingTime')!.hasError('min')">Cooking time should be bigger than 0 minutes.</mat-error>
+            <mat-hint>How many minutes you are going to cook ?</mat-hint>
+            <span matSuffix><mat-icon>access_time</mat-icon>&nbsp;minutes</span>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Portions Number</mat-label>
+            <input matInput formControlName="portionsNumber" type="number">
+            <mat-error *ngIf="formGroup.get('portionsNumber')!.hasError('max')">Portions number should be less than 12.</mat-error>
+            <mat-error *ngIf="formGroup.get('portionsNumber')!.hasError('min')">Portions number should be bigger than 0.</mat-error>
+            <mat-hint>How many portions you are going to make ?</mat-hint>
+            <span matSuffix><mat-icon>restaurant</mat-icon>&nbsp;portions</span>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Old Image</mat-label>
+            <input matInput formControlName="oldImage" readonly="">
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>New Image</mat-label>
+            <div>
+                <mat-toolbar>
+                  <input matInput formControlName="imageName" readonly name="imageName" />
+                  <button mat-flat-button color="primary">Browse...</button>
+                </mat-toolbar>
+                <input
+                  type="file"
+                  id="uploadFile"
+                  (change)="uploadImageHandler($event)"
+                  accept="image/jpg, image/jpeg, image/png"
+                  formControlName="image"
+                />
+                <mat-error *ngIf="formGroup.get('image')!.hasError('notSupportedFileType')">Allowed image formats are only .jpg/.png/.jpeg.</mat-error>
+            </div>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Difficulty</mat-label>
+            <mat-select formControlName="difficulty" required>
+                <mat-option>Select Difficulty</mat-option>
+                <mat-option *ngFor="let difficulty of difficulties" [value]="difficulty">{{difficulty}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get('difficulty')!.hasError('required')">Please select difficulty.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category" required>
+              <mat-option>Select Category</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get('category')!.hasError('required')">Please select category.</mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onDismiss()">Cancel</button>
+    <button form="ngForm" mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Confirm</button>
+</div>

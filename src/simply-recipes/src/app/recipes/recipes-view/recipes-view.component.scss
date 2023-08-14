@@ -4,6 +4,10 @@
     grid-template-rows: 1fr auto;
 }
 
+.recipe-card-title {
+    cursor: pointer;
+}
+
 .mat-card-container {
     display: grid;
     width: 100%;

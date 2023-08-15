@@ -39,5 +39,7 @@
         public const string ReviewNotFound = "Review with id {0} is not found.";
 
         public const string SimplyRecipesUserNotFound = "User with id {0} is not found.";
+
+        public const string GenderInvalidType = "Gender type {0} is invalid";
     }
 }

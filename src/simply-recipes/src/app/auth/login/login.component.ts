@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -15,9 +15,7 @@ export class LoginComponent implements OnInit {
 
   private returnUrl!: string;
 
-  @ViewChild('loginForm') loginForm!: NgForm;
-
-  public loginRequestModel!: LoginRequestModel;
+  public loginRequestModel: LoginRequestModel;
   public errorMessage: string = '';
   public showError: boolean = false;
   
@@ -32,8 +30,8 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  onSubmit(): void {
-    if (this.loginForm?.valid) {
+  onSubmit(loginForm: NgForm): void {
+    if (loginForm.valid) {
       this.authService.login(this.loginRequestModel).subscribe({
         next: (response) => 
         {

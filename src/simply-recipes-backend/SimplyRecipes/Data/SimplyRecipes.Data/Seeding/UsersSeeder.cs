@@ -11,6 +11,7 @@
 
     using SimplyRecipes.Common.Config;
     using SimplyRecipes.Data.Models;
+    using SimplyRecipes.Data.Models.Enumerations;
 
     public class UsersSeeder : ISeeder
     {
@@ -31,6 +32,7 @@
                     Email = appConfig.Value.AdministratorEmail,
                     FirstName = appConfig.Value.AdministratorFirstName,
                     LastName = appConfig.Value.AdministratorLastName,
+                    Gender = Gender.Male
                 };
 
                 var result = await userManager.CreateAsync(user, appConfig.Value.AdministratorPassword);

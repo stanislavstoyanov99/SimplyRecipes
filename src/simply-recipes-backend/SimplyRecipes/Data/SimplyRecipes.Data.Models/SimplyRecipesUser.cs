@@ -28,9 +28,11 @@
         }
 
         [MaxLength(UserValidation.FirstNameMaxLength)]
+        [MinLength(UserValidation.FirstNameMinLength)]
         public string FirstName { get; set; }
 
         [MaxLength(UserValidation.LastNameMaxLength)]
+        [MinLength(UserValidation.LastNameMinLength)]
         public string LastName { get; set; }
 
         [Required]

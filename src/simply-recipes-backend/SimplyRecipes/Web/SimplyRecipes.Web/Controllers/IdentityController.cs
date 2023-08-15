@@ -36,7 +36,7 @@
                 var result = await this.identityService.RegisterAsync(model);
                 var response = new RegisterResponseModel
                 {
-                    Succeeded = true
+                    Succeeded = result.Succeeded
                 };
 
                 return Ok(response);

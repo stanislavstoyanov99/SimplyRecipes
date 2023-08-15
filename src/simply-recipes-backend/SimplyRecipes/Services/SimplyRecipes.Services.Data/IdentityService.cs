@@ -11,6 +11,8 @@
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Data.Models.Enumerations;
     using SimplyRecipes.Models.ViewModels.Identity;
+    using SimplyRecipes.Models.ViewModels.Recipes;
+    using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
 
     public class IdentityService : IIdentityService
@@ -83,7 +85,11 @@
 
         public async Task<IdentityResult> RegisterAsync(RegisterRequestModel model)
         {
-            // TODO: get this from Angular checkbox Enum.TryParse<Gender>(this.Input.SelectedGender, out Gender gender);
+            if (!Enum.TryParse(model.Gender, true, out Gender gender))
+            {
+                throw new ArgumentException(
+                    string.Format(ExceptionMessages.GenderInvalidType, model.Gender));
+            }
 
             var user = new SimplyRecipesUser
             {
@@ -91,7 +97,7 @@
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
-                Gender = Gender.Male,
+                Gender = gender,
             };
 
             var identityResult = await this.userManager.CreateAsync(user, model.Password);

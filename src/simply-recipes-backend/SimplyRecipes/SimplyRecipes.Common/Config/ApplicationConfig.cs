@@ -18,14 +18,6 @@
 
         public string UserRoleName { get; set; }
 
-        public string EmailConfirmationSubject { get; set; }
-
-        public string EmailConfirmationContent { get; set; }
-
-        public string ForgotPasswordSubject { get; set; }
-
-        public string ForgotPasswordContent { get; set; }
-
         public GoogleReCaptcha GoogleReCaptcha { get; set; }
     }
 }

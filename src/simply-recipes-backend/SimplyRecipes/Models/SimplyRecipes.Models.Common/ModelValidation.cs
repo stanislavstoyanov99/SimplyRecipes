@@ -6,7 +6,9 @@
         public const string EmptyFieldLengthError = "Please enter the field.";
         public const string IdDisplayName = "No.";
         public const int FirstNameMaxLength = 30;
+        public const int FirstNameMinLength = 2;
         public const int LastNameMaxLength = 30;
+        public const int LastNameMinLength = 2;
 
         public static class PrivacyValidation
         {

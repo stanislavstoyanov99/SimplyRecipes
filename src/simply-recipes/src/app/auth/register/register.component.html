@@ -4,7 +4,7 @@
         <h1 class="text-light">Register</h1>
         <h4 class="text-light">Create a new account.</h4>
         <hr style="background-color: white;" />
-        <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
             <div *ngIf="showError" class="alert alert-danger" role="alert">
                 <span [innerHTML]="errorMessage"></span>
             </div>
@@ -15,6 +15,9 @@
                 <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
                     <div *ngIf="email.errors?.['required']">
                         Email is required.
+                    </div>
+                    <div *ngIf="email.errors?.['email']">
+                        Email is invalid.
                     </div>
                 </div>
             </div>
@@ -31,26 +34,26 @@
             <div class="form-group">
                 <label class="text-light" for="firstName">First Name</label>
                 <input id="firstName" name="firstName" [(ngModel)]="registerRequestModel.firstName" #firstName="ngModel" placeholder="Enter first name"
-                    required maxlength="30" class="form-control" />
+                    required maxlength="30" minlength="2" class="form-control" />
                 <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)" class="alert">
                     <div *ngIf="firstName.errors?.['required']">
                         First Name is required.
                     </div>
-                    <div *ngIf="firstName.errors?.['maxlength']">
-                        First Name must be no more than 30 characters.
+                    <div *ngIf="firstName.errors?.['minlength']">
+                        First Name must be more than 2 characters.
                     </div>
                 </div>
             </div>
             <div class="form-group">
                 <label class="text-light" for="lastName">Last Name</label>
                 <input id="lastName" name="lastName" [(ngModel)]="registerRequestModel.lastName" #lastName="ngModel" placeholder="Enter last name"
-                    required maxlength="30" class="form-control" />
+                    required maxlength="30" minlength="2" class="form-control" />
                 <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)" class="alert">
                     <div *ngIf="lastName.errors?.['required']">
                         Last Name is required.
                     </div>
-                    <div *ngIf="lastName.errors?.['maxlength']">
-                        Last Name must be no more than 30 characters.
+                    <div *ngIf="lastName.errors?.['minlength']">
+                        Last Name must be more than 2 characters.
                     </div>
                 </div>
             </div>
@@ -80,6 +83,22 @@
                     </div>
                     <div *ngIf="confirmPassword.errors?.['mustMatch']">
                         The password and confirmation password should match.
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="text-light" for="gender">Gender</label>
+                <div class="form-control">
+                    <label class="radio-inline me-3">
+                      <input type="radio" name="gender" value="male" [(ngModel)]="registerRequestModel.gender" #gender="ngModel" checked required>Male
+                    </label>
+                    <label class="radio-inline">
+                      <input type="radio" name="gender" value="female" [(ngModel)]="registerRequestModel.gender" #gender="ngModel" required>Female
+                    </label>
+                </div>
+                <div *ngIf="gender.invalid && (gender.dirty || gender.touched)" class="alert">
+                    <div *ngIf="gender.errors?.['required']">
+                        Gender is required.
                     </div>
                 </div>
             </div>

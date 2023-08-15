@@ -5,4 +5,5 @@ export class RegisterRequestModel {
     email!: string;
     password!: string;
     confirmPassword!: string;
+    gender: string = 'male';
 }

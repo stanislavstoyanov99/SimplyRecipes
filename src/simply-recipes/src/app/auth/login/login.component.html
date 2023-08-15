@@ -4,7 +4,7 @@
         <h1 class="text-light">Login</h1>
         <h4 class="text-light">Use a local account to log in.</h4>
         <hr />
-        <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
             <div *ngIf="showError" class="alert alert-danger" role="alert">
                 <span [innerHTML]="errorMessage"></span>
             </div>

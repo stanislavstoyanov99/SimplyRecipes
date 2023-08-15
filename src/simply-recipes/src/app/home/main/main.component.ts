@@ -11,8 +11,10 @@ import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-
 export class MainComponent implements OnInit {
 
   public isUserAuthenticated!: boolean;
-
-  constructor(private authService: AuthService, private dialog: MatDialog) { }
+  slides: number[] = [];
+  constructor(private authService: AuthService, private dialog: MatDialog) {
+    this.slides = Array.from({length: 8}, (_, i) => i + 1);
+  }
 
   ngOnInit(): void {
     this.authService.authChanged$

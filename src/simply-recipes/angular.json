@@ -32,7 +32,9 @@
               "src/styles.scss",
               "node_modules/ngx-spinner/animations/ball-spin-fade.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
 import { RecipesService } from "src/app/services/recipes.service";
 import { IRecipeDetails } from "src/app/shared/interfaces/recipes/recipe-details";
@@ -7,7 +7,7 @@ import { IRecipeDetails } from "src/app/shared/interfaces/recipes/recipe-details
 @Injectable({
   providedIn: 'root'
 })
-export class RecipeResolver implements Resolve<IRecipeDetails | null> {
+export class RecipeResolver  {
   constructor(private recipesService: RecipesService, private router: Router) { }
   
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): 

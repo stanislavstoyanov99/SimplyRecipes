@@ -4,7 +4,7 @@
 
 ## :point_right: Project Introduction :point_left:
 
-**Simply Recipes** is a ready-to-use Angular + ASP.NET Core application.
+**Simply Recipes** is a ready-to-use Angular 14.2.0 + ASP.NET Core 7 application.
 
 ## :pencil: Project Description | Main Information EN
 Simply Recipes is a basic user web-based software, created for all kind of needs related to home cooking and healty life. The main goal of the software is to create a comfortable and easy environment, for users to browse cooking recipes and articles about health-based lifestyles, as well as to share their personal experience, by joining the growing application community. The data will be open for all users of the application, so noone will be forced to register in order to access. However, if the user wants to write a personal recipe/article, review, rate or comment an existing one, would need to create a profile.
@@ -63,8 +63,7 @@ TODO
 Тази страница дава всичко необходимо за една статия. Заглавие, автор, дата на публикуване, категория и не на последно място - описание на статията. В страничната лента отдясно можете да използвате търсачката (търсене по заглавие на статия), категориите с броя статии в тях и последните написани статии.
 
 ## :hammer: Used technologies
-* ASP.NET [CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1 "CORE 3.1") MVC
-* ASP.NET Core areas
+* ASP.NET [CORE 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0 "CORE 7") WEB API
 * [Angular](https://angular.io/)
 * [Angular Image Slider with Lightbox](https://www.npmjs.com/package/ng-image-slider)
 * [Bootstrap](https://ng-bootstrap.github.io/#/home)
@@ -72,7 +71,7 @@ TODO
 * [Angular component for Google reCAPTCHA](https://www.npmjs.com/package/ng-recaptcha)
 * [Angular ScrollTop](https://www.npmjs.com/package/ngx-scrolltop)
 * [Angular JWT](https://www.npmjs.com/package/@auth0/angular-jwt)
-* Entity Framework [CORE 3.1](https://docs.microsoft.com/en-us/ef/core/ "CORE 3.1")
+* Entity Framework [CORE 7](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-7.0/whatsnew "CORE 7")
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
 * [SendGrid](https://github.com/sendgrid)
 * [HtmlSanitizer](https://github.com/mganss/HtmlSanitizer)

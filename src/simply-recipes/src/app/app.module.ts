@@ -11,7 +11,6 @@ import { ContactComponent } from './contact/contact.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FaqComponent } from './faq/faq.component';
 import { NgxScrollTopModule } from 'ngx-scrolltop';
-//import { AgmCoreModule } from '@agm/core';
 import { FormsModule } from '@angular/forms';
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module, ReCaptchaV3Service } from 'ng-recaptcha';
 import { environment } from 'src/environments/environment';
@@ -19,6 +18,7 @@ import { ErrorHandlerInterceptor } from './shared/interceptors/error-handler.int
 import { JwtModule } from "@auth0/angular-jwt";
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AgmCoreModule } from '@agm/core';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -39,9 +39,9 @@ export function tokenGetter() {
     SharedModule,
     FontAwesomeModule,
     NgxScrollTopModule,
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'YOUR-API-KEY-HERE'
-    // }),
+    AgmCoreModule.forRoot({
+      apiKey: 'YOUR-API-KEY-HERE'
+    }),
     FormsModule,
     RecaptchaV3Module,
     JwtModule.forRoot({

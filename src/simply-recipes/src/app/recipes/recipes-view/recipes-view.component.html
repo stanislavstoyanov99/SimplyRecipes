@@ -18,7 +18,7 @@
               <mat-card-title routerLink="/recipes/details/{{userRecipe.id}}" class="recipe-card-title">{{userRecipe.name}}</mat-card-title>
               <mat-card-subtitle>Difficulty: {{(Difficulty[userRecipe.difficulty])}}</mat-card-subtitle>
             </mat-card-header>
-            <img mat-card-image src="{{userRecipe.imagePath}}" class="img-responsive" alt="Image_{{userRecipe.id}}">
+            <!-- <img mat-card-image src="{{userRecipe.imagePath}}" class="img-responsive" alt="Image_{{userRecipe.id}}"> -->
             <mat-card-content>
               <p [innerHTML]="userRecipe.sanitizedShortDescription"></p>
               <p [innerHTML]="userRecipe.sanitizedIngredients"></p>

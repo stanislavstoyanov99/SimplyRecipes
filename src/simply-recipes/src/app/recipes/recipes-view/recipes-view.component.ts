@@ -54,7 +54,7 @@ export class RecipesViewComponent implements OnInit {
     const title = `Edit recipe ${recipe.name}`;
     const dialogData = new EditRecipeDialogModel(title, recipe);
     const dialogRef = this.dialog.open(RecipeEditDialogComponent, {
-      maxWidth: '50%',
+      width: '50%',
       data: dialogData
     });
 

@@ -1,14 +1,15 @@
 .homeinfo {
     position: absolute;
-    z-index: 0;
-    margin: 250px 50px;
+    z-index: 1;
+    margin: 200px 0px;
+    padding-left: 150px;
     font-size: 28px;
     color: white;
 }
 
 .homeinfo h1 {
     font-size: 42px;
-    color: lightgray;
+    color: #fff;
 }
 
 .about-section-box {
@@ -86,34 +87,22 @@
     padding: 0;
 }
 
-.cover-slides .container {
-    height: 100%;
-    position: relative;
-    z-index: 2;
-}
-
-.cover-slides .container>.row {
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-}
-
-.cover-slides .container>.row {
-    height: 100%;
-}
-
-.cover-slides h1 {
-    font-family: 'Rubik', sans-serif;
-    font-weight: 500;
-    font-size: 64px;
-    color: #fff;
-}
-
-.cover-slides p {
-    font-size: 18px;
-    color: #fff;
+.cover-slides {
+    z-index:-1;
 }
 
 .contacts-container {
     padding: 20px;
+}
+
+.btn-SR {
+    background-color: white;
+    color: #540404;
+    border: 2px solid #540404;
+    margin-bottom: 70px;
+}
+
+.btn-SR:hover {
+    background-color: #540404;
+    color: white;
 }

@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
   public isUserAuthenticated!: boolean;
   slides: number[] = [];
   constructor(private authService: AuthService, private dialog: MatDialog) {
-    this.slides = Array.from({length: 8}, (_, i) => i + 1);
+    this.slides = Array.from(Array(10).keys());
   }
 
   ngOnInit(): void {

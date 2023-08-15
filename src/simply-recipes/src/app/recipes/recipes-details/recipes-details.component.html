@@ -56,6 +56,7 @@
                         <div class="review-header">
                             <span>
                                 <fa-icon [icon]="['fas', 'user']"></fa-icon> Author: {{review.userUsername}}
+                                <fa-icon [icon]="['fas', 'trash']" class="remove-review-icon" *ngIf="user?.isAdmin" (click)="onRemoveReviewHandler(review.id)"></fa-icon>
                             </span><br>
                             <span>
                                 <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon> {{review.createdOn | date:'short'}}
@@ -78,7 +79,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-SR float-end" (click)="onCreateReviewHandler(recipe?.name, recipe?.id)" *ngIf="!isReviewAlreadyMade">
+                    <button type="button" class="btn btn-SR float-end" (click)="onCreateReviewHandler(recipe?.name, recipe?.id, recipe!.rate)" *ngIf="!isReviewAlreadyMade">
                         Send Review
                     </button>
                     <button type="button" class="btn btn-SR float-end btn-block" *ngIf="isReviewAlreadyMade">

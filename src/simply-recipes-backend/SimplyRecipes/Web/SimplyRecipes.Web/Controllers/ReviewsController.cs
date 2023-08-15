@@ -51,11 +51,11 @@
         [HttpDelete]
         [Authorize]
         [Route("remove/{id}")]
-        public async Task<ActionResult> Remove([FromBody] int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            await this.reviewsService.DeleteByIdAsync(id);
+            var newRate = await this.reviewsService.DeleteReviewByIdAsync(id);
 
-            return this.Ok();
+            return this.Ok(newRate);
         }
     }
 }

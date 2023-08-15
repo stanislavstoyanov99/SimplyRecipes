@@ -80,7 +80,7 @@
             }
         }
 
-        public async Task DeleteByIdAsync(int id)
+        public async Task<int> DeleteReviewByIdAsync(int id)
         {
             var review = await this.reviewsRepository
                 .All()
@@ -93,6 +93,29 @@
 
             this.reviewsRepository.Delete(review);
             await this.reviewsRepository.SaveChangesAsync();
+
+            var reviews = await this.reviewsRepository
+                .All()
+                .Where(o => o.RecipeId == review.RecipeId)
+                .ToListAsync();
+            var oldRecipeRate = 0;
+
+            foreach (var currReview in reviews)
+            {
+                oldRecipeRate += currReview.Rate;
+            }
+
+            var newRating = oldRecipeRate / reviews.Count;
+
+            var newRecipe = await this.recipesRepository
+                .All()
+                .FirstOrDefaultAsync(x => x.Id == review.RecipeId);
+            newRecipe.Rate = newRating;
+
+            this.recipesRepository.Update(newRecipe);
+            await this.reviewsRepository.SaveChangesAsync();
+
+            return newRating;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)

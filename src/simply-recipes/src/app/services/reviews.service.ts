@@ -17,4 +17,8 @@ export class ReviewsService {
   submitReview(reviewCreateInputModel: IReviewCreate): Observable<IReviewDetails> {
     return this.httpClient.post<IReviewDetails>(`${apiURL}/reviews/send-review`, reviewCreateInputModel);
   }
+
+  removeReview(reviewId: number): Observable<number> {
+    return this.httpClient.delete<number>(`${apiURL}/reviews/remove/${reviewId}`);
+  }
 }

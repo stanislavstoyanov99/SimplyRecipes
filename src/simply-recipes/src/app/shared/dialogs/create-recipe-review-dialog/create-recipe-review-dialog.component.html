@@ -19,10 +19,13 @@
             <mat-error *ngIf="formGroup.get('content')!.hasError('maxlength')">Content should be less than 1500 symbols.</mat-error>
             <mat-error *ngIf="formGroup.get('content')!.hasError('minlength')">Content should be bigger than 10 symbols.</mat-error>
         </mat-form-field>
-        <mat-form-field class="form-element">
+        <div class="form-element">
             <mat-label>Rate</mat-label>
-            <input matInput formControlName="rate" type="number">
-        </mat-form-field>
+            <button mat-icon-button class="star-button" type="button" *ngFor="let ratingId of ratingArr;index as i"
+                [id]="'star_' + i" (click)="onRateHandler(i + 1);" [matTooltip]="(ratingId + 1).toString()" matTooltipPosition="above">
+            <mat-icon>{{showIcon(i)}}</mat-icon>
+            </button>
+        </div>
     </form>
 </div>
 <div mat-dialog-actions>

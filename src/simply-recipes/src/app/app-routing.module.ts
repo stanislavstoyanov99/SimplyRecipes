@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './core/page-not-found/page-not-found.comp
 import { FaqComponent } from './faq/faq.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { AdminGuard } from './shared/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -45,6 +46,14 @@ const routes: Routes = [
   {
     path: 'articles',
     loadChildren: () => import('./articles/articles.module').then(m => m.ArticlesModule)
+  },
+  {
+    path: 'admin-dashboard',
+    loadChildren: () => import('./admin-dashboard/admin-dashboard.module').then(m => m.AdminDashboardModule),
+    canActivate: [AdminGuard],
+    data: {
+      isAdministrator: true
+    }
   },
   {
     path: 'not-found',

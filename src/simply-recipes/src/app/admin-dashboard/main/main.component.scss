@@ -1,0 +1,80 @@
+.admin-container {
+    background-color: #222634;
+}
+
+.mt-120 {
+    padding-top: 120px;
+}
+
+.admin-title {
+    border: 2px solid #540404;
+    padding: 1rem;
+    margin-bottom: 3rem;
+}
+
+.admin-container h1, .admin-container h2, .admin-container h4, .admin-container h5, .admin-container label, .admin-container ul li a {
+    color: white;
+}
+
+#DashboardCon .row {
+    border-color: #540404 !important;
+}
+
+#DashboardCon .row .col-md-3 {
+    border-bottom: 3px solid white;
+    border-bottom-color: white;
+    border-color: #540404 !important;
+}
+
+#DashboardCon .row .col-md-9 {
+    border-bottom: 3px solid white;
+    border-bottom-color: white;
+    border-color: #540404 !important;
+}
+
+#DashboardCon .row .row .col-12 {
+    border-color: #540404 !important;
+}
+
+#DashboardCon .row .row .centered {
+    margin-bottom: 0.5rem;
+}
+
+.admin-nav-item {
+    width: 100%;
+}
+
+input[type="file"] {
+    display: block;
+}
+
+.btn-secondary:hover {
+    background: #373637;
+    color: #fddd0c !important;
+}
+
+.col-md-9 {
+    color: white;
+}
+
+.col-md-9 h3 {
+    color: white;
+}
+
+.centered {
+    align-content: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.statistic-card {
+    padding: 5px 10px;
+    border-color: grey;
+    border-style: solid;
+    border-width: 3px;
+}
+
+.bg-white, .bg-dark {
+    background-color: transparent !important;
+}

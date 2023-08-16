@@ -21,13 +21,6 @@ const routes: Routes = [
     },
     resolve: {
       recipe: RecipeResolver
-    },
-  },
-  {
-    path: 'by-category',
-    component: MainComponent,
-    data: {
-      title: 'By Category'
     }
   },
   {

@@ -1,0 +1,79 @@
+<h5>Model's administration</h5>
+<div class="dashboard-nav-item">
+    <div>
+        <a routerLink="/admin-dashboard/main" (click)="onDashboardButtonClick()">Dashboard</a>
+    </div>
+</div>
+<ul class="nav nav-pills flex-column">
+
+	<li class="nav-item">
+		<button class="admin-nav" (click)="onRecipesButtonClick()">Recipes</button>
+		<div class="nav-panel" [ngStyle]="isRecipesClicked ? {'display': 'block'} : {'display': 'none'}">
+			<div>
+				<a routerLink="/admin-dashboard/main/create-recipe" routerLinkActive="active">Create recipe</a>
+			</div>
+			<div>
+				<a routerLink="/admin-dashboard/main/recipes/get-all" routerLinkActive="active">List recipes</a>
+			</div>
+		</div>
+	</li>
+
+	<li class="nav-item">
+		<button class="admin-nav" (click)="onArticlesButtonClick()">Articles</button>
+		<div class="nav-panel" [ngStyle]="isArticlesClicked ? {'display': 'block'} : {'display': 'none'}">
+			<div>
+				<a routerLink="/admin-dashboard/main/create-article" routerLinkActive="active">Create article</a>
+			</div>
+			<div>
+				<a routerLink="/admin-dashboard/main/articles/get-all" routerLinkActive="active">List articles</a>
+			</div>
+		</div>
+	</li>
+
+	<li class="nav-item"> 
+		<button class="admin-nav" (click)="onCategoriesButtonClick()">Categories</button>
+		<div class="nav-panel" [ngStyle]="isCategoriesClicked ? {'display': 'block'} : {'display': 'none'}">
+			<div>
+				<a routerLink="/admin-dashboard/main/create-category" routerLinkActive="active">Create category</a>
+			</div>
+			<div>
+				<a routerLink="/admin-dashboard/main/categories/get-all" routerLinkActive="active">List categories</a>
+			</div>
+		</div>
+	</li>
+
+	<li class="nav-item">
+		<button class="admin-nav" (click)="onUsersButtonClick()">Application Users</button>
+		<div class="nav-panel" [ngStyle]="isUsersClicked ? {'display': 'block'} : {'display': 'none'}">
+			<div>
+				<a routerLink="/admin-dashboard/main/users/list" routerLinkActive="active">List Application Users</a>
+			</div>
+		</div>
+	</li>
+</ul>
+<hr />
+<h5>App's administration</h5>
+<ul class="nav nav-pills nav-stacked flex-column">
+	<li class="nav-item">
+		<button class="admin-nav" (click)="onFaqButtonClick()">FAQ page</button>
+		<div class="nav-panel" [ngStyle]="isFaqClicked ? {'display': 'block'} : {'display': 'none'}">
+			<div><a routerLink="/admin-dashboard/main/create-faq" routerLinkActive="active">Create faq</a></div>
+			<div><a routerLink="/admin-dashboard/main/faqs/get-all" routerLinkActive="active">List faqs</a></div>
+		</div>
+	</li>
+
+	<li class="nav-item">
+		<button class="admin-nav" (click)="onPrivacyButtonClick()">Privacy</button>
+		<div class="nav-panel" [ngStyle]="isPrivacyClicked ? {'display': 'block'} : {'display': 'none'}">
+			<div>
+				<a routerLink="/admin-dashboard/main/create-privacy" routerLinkActive="active">Create privacy</a>
+			</div>
+			<div>
+				<a routerLink="/admin-dashboard/main/edit-privacy" routerLinkActive="active">Edit privacy</a>
+			</div>
+			<div>
+				<a routerLink="/admin-dashboard/main/delete-privacy" routerLinkActive="active">Delete privacy</a>
+			</div>
+		</div>
+	</li>
+</ul>

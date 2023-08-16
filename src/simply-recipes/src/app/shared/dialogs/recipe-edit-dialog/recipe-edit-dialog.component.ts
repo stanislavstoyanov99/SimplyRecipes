@@ -13,7 +13,6 @@ import { ICategoryList } from '../../interfaces/categories/category-list';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { ErrorDialogComponent } from '../error-dialog/error-dialog.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { IRecipeListing } from '../../interfaces/recipes/recipe-listing';
 
 @Component({
   selector: 'app-recipe-edit-dialog',

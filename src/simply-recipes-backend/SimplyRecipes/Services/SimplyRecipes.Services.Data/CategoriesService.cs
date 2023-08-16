@@ -64,7 +64,7 @@
             await this.categoriesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(CategoryEditViewModel categoryEditViewModel)
+        public async Task<CategoryDetailsViewModel> EditAsync(CategoryEditViewModel categoryEditViewModel)
         {
             var category = await this.categoriesRepository
                 .All()
@@ -81,6 +81,10 @@
 
             this.categoriesRepository.Update(category);
             await this.categoriesRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<CategoryDetailsViewModel>(category.Id);
+
+            return viewModel;
         }
 
         public async Task<IEnumerable<TEntity>> GetAllCategoriesAsync<TEntity>()

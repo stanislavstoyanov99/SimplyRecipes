@@ -1,0 +1,56 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="false">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+  
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formGroup" id="ngForm" (ngSubmit)="onConfirm(formGroup)" enctype="multipart/form-data">
+        <mat-form-field class="form-element">
+            <mat-label>Title</mat-label>
+            <input matInput placeholder="Article title" formControlName="title" required>
+            <mat-error *ngIf="formGroup.get('title')!.hasError('required')">You must enter a title.</mat-error>
+            <mat-error *ngIf="formGroup.get('title')!.hasError('maxlength')">Title should be less than 30 symbols.</mat-error>
+            <mat-error *ngIf="formGroup.get('title')!.hasError('minlength')">Title should be bigger than 3 symbols.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Description</mat-label>
+            <textarea matInput placeholder="Article description" formControlName="description" required rows="4"></textarea>
+            <mat-error *ngIf="formGroup.get('description')!.hasError('required')">You must enter a description.</mat-error>
+            <mat-error *ngIf="formGroup.get('description')!.hasError('maxlength')">Description should be less than 20000 symbols.</mat-error>
+            <mat-error *ngIf="formGroup.get('description')!.hasError('minlength')">Description should be bigger than 50 symbols.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Old Image</mat-label>
+            <input matInput formControlName="oldImage" readonly="">
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>New Image</mat-label>
+            <div>
+                <mat-toolbar>
+                  <input matInput formControlName="imageName" readonly name="imageName" />
+                  <button mat-flat-button color="primary">Browse...</button>
+                </mat-toolbar>
+                <input
+                  type="file"
+                  id="uploadFile"
+                  (change)="uploadImageHandler($event)"
+                  accept="image/jpg, image/jpeg, image/png"
+                  formControlName="image"
+                />
+                <mat-error *ngIf="formGroup.get('image')!.hasError('notSupportedFileType')">Allowed image formats are only .jpg/.png/.jpeg.</mat-error>
+            </div>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="category" required>
+              <mat-option>Select Category</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="formGroup.get('category')!.hasError('required')">Please select category.</mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onDismiss()">Cancel</button>
+    <button form="ngForm" mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Confirm</button>
+</div>

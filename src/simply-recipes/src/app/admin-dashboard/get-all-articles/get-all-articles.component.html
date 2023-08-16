@@ -1,1 +1,31 @@
-<p>get-all-articles works!</p>
+<h4>Articles List</h4>
+<hr />
+<h5>Total Count : <span>{{articles.length}}</span></h5>
+<ng-container *ngIf="articles.length > 0">
+    <table class="table table-bordered table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Title</th>
+                <th scope="col">Description</th>
+                <th scope="col">Functions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let article of articles">
+               <th scope="row">{{article.id}}</th>
+               <td>{{article.title}}</td>
+               <td [innerHTML]="article.sanitizedShortDescription"></td>
+               <td>
+                   <a class="badge bg-success" type="button" (click)="onEditHandler(article)">Edit</a>
+                   <a class="badge bg-danger" type="button" (click)="onRemoveHandler(article.id)">Remove</a>
+               </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+<ng-container *ngIf="articles.length === 0">
+    <div class="alert alert-danger" role="alert">
+        There is not any data available.
+    </div>
+</ng-container>

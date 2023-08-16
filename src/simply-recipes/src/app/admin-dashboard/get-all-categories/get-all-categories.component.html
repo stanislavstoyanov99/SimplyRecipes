@@ -1,1 +1,31 @@
-<p>get-all-categories works!</p>
+<h4>Categories List</h4>
+<hr />
+<h5>Total Count : <span>{{categories.length}}</span></h5>
+<ng-container *ngIf="categories.length > 0">
+    <table class="table table-bordered table-dark table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Functions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let category of categories">
+               <th scope="row">{{category.id}}</th>
+               <td>{{category.name}}</td>
+               <td [innerHTML]="category.sanitizedShortDescription"></td>
+               <td>
+                   <a class="badge bg-success" type="button" (click)="onEditHandler(category)">Edit</a>
+                   <a class="badge bg-danger" type="button" (click)="onRemoveHandler(category.id)">Remove</a>
+               </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+<ng-container *ngIf="categories.length === 0">
+    <div class="alert alert-danger" role="alert">
+        There is not any data available.
+    </div>
+</ng-container>

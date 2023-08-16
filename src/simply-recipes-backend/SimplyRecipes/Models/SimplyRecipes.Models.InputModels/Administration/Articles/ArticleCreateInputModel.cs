@@ -29,7 +29,5 @@
 
         [Display(Name = CategoryDisplayName)]
         public int CategoryId { get; set; }
-
-        public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }
     }
 }

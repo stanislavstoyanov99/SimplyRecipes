@@ -10,7 +10,7 @@
     {
         Task<CategoryDetailsViewModel> CreateAsync(CategoryCreateInputModel categoryCreateInputModel);
 
-        Task EditAsync(CategoryEditViewModel categoryEditViewModel);
+        Task<CategoryDetailsViewModel> EditAsync(CategoryEditViewModel categoryEditViewModel);
 
         Task<IEnumerable<TEntity>> GetAllCategoriesAsync<TEntity>();
 

@@ -1,0 +1,39 @@
+.close-button {
+    float: right;
+    top:-24px;
+    right:-24px;
+}
+
+.close-icon {
+    transition: 1s ease-in-out;
+}
+  
+.close-icon:hover {
+    transform: rotate(180deg);
+}
+
+.form-element {
+    padding: 5px 0px 20px 0px;
+    width: 100%;
+}
+
+#uploadFile {
+    top: 0px;
+    left: 0px;
+    width: 100%;    
+    z-index: 9;
+    opacity: 0;
+    height: 100%;
+    cursor: pointer;
+    position: absolute;
+}
+
+.mat-toolbar-single-row {
+    height: auto !important;
+    background: transparent;
+}
+
+.mat-toolbar-single-row button {
+    width: 200px;
+    margin-bottom: 5px;
+}

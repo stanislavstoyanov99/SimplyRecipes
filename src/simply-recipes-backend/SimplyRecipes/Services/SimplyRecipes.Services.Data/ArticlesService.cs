@@ -14,18 +14,22 @@
     using SimplyRecipes.Services.Mapping;
 
     using Microsoft.EntityFrameworkCore;
+    using SimplyRecipes.Models.ViewModels.Recipes;
 
     public class ArticlesService : IArticlesService
     {
         private readonly IDeletableEntityRepository<Article> articlesRepository;
         private readonly IDeletableEntityRepository<Category> categoriesRepository;
+        private readonly ICloudinaryService cloudinaryService;
 
         public ArticlesService(
             IDeletableEntityRepository<Article> articlesRepository,
-            IDeletableEntityRepository<Category> categoriesRepository)
+            IDeletableEntityRepository<Category> categoriesRepository,
+            ICloudinaryService cloudinaryService)
         {
             this.articlesRepository = articlesRepository;
             this.categoriesRepository = categoriesRepository;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<ArticleDetailsViewModel> CreateAsync(ArticleCreateInputModel articleCreateInputModel, string userId)
@@ -56,7 +60,9 @@
                     string.Format(ExceptionMessages.ArticleAlreadyExists, article.Title));
             }
 
-            article.ImagePath = "";
+            var imageUrl = await this.cloudinaryService
+                .UploadAsync(articleCreateInputModel.Image, articleCreateInputModel.Title + Suffixes.ArticleSuffix);
+            article.ImagePath = imageUrl;
 
             await this.articlesRepository.AddAsync(article);
             await this.articlesRepository.SaveChangesAsync();
@@ -82,7 +88,7 @@
             await this.articlesRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(ArticleEditViewModel articleEditViewModel, string userId)
+        public async Task<ArticleDetailsViewModel> EditAsync(ArticleEditViewModel articleEditViewModel, string userId)
         {
             var article = await this.articlesRepository
                 .All()
@@ -94,6 +100,13 @@
                     string.Format(ExceptionMessages.ArticleNotFound, articleEditViewModel.Id));
             }
 
+            if (articleEditViewModel.Image != null)
+            {
+                var newImageUrl = await this.cloudinaryService
+                    .UploadAsync(articleEditViewModel.Image, articleEditViewModel.Title + Suffixes.ArticleSuffix);
+                article.ImagePath = newImageUrl;
+            }
+
             article.Title = articleEditViewModel.Title;
             article.Description = articleEditViewModel.Description;
             article.UserId = userId;
@@ -101,6 +114,10 @@
 
             this.articlesRepository.Update(article);
             await this.articlesRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<ArticleDetailsViewModel>(article.Id);
+
+            return viewModel;
         }
 
         public IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>()

@@ -11,7 +11,7 @@
     {
         Task<ArticleDetailsViewModel> CreateAsync(ArticleCreateInputModel articlesCreateInputModel, string userId);
 
-        Task EditAsync(ArticleEditViewModel articlesEditViewModel, string userId);
+        Task<ArticleDetailsViewModel> EditAsync(ArticleEditViewModel articlesEditViewModel, string userId);
 
         Task<IEnumerable<TViewModel>> GetAllArticlesAsync<TViewModel>();
 

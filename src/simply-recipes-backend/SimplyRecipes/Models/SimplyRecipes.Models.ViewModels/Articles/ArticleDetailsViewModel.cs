@@ -8,6 +8,7 @@
     using Ganss.Xss;
 
     using static SimplyRecipes.Models.Common.ModelValidation;
+    using SimplyRecipes.Models.ViewModels.Categories;
 
     public class ArticleDetailsViewModel : IMapFrom<Article>
     {
@@ -36,5 +37,11 @@
         public string SanitizedShortDescription => new HtmlSanitizer().Sanitize(this.ShortDescription);
 
         public string UserUsername { get; set; }
+
+        public int CategoryId { get; set; }
+
+        public CategoryDetailsViewModel Category { get; set; }
+
+        public string UserId { get; set; }
     }
 }

@@ -7,8 +7,12 @@
     using SimplyRecipes.Models.ViewModels.Articles;
     using SimplyRecipes.Models.ViewModels.Categories;
     using SimplyRecipes.Services.Data.Interfaces;
+    using SimplyRecipes.Data.Models;
+    using SimplyRecipes.Models.InputModels.Administration.Articles;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
 
     public class ArticlesController : ApiController
     {
@@ -19,11 +23,16 @@
 
         private readonly IArticlesService articlesService;
         private readonly ICategoriesService categoriesService;
+        private readonly UserManager<SimplyRecipesUser> userManager;
 
-        public ArticlesController(IArticlesService articlesService, ICategoriesService categoriesService)
+        public ArticlesController(
+            IArticlesService articlesService,
+            ICategoriesService categoriesService,
+            UserManager<SimplyRecipesUser> userManager)
         {
             this.articlesService = articlesService;
             this.categoriesService = categoriesService;
+            this.userManager = userManager;
         }
 
         [HttpGet("{pageNumber?}")]
@@ -35,6 +44,14 @@
             var responseModel = await PaginatedList<ArticleListingViewModel>.CreateAsync(allArticles, pageNumber ?? 1, PageSize);
 
             return Ok(responseModel);
+        }
+
+        [HttpGet("all")]
+        public async Task<ActionResult> All()
+        {
+            var articles = await this.articlesService.GetAllArticlesAsync<ArticleDetailsViewModel>();
+
+            return this.Ok(articles);
         }
 
         [HttpGet("details/{id}")]
@@ -99,6 +116,57 @@
                     .CreateAsync(articlesByCategoryName, 1, ArticlesByCategoryCount);
 
             return this.Ok(responseModel);
+        }
+
+        [HttpGet("submit")]
+        [Authorize]
+        public async Task<ActionResult> Submit()
+        {
+            var categories = await this.categoriesService
+                .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+
+            return this.Ok(categories);
+        }
+
+        [HttpPost("submit")]
+        [Authorize]
+        public async Task<IActionResult> Submit([FromForm] ArticleCreateInputModel articleCreateInputModel)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(articleCreateInputModel);
+            }
+
+            var article = await this.articlesService.CreateAsync(articleCreateInputModel, user.Id);
+
+            return this.Ok(article);
+        }
+
+        [HttpPut("edit")]
+        [Authorize]
+        public async Task<IActionResult> Edit([FromForm] ArticleEditViewModel articleEditViewModel)
+        {
+            var user = await this.userManager.GetUserAsync(this.User);
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(articleEditViewModel);
+            }
+
+            var article = await this.articlesService.EditAsync(articleEditViewModel, user.Id);
+
+            return this.Ok(article);
+        }
+
+        [HttpDelete("remove/{id}")]
+        [Authorize]
+        public async Task<IActionResult> Remove(int id)
+        {
+            await this.articlesService.DeleteByIdAsync(id);
+
+            return this.Ok();
         }
     }
 }

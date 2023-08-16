@@ -1,1 +1,20 @@
-<p>create-category works!</p>
+<ng-container *ngIf="loadingService.isLoading$ | async">
+    <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#fff" size="medium"></ngx-spinner>
+</ng-container>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmitHandler(formGroup)" enctype="multipart/form-data">
+    <mat-form-field class="form-element">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Category name" formControlName="name" required>
+        <mat-error *ngIf="formGroup.get('name')!.hasError('required')">You must enter a name.</mat-error>
+        <mat-error *ngIf="formGroup.get('name')!.hasError('maxlength')">Name should be less than 30 symbols.</mat-error>
+        <mat-error *ngIf="formGroup.get('name')!.hasError('minlength')">Name should be bigger than 3 symbols.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-element">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Category description" formControlName="description" required></textarea>
+        <mat-error *ngIf="formGroup.get('description')!.hasError('required')">You must enter a description.</mat-error>
+        <mat-error *ngIf="formGroup.get('description')!.hasError('maxlength')">Description should be less than 20000 symbols.</mat-error>
+        <mat-error *ngIf="formGroup.get('description')!.hasError('minlength')">Description should be bigger than 50 symbols.</mat-error>
+    </mat-form-field>
+    <button mat-raised-button class="create-category-button" color="primary" type="submit" [disabled]="formGroup.invalid">Save Changes</button>
+</form>

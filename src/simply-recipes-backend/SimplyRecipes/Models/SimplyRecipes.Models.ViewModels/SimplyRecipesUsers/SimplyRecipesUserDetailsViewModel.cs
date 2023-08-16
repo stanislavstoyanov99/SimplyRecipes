@@ -1,4 +1,4 @@
-﻿namespace SimplyRecipes.Models.ViewModels.CookingHubUsers
+﻿namespace SimplyRecipes.Models.ViewModels.SimplyRecipesUsers
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,9 @@
 
         public string Username { get; set; }
 
-        public string FullName { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
         [Display(Name = CreatedOnDisplayName)]
         public DateTime CreatedOn { get; set; }

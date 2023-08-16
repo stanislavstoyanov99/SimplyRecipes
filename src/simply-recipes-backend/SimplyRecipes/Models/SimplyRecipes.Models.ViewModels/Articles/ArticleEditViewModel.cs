@@ -1,11 +1,9 @@
 ﻿namespace SimplyRecipes.Models.ViewModels.Articles
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using SimplyRecipes.Services.Mapping;
     using SimplyRecipes.Data.Models;
-    using SimplyRecipes.Models.ViewModels.Categories;
 
     using Microsoft.AspNetCore.Http;
 
@@ -33,7 +31,5 @@
 
         [Display(Name = nameof(Category))]
         public int CategoryId { get; set; }
-        
-        public IEnumerable<CategoryDetailsViewModel> Categories { get; set; }
     }
 }

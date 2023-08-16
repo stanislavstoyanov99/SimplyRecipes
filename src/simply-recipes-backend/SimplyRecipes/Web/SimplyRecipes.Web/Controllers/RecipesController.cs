@@ -52,6 +52,14 @@
             return this.Ok(recipe);
         }
 
+        [HttpGet("all")]
+        public async Task<ActionResult> All()
+        {
+            var recipes = await this.recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
+
+            return this.Ok(recipes);
+        }
+
         [HttpGet("list")]
         public async Task<ActionResult> List()
         {

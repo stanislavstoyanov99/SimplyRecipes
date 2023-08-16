@@ -16,6 +16,10 @@ export class RecipesService {
 
   constructor(private httpClient: HttpClient) { }
 
+  getAllRecipes(): Observable<IRecipeDetails[]> {
+    return this.httpClient.get<IRecipeDetails[]>(`${apiURL}/recipes/all`);
+  }
+
   getRecipesList(): Observable<IRecipeList> {
     return this.httpClient.get<IRecipeList>(`${apiURL}/recipes/list`);
   }

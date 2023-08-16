@@ -15,6 +15,14 @@ import { GetAllFaqsComponent } from './get-all-faqs/get-all-faqs.component';
 import { CreatePrivacyComponent } from './create-privacy/create-privacy.component';
 import { EditPrivacyComponent } from './edit-privacy/edit-privacy.component';
 import { DeletePrivacyComponent } from './delete-privacy/delete-privacy.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSelectModule } from '@angular/material/select';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -37,7 +45,15 @@ import { DeletePrivacyComponent } from './delete-privacy/delete-privacy.componen
   ],
   imports: [
     CommonModule,
-    AdminDashboardRoutingModule
+    AdminDashboardRoutingModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatIconModule,
+    MatInputModule,
+    MatToolbarModule,
+    MatSelectModule,
+    NgxSpinnerModule.forRoot({ type: 'ball-spin-fade' })
   ]
 })
 export class AdminDashboardModule { }

@@ -1,0 +1,19 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="false">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+  
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formGroup" id="ngForm" (ngSubmit)="onConfirm(formGroup)">
+        <mat-label class="me-2">Role</mat-label>
+        <mat-radio-group aria-label="Select role" formControlName="newRole">
+            <mat-radio-button value="Administrator">Administrator</mat-radio-button>
+            <mat-radio-button value="User">User</mat-radio-button>
+        </mat-radio-group>              
+        <mat-error *ngIf="formGroup.get('newRole')!.hasError('required')">You must choose a role.</mat-error>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onDismiss()">Cancel</button>
+    <button form="ngForm" mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Confirm</button>
+</div>

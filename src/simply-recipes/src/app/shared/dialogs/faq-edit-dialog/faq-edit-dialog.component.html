@@ -1,0 +1,27 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="false">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+  
+<h1 mat-dialog-title>{{title}}</h1>
+<div mat-dialog-content>
+    <form [formGroup]="formGroup" id="ngForm" (ngSubmit)="onConfirm(formGroup)">
+        <mat-form-field class="form-element">
+            <mat-label>Question</mat-label>
+            <input matInput placeholder="Faq question" formControlName="question" required>
+            <mat-error *ngIf="formGroup.get('question')!.hasError('required')">You must enter a question.</mat-error>
+            <mat-error *ngIf="formGroup.get('question')!.hasError('maxlength')">Question should be less than 100 symbols.</mat-error>
+            <mat-error *ngIf="formGroup.get('question')!.hasError('minlength')">Question should be bigger than 10 symbols.</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-element">
+            <mat-label>Answer</mat-label>
+            <textarea matInput placeholder="Faq answer" formControlName="answer" required rows="4"></textarea>
+            <mat-error *ngIf="formGroup.get('answer')!.hasError('required')">You must enter an answer.</mat-error>
+            <mat-error *ngIf="formGroup.get('answer')!.hasError('maxlength')">Answer should be less than 1000 symbols.</mat-error>
+            <mat-error *ngIf="formGroup.get('answer')!.hasError('minlength')">Answer should be bigger than 10 symbols.</mat-error>
+        </mat-form-field>
+    </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onDismiss()">Cancel</button>
+    <button form="ngForm" mat-raised-button color="primary" type="submit" [disabled]="formGroup.invalid">Confirm</button>
+</div>

@@ -10,7 +10,7 @@
     {
         Task<FaqDetailsViewModel> CreateAsync(FaqCreateInputModel faqCreateInputModel);
 
-        Task EditAsync(FaqEditViewModel faqEditViewModel);
+        Task<FaqDetailsViewModel> EditAsync(FaqEditViewModel faqEditViewModel);
 
         Task<IEnumerable<TEntity>> GetAllFaqsAsync<TEntity>();
     }

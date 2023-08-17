@@ -1,1 +1,31 @@
-<p>get-all-faqs works!</p>
+<h4>Faqs List</h4>
+<hr />
+<h5>Total Count : <span>{{faqs.length}}</span></h5>
+<ng-container *ngIf="faqs.length > 0">
+    <table class="table table-bordered table-dark table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Functions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let faq of faqs">
+               <th scope="row">{{faq.id}}</th>
+               <td>{{faq.question}}</td>
+               <td [innerHTML]="faq.sanitizedAnswer"></td>
+               <td>
+                   <a class="badge bg-success" type="button" (click)="onEditHandler(faq)">Edit</a>
+                   <a class="badge bg-danger" type="button" (click)="onRemoveHandler(faq.id)">Remove</a>
+               </td>
+            </tr>
+        </tbody>
+    </table>
+</ng-container>
+<ng-container *ngIf="faqs.length === 0">
+    <div class="alert alert-danger" role="alert">
+        There is not any data available.
+    </div>
+</ng-container>

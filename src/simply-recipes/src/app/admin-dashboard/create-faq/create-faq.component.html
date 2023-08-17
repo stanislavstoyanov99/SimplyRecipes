@@ -1,1 +1,20 @@
-<p>create-faq works!</p>
+<ng-container *ngIf="loadingService.isLoading$ | async">
+    <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#fff" size="medium"></ngx-spinner>
+</ng-container>
+<form [formGroup]="formGroup" (ngSubmit)="onSubmitHandler(formGroup)">
+    <mat-form-field class="form-element">
+        <mat-label>Question</mat-label>
+        <input matInput placeholder="Faq question" formControlName="question" required>
+        <mat-error *ngIf="formGroup.get('question')!.hasError('required')">You must enter a question.</mat-error>
+        <mat-error *ngIf="formGroup.get('question')!.hasError('maxlength')">Question should be less than 30 symbols.</mat-error>
+        <mat-error *ngIf="formGroup.get('question')!.hasError('minlength')">Question should be bigger than 3 symbols.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-element">
+        <mat-label>Answer</mat-label>
+        <textarea matInput placeholder="Faq answer" formControlName="answer" required></textarea>
+        <mat-error *ngIf="formGroup.get('answer')!.hasError('required')">You must enter an answer.</mat-error>
+        <mat-error *ngIf="formGroup.get('answer')!.hasError('maxlength')">Answer should be less than 20000 symbols.</mat-error>
+        <mat-error *ngIf="formGroup.get('answer')!.hasError('minlength')">Answer should be bigger than 50 symbols.</mat-error>
+    </mat-form-field>
+    <button mat-raised-button class="create-faq-button" color="primary" type="submit" [disabled]="formGroup.invalid">Save Changes</button>
+</form>

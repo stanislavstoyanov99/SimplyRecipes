@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FaqService } from '../services/faq.service';
-import { IFaq } from '../shared/interfaces/faq/faq';
+import { IFaqDetails } from '../shared/interfaces/faq/faq-details';
 import { LoadingService } from '../services/loading.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialog.component';
@@ -12,7 +12,7 @@ import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialo
 })
 export class FaqComponent implements OnInit {
 
-  faqs: IFaq[] = [];
+  faqs: IFaqDetails[] = [];
 
   constructor(
     public loadingService: LoadingService,
@@ -20,7 +20,7 @@ export class FaqComponent implements OnInit {
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.faqService.getFaqs().subscribe({
+    this.faqService.getAllFaqs().subscribe({
       next: (faqs) => {
         this.faqs = faqs;
       },

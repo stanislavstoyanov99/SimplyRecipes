@@ -6,6 +6,8 @@
     using SimplyRecipes.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using SimplyRecipes.Models.InputModels.Administration.Faq;
 
     public class FaqController : ApiController
     {
@@ -16,12 +18,49 @@
             this.faqService = faqService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult> Get()
+        [HttpGet("all")]
+        public async Task<ActionResult> All()
         {
-            var responseModel = await this.faqService.GetAllFaqsAsync<FaqDetailsViewModel>();
+            var faqs = await this.faqService.GetAllFaqsAsync<FaqDetailsViewModel>();
 
-            return this.Ok(responseModel);
+            return this.Ok(faqs);
+        }
+
+        [HttpPost("submit")]
+        [Authorize]
+        public async Task<IActionResult> Submit([FromBody] FaqCreateInputModel faqCreateInputModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(faqCreateInputModel);
+            }
+
+            var faq = await this.faqService.CreateAsync(faqCreateInputModel);
+
+            return this.Ok(faq);
+        }
+
+        [HttpPut("edit")]
+        [Authorize]
+        public async Task<IActionResult> Edit([FromBody] FaqEditViewModel faqEditViewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.BadRequest(faqEditViewModel);
+            }
+
+            var faq = await this.faqService.EditAsync(faqEditViewModel);
+
+            return this.Ok(faq);
+        }
+
+        [HttpDelete("remove/{id}")]
+        [Authorize]
+        public async Task<IActionResult> Remove(int id)
+        {
+            await this.faqService.DeleteByIdAsync(id);
+
+            return this.Ok();
         }
     }
 }

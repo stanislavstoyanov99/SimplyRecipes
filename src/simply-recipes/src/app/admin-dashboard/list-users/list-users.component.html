@@ -10,6 +10,7 @@
                 <th scope="col">Last Name</th>
                 <th scope="col">Created On</th>
                 <th scope="col">Gender</th>
+                <th scope="col">Role</th>
                 <th scope="col">Functions</th>
             </tr>
         </thead>
@@ -21,10 +22,11 @@
                         <td>{{user.firstName}}</td>
                         <td>{{user.lastName}}</td>
                         <td>{{user.createdOn | date:'short'}}</td>
-                        <td>{{user.gender}}</td>
+                        <td>{{(Gender[user.gender])}}</td>
+                        <td>{{user.role}}</td>
                         <td>
-                            <a class="badge bg-success me-2">Edit</a>
-                            <a class="badge bg-danger">Ban</a>
+                            <a class="badge bg-success me-2" type="button" (click)="onEditHandler(user)">Edit</a>
+                            <a class="badge bg-danger" type="button">Ban</a>
                         </td>
                     </tr>
                 </ng-container>
@@ -34,7 +36,7 @@
                         <td>{{user.firstName}}</td>
                         <td>{{user.lastName}}</td>
                         <td>{{user.createdOn | date:'short'}}</td>
-                        <td>{{user.gender}}</td>
+                        <td>{{(Gender[user.gender])}}</td>
                         <td>
                             <a class="badge bg-success">Unban</a>
                         </td>

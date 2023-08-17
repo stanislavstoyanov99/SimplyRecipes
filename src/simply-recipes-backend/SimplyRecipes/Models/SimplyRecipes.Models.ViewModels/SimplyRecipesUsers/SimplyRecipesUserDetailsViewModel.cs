@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Microsoft.AspNetCore.Identity;
 
     using SimplyRecipes.Services.Mapping;
     using SimplyRecipes.Data.Models;
@@ -29,6 +30,8 @@
 
         public Gender Gender { get; set; }
 
-        public IEnumerable<ApplicationRole> UserRoles { get; set; }
+        public IEnumerable<IdentityUserRole<string>> Roles { get; set; }
+
+        public string Role { get; set; }
     }
 }

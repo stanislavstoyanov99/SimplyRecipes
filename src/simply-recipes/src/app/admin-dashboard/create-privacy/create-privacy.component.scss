@@ -1,0 +1,40 @@
+.form-element {
+    padding: 5px 0px 20px 0px;
+    width: 100%;
+}
+
+::ng-deep .mat-focused .mat-form-field-label {
+    color: #fff !important;
+}
+
+::ng-deep .mat-input-element::placeholder{
+    color: whitesmoke !important;
+}
+
+::ng-deep .mat-form-field-label {
+    color: #fff !important;
+}
+
+::ng-deep .mat-form-field-ripple {
+    background-color: #540404 !important;
+}
+
+::ng-deep .mat-toolbar-row, .mat-toolbar-single-row {
+    color: #fff;
+    background: none;
+}
+
+.create-privacy-button {
+    float: left;
+    margin-bottom: 10px;
+    color: #fff;
+    background-color: #540404;
+}
+
+.create-privacy-button:disabled {
+    float: left;
+    margin-bottom: 10px;
+    color: #fff;
+    background-color: #280202;
+    cursor: not-allowed;
+ }

@@ -28,7 +28,7 @@
 
         [HttpPost("submit")]
         [Authorize]
-        public async Task<IActionResult> Submit([FromBody] FaqCreateInputModel faqCreateInputModel)
+        public async Task<ActionResult> Submit([FromBody] FaqCreateInputModel faqCreateInputModel)
         {
             if (!this.ModelState.IsValid)
             {
@@ -42,7 +42,7 @@
 
         [HttpPut("edit")]
         [Authorize]
-        public async Task<IActionResult> Edit([FromBody] FaqEditViewModel faqEditViewModel)
+        public async Task<ActionResult> Edit([FromBody] FaqEditViewModel faqEditViewModel)
         {
             if (!this.ModelState.IsValid)
             {
@@ -56,7 +56,7 @@
 
         [HttpDelete("remove/{id}")]
         [Authorize]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
             await this.faqService.DeleteByIdAsync(id);
 

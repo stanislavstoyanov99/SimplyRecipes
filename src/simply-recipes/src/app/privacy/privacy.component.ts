@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../services/home.service';
-import { IPrivacy } from '../shared/interfaces/privacy/privacy';
+import { IPrivacyDetails } from '../shared/interfaces/privacy/privacy-details';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialog.component';
 
@@ -11,7 +11,7 @@ import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialo
 })
 export class PrivacyComponent implements OnInit {
 
-  privacy: IPrivacy | null = null;
+  privacy: IPrivacyDetails | null = null;
 
   constructor(private homeService: HomeService, private dialog: MatDialog) { }
 

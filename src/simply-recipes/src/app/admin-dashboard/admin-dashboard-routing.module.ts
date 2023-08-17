@@ -92,7 +92,7 @@ const routes: Routes = [
             }
         },
         {
-            path: 'edit-privacy',
+            path: 'edit-privacy/:id',
             component: EditPrivacyComponent,
             data: {
                 title: 'Edit Privacy'

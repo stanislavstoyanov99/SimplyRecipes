@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 import { IRecipeListing } from '../shared/interfaces/recipes/recipe-listing';
 import { IArticleListing } from '../shared/interfaces/articles/article-listing';
 import { IGallery } from '../shared/interfaces/gallery';
-import { IPrivacy } from '../shared/interfaces/privacy/privacy';
+import { IPrivacyDetails } from '../shared/interfaces/privacy/privacy-details';
 import { Observable } from 'rxjs';
 
 const apiURL = environment.apiURL;
@@ -28,7 +28,7 @@ export class HomeService {
     return this.httpClient.get<IGallery[]>(`${apiURL}/home/gallery`);
   }
 
-  getPrivacy(): Observable<IPrivacy> {
-    return this.httpClient.get<IPrivacy>(`${apiURL}/home/privacy`);
+  getPrivacy(): Observable<IPrivacyDetails> {
+    return this.httpClient.get<IPrivacyDetails>(`${apiURL}/home/privacy`);
   }
 }

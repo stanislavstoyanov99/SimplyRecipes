@@ -59,7 +59,7 @@
             await this.privacyRepository.SaveChangesAsync();
         }
 
-        public async Task EditAsync(PrivacyEditViewModel privacyEditViewModel)
+        public async Task<PrivacyDetailsViewModel> EditAsync(PrivacyEditViewModel privacyEditViewModel)
         {
             var privacy = await this.privacyRepository.All().FirstOrDefaultAsync(p => p.Id == privacyEditViewModel.Id);
 
@@ -73,6 +73,10 @@
 
             this.privacyRepository.Update(privacy);
             await this.privacyRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<PrivacyDetailsViewModel>(privacy.Id);
+
+            return viewModel;
         }
 
         public async Task<TViewModel> GetViewModelAsync<TViewModel>()

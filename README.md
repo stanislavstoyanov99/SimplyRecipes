@@ -29,10 +29,16 @@ We care for the protection of our user data, so deep dive into our privacy polic
 Have quick questions? Do not hesitate to view our answers for them.
 
 :point_right: **_Description of the “Recipe Details” page:_** 
-TODO
+This page gives everything you need to know for one recipe. Description how to cook it, what is the difficulty, the preparation and cooking time as well as how many portions can be made. The most important is not missed - the ingredients. Below the recipe, you can see user reviews with their author, creation date and rating. You have to register or login in order to write a review. Each user can submit only one review per recipe.
 
 :point_right: **_Description of the “Article Details” page:_** 
 This page gives everything you need to know for one article. Title, author, creation date, category and last but not least - description of the article. In the sidebar there is a search bar (search by article title), categories with how many articles are written and recent articles published by users.
+
+:point_right: **_Description of the “Submit Recipe” page:_** 
+In the dropdown user menu every user can submit a recipe by writing the provided information.
+
+:point_right: **_Description of the “View own recipes” page:_** 
+In the dropdown user menu for convenience, you can view your submitted recipes.
 
 ## :pencil: Project Description | Основна информация BG
 Simply Recipes е потребителски уеб-базиран софтуер, създаден за всякакви нужди, свързани с домашното готвене и здравословния живот. Основната цел на софтуера е да създаде комфортна и достъпна среда, за да могат потребителите да разглеждат рецепти за готвене и статии за здравословен начин на живот, както и да споделят личния си опит, като се присъединят към нарастващата общност в уебсайта. Информацията е отворена за всички потребители на приложението, така че никой няма да бъде принуден да се регистрира, за да има достъп. Ако обаче потребителят иска да напише лична рецепта / статия, преглед, оценка или коментар на съществуваща, ще трябва да създаде свой личен профил в системата.
@@ -57,10 +63,16 @@ Simply Recipes е потребителски уеб-базиран софтуе�
 Имате бързи въпроси? Не се притеснявайте да видите нашите отговори.
 
 :point_right: **_Описание на страницата “Recipe Details”:_**
-TODO
+Тази страница дава всичко необходимо за една рецепта. Описание как да си я сготвим, каква е трудността, времето за приготвяне и готвене както и колко порции ще приготвим с предоставените продукти и съставки. Под рецептата, можете да видите потребителските ревюта с автора им, датата на публикуване и рейтинга. Трябва да бъдете регистрирани или логнати в системата, за да можете да пишете ревю. Всеки потребител може да напише едно ревю за една рецепта.
 
 :point_right: **_Описание на страницата “Article Details”:_**
 Тази страница дава всичко необходимо за една статия. Заглавие, автор, дата на публикуване, категория и не на последно място - описание на статията. В страничната лента отдясно можете да използвате търсачката (търсене по заглавие на статия), категориите с броя статии в тях и последните написани статии.
+
+:point_right: **_Описание на страницата “Submit Recipe”:_**
+В потребителското падащо меню всеки потребител може да изпрати своята рецепта като напише необходимата информация за нея.
+
+:point_right: **_Описание на страницата “View own recipes”:_**
+В потребителското падащо меню за удобство можете да прегледате своите публикувани рецепти.
 
 ## :hammer: Used technologies
 * ASP.NET [CORE 7](https://dotnet.microsoft.com/en-us/download/dotnet/7.0 "CORE 7") WEB API
@@ -71,6 +83,11 @@ TODO
 * [Angular component for Google reCAPTCHA](https://www.npmjs.com/package/ng-recaptcha)
 * [Angular ScrollTop](https://www.npmjs.com/package/ngx-scrolltop)
 * [Angular JWT](https://www.npmjs.com/package/@auth0/angular-jwt)
+* [Ngx-spinner](https://www.npmjs.com/package/ngx-spinner)
+* [Ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
+* [Angular Material](https://material.angular.io/)
+* [Angular Google Maps](https://angular-maps.com/guides/getting-started/)
+* [Angular reCAPTCHA](https://www.npmjs.com/package/ng-recaptcha)
 * Entity Framework [CORE 7](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-7.0/whatsnew "CORE 7")
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")
 * [SendGrid](https://github.com/sendgrid)

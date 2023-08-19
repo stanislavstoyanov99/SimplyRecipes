@@ -7,7 +7,7 @@
     <form [formGroup]="formGroup" id="ngForm" (ngSubmit)="onConfirm(formGroup)">
         <mat-label class="me-2">Role</mat-label>
         <mat-radio-group aria-label="Select role" formControlName="newRole">
-            <mat-radio-button value="Administrator">Administrator</mat-radio-button>
+            <mat-radio-button class="me-2" value="Administrator">Administrator</mat-radio-button>
             <mat-radio-button value="User">User</mat-radio-button>
         </mat-radio-group>              
         <mat-error *ngIf="formGroup.get('newRole')!.hasError('required')">You must choose a role.</mat-error>

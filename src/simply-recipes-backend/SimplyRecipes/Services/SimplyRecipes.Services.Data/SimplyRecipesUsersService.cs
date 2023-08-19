@@ -12,6 +12,7 @@
     using SimplyRecipes.Services.Mapping;
 
     using Microsoft.EntityFrameworkCore;
+    using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
 
     public class SimplyRecipesUsersService : ISimplyRecipesUsersService
     {
@@ -22,7 +23,7 @@
             this.simplyRecipesUsersRepository = simplyRecipesUsersRepository;
         }
 
-        public async Task BanByIdAsync(string id)
+        public async Task<SimplyRecipesUserDetailsViewModel> BanByIdAsync(string id)
         {
             var simplyRecipesUser = await this.simplyRecipesUsersRepository
                 .All()
@@ -36,9 +37,13 @@
 
             this.simplyRecipesUsersRepository.Delete(simplyRecipesUser);
             await this.simplyRecipesUsersRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<SimplyRecipesUserDetailsViewModel>(id);
+
+            return viewModel;
         }
 
-        public async Task UnbanByIdAsync(string id)
+        public async Task<SimplyRecipesUserDetailsViewModel> UnbanByIdAsync(string id)
         {
             var simplyRecipesUser = await this.simplyRecipesUsersRepository
                 .AllWithDeleted()
@@ -52,6 +57,10 @@
 
             this.simplyRecipesUsersRepository.Undelete(simplyRecipesUser);
             await this.simplyRecipesUsersRepository.SaveChangesAsync();
+
+            var viewModel = await this.GetViewModelByIdAsync<SimplyRecipesUserDetailsViewModel>(id);
+
+            return viewModel;
         }
 
         public async Task<IEnumerable<TViewModel>> GetAllSimplyRecipesUsersAsync<TViewModel>()

@@ -26,19 +26,20 @@
                         <td>{{user.role}}</td>
                         <td>
                             <a class="badge bg-success me-2" type="button" (click)="onEditHandler(user)">Edit</a>
-                            <a class="badge bg-danger" type="button">Ban</a>
+                            <a class="badge bg-danger" type="button" (click)="onBanHandler(user)">Ban</a>
                         </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="user.isDeleted">
                     <tr>
-                        <td>{{user.username}}/td>
+                        <td>{{user.username}}</td>
                         <td>{{user.firstName}}</td>
                         <td>{{user.lastName}}</td>
                         <td>{{user.createdOn | date:'short'}}</td>
                         <td>{{(Gender[user.gender])}}</td>
+                        <td>{{user.role}}</td>
                         <td>
-                            <a class="badge bg-success">Unban</a>
+                            <a class="badge bg-success" type="button" (click)="onUnbanHandler(user)">Unban</a>
                         </td>
                     </tr>
                 </ng-container>

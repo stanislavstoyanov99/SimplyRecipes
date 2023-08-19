@@ -21,4 +21,12 @@ export class UsersService {
   editUser(userEditModel: UserEditModel): Observable<IUserDetails> {
     return this.httpClient.put<IUserDetails>(`${apiURL}/applicationUsers/edit`, userEditModel);
   }
+
+  banUser(userId: string): Observable<any> {
+    return this.httpClient.delete(`${apiURL}/applicationUsers/ban/${userId}`);
+  }
+
+  unbanUser(userId: string): Observable<any> {
+    return this.httpClient.delete(`${apiURL}/applicationUsers/unban/${userId}`);
+  }
 }

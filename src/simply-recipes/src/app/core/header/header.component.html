@@ -52,9 +52,6 @@
                                 <li class="nav-item ps-2 pe-2 pb-2">
                                     <a ngbDropdownItem href class="nav-link" routerLink="/recipes/view" routerLinkActive="active" (click)="isMenuCollapsed = true">View Own Recipes</a>
                                 </li>
-                                <li class="nav-item ps-2 pe-2 pb-2">
-                                    <a ngbDropdownItem href class="nav-link" routerLink="/identity/manage-profile" routerLinkActive="active" (click)="isMenuCollapsed = true">Manage Profile</a>
-                                </li>
                                 <ng-container *ngIf="isUserAdmin">
                                     <li class="nav-item ps-2 pe-2 pb-2">
                                         <a ngbDropdownItem href class="nav-link" routerLink="/admin-dashboard/main" routerLinkActive="active" (click)="isMenuCollapsed = true">Admin Dashboard</a>

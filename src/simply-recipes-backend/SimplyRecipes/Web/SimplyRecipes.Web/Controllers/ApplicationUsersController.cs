@@ -4,12 +4,12 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using System.Threading.Tasks;
+    using System.Linq;
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
     using SimplyRecipes.Models.ViewModels.CookingHubUsers;
-    using System.Linq;
 
     public class ApplicationUsersController : ApiController
     {
@@ -67,22 +67,30 @@
         }
 
 
-        [HttpPost("ban")]
+        [HttpDelete("ban/{id}")]
         [Authorize]
-        public async Task<ActionResult> Ban([FromBody] SimplyRecipesUserDetailsViewModel simplyRecipesUserDetailsViewModel)
+        public async Task<ActionResult> Ban(string id)
         {
-            await this.simplyRecipesUsersService.BanByIdAsync(simplyRecipesUserDetailsViewModel.Id);
+            var user = await this.simplyRecipesUsersService.BanByIdAsync(id);
 
-            return this.Ok();
+            var userRole = user.Roles.FirstOrDefault(x => x.UserId == user.Id);
+            var currUserRole = await this.roleManager.FindByIdAsync(userRole.RoleId);
+            user.Role = currUserRole.Name;
+
+            return this.Ok(user);
         }
 
-        [HttpPost("unban")]
+        [HttpDelete("unban/{id}")]
         [Authorize]
-        public async Task<IActionResult> Unban([FromBody] SimplyRecipesUserDetailsViewModel simplyRecipesUserDetailsViewModel)
+        public async Task<IActionResult> Unban(string id)
         {
-            await this.simplyRecipesUsersService.UnbanByIdAsync(simplyRecipesUserDetailsViewModel.Id);
+            var user = await this.simplyRecipesUsersService.UnbanByIdAsync(id);
 
-            return this.Ok();
+            var userRole = user.Roles.FirstOrDefault(x => x.UserId == user.Id);
+            var currUserRole = await this.roleManager.FindByIdAsync(userRole.RoleId);
+            user.Role = currUserRole.Name;
+
+            return this.Ok(user);
         }
     }
 }

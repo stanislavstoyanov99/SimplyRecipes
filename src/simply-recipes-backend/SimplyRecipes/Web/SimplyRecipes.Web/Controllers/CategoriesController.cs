@@ -7,6 +7,7 @@
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.Categories;
     using SimplyRecipes.Models.InputModels.Administration.Categories;
+    using SimplyRecipes.Common;
 
     public class CategoriesController : ApiController
     {
@@ -26,7 +27,7 @@
         }
 
         [HttpPost("submit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Submit([FromForm] CategoryCreateInputModel categoryCreateInputModel)
         {
             if (!this.ModelState.IsValid)
@@ -40,7 +41,7 @@
         }
 
         [HttpPut("edit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Edit([FromForm] CategoryEditViewModel categoryEditViewModel)
         {
             if (!this.ModelState.IsValid)
@@ -54,7 +55,7 @@
         }
 
         [HttpDelete("remove/{id}")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Remove(int id)
         {
             await this.categoriesService.DeleteByIdAsync(id);

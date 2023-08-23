@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using SimplyRecipes.Models.InputModels.Administration.Faq;
+    using SimplyRecipes.Common;
 
     public class FaqController : ApiController
     {
@@ -27,7 +28,7 @@
         }
 
         [HttpPost("submit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromBody] FaqCreateInputModel faqCreateInputModel)
         {
             if (!this.ModelState.IsValid)
@@ -41,7 +42,7 @@
         }
 
         [HttpPut("edit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromBody] FaqEditViewModel faqEditViewModel)
         {
             if (!this.ModelState.IsValid)
@@ -55,7 +56,7 @@
         }
 
         [HttpDelete("remove/{id}")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Remove(int id)
         {
             await this.faqService.DeleteByIdAsync(id);

@@ -9,6 +9,7 @@
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.InputModels.Administration.Articles;
+    using SimplyRecipes.Common;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
@@ -119,7 +120,7 @@
         }
 
         [HttpGet("submit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit()
         {
             var categories = await this.categoriesService
@@ -129,7 +130,7 @@
         }
 
         [HttpPost("submit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Submit([FromForm] ArticleCreateInputModel articleCreateInputModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -145,7 +146,7 @@
         }
 
         [HttpPut("edit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Edit([FromForm] ArticleEditViewModel articleEditViewModel)
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -161,7 +162,7 @@
         }
 
         [HttpDelete("remove/{id}")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Remove(int id)
         {
             await this.articlesService.DeleteByIdAsync(id);

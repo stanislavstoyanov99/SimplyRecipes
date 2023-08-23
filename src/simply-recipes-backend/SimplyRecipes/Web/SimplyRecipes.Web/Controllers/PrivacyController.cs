@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
+    using SimplyRecipes.Common;
     using SimplyRecipes.Models.InputModels.Administration.Privacy;
     using SimplyRecipes.Models.ViewModels.Privacy;
     using SimplyRecipes.Services.Data.Interfaces;
@@ -26,7 +27,7 @@
         }
 
         [HttpPost("submit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromBody] PrivacyCreateInputModel privacyCreateInputModel)
         {
             if (!this.ModelState.IsValid)
@@ -39,7 +40,7 @@
         }
 
         [HttpPut("edit")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromBody] PrivacyEditViewModel privacyEditViewModel)
         {
             if (!this.ModelState.IsValid)
@@ -53,7 +54,7 @@
         }
 
         [HttpDelete("remove/{id}")]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Remove(int id)
         {
             await this.privacyService.DeleteByIdAsync(id);

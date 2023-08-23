@@ -1,8 +1,11 @@
+<ng-container *ngIf="loadingService.isLoading$ | async">
+    <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#fff" size="medium"></ngx-spinner>
+</ng-container>
 <div class="container-fluid mt-120 admin-container">
     <h2 class="row justify-content-center text-center admin-title">Admin Panel</h2>
     <div id="DashboardCon">
-        <div class="row " style="border-top:3px solid white;">
-            <div class="col-md-3  pt-3" style="border-right: 3px solid white;">
+        <div class="row" style="border-top:3px solid;">
+            <div class="col-md-3 pt-3" style="border-right: 3px solid">
                 <h4>Change your admin settings</h4>
                 <hr />
                 <admin-navigation></admin-navigation>
@@ -15,43 +18,84 @@
                         </div>
                     </div>
                     <ng-container *ngIf="route.children.length === 0">
-                        <div class="row statistic-card bg-white shadow p-3  rounded">
-                            <div class="col-12 col-lg-8 pr-3 bg-white" style="min-height:120px; min-width:300px;" name="SystemUsers">
-                                <canvas id="lineChart"></canvas>
+                        <div class="row statistic-card bg-white shadow pt-3 rounded">
+                            <div class="col-12 col-lg-8 pe-3 bg-white">
+                                <ngx-charts-line-chart
+                                    [view]="lineChartView"
+                                    [scheme]="colorSchemeLineChart"
+                                    [legend]="legend"
+                                    [showXAxisLabel]="showXAxisLabel"
+                                    [showYAxisLabel]="showYAxisLabel"
+                                    [xAxis]="xAxis"
+                                    [yAxis]="yAxis"
+                                    [xAxisLabel]="xAxisLineChartLabel"
+                                    [yAxisLabel]="yAxisLineChartLabel"
+                                    [timeline]="timeline"
+                                    [results]="usersChartData"
+                                    style="fill: white;">
+                                </ngx-charts-line-chart>
                             </div>
                             <div class="col bg-white">
                                 <h3 class="centered mt-5">Healthy Food System Users</h3>
-                                <ul id="UsersNow" class="centered">
+                                <ul class="centered">
                                     <li>Registered Users:</li>
-                                    <li><b>TEST</b></li>
+                                    <li><b>{{statistics.registeredUsersCount}}</b></li>
                                     <li>Admins</li>
-                                    <li><b>TEST</b></li>
+                                    <li><b>{{statistics.adminsCount}}</b></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12 col-lg-7 statistic-card shadow p-3  mb-5 mt-3 bg-dark text-light rounded ">
-                                <!-- To be done-->
+                            <div class="col-12 col-lg-7 statistic-card shadow p-3 mb-5 mt-3 bg-dark text-light rounded ">
                                 <h3 class="text-light">Healthy Food Top 5</h3>
                                 <div class="row d-flex">
                                     <div class="col-12 col-lg-3 p-0 h-100 flex-grow-1 ">
-                                        <div class="" id="topCategories"></div>
+                                        <div class="br-b p-3">Top Categories</div>
+                                        <div id="topCategories">
+                                            <div class="pt-3 sm ps-2 pe-2" *ngFor="let topCategory of statistics.topCategories">
+                                                {{topCategory.name}} - {{topCategory.count}} Recipes
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-12 col-lg-5 p-0 h-100 flex-grow-1 br-l-r-white">
-                                        <div class="" id="topRecipes"></div>
+                                    <div class="col-12 col-lg-5 p-0 h-100 flex-grow-1 br-l-r">
+                                        <div class="br-b p-3">Top Recipes</div>
+                                        <div id="topRecipes">
+                                            <div class="pt-3 ps-2 pe-2 sm" *ngFor="let topRecipe of statistics.topRecipes">
+                                                {{topRecipe.name}} - {{topRecipe.rate}} <fa-icon [icon]="['fas', 'star']" class="star"></fa-icon>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="col-12 col-lg-4 p-0 h-100 flex-grow-1 ">
-                                        <div class="" id="topComentedArticle"></div>
+                                        <div class="br-b p-3">Top Commented Ariticles</div>
+                                        <div id="topComentedArticles">
+                                            <div class="pt-3 ps-2 pe-2 sm" *ngFor="let topArticleComment of statistics.topArticleComments">
+                                                {{topArticleComment.title}} - {{topArticleComment.count}} Comments
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-5 statistic-card shadow p-3 mb-5 mt-3 bg-white rounded" style="padding-right:10px;">
+                            <div class="col-12 col-lg-5 statistic-card shadow p-3 mb-5 mt-3 bg-white rounded pe-10">
                                 <h3 class="centered">Simply Recipes Main Content</h3>
                                 <div class="container">
-                                    <p style="text-align:center">Recipes Count: <strong class="recipe-sec">5</strong> | Articles Count: <strong class="article-sec">5</strong> </p>
-                                </div>
-                                <div class="conteiner chart-card" name="RecipesStatistic">
-                                    <canvas class="centered" id="RecipesnArticlesChar"></canvas>
+                                    <p style="text-align:center">Recipes Count:
+                                        <strong class="recipe-sec">{{statistics.recipesCount}}</strong> | Articles Count: <strong class="article-sec">{{statistics.articlesCount}}</strong>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <ngx-charts-pie-chart
+                                            [scheme]="colorSchemePieChart"
+                                            [animations]="animations"
+                                            [results]="pieChartData"
+                                            [gradient]="gradient"
+                                            [legend]="legend"
+                                            [labels]="showLabels"
+                                            [doughnut]="isDoughnut"
+                                            [legendPosition]="legendPosition"
+                                            style="fill: white;">
+                                        </ngx-charts-pie-chart>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

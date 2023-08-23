@@ -15,7 +15,7 @@ export class ReviewsService {
   constructor(private httpClient: HttpClient) { }
 
   submitReview(reviewCreateInputModel: IReviewCreate): Observable<IReviewDetails> {
-    return this.httpClient.post<IReviewDetails>(`${apiURL}/reviews/send-review`, reviewCreateInputModel);
+    return this.httpClient.post<IReviewDetails>(`${apiURL}/reviews/submit`, reviewCreateInputModel);
   }
 
   removeReview(reviewId: number): Observable<number> {

@@ -10,7 +10,9 @@
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
     using SimplyRecipes.Models.ViewModels.CookingHubUsers;
+    using SimplyRecipes.Common;
 
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class ApplicationUsersController : ApiController
     {
         private readonly UserManager<SimplyRecipesUser> userManager;
@@ -28,7 +30,6 @@
         }
 
         [HttpGet("all")]
-        [Authorize]
         public async Task<ActionResult> All()
         {
             var users = await this.simplyRecipesUsersService

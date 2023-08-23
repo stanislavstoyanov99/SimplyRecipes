@@ -23,6 +23,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 
@@ -53,7 +55,9 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatInputModule,
     MatToolbarModule,
     MatSelectModule,
-    NgxSpinnerModule.forRoot({ type: 'ball-spin-fade' })
+    NgxSpinnerModule.forRoot({ type: 'ball-spin-fade' }),
+    FontAwesomeModule,
+    NgxChartsModule
   ]
 })
 export class AdminDashboardModule { }

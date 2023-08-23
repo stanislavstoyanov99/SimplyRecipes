@@ -5,11 +5,12 @@
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
+    using SimplyRecipes.Models.ViewModels.Reviews;
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using SimplyRecipes.Models.ViewModels.Reviews;
+    using SimplyRecipes.Common;
 
     public class ReviewsController : ApiController
     {
@@ -26,8 +27,8 @@
 
         [HttpPost]
         [Authorize]
-        [Route("send-review")]
-        public async Task<ActionResult> SendReview([FromBody] CreateReviewInputModel model)
+        [Route("submit")]
+        public async Task<ActionResult> Submit([FromBody] CreateReviewInputModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -49,7 +50,7 @@
         }
 
         [HttpDelete]
-        [Authorize]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [Route("remove/{id}")]
         public async Task<ActionResult> Remove(int id)
         {

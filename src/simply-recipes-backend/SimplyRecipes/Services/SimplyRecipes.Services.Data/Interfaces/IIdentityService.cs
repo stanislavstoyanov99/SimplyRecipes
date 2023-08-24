@@ -2,6 +2,7 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Identity;
+
     using SimplyRecipes.Models.ViewModels.Identity;
 
     public interface IIdentityService

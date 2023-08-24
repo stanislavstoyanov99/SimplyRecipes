@@ -73,7 +73,7 @@
                 </ng-container>
                 <ng-container *ngIf="!recipe?.reviews?.length">
                     <div class="alert alert-danger" role="alert">
-                        There are not any reviews for this recipe yet!
+                        There are not any reviews for this recipe yet! What are you waiting for? Click "Send Review" button.
                     </div>
                 </ng-container>
             </div>
@@ -82,7 +82,7 @@
                     <button type="button" class="btn btn-SR float-end" (click)="onCreateReviewHandler(recipe?.name, recipe?.id, recipe!.rate)" *ngIf="!isReviewAlreadyMade">
                         Send Review
                     </button>
-                    <button type="button" class="btn btn-SR float-end btn-block" *ngIf="isReviewAlreadyMade">
+                    <button type="button" class="btn btn-SR float-end btn-block" disabled *ngIf="isReviewAlreadyMade">
                         You have already created review!
                     </button>
                 </div>

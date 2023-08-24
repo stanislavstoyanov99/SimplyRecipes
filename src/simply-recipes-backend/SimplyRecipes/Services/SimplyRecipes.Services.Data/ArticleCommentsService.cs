@@ -22,7 +22,8 @@
             this.articleCommentsRepository = articleCommentsrepository;
         }
 
-        public async Task<PostArticleCommentViewModel> CreateAsync(int articleId, string userId, string content, int? parentId = null)
+        public async Task<PostArticleCommentViewModel> CreateAsync(
+            int articleId, string userId, string content, int? parentId = null)
         {
             var articleComment = new ArticleComment
             {

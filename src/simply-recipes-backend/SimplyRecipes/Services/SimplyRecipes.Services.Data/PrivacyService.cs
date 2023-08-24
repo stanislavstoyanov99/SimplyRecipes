@@ -4,6 +4,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.InputModels.Administration.Privacy;
@@ -11,8 +13,6 @@
     using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Mapping;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class PrivacyService : IPrivacyService
     {

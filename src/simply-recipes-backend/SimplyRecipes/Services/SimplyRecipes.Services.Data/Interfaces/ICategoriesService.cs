@@ -13,7 +13,5 @@
         Task<CategoryDetailsViewModel> EditAsync(CategoryEditViewModel categoryEditViewModel);
 
         Task<IEnumerable<TEntity>> GetAllCategoriesAsync<TEntity>();
-
-        Task<TViewModel> GetCategoryAsync<TViewModel>(string name);
     }
 }

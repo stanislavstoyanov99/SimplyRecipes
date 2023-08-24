@@ -148,6 +148,12 @@ reviewsPanel {
     margin-top: 12px;
 }
 
+.btn-SR:disabled{
+    background-color: white;
+    color: black;
+    margin-top: 12px;
+}
+
 .review-card {
     padding-left: 0px !important;
     padding-right: 10px !important;

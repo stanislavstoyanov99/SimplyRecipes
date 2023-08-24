@@ -1,9 +1,7 @@
 ﻿namespace SimplyRecipes.Models.InputModels.Administration.Articles
 {
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
-    using SimplyRecipes.Models.ViewModels.Categories;
     using Microsoft.AspNetCore.Http;
 
     using static SimplyRecipes.Models.Common.ModelValidation;

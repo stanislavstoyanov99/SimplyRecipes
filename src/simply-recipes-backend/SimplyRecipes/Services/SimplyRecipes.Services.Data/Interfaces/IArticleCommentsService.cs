@@ -1,7 +1,8 @@
 ﻿namespace SimplyRecipes.Services.Data.Interfaces
 {
-    using SimplyRecipes.Models.ViewModels.ArticleComments;
     using System.Threading.Tasks;
+
+    using SimplyRecipes.Models.ViewModels.ArticleComments;
 
     public interface IArticleCommentsService
     {

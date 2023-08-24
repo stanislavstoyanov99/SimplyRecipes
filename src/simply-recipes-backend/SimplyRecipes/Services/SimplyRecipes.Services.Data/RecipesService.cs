@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Data.Models.Enumerations;
@@ -13,8 +15,6 @@
     using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Mapping;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class RecipesService : IRecipesService
     {
@@ -191,22 +191,6 @@
             }
 
             return recipesByFilter;
-        }
-
-        public async Task<TViewModel> GetRecipeAsync<TViewModel>(string name)
-        {
-            var recipe = await this.recipesRepository
-                .All()
-                .Where(r => r.Name == name)
-                .To<TViewModel>()
-                .FirstOrDefaultAsync();
-
-            if (recipe == null)
-            {
-                throw new NullReferenceException(string.Format(ExceptionMessages.RecipeNameNotFound, name));
-            }
-
-            return recipe;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)

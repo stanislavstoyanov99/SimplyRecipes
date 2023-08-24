@@ -5,6 +5,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.InputModels.Administration.Categories;
@@ -12,8 +14,6 @@
     using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Mapping;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class CategoriesService : ICategoriesService
     {
@@ -96,17 +96,6 @@
                .ToListAsync();
 
             return categories;
-        }
-
-        public async Task<TViewModel> GetCategoryAsync<TViewModel>(string name)
-        {
-            var category = await this.categoriesRepository
-                .All()
-                .Where(c => c.Name == name)
-                .To<TViewModel>()
-                .FirstOrDefaultAsync();
-
-            return category;
         }
 
         public async Task<TViewModel> GetViewModelByIdAsync<TViewModel>(int id)

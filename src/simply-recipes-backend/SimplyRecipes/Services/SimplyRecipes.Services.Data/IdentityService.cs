@@ -11,7 +11,6 @@
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Data.Models.Enumerations;
     using SimplyRecipes.Models.ViewModels.Identity;
-    using SimplyRecipes.Models.ViewModels.Recipes;
     using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
 

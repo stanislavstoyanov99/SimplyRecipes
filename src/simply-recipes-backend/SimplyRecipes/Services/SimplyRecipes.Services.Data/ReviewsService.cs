@@ -5,14 +5,14 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.ViewModels.Reviews;
     using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Mapping;
-
-    using Microsoft.EntityFrameworkCore;
 
     public class ReviewsService : IReviewsService
     {
@@ -53,23 +53,10 @@
                 await this.reviewsRepository.AddAsync(review);
                 await this.reviewsRepository.SaveChangesAsync();
 
-                var reviews = await this.reviewsRepository
-                    .All()
-                    .Where(o => o.RecipeId == createReviewInputModel.RecipeId)
-                    .ToListAsync();
-                var oldRecipeRate = 0;
-
-                foreach (var currReview in reviews)
-                {
-                    oldRecipeRate += currReview.Rate;
-                }
-
-                var newRating = oldRecipeRate / reviews.Count;
-
                 var newRecipe = await this.recipesRepository
                     .All()
                     .FirstOrDefaultAsync(x => x.Id == createReviewInputModel.RecipeId);
-                newRecipe.Rate = newRating;
+                newRecipe.Rate = await CalculateRatingAsync(createReviewInputModel.RecipeId);
 
                 this.recipesRepository.Update(newRecipe);
                 await this.reviewsRepository.SaveChangesAsync();
@@ -94,22 +81,10 @@
             this.reviewsRepository.Delete(review);
             await this.reviewsRepository.SaveChangesAsync();
 
-            var reviews = await this.reviewsRepository
-                .All()
-                .Where(o => o.RecipeId == review.RecipeId)
-                .ToListAsync();
-            var oldRecipeRate = 0;
-
-            foreach (var currReview in reviews)
-            {
-                oldRecipeRate += currReview.Rate;
-            }
-
-            var newRating = oldRecipeRate / reviews.Count;
-
             var newRecipe = await this.recipesRepository
                 .All()
                 .FirstOrDefaultAsync(x => x.Id == review.RecipeId);
+            var newRating = await CalculateRatingAsync(review.RecipeId);
             newRecipe.Rate = newRating;
 
             this.recipesRepository.Update(newRecipe);
@@ -134,22 +109,6 @@
             return reviewViewModel;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAll<TViewModel>(int recipeId)
-        {
-            var reviews = await this.reviewsRepository
-                .All()
-                .Where(r => r.RecipeId == recipeId)
-                .To<TViewModel>()
-                .ToListAsync();
-
-            if (reviews.Count == 0)
-            {
-                throw new NullReferenceException(string.Format(ExceptionMessages.ReviewsNotFound));
-            }
-
-            return reviews;
-        }
-
         public async Task<IEnumerable<TViewModel>> GetTopReviews<TViewModel>()
         {
             var topReviews = await this.reviewsRepository
@@ -159,6 +118,25 @@
                .ToListAsync();
 
             return topReviews;
+        }
+
+        private async Task<int> CalculateRatingAsync(int recipeId)
+        {
+            var reviews = await this.reviewsRepository
+                .All()
+                .Where(o => o.RecipeId == recipeId)
+                .ToListAsync();
+
+            var oldRecipeRate = 0;
+
+            foreach (var currReview in reviews)
+            {
+                oldRecipeRate += currReview.Rate;
+            }
+
+            var newRating = oldRecipeRate / reviews.Count;
+
+            return newRating;
         }
     }
 }

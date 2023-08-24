@@ -9,8 +9,6 @@
     {
         public Task<ReviewDetailsViewModel> CreateAsync(CreateReviewInputModel createReviewInputModel, string userId);
 
-        public Task<IEnumerable<TViewModel>> GetAll<TViewModel>(int recipeId);
-
         public Task<IEnumerable<TViewModel>> GetTopReviews<TViewModel>();
 
         public Task<int> DeleteReviewByIdAsync(int id);

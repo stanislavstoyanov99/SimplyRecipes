@@ -1,7 +1,9 @@
 ﻿namespace SimplyRecipes.Services.Data
 {
     using System.Threading.Tasks;
+
     using Microsoft.Extensions.Options;
+
     using SimplyRecipes.Common.Config;
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;

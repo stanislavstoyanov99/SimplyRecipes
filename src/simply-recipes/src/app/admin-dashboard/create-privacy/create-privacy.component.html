@@ -4,7 +4,7 @@
 <form [formGroup]="formGroup" (ngSubmit)="onSubmitHandler(formGroup)">
     <mat-form-field class="form-element">
         <mat-label>Page Content</mat-label>
-        <input matInput placeholder="Page content" formControlName="pageContent" required>
+        <textarea matInput placeholder="Enter Page content" formControlName="pageContent" required></textarea>
         <mat-error *ngIf="formGroup.get('pageContent')!.hasError('required')">You must enter page content.</mat-error>
         <mat-error *ngIf="formGroup.get('pageContent')!.hasError('maxlength')">Page content should be less than 30 symbols.</mat-error>
         <mat-error *ngIf="formGroup.get('pageContent')!.hasError('minlength')">Page content should be bigger than 3 symbols.</mat-error>

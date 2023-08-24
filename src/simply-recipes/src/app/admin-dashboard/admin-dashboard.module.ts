@@ -14,7 +14,6 @@ import { CreateFaqComponent } from './create-faq/create-faq.component';
 import { GetAllFaqsComponent } from './get-all-faqs/get-all-faqs.component';
 import { CreatePrivacyComponent } from './create-privacy/create-privacy.component';
 import { EditPrivacyComponent } from './edit-privacy/edit-privacy.component';
-import { DeletePrivacyComponent } from './delete-privacy/delete-privacy.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -42,8 +41,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     CreateFaqComponent,
     GetAllFaqsComponent,
     CreatePrivacyComponent,
-    EditPrivacyComponent,
-    DeletePrivacyComponent
+    EditPrivacyComponent
   ],
   imports: [
     CommonModule,

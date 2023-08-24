@@ -18,7 +18,7 @@
             this.privacyService = privacyService;
         }
 
-        [HttpGet("privacy/{id}")]
+        [HttpGet("{id}")]
         public async Task<ActionResult> Privacy(int id)
         {
             var privacy = await this.privacyService.GetViewModelByIdAsync<PrivacyDetailsViewModel>(id);
@@ -51,15 +51,6 @@
             var privacy = await this.privacyService.EditAsync(privacyEditViewModel);
 
             return this.Ok(privacy);
-        }
-
-        [HttpDelete("remove/{id}")]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<ActionResult> Remove(int id)
-        {
-            await this.privacyService.DeleteByIdAsync(id);
-
-            return this.Ok();
         }
     }
 }

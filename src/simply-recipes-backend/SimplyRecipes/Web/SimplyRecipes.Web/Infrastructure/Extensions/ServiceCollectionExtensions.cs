@@ -146,7 +146,8 @@
                .AddTransient<IReviewsService, ReviewsService>()
                .AddTransient<ISimplyRecipesUsersService, SimplyRecipesUsersService>()
                .AddTransient<IJwtService, JwtService>()
-               .AddTransient<ICloudinaryService, CloudinaryService>();
+               .AddTransient<ICloudinaryService, CloudinaryService>()
+               .AddTransient<IAdminDashboardService, AdminDashboardService>();
 
             services.AddMemoryCache();
 

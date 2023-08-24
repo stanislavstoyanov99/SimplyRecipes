@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { PrivacyEditModel } from 'src/app/shared/models/privacy-edit-model';
 })
 export class EditPrivacyComponent implements OnInit {
 
-  formGroup: FormGroup;
+  formGroup!: FormGroup;
   privacy!: IPrivacyDetails;
   
   constructor(
@@ -31,6 +31,9 @@ export class EditPrivacyComponent implements OnInit {
     this.privacyService.getPrivacy(1).subscribe({
       next: (privacy) => {
         this.privacy = privacy;
+        this.formGroup.patchValue({
+          pageContent: this.privacy.sanitizedPageContent
+        });
       },
       error: (err: string) => {
         this.dialog.open(ErrorDialogComponent, {

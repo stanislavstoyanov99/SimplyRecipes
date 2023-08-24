@@ -11,7 +11,6 @@ import { CreateFaqComponent } from "./create-faq/create-faq.component";
 import { GetAllFaqsComponent } from "./get-all-faqs/get-all-faqs.component";
 import { CreatePrivacyComponent } from "./create-privacy/create-privacy.component";
 import { EditPrivacyComponent } from "./edit-privacy/edit-privacy.component";
-import { DeletePrivacyComponent } from "./delete-privacy/delete-privacy.component";
 
 const routes: Routes = [
   {
@@ -92,19 +91,12 @@ const routes: Routes = [
             }
         },
         {
-            path: 'edit-privacy/:id',
+            path: 'edit-privacy',
             component: EditPrivacyComponent,
             data: {
                 title: 'Edit Privacy'
             }
-        },
-        {
-            path: 'delete-privacy',
-            component: DeletePrivacyComponent,
-            data: {
-                title: 'Delete Privacy'
-            }
-        },
+        }
     ]
   }
 ];

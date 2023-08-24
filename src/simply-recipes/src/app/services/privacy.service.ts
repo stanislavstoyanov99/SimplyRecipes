@@ -23,10 +23,6 @@ export class PrivacyService {
     return this.httpClient.post<IPrivacyDetails>(`${apiURL}/privacy/submit`, privacyCreateModel);
   }
 
-  removePrivacy(privacyId: number): Observable<any> {
-    return this.httpClient.delete(`${apiURL}/privacy/remove/${privacyId}`);
-  }
-
   editPrivacy(privacyEditModel: PrivacyEditModel): Observable<IPrivacyDetails> {
     return this.httpClient.put<IPrivacyDetails>(`${apiURL}/privacy/edit`, privacyEditModel);
   }

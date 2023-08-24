@@ -1,11 +1,12 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
 
     using SimplyRecipes.Models.ViewModels.Contacts;
     using SimplyRecipes.Services.Data.Interfaces;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class ContactsController : ApiController
     {
@@ -24,9 +25,17 @@
                 return this.BadRequest(contactFormViewModel);
             }
 
-            await this.contactsService.SendContactToAdminAsync(contactFormViewModel);
+            try
+            {
+                await this.contactsService.SendContactToAdminAsync(contactFormViewModel);
 
-            return this.Ok();
+                return this.Ok();
+
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
         }
     }
 }

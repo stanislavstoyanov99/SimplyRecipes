@@ -1,10 +1,11 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using System.Threading.Tasks;
-    using System.Linq;
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
@@ -17,36 +18,38 @@
     {
         private readonly UserManager<SimplyRecipesUser> userManager;
         private readonly ISimplyRecipesUsersService simplyRecipesUsersService;
-        private readonly RoleManager<ApplicationRole> roleManager;
 
         public ApplicationUsersController(
             UserManager<SimplyRecipesUser> userManager,
-            ISimplyRecipesUsersService simplyRecipesUsersService,
-            RoleManager<ApplicationRole> roleManager)
+            ISimplyRecipesUsersService simplyRecipesUsersService)
         {
             this.userManager = userManager;
             this.simplyRecipesUsersService = simplyRecipesUsersService;
-            this.roleManager = roleManager;
         }
 
         [HttpGet("all")]
         public async Task<ActionResult> All()
         {
-            var users = await this.simplyRecipesUsersService
-                .GetAllSimplyRecipesUsersAsync<SimplyRecipesUserDetailsViewModel>();
-
-            foreach (var currUser in users)
+            try
             {
-                var userRole = currUser.Roles.FirstOrDefault(x => x.UserId == currUser.Id);
-                var currUserRole = await this.roleManager.FindByIdAsync(userRole.RoleId);
-                currUser.Role = currUserRole.Name;
-            }
+                var users = await this.simplyRecipesUsersService
+                    .GetAllSimplyRecipesUsersAsync<SimplyRecipesUserDetailsViewModel>();
 
-            return this.Ok(users);
+                foreach (var currUser in users)
+                {
+                    currUser.Role = await this.simplyRecipesUsersService
+                        .GetCurrentUserRoleNameAsync(currUser, currUser.Id);
+                }
+
+                return this.Ok(users);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
         }
 
         [HttpPut("edit")]
-        [Authorize]
         public async Task<ActionResult> Edit([FromBody] SimplyRecipesUserEditViewModel model)
         {
             if (!this.ModelState.IsValid)
@@ -54,44 +57,72 @@
                 return this.BadRequest(model);
             }
 
-            var user = await this.userManager.FindByIdAsync(model.UserId);
+            try
+            {
+                var user = await this.userManager.FindByIdAsync(model.UserId);
 
-            await this.userManager.RemoveFromRoleAsync(user, model.RoleName);
+                await this.userManager.RemoveFromRoleAsync(user, model.RoleName);
 
-            await this.userManager.AddToRoleAsync(user, model.NewRole);
+                await this.userManager.AddToRoleAsync(user, model.NewRole);
 
-            var viewModel = await this.simplyRecipesUsersService
-                .GetViewModelByIdAsync<SimplyRecipesUserDetailsViewModel>(model.UserId);
-            viewModel.Role = model.NewRole;
+                var viewModel = await this.simplyRecipesUsersService
+                    .GetViewModelByIdAsync<SimplyRecipesUserDetailsViewModel>(model.UserId);
+                viewModel.Role = model.NewRole;
 
-            return this.Ok(viewModel);
+                return this.Ok(viewModel);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
-
         [HttpDelete("ban/{id}")]
-        [Authorize]
         public async Task<ActionResult> Ban(string id)
         {
-            var user = await this.simplyRecipesUsersService.BanByIdAsync(id);
+            try
+            {
+                var user = await this.simplyRecipesUsersService.BanByIdAsync(id);
 
-            var userRole = user.Roles.FirstOrDefault(x => x.UserId == user.Id);
-            var currUserRole = await this.roleManager.FindByIdAsync(userRole.RoleId);
-            user.Role = currUserRole.Name;
+                user.Role = await this.simplyRecipesUsersService
+                    .GetCurrentUserRoleNameAsync(user, user.Id);
 
-            return this.Ok(user);
+                return this.Ok(user);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpDelete("unban/{id}")]
-        [Authorize]
-        public async Task<IActionResult> Unban(string id)
+        public async Task<ActionResult> Unban(string id)
         {
-            var user = await this.simplyRecipesUsersService.UnbanByIdAsync(id);
+            try
+            {
+                var user = await this.simplyRecipesUsersService.UnbanByIdAsync(id);
 
-            var userRole = user.Roles.FirstOrDefault(x => x.UserId == user.Id);
-            var currUserRole = await this.roleManager.FindByIdAsync(userRole.RoleId);
-            user.Role = currUserRole.Name;
+                user.Role = await this.simplyRecipesUsersService
+                    .GetCurrentUserRoleNameAsync(user, user.Id);
 
-            return this.Ok(user);
+                return this.Ok(user);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

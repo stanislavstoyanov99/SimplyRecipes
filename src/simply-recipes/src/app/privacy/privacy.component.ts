@@ -13,7 +13,9 @@ export class PrivacyComponent implements OnInit {
 
   privacy: IPrivacyDetails | null = null;
 
-  constructor(private homeService: HomeService, private dialog: MatDialog) { }
+  constructor(
+    private homeService: HomeService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.homeService.getPrivacy().subscribe({

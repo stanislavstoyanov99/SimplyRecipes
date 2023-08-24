@@ -3,13 +3,13 @@
     using System;
     using System.Threading.Tasks;
 
-    using SimplyRecipes.Data.Models;
-    using SimplyRecipes.Services.Data.Interfaces;
-    using SimplyRecipes.Models.ViewModels.Reviews;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
+    using SimplyRecipes.Data.Models;
+    using SimplyRecipes.Services.Data.Interfaces;
+    using SimplyRecipes.Models.ViewModels.Reviews;
     using SimplyRecipes.Common;
 
     public class ReviewsController : ApiController
@@ -35,10 +35,9 @@
                 return this.BadRequest(model);
             }
 
-            var userId = this.userManager.GetUserId(this.User);
-
             try
             {
+                var userId = this.userManager.GetUserId(this.User);
                 var review = await this.reviewsService.CreateAsync(model, userId);
 
                 return this.Ok(review);
@@ -47,6 +46,10 @@
             {
                 return this.BadRequest(aex.Message);
             }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpDelete]
@@ -54,9 +57,16 @@
         [Route("remove/{id}")]
         public async Task<ActionResult> Remove(int id)
         {
-            var newRate = await this.reviewsService.DeleteReviewByIdAsync(id);
+            try
+            {
+                var newRate = await this.reviewsService.DeleteReviewByIdAsync(id);
 
-            return this.Ok(newRate);
+                return this.Ok(newRate);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

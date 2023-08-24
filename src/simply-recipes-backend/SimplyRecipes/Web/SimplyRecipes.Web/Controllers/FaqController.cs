@@ -1,14 +1,15 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
-
-    using SimplyRecipes.Models.ViewModels.Faq;
-    using SimplyRecipes.Services.Data.Interfaces;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using SimplyRecipes.Models.InputModels.Administration.Faq;
+
     using SimplyRecipes.Common;
+    using SimplyRecipes.Models.ViewModels.Faq;
+    using SimplyRecipes.Models.InputModels.Administration.Faq;
+    using SimplyRecipes.Services.Data.Interfaces;
 
     public class FaqController : ApiController
     {
@@ -36,9 +37,20 @@
                 return this.BadRequest(faqCreateInputModel);
             }
 
-            var faq = await this.faqService.CreateAsync(faqCreateInputModel);
+            try
+            {
+                var faq = await this.faqService.CreateAsync(faqCreateInputModel);
 
-            return this.Ok(faq);
+                return this.Ok(faq);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpPut("edit")]
@@ -50,18 +62,32 @@
                 return this.BadRequest(faqEditViewModel);
             }
 
-            var faq = await this.faqService.EditAsync(faqEditViewModel);
+            try
+            {
+                var faq = await this.faqService.EditAsync(faqEditViewModel);
 
-            return this.Ok(faq);
+                return this.Ok(faq);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpDelete("remove/{id}")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Remove(int id)
         {
-            await this.faqService.DeleteByIdAsync(id);
+            try
+            {
+                await this.faqService.DeleteByIdAsync(id);
 
-            return this.Ok();
+                return this.Ok();
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

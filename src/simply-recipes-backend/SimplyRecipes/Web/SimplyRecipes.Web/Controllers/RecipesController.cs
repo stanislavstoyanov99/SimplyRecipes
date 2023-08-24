@@ -1,6 +1,11 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.InputModels.Administration.Recipes;
@@ -8,10 +13,6 @@
     using SimplyRecipes.Models.ViewModels.Categories;
     using SimplyRecipes.Models.ViewModels.Recipes;
     using SimplyRecipes.Services.Data.Interfaces;
-
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
 
     public class RecipesController : ApiController
     {
@@ -33,7 +34,7 @@
 
         [HttpGet]
         [Route("by-category")]
-        public async Task<IActionResult> ByCategory(string categoryName)
+        public async Task<ActionResult> ByCategory(string categoryName)
         {
             var recipes = this.recipesService
                 .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
@@ -47,9 +48,16 @@
         [HttpGet("details/{id}")]
         public async Task<ActionResult> Details(int id)
         {
-            var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
+            try
+            {
+                var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
 
-            return this.Ok(recipe);
+                return this.Ok(recipe);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpGet("all")]
@@ -95,47 +103,68 @@
 
         [Authorize]
         [HttpPost("submit")]
-        public async Task<IActionResult> Submit([FromForm] RecipeCreateInputModel recipeCreateInputModel)
+        public async Task<ActionResult> Submit([FromForm] RecipeCreateInputModel recipeCreateInputModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(recipeCreateInputModel);
             }
 
-            var user = await this.userManager.GetUserAsync(this.User);
+            try
+            {
+                var user = await this.userManager.GetUserAsync(this.User);
 
-            var recipe = await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
-            return this.Ok(recipe);
+                var recipe = await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
+                return this.Ok(recipe);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [Authorize]
         [HttpDelete("remove/{id}")]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            await this.recipesService.DeleteByIdAsync(id);
+            try
+            {
+                await this.recipesService.DeleteByIdAsync(id);
 
-            return this.Ok();
+                return this.Ok();
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [Authorize]
         [HttpPut("edit")]
-        public async Task<IActionResult> Edit([FromForm] RecipeEditViewModel model)
+        public async Task<ActionResult> Edit([FromForm] RecipeEditViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(model);
             }
 
-            var recipe = await this.recipesService.EditAsync(model);
-            return this.Ok(recipe);
-        }
-
-        [HttpGet("recipe/{id}")]
-        public async Task<RecipeDetailsViewModel> GetRecipe(int id)
-        {
-            var responseModel = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
-
-            return responseModel;
+            try
+            {
+                var recipe = await this.recipesService.EditAsync(model);
+                return this.Ok(recipe);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

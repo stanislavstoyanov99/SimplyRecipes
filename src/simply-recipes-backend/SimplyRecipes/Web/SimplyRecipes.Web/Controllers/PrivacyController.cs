@@ -1,6 +1,8 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +23,16 @@
         [HttpGet("{id}")]
         public async Task<ActionResult> Privacy(int id)
         {
-            var privacy = await this.privacyService.GetViewModelByIdAsync<PrivacyDetailsViewModel>(id);
+            try
+            {
+                var privacy = await this.privacyService.GetViewModelByIdAsync<PrivacyDetailsViewModel>(id);
 
-            return this.Ok(privacy);
+                return this.Ok(privacy);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpPost("submit")]
@@ -35,8 +44,19 @@
                 return this.BadRequest(privacyCreateInputModel);
             }
 
-            var privacy = await this.privacyService.CreateAsync(privacyCreateInputModel);
-            return this.Ok(privacy);
+            try
+            {
+                var privacy = await this.privacyService.CreateAsync(privacyCreateInputModel);
+                return this.Ok(privacy);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpPut("edit")]
@@ -48,9 +68,16 @@
                 return this.BadRequest(privacyEditViewModel);
             }
 
-            var privacy = await this.privacyService.EditAsync(privacyEditViewModel);
+            try
+            {
+                var privacy = await this.privacyService.EditAsync(privacyEditViewModel);
 
-            return this.Ok(privacy);
+                return this.Ok(privacy);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

@@ -1,7 +1,12 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
 
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Models.ViewModels.Articles;
@@ -10,10 +15,6 @@
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.InputModels.Administration.Articles;
     using SimplyRecipes.Common;
-
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
 
     public class ArticlesController : ApiController
     {
@@ -58,10 +59,17 @@
         [HttpGet("details/{id}")]
         public async Task<ActionResult> Details([FromRoute] int id)
         {
-            var article = await this.articlesService
-                .GetViewModelByIdAsync<ArticleListingViewModel>(id);
+            try
+            {
+                var article = await this.articlesService
+                    .GetViewModelByIdAsync<ArticleListingViewModel>(id);
 
-            return this.Ok(article);
+                return this.Ok(article);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpGet("sidebar")]
@@ -131,43 +139,70 @@
 
         [HttpPost("submit")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Submit([FromForm] ArticleCreateInputModel articleCreateInputModel)
+        public async Task<ActionResult> Submit([FromForm] ArticleCreateInputModel articleCreateInputModel)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(articleCreateInputModel);
             }
 
-            var article = await this.articlesService.CreateAsync(articleCreateInputModel, user.Id);
+            try
+            {
+                var user = await this.userManager.GetUserAsync(this.User);
+                var article = await this.articlesService.CreateAsync(articleCreateInputModel, user.Id);
 
-            return this.Ok(article);
+                return this.Ok(article);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpPut("edit")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Edit([FromForm] ArticleEditViewModel articleEditViewModel)
+        public async Task<ActionResult> Edit([FromForm] ArticleEditViewModel articleEditViewModel)
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(articleEditViewModel);
             }
 
-            var article = await this.articlesService.EditAsync(articleEditViewModel, user.Id);
+            try
+            {
+                var user = await this.userManager.GetUserAsync(this.User);
+                var article = await this.articlesService.EditAsync(articleEditViewModel, user.Id);
 
-            return this.Ok(article);
+                return this.Ok(article);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpDelete("remove/{id}")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            await this.articlesService.DeleteByIdAsync(id);
+            try
+            {
+                await this.articlesService.DeleteByIdAsync(id);
 
-            return this.Ok();
+                return this.Ok();
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

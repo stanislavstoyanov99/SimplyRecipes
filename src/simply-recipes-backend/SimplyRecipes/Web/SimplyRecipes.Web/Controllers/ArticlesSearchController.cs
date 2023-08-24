@@ -3,11 +3,11 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Mvc;
+
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Models.ViewModels.Articles;
     using SimplyRecipes.Services.Data.Interfaces;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class ArticlesSearchController : ApiController
     {

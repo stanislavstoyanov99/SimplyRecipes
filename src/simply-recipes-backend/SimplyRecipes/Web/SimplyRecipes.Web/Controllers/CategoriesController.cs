@@ -1,8 +1,10 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
+    using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using System.Threading.Tasks;
 
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.Categories;
@@ -28,39 +30,68 @@
 
         [HttpPost("submit")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Submit([FromForm] CategoryCreateInputModel categoryCreateInputModel)
+        public async Task<ActionResult> Submit([FromForm] CategoryCreateInputModel categoryCreateInputModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(categoryCreateInputModel);
             }
 
-            var category = await this.categoriesService.CreateAsync(categoryCreateInputModel);
+            try
+            {
+                var category = await this.categoriesService.CreateAsync(categoryCreateInputModel);
 
-            return this.Ok(category);
+                return this.Ok(category);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpPut("edit")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Edit([FromForm] CategoryEditViewModel categoryEditViewModel)
+        public async Task<ActionResult> Edit([FromForm] CategoryEditViewModel categoryEditViewModel)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(categoryEditViewModel);
             }
 
-            var category = await this.categoriesService.EditAsync(categoryEditViewModel);
+            try
+            {
+                var category = await this.categoriesService.EditAsync(categoryEditViewModel);
 
-            return this.Ok(category);
+                return this.Ok(category);
+            }
+            catch (ArgumentException aex)
+            {
+                return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
 
         [HttpDelete("remove/{id}")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Remove(int id)
+        public async Task<ActionResult> Remove(int id)
         {
-            await this.categoriesService.DeleteByIdAsync(id);
+            try
+            {
+                await this.categoriesService.DeleteByIdAsync(id);
 
-            return this.Ok();
+                return this.Ok();
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

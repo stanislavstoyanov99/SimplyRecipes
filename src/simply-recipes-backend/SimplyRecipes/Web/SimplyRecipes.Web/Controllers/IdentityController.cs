@@ -26,13 +26,13 @@
         [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterRequestModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(model);
+            }
+
             try
             {
-                if (!this.ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 var result = await this.identityService.RegisterAsync(model);
                 var response = new RegisterResponseModel
                 {
@@ -41,9 +41,9 @@
 
                 return Ok(response);
             }
-            catch (Exception ex)
+            catch (ArgumentException aex)
             {
-                return BadRequest(new RegisterResponseModel { Succeeded = false, Errors = ex.Message });
+                return BadRequest(new RegisterResponseModel { Succeeded = false, Errors = aex.Message });
             }
         }
 
@@ -55,13 +55,13 @@
         [Route(nameof(Login))]
         public async Task<ActionResult> Login(LoginRequestModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(model);
+            }
+
             try
             {
-                if (!this.ModelState.IsValid)
-                {
-                    return BadRequest(model);
-                }
-
                 var result = await this.identityService.LoginAsync(model);
 
                 return Ok(result);

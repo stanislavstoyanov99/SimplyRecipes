@@ -50,13 +50,14 @@ export class EditPrivacyComponent implements OnInit {
 
     const { pageContent } = formGroup.value;
     const privacyEditInputModel = new PrivacyEditModel();
+    privacyEditInputModel.id = 1;
     privacyEditInputModel.pageContent = pageContent;
 
     this.privacyService.editPrivacy(privacyEditInputModel).subscribe({
       next: (privacy) => {
         setTimeout(() => {
           this.router.navigate(['/privacy']);
-        }, 3000);
+        }, 2000);
       },
       error: (err: string) => {
         this.dialog.open(ErrorDialogComponent, {

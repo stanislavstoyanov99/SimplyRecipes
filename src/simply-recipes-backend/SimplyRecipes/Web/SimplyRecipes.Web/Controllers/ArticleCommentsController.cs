@@ -3,13 +3,13 @@
     using System;
     using System.Threading.Tasks;
 
-    using SimplyRecipes.Data.Models;
-    using SimplyRecipes.Services.Data.Interfaces;
-    using SimplyRecipes.Models.ViewModels.ArticleComments;
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+
+    using SimplyRecipes.Data.Models;
+    using SimplyRecipes.Services.Data.Interfaces;
+    using SimplyRecipes.Models.ViewModels.ArticleComments;
 
     public class ArticleCommentsController : ApiController
     {
@@ -34,7 +34,7 @@
             {
                 if (!await this.articleCommentsService.IsInArticleId(parentId.Value, model.ArticleId))
                 {
-                    return this.BadRequest();
+                    return this.BadRequest(model);
                 }
             }
 
@@ -53,6 +53,10 @@
             catch (ArgumentException aex)
             {
                 return this.BadRequest(aex.Message);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
             }
         }
     }

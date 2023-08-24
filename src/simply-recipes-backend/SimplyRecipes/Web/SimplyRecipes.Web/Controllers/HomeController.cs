@@ -1,13 +1,14 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
+    using System;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Mvc;
 
     using SimplyRecipes.Models.ViewModels.Articles;
     using SimplyRecipes.Models.ViewModels.Privacy;
     using SimplyRecipes.Models.ViewModels.Recipes;
     using SimplyRecipes.Services.Data.Interfaces;
-
-    using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : ApiController
     {
@@ -61,9 +62,16 @@
         [HttpGet("privacy")]
         public async Task<ActionResult> Privacy()
         {
-            var responseModel = await this.privacyService.GetViewModelAsync<PrivacyDetailsViewModel>();
+            try
+            {
+                var responseModel = await this.privacyService.GetViewModelAsync<PrivacyDetailsViewModel>();
 
-            return this.Ok(responseModel);
+                return this.Ok(responseModel);
+            }
+            catch (NullReferenceException nre)
+            {
+                return this.BadRequest(nre.Message);
+            }
         }
     }
 }

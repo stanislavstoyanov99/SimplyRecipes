@@ -4,23 +4,27 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Identity;
 
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Mapping;
-
-    using Microsoft.EntityFrameworkCore;
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
 
     public class SimplyRecipesUsersService : ISimplyRecipesUsersService
     {
         private readonly IDeletableEntityRepository<SimplyRecipesUser> simplyRecipesUsersRepository;
+        private readonly RoleManager<ApplicationRole> roleManager;
 
-        public SimplyRecipesUsersService(IDeletableEntityRepository<SimplyRecipesUser> simplyRecipesUsersRepository)
+        public SimplyRecipesUsersService(
+            IDeletableEntityRepository<SimplyRecipesUser> simplyRecipesUsersRepository,
+            RoleManager<ApplicationRole> roleManager)
         {
             this.simplyRecipesUsersRepository = simplyRecipesUsersRepository;
+            this.roleManager = roleManager;
         }
 
         public async Task<SimplyRecipesUserDetailsViewModel> BanByIdAsync(string id)
@@ -87,6 +91,15 @@
             }
 
             return simplyRecipesUserViewModel;
+        }
+
+        public async Task<string> GetCurrentUserRoleNameAsync(
+            SimplyRecipesUserDetailsViewModel user, string userId)
+        {
+            var userRole = user.Roles.FirstOrDefault(x => x.UserId == userId);
+            var currUserRole = await this.roleManager.FindByIdAsync(userRole.RoleId);
+
+            return currUserRole.Name;
         }
     }
 }

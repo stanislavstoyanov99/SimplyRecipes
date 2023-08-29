@@ -88,3 +88,12 @@
 .col-lg-6, .col-md-6 {
     padding: 0 5px !important;
 }
+
+.recipes-pagination-links ::ng-deep .ngx-pagination .current {
+    background: #540404;
+}
+
+.recipes-pagination-links ::ng-deep .ngx-pagination {
+    margin-top: 2rem;
+    margin-bottom: 0;
+}

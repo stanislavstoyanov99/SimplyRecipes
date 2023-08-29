@@ -18,7 +18,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
-import { MatToolbarModule } from '@angular/material/toolbar'; 
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatIconModule,
     MatSelectModule,
     MatCardModule,
-    MatToolbarModule
+    MatToolbarModule,
+    NgxPaginationModule
   ],
   exports: [
     RecipesMenuComponent

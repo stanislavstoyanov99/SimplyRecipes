@@ -6,8 +6,10 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
 
     using SimplyRecipes.Data.Models;
+    using SimplyRecipes.Models.Common;
     using SimplyRecipes.Models.InputModels.Administration.Recipes;
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Models.ViewModels.Categories;
@@ -16,7 +18,7 @@
 
     public class RecipesController : ApiController
     {
-        private const int PageSize = 12;
+        private const int PageSize = 10;
 
         private readonly IRecipesService recipesService;
         private readonly ICategoriesService categoriesService;
@@ -30,19 +32,6 @@
             this.recipesService = recipesService;
             this.categoriesService = categoriesService;
             this.userManager = userManager;
-        }
-
-        [HttpGet]
-        [Route("by-category")]
-        public async Task<ActionResult> ByCategory(string categoryName)
-        {
-            var recipes = this.recipesService
-                .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
-
-            var recipesPaginated = await PaginatedList<RecipeListingViewModel>
-                .CreateAsync(recipes, 1, PageSize);
-
-            return this.Ok(recipesPaginated);
         }
 
         [HttpGet("details/{id}")]
@@ -68,16 +57,21 @@
             return this.Ok(recipes);
         }
 
-        [HttpGet("list")]
-        public async Task<ActionResult> List()
+        [HttpGet("all/{categoryName}/{pageNumber?}")]
+        public async Task<ActionResult> AllPaginated(string categoryName, int? pageNumber)
         {
-            var recipes = await this.recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
-            var categories = await this.categoriesService.GetAllCategoriesAsync<CategoryDetailsViewModel>();
+            var recipes = this.recipesService
+                .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
 
-            var responseModel = new RecipeListViewModel
+            var recipesPaginated = await PaginatedList<RecipeListingViewModel>
+                .CreateAsync(recipes, pageNumber ?? 1, PageSize);
+
+            var responseModel = new PaginatedViewModel<RecipeListingViewModel>
             {
-                Recipes = recipes,
-                Categories = categories,
+                Items = recipesPaginated,
+                PageNumber = pageNumber ?? 1,
+                PageSize = PageSize,
+                Count = await recipes.CountAsync()
             };
 
             return this.Ok(responseModel);

@@ -5,7 +5,7 @@
 </div>
 <div class="containter pt-4 pb-4">
     <div class="card-deck">
-        <div class="card" *ngFor="let article of articlesByCategory">
+        <div class="card" *ngFor="let article of articlesByCategoryPaginated.items | paginate: { itemsPerPage: pageSize, currentPage: pageNumber, totalItems: count }">
             <img class="card-img-top zoom" src="{{article.imagePath}}" alt="Image_{{article.id}}">
             <div class="card-body">
                 <h5 class="card-title">
@@ -24,5 +24,6 @@
             </div>
         </div>
     </div>
+    <pagination-controls class="by-category-pagination-links" (pageChange)="onPageChange($event)" [responsive]="true"></pagination-controls>
     <a class="btn btn-primary" routerLink="/articles/main">Back to articles</a>
 </div>

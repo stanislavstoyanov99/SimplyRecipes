@@ -12,6 +12,7 @@ import { ArticlesListComponent } from './articles-list/articles-list.component';
 import { ArticlesCommentsComponent } from './articles-comments/articles-comments.component';
 import { ArticlesSidebarComponent } from './articles-sidebar/articles-sidebar.component';
 import { ArticlesSearchComponent } from './articles-search/articles-search.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -31,7 +32,8 @@ import { ArticlesSearchComponent } from './articles-search/articles-search.compo
     SharedModule,
     FormsModule,
     ArticlesRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxPaginationModule
   ],
   exports: [
     ArticlesMenuComponent

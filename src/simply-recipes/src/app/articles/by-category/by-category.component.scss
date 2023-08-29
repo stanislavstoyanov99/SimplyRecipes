@@ -64,3 +64,13 @@
 .fa-icon {
     color:#540404;
 }
+
+.by-category-pagination-links ::ng-deep .ngx-pagination .current {
+    background: #540404;
+}
+
+.by-category-pagination-links ::ng-deep .ngx-pagination {
+    margin-left: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}

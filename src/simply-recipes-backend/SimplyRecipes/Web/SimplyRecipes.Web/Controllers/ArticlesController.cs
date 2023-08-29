@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
 
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Models.ViewModels.Articles;
@@ -15,13 +16,14 @@
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.InputModels.Administration.Articles;
     using SimplyRecipes.Common;
+    using SimplyRecipes.Models.Common;
 
     public class ArticlesController : ApiController
     {
         private const int PageSize = 9;
         private const int RecentArticlesCount = 6;
         private const int ArticlesByCategoryCount = 6;
-        private const int ArticlesInSearchPage = 4;
+        private const int ArticlesInSearchPage = 5;
 
         private readonly IArticlesService articlesService;
         private readonly ICategoriesService categoriesService;
@@ -40,10 +42,17 @@
         [HttpGet("{pageNumber?}")]
         public async Task<ActionResult> Get([FromRoute] int? pageNumber)
         {
-            var allArticles = await Task.Run(() =>
-                this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>());
+            var allArticles = this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>();
 
-            var responseModel = await PaginatedList<ArticleListingViewModel>.CreateAsync(allArticles, pageNumber ?? 1, PageSize);
+            var articlesPaginated = await PaginatedList<ArticleListingViewModel>.CreateAsync(allArticles, pageNumber ?? 1, PageSize);
+
+            var responseModel = new PaginatedViewModel<ArticleListingViewModel>
+            {
+                Items = articlesPaginated,
+                PageNumber = pageNumber ?? 1,
+                PageSize = PageSize,
+                Count = await allArticles.CountAsync()
+            };
 
             return Ok(responseModel);
         }
@@ -91,38 +100,54 @@
         }
 
         [HttpGet]
-        [Route("search")]
-        public async Task<ActionResult> Search(string searchTitle)
+        [Route("search/{searchTitle}/{pageNumber?}")]
+        public async Task<ActionResult> Search(string searchTitle, int? pageNumber)
         {
             if (string.IsNullOrEmpty(searchTitle))
             {
                 return this.NotFound();
             }
 
-            var articles = await Task.Run(() => this.articlesService
+            var articles = this.articlesService
                 .GetAllArticlesAsQueryeable<ArticleListingViewModel>()
-                .Where(a => a.Title.ToLower().Contains(searchTitle.ToLower())));
+                .Where(a => a.Title.ToLower().Contains(searchTitle.ToLower()));
 
-            var responseModel = await PaginatedList<ArticleListingViewModel>
-                .CreateAsync(articles, 1, ArticlesInSearchPage);
+            var articlesPaginated = await PaginatedList<ArticleListingViewModel>
+                .CreateAsync(articles, pageNumber ?? 1, ArticlesInSearchPage);
+
+            var responseModel = new PaginatedViewModel<ArticleListingViewModel>
+            {
+                Items = articlesPaginated,
+                PageNumber = pageNumber ?? 1,
+                PageSize = ArticlesInSearchPage,
+                Count = await articles.CountAsync()
+            };
 
             return this.Ok(responseModel);
         }
 
         [HttpGet]
-        [Route("by-category")]
-        public async Task<ActionResult> ByCategory(string categoryName)
+        [Route("by-category/{categoryName}/{pageNumber?}")]
+        public async Task<ActionResult> ByCategory(string categoryName, int? pageNumber)
         {
-            var articlesByCategoryName = await Task.Run(() => this.articlesService
-                .GetAllArticlesByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName));
+            var articlesByCategoryName = this.articlesService
+                .GetAllArticlesByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName);
 
             if (articlesByCategoryName.Count() == 0)
             {
                 return this.NotFound();
             }
 
-            var responseModel = await PaginatedList<ArticleListingViewModel>
-                    .CreateAsync(articlesByCategoryName, 1, ArticlesByCategoryCount);
+            var articlesPaginated = await PaginatedList<ArticleListingViewModel>
+                    .CreateAsync(articlesByCategoryName, pageNumber ?? 1, ArticlesByCategoryCount);
+
+            var responseModel = new PaginatedViewModel<ArticleListingViewModel>
+            {
+                Items = articlesPaginated,
+                PageNumber = pageNumber ?? 1,
+                PageSize = ArticlesByCategoryCount,
+                Count = await articlesByCategoryName.CountAsync()
+            };
 
             return this.Ok(responseModel);
         }

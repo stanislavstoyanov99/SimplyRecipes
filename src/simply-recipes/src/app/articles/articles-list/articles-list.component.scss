@@ -81,3 +81,12 @@
     background-color: #333333;
     border-color: #333333;
 }
+
+.articles-pagination-links ::ng-deep .ngx-pagination .current {
+    background: #540404;
+}
+
+.articles-pagination-links ::ng-deep .ngx-pagination {
+    margin-top: 2rem;
+    margin-bottom: 0;
+}

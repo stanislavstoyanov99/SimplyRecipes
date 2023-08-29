@@ -6,6 +6,7 @@ import { IArticleListing } from '../shared/interfaces/articles/article-listing';
 import { IArticleSidebar } from '../shared/interfaces/articles/article-sidebar';
 import { IArticleDetails } from '../shared/interfaces/articles/article-details';
 import { ICategoryList } from '../shared/interfaces/categories/category-list';
+import { PageResult } from '../shared/utils/utils';
 
 const apiURL = environment.apiURL;
 
@@ -16,8 +17,8 @@ export class ArticlesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getArticles(): Observable<IArticleListing[]> {
-    return this.httpClient.get<IArticleListing[]>(`${apiURL}/articles`);
+  getArticles(pageNumber?: number): Observable<PageResult<IArticleListing>> {
+    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/${pageNumber}`);
   }
 
   getAllArticles(): Observable<IArticleDetails[]> {
@@ -32,12 +33,12 @@ export class ArticlesService {
     return this.httpClient.get<IArticleSidebar>(`${apiURL}/articles/sidebar`);
   }
 
-  getArticlesByCategoryName(categoryName: string): Observable<IArticleListing[]> {
-    return this.httpClient.get<IArticleListing[]>(`${apiURL}/articles/by-category?categoryName=${categoryName}`);
+  getArticlesByCategoryName(categoryName: string, pageNumber?: number): Observable<PageResult<IArticleListing>> {
+    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/by-category/${categoryName}/${pageNumber}`);
   }
 
-  getArticlesBySearchTitle(searchTitle: string): Observable<IArticleListing[]> {
-    return this.httpClient.get<IArticleListing[]>(`${apiURL}/articles/search?searchTitle=${searchTitle}`);
+  getArticlesBySearchTitle(searchTitle: string, pageNumber?: number): Observable<PageResult<IArticleListing>> {
+    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/search/${searchTitle}/${pageNumber}`);
   }
 
   getArticleCategories(): Observable<ICategoryList[]> {

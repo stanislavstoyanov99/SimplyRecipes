@@ -2,7 +2,8 @@
     <ng-container *ngIf="loadingService.isLoading$ | async">
         <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#540404" size="medium"></ngx-spinner>
     </ng-container>
-    <div class="col-lg-4 col-md-6 col-12" *ngFor="let article of articles">
+    <div class="col-lg-4 col-md-6 col-12"
+        *ngFor="let article of articlesPaginated.items | paginate: { itemsPerPage: pageSize, currentPage: pageNumber, totalItems: count }">
         <div class="blog-box-inner">
             <div class="blog-img-box">
                 <img class="img-fluid home-pic" src="{{article.imagePath}}" alt="image_{{article.id}}">
@@ -23,4 +24,5 @@
             </div>
         </div>
     </div>
+    <pagination-controls class="articles-pagination-links" (pageChange)="onPageChange($event)" [responsive]="true"></pagination-controls>
 </div>

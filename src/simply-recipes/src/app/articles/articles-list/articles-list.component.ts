@@ -6,6 +6,7 @@ import { faCalendar, faUser } from '@fortawesome/free-solid-svg-icons';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PageResult } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-articles-list',
@@ -14,7 +15,15 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ArticlesListComponent implements OnInit {
 
-  articles: IArticleListing[] = [];
+  articlesPaginated: PageResult<IArticleListing> = {
+    count: 0,
+    items: [],
+    pageNumber: 1,
+    pageSize: 0
+  };
+  pageNumber: number = 1;
+  pageSize: number = 9;
+  count: number = 0;
   
   constructor(
     public loadingService: LoadingService,
@@ -25,9 +34,19 @@ export class ArticlesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.articlesService.getArticles().subscribe({
-      next: (articles) => {
-        this.articles = articles;
+    this.getArticlesPaginated(1);
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.getArticlesPaginated(pageNumber);
+  }
+
+  getArticlesPaginated(pageNumber?: number) {
+    this.articlesService.getArticles(pageNumber).subscribe({
+      next: (articlesPaginated) => {
+        this.articlesPaginated = articlesPaginated;
+        this.pageNumber = this.articlesPaginated.pageNumber;
+        this.count = this.articlesPaginated.count;
       },
       error: (err: string) => {
         this.dialog.open(ErrorDialogComponent, {

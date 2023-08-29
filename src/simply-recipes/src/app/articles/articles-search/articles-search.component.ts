@@ -6,6 +6,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PageResult } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-articles-search',
@@ -14,7 +15,15 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class ArticlesSearchComponent implements OnInit {
 
-  articles: IArticleListing[] = [];
+  articlesPaginated: PageResult<IArticleListing> = {
+    count: 0,
+    items: [],
+    pageNumber: 1,
+    pageSize: 0
+  };
+  pageNumber: number = 1;
+  pageSize: number = 5;
+  count: number = 0;
   searchTitle!: string;
 
   constructor(
@@ -26,13 +35,29 @@ export class ArticlesSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
+    this.route.params.subscribe(params => {
       this.searchTitle = params["searchTitle"];
     });
 
-    this.articlesService.getArticlesBySearchTitle(this.searchTitle).subscribe({
-      next: (articles) => {
-        this.articles = articles;
+    this.getArticlesPaginated(this.searchTitle, 1);
+  }
+
+  onSearchHandler(value: string): void {
+    if (value) {
+      this.getArticlesPaginated(value, 1);
+    }
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.getArticlesPaginated(this.searchTitle, pageNumber);
+  }
+
+  private getArticlesPaginated(searchTitle: string, pageNumber?: number) {
+    this.articlesService.getArticlesBySearchTitle(searchTitle, pageNumber).subscribe({
+      next: (articlesPaginated) => {
+        this.articlesPaginated = articlesPaginated;
+        this.pageNumber = this.articlesPaginated.pageNumber;
+        this.count = this.articlesPaginated.count;
       },
       error: (err: string) => {
         this.dialog.open(ErrorDialogComponent, {
@@ -42,18 +67,5 @@ export class ArticlesSearchComponent implements OnInit {
         });
       }
     });
-  }
-
-  onSearchHandler(value: string): void {
-    if (value) {
-      this.articlesService.getArticlesBySearchTitle(value).subscribe({
-        next: (value) => {
-          this.articles = value;
-        },
-        error: (err) => {
-          console.error(err); // TODO: Add global error handler
-        }
-      });
-    }
   }
 }

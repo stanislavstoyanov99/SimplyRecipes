@@ -27,7 +27,7 @@ const routes: Routes = [
   {
     path: 'by-category',
     resolve: {
-      articlesByCategory: ByCategoryResolver
+      articlesByCategoryPaginated: ByCategoryResolver
     },
     component: ByCategoryComponent,
     data: {
@@ -35,7 +35,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'search',
+    path: 'search/:searchTitle/:pageNumber',
     component: ArticlesSearchComponent,
     data: {
       title: 'Search Results'

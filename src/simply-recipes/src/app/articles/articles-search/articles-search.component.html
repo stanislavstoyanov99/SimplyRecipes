@@ -16,18 +16,18 @@
         </div>
         <div class="col-md-12 pt-3 pb-3">
             <div>
-                <h4>About {{articles.length}} results</h4>
+                <h4>About {{articlesPaginated.items.length}} results</h4>
             </div>
         </div>
     </div>
     <div class="clearfix mt-40">
         <div class="preloader"></div>
-        <ng-container *ngIf="!articles.length">
+        <ng-container *ngIf="!articlesPaginated.items.length">
             <div class="alert alert-info" role="alert">No results found.</div>
         </ng-container>
-        <ng-container *ngIf="articles.length > 0">
+        <ng-container *ngIf="articlesPaginated.items.length > 0">
             <ul id="search-results" class="xsearch-items">
-                <li class="search-item" *ngFor="let article of articles">
+                <li class="search-item" *ngFor="let article of articlesPaginated.items | paginate: { itemsPerPage: pageSize, currentPage: pageNumber, totalItems: count }">
                     <div class="search-item-img">
                         <img src="{{article.imagePath}}" alt="Image_{{article.id}}">
                     </div>
@@ -47,6 +47,7 @@
                         <div [innerHTML]="article.sanitizedShortDescription"></div>
                     </div>
                 </li>
+                <pagination-controls class="articles-search-pagination-links" (pageChange)="onPageChange($event)" [responsive]="true"></pagination-controls>
             </ul>
         </ng-container>
     </div>

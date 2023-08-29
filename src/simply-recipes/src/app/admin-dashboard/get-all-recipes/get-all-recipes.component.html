@@ -1,7 +1,7 @@
 <h4>Recipes List</h4>
 <hr />
-<h5>Total Count : <span>{{recipes.length}}</span></h5>
-<ng-container *ngIf="recipes.length > 0">
+<h5>Total Count : <span>{{recipesPaginated.items.length}}</span></h5>
+<ng-container *ngIf="recipesPaginated.items.length > 0">
     <table class="table table-bordered table-dark table-hover">
         <thead>
             <tr>
@@ -13,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let recipe of recipes">
+            <tr *ngFor="let recipe of recipesPaginated.items | paginate: { itemsPerPage: pageSize, currentPage: pageNumber, totalItems: count }">
                <th scope="row">{{recipe.id}}</th>
                <td>{{recipe.name}}</td>
                <td [innerHTML]="recipe.sanitizedShortDescription"></td>
@@ -25,8 +25,9 @@
             </tr>
         </tbody>
     </table>
+    <pagination-controls class="recipes-pagination-links" (pageChange)="onPageChange($event)" [responsive]="true"></pagination-controls>
 </ng-container>
-<ng-container *ngIf="recipes.length === 0">
+<ng-container *ngIf="recipesPaginated.items.length === 0">
     <div class="alert alert-danger" role="alert">
         There is not any data available.
     </div>

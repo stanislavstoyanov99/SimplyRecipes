@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { IUserDetails } from '../shared/interfaces/users/user-details';
 import { Observable } from 'rxjs';
 import { UserEditModel } from '../shared/models/user-edit';
+import { PageResult } from '../shared/utils/utils';
 
 const apiURL = environment.apiURL;
 
@@ -14,8 +15,8 @@ export class UsersService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllUsers(): Observable<IUserDetails[]> {
-    return this.httpClient.get<IUserDetails[]>(`${apiURL}/applicationUsers/all`);
+  getAllUsers(pageNumber?: number): Observable<PageResult<IUserDetails>> {
+    return this.httpClient.get<PageResult<IUserDetails>>(`${apiURL}/applicationUsers/all/${pageNumber}`);
   }
 
   editUser(userEditModel: UserEditModel): Observable<IUserDetails> {

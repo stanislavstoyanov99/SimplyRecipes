@@ -1,3 +1,19 @@
 h4, h5 {
     color: white;
 }
+
+.recipes-pagination-links ::ng-deep .ngx-pagination .current {
+    background: #540404;
+}
+
+.recipes-pagination-links ::ng-deep .ngx-pagination {
+    margin-top: 2rem;
+}
+
+.recipes-pagination-links ::ng-deep .ngx-pagination a {
+    color: #fff;
+}
+
+.recipes-pagination-links ::ng-deep .ngx-pagination a:hover {
+    color: black;
+}

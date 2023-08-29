@@ -49,12 +49,22 @@
             }
         }
 
-        [HttpGet("all")]
-        public async Task<ActionResult> All()
+        [HttpGet("all/{pageNumber?}")]
+        public async Task<ActionResult> All(int? pageNumber)
         {
-            var recipes = await this.recipesService.GetAllRecipesAsync<RecipeDetailsViewModel>();
+            var recipes = this.recipesService.GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
+            var recipesPaginated = await PaginatedList<RecipeDetailsViewModel>
+                .CreateAsync(recipes, pageNumber ?? 1, PageSize);
 
-            return this.Ok(recipes);
+            var responseModel = new PaginatedViewModel<RecipeDetailsViewModel>
+            {
+                Items = recipesPaginated,
+                PageNumber = pageNumber ?? 1,
+                PageSize = PageSize,
+                Count = await recipes.CountAsync()
+            };
+
+            return this.Ok(responseModel);
         }
 
         [HttpGet("all/{categoryName}/{pageNumber?}")]

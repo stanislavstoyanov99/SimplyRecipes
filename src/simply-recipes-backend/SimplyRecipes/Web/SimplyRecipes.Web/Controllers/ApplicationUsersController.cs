@@ -6,16 +6,21 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.EntityFrameworkCore;
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
     using SimplyRecipes.Models.ViewModels.CookingHubUsers;
     using SimplyRecipes.Common;
+    using SimplyRecipes.Models.Common;
+    using SimplyRecipes.Models.ViewModels;
 
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class ApplicationUsersController : ApiController
     {
+        private const int PageSize = 10;
+
         private readonly UserManager<SimplyRecipesUser> userManager;
         private readonly ISimplyRecipesUsersService simplyRecipesUsersService;
 
@@ -27,13 +32,13 @@
             this.simplyRecipesUsersService = simplyRecipesUsersService;
         }
 
-        [HttpGet("all")]
-        public async Task<ActionResult> All()
+        [HttpGet("all/{pageNumber?}")]
+        public async Task<ActionResult> All(int? pageNumber)
         {
             try
             {
-                var users = await this.simplyRecipesUsersService
-                    .GetAllSimplyRecipesUsersAsync<SimplyRecipesUserDetailsViewModel>();
+                var users = this.simplyRecipesUsersService
+                    .GetAllSimplyRecipesUsersAsQueryeable<SimplyRecipesUserDetailsViewModel>();
 
                 foreach (var currUser in users)
                 {
@@ -41,7 +46,18 @@
                         .GetCurrentUserRoleNameAsync(currUser, currUser.Id);
                 }
 
-                return this.Ok(users);
+                var usersPaginated = await PaginatedList<SimplyRecipesUserDetailsViewModel>
+                    .CreateAsync(users, pageNumber ?? 1, PageSize);
+
+                var responseModel = new PaginatedViewModel<SimplyRecipesUserDetailsViewModel>
+                {
+                    Items = usersPaginated,
+                    PageNumber = pageNumber ?? 1,
+                    PageSize = PageSize,
+                    Count = await users.CountAsync()
+                };
+
+                return this.Ok(responseModel);
             }
             catch (ArgumentException aex)
             {

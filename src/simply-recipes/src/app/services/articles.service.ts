@@ -21,8 +21,8 @@ export class ArticlesService {
     return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/${pageNumber}`);
   }
 
-  getAllArticles(): Observable<IArticleDetails[]> {
-    return this.httpClient.get<IArticleDetails[]>(`${apiURL}/articles/all`);
+  getAllArticles(pageNumber?: number): Observable<PageResult<IArticleDetails>> {
+    return this.httpClient.get<PageResult<IArticleDetails>>(`${apiURL}/articles/all/${pageNumber}`);
   }
 
   getArticleById(id: number): Observable<IArticleListing> {

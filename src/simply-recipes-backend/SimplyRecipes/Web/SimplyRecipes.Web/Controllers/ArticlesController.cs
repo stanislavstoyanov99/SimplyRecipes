@@ -21,6 +21,7 @@
     public class ArticlesController : ApiController
     {
         private const int PageSize = 9;
+        private const int AdminPageSize = 10;
         private const int RecentArticlesCount = 6;
         private const int ArticlesByCategoryCount = 6;
         private const int ArticlesInSearchPage = 5;
@@ -44,7 +45,8 @@
         {
             var allArticles = this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>();
 
-            var articlesPaginated = await PaginatedList<ArticleListingViewModel>.CreateAsync(allArticles, pageNumber ?? 1, PageSize);
+            var articlesPaginated = await PaginatedList<ArticleListingViewModel>
+                .CreateAsync(allArticles, pageNumber ?? 1, PageSize);
 
             var responseModel = new PaginatedViewModel<ArticleListingViewModel>
             {
@@ -57,12 +59,23 @@
             return Ok(responseModel);
         }
 
-        [HttpGet("all")]
-        public async Task<ActionResult> All()
+        [HttpGet("all/{pageNumber?}")]
+        public async Task<ActionResult> All(int? pageNumber)
         {
-            var articles = await this.articlesService.GetAllArticlesAsync<ArticleDetailsViewModel>();
+            var articles = this.articlesService.GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
 
-            return this.Ok(articles);
+            var articlesPaginated = await PaginatedList<ArticleDetailsViewModel>
+                .CreateAsync(articles, pageNumber ?? 1, AdminPageSize);
+
+            var responseModel = new PaginatedViewModel<ArticleDetailsViewModel>
+            {
+                Items = articlesPaginated,
+                PageNumber = pageNumber ?? 1,
+                PageSize = AdminPageSize,
+                Count = await articles.CountAsync()
+            };
+
+            return this.Ok(responseModel);
         }
 
         [HttpGet("details/{id}")]

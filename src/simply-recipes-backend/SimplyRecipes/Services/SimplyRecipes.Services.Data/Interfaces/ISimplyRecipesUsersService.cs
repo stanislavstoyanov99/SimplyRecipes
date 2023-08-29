@@ -1,6 +1,6 @@
 ﻿namespace SimplyRecipes.Services.Data.Interfaces
 {
-    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
 
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
@@ -11,7 +11,7 @@
 
         Task<SimplyRecipesUserDetailsViewModel> UnbanByIdAsync(string id);
 
-        Task<IEnumerable<TViewModel>> GetAllSimplyRecipesUsersAsync<TViewModel>();
+        IQueryable<TViewModel> GetAllSimplyRecipesUsersAsQueryeable<TViewModel>();
 
         Task<TViewModel> GetViewModelByIdAsync<TViewModel>(string id);
 

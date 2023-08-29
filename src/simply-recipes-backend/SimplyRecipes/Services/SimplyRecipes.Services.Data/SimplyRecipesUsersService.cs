@@ -68,12 +68,11 @@
             return viewModel;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllSimplyRecipesUsersAsync<TViewModel>()
+        public IQueryable<TViewModel> GetAllSimplyRecipesUsersAsQueryeable<TViewModel>()
         {
-            var users = await this.simplyRecipesUsersRepository
+            var users = this.simplyRecipesUsersRepository
               .AllWithDeleted()
-              .To<TViewModel>()
-              .ToListAsync();
+              .To<TViewModel>();
 
             return users;
         }

@@ -5,6 +5,7 @@ import { ConfirmDialogModel, ConfirmationDialogComponent } from 'src/app/shared/
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { EditRecipeDialogModel, RecipeEditDialogComponent } from 'src/app/shared/dialogs/recipe-edit-dialog/recipe-edit-dialog.component';
 import { IRecipeDetails } from 'src/app/shared/interfaces/recipes/recipe-details';
+import { PageResult } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-get-all-recipes',
@@ -13,25 +14,22 @@ import { IRecipeDetails } from 'src/app/shared/interfaces/recipes/recipe-details
 })
 export class GetAllRecipesComponent implements OnInit {
 
-  recipes: IRecipeDetails[] = [];
-  
+  recipesPaginated: PageResult<IRecipeDetails> = {
+    count: 0,
+    items: [],
+    pageNumber: 1,
+    pageSize: 0
+  }
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  count: number = 0;
+
   constructor(
     private recipesService: RecipesService,
     private dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.recipesService.getAllRecipes().subscribe({
-      next: (recipes) => {
-        this.recipes = recipes;
-      },
-      error: (err: string) => {
-        this.dialog.open(ErrorDialogComponent, {
-          data: {
-            message: err
-          }
-        });
-      }
-    });
+    this.getRecipesPaginated(1);
   }
 
   onEditHandler(recipe: IRecipeDetails): void {
@@ -46,8 +44,8 @@ export class GetAllRecipesComponent implements OnInit {
       if (recipe) {
         this.recipesService.editRecipe(recipe).subscribe({
           next: (recipe) => {
-            const indexOfUpdatedRecipe = this.recipes.findIndex(x => x.id === recipe.id);
-            this.recipes[indexOfUpdatedRecipe] = recipe;
+            const indexOfUpdatedRecipe = this.recipesPaginated.items.findIndex(x => x.id === recipe.id);
+            this.recipesPaginated.items[indexOfUpdatedRecipe] = recipe;
           },
           error: (err: string) => {
             this.dialog.open(ErrorDialogComponent, {
@@ -70,13 +68,34 @@ export class GetAllRecipesComponent implements OnInit {
       if (dialogResult) {
         this.recipesService.removeRecipe(recipeId).subscribe({
           next: () => {
-            const indexOfDeletedRecipe = this.recipes.findIndex(x => x.id === recipeId);
-            this.recipes.splice(indexOfDeletedRecipe!, 1);
+            const indexOfDeletedRecipe = this.recipesPaginated.items.findIndex(x => x.id === recipeId);
+            this.recipesPaginated.items.splice(indexOfDeletedRecipe!, 1);
           },
           error: (err: string) => {
             this.dialog.open(ErrorDialogComponent, {
               data: { message: err }
             });
+          }
+        });
+      }
+    });
+  }
+
+  onPageChange(pageNumber: number): void {
+    this.getRecipesPaginated(pageNumber);
+  }
+
+  private getRecipesPaginated(pageNumber?: number) {
+    this.recipesService.getAllRecipes(pageNumber).subscribe({
+      next: (recipesPaginated) => {
+        this.recipesPaginated = recipesPaginated;
+        this.pageNumber = this.recipesPaginated.pageNumber;
+        this.count = this.recipesPaginated.count;
+      },
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
           }
         });
       }

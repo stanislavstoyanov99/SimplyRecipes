@@ -24,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -55,7 +56,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     MatSelectModule,
     NgxSpinnerModule.forRoot({ type: 'ball-spin-fade' }),
     FontAwesomeModule,
-    NgxChartsModule
+    NgxChartsModule,
+    NgxPaginationModule
   ]
 })
 export class AdminDashboardModule { }

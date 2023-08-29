@@ -1,7 +1,7 @@
 <h4>Application Users List</h4>
 <hr />
-<h5>Total Count : <span>{{users.length}}</span></h5>
-<ng-container *ngIf="users.length > 0">
+<h5>Total Count : <span>{{usersPaginated.items.length}}</span></h5>
+<ng-container *ngIf="usersPaginated.items.length > 0">
     <table class="table table-bordered table-dark table-hover">
         <thead>
             <tr>
@@ -15,7 +15,7 @@
             </tr>
         </thead>
         <tbody>
-            <ng-container *ngFor="let user of users">
+            <ng-container *ngFor="let user of usersPaginated.items | paginate: { itemsPerPage: pageSize, currentPage: pageNumber, totalItems: count }">
                 <ng-container *ngIf="!user.isDeleted">
                     <tr>
                         <td>{{user.username}}</td>
@@ -46,8 +46,9 @@
             </ng-container>
         </tbody>
     </table>
+    <pagination-controls class="users-pagination-links" (pageChange)="onPageChange($event)" [responsive]="true"></pagination-controls>
 </ng-container>
-<ng-container *ngIf="users.length === 0">
+<ng-container *ngIf="usersPaginated.items.length === 0">
     <div class="alert alert-danger" role="alert">
         There is not any data available.
     </div>

@@ -5,6 +5,7 @@ import { ArticleEditDialogComponent, EditArticleDialogModel } from 'src/app/shar
 import { ConfirmDialogModel, ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { IArticleDetails } from 'src/app/shared/interfaces/articles/article-details';
+import { PageResult } from 'src/app/shared/utils/utils';
 
 @Component({
   selector: 'app-get-all-articles',
@@ -13,25 +14,22 @@ import { IArticleDetails } from 'src/app/shared/interfaces/articles/article-deta
 })
 export class GetAllArticlesComponent implements OnInit {
 
-  articles: IArticleDetails[] = [];
+  articlesPaginated: PageResult<IArticleDetails> = {
+    count: 0,
+    items: [],
+    pageNumber: 1,
+    pageSize: 0
+  };
+  pageNumber: number = 1;
+  pageSize: number = 10;
+  count: number = 0;
 
   constructor(
     private articlesService: ArticlesService,
     private dialog: MatDialog) { }
 
     ngOnInit(): void {
-      this.articlesService.getAllArticles().subscribe({
-        next: (articles) => {
-          this.articles = articles;
-        },
-        error: (err: string) => {
-          this.dialog.open(ErrorDialogComponent, {
-            data: {
-              message: err
-            }
-          });
-        }
-      });
+      this.getArticlesPaginated(1);
     }
   
     onEditHandler(article: IArticleDetails): void {
@@ -46,8 +44,8 @@ export class GetAllArticlesComponent implements OnInit {
         if (article) {
           this.articlesService.editArticle(article).subscribe({
             next: (article) => {
-              const indexOfUpdatedArticle = this.articles.findIndex(x => x.id === article.id);
-              this.articles[indexOfUpdatedArticle] = article;
+              const indexOfUpdatedArticle = this.articlesPaginated.items.findIndex(x => x.id === article.id);
+              this.articlesPaginated.items[indexOfUpdatedArticle] = article;
             },
             error: (err: string) => {
               this.dialog.open(ErrorDialogComponent, {
@@ -70,13 +68,34 @@ export class GetAllArticlesComponent implements OnInit {
         if (dialogResult) {
           this.articlesService.removeArticle(articleId).subscribe({
             next: () => {
-              const indexOfDeletedArticle = this.articles.findIndex(x => x.id === articleId);
-              this.articles.splice(indexOfDeletedArticle!, 1);
+              const indexOfDeletedArticle = this.articlesPaginated.items.findIndex(x => x.id === articleId);
+              this.articlesPaginated.items.splice(indexOfDeletedArticle!, 1);
             },
             error: (err: string) => {
               this.dialog.open(ErrorDialogComponent, {
                 data: { message: err }
               });
+            }
+          });
+        }
+      });
+    }
+
+    onPageChange(pageNumber: number): void {
+      this.getArticlesPaginated(pageNumber);
+    }
+
+    private getArticlesPaginated(pageNumber?: number) {
+      this.articlesService.getAllArticles(pageNumber).subscribe({
+        next: (articlesPaginated) => {
+          this.articlesPaginated = articlesPaginated;
+          this.pageNumber = this.articlesPaginated.pageNumber;
+          this.count = this.articlesPaginated.count;
+        },
+        error: (err: string) => {
+          this.dialog.open(ErrorDialogComponent, {
+            data: {
+              message: err
             }
           });
         }

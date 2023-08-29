@@ -16,8 +16,8 @@ export class RecipesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllRecipes(): Observable<IRecipeDetails[]> {
-    return this.httpClient.get<IRecipeDetails[]>(`${apiURL}/recipes/all`);
+  getAllRecipes(pageNumber?: number): Observable<PageResult<IRecipeDetails>> {
+    return this.httpClient.get<PageResult<IRecipeDetails>>(`${apiURL}/recipes/all/${pageNumber}`);
   }
 
   getAllRecipesPaginated(categoryName: string, pageNumber?: number): Observable<PageResult<IRecipeListing>> {

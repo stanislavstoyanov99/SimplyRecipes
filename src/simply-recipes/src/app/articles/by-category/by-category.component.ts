@@ -23,7 +23,7 @@ export class ByCategoryComponent implements OnInit {
     pageSize: 0
   };
   pageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 6;
   count: number = 0;
 
   constructor(

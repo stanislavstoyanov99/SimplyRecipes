@@ -84,6 +84,7 @@ Simply Recipes е потребителски уеб-базиран софтуе�
 * [Angular ScrollTop](https://www.npmjs.com/package/ngx-scrolltop)
 * [Angular JWT](https://www.npmjs.com/package/@auth0/angular-jwt)
 * [Ngx-spinner](https://www.npmjs.com/package/ngx-spinner)
+* [Ngx-pagination](https://www.npmjs.com/package/ngx-pagination)
 * [Ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
 * [Angular Material](https://material.angular.io/)
 * [Angular Google Maps](https://angular-maps.com/guides/getting-started/)

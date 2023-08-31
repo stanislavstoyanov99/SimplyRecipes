@@ -88,6 +88,7 @@ Simply Recipes е потребителски уеб-базиран софтуе�
 * [Ng-bootstrap](https://www.npmjs.com/package/@ng-bootstrap/ng-bootstrap)
 * [Angular Material](https://material.angular.io/)
 * [Angular Google Maps](https://angular-maps.com/guides/getting-started/)
+* [Angular Social Login](https://www.npmjs.com/package/@abacritt/angularx-social-login)
 * [Angular reCAPTCHA](https://www.npmjs.com/package/ng-recaptcha)
 * Entity Framework [CORE 7](https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-7.0/whatsnew "CORE 7")
 * [Newtonsoft.Json](https://www.nuget.org/packages/Newtonsoft.Json/ "Newtonsoft.Json")

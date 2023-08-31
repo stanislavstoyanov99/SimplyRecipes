@@ -5,6 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRequestModel } from '../models/loginRequest.model';
 import { IUser } from 'src/app/shared/interfaces/user';
+import { FacebookLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
+import { ExternalAuthService } from 'src/app/services/external-auth.service';
+import { FacebookRequestModel } from '../models/fbRequest.model';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +25,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute,
+    private socialAuthService: SocialAuthService,
+    private externalAuthService: ExternalAuthService) { 
     this.loginRequestModel = new LoginRequestModel();
   }
 
@@ -54,6 +59,45 @@ export class LoginComponent implements OnInit {
         }
       });
     }
+  }
+
+  loginWithFacebook(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID)
+      .then(facebookUser => {
+        const requestModel = new FacebookRequestModel();
+        requestModel.facebookIdentifier = facebookUser.id;
+        requestModel.facebookAccessToken = facebookUser.authToken;
+        requestModel.email = facebookUser.email;
+        requestModel.firstName = facebookUser.firstName;
+        requestModel.lastName = facebookUser.lastName;
+        requestModel.userName = facebookUser.name;
+
+        this.externalAuthService.authenticateWithFb(requestModel).subscribe({
+          next: (response) => {
+            localStorage.setItem("token", response.token);
+
+            const fbUser: IUser = {
+              id: response.userId,
+              email: response.email,
+              username: response.username,
+              isAdmin: response.isAdmin
+            };
+            
+            localStorage.setItem("fbUser", JSON.stringify(fbUser));
+            this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
+            this.router.navigate([this.returnUrl]);
+          },
+          error: (err: HttpErrorResponse) =>
+          {
+            this.errorMessage = err.message;
+            this.showError = true;
+          }
+        });
+      })
+      .catch(error => {
+        this.errorMessage = error;
+        this.showError = true;
+      });
   }
 
 }

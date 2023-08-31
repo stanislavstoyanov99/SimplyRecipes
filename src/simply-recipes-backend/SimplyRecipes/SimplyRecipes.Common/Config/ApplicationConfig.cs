@@ -19,5 +19,9 @@
         public string UserRoleName { get; set; }
 
         public GoogleReCaptcha GoogleReCaptcha { get; set; }
+
+        public string FacebookAppId { get; set; }
+
+        public string FacebookAppSecret { get; set; }
     }
 }

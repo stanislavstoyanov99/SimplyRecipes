@@ -53,6 +53,7 @@ export class AuthService {
   public logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("fbUser");
     this.sendAuthStateChangeNotification(false);
   }
 }

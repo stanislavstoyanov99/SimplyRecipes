@@ -115,7 +115,12 @@
                         ClockSkew = TimeSpan.Zero
                     };
                 })
-                .AddCookie();
+                .AddCookie()
+                .AddFacebook(options =>
+                {
+                    options.AppId = appConfig.FacebookAppId;
+                    options.AppSecret = appConfig.FacebookAppSecret;
+                });
 
             return services;
         }
@@ -147,7 +152,8 @@
                .AddTransient<ISimplyRecipesUsersService, SimplyRecipesUsersService>()
                .AddTransient<IJwtService, JwtService>()
                .AddTransient<ICloudinaryService, CloudinaryService>()
-               .AddTransient<IAdminDashboardService, AdminDashboardService>();
+               .AddTransient<IAdminDashboardService, AdminDashboardService>()
+               .AddTransient<IExternalAuthService, ExternalAuthService>();
 
             services.AddMemoryCache();
 

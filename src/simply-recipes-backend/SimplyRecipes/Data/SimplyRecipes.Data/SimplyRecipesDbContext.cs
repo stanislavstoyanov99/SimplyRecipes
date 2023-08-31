@@ -42,6 +42,8 @@
 
         public DbSet<ReviewComment> ReviewComments { get; set; }
 
+        public DbSet<FacebookIdentifierLogin> FacebookIdentifierLogins { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -63,6 +65,12 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<FacebookIdentifierLogin>()
+                .HasOne(x => x.User)
+                .WithOne(u => u.FacebookIdentifierLogin)
+                .HasForeignKey<SimplyRecipesUser>(u => u.FacebookIdentifierLoginId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
 
             this.ConfigureUserIdentityRelations(builder);

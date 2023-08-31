@@ -63,5 +63,9 @@
         public virtual ICollection<Review> Reviews { get; set; }
 
         public virtual ICollection<ReviewComment> ReviewComments { get; set; }
+
+        public string FacebookIdentifierLoginId { get; set; }
+
+        public virtual FacebookIdentifierLogin FacebookIdentifierLogin { get; set; }
     }
 }

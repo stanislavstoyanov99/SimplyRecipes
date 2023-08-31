@@ -5,6 +5,7 @@ import { RegisterComponent } from './register/register.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
+import { FacebookLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 
 
 
@@ -17,7 +18,22 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     SharedModule,
     AuthRoutingModule,
-    FormsModule
-  ]
+    FormsModule,
+    SocialLoginModule
+  ],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('6916590581697654'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
+  ],
 })
 export class AuthModule { }

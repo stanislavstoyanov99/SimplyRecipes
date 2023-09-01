@@ -7,11 +7,11 @@ import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-
 import { IArticleListing } from 'src/app/shared/interfaces/articles/article-listing';
 
 @Component({
-  selector: 'app-details',
-  templateUrl: './details.component.html',
-  styleUrls: ['./details.component.scss']
+  selector: 'app-articles-details',
+  templateUrl: './articles-details.component.html',
+  styleUrls: ['./articles-details.component.scss']
 })
-export class DetailsComponent implements OnInit {
+export class ArticlesDetailsComponent implements OnInit {
 
   article!: IArticleListing;
 

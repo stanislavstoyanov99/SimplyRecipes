@@ -9,11 +9,11 @@ import { PageResult } from 'src/app/shared/utils/utils';
 import { ArticlesService } from 'src/app/services/articles.service';
 
 @Component({
-  selector: 'app-by-category',
-  templateUrl: './by-category.component.html',
-  styleUrls: ['./by-category.component.scss']
+  selector: 'app-articles-by-category',
+  templateUrl: './articles-by-category.component.html',
+  styleUrls: ['./articles-by-category.component.scss']
 })
-export class ByCategoryComponent implements OnInit {
+export class ArticlesByCategoryComponent implements OnInit {
 
   categoryName!: string;
   articlesByCategoryPaginated: PageResult<IArticleListing> = {

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main/main.component';
+import { ArticlesMainComponent } from './articles-main/articles-main.component';
 import { SharedModule } from '../shared/shared.module';
 import { ArticlesRoutingModule } from './articles-routing.module';
-import { DetailsComponent } from './details/details.component';
+import { ArticlesDetailsComponent } from './articles-details/articles-details.component';
 import { FormsModule } from '@angular/forms';
-import { ByCategoryComponent } from './by-category/by-category.component';
+import { ArticlesByCategoryComponent } from './articles-by-category/articles-by-category.component';
 import { ArticlesMenuComponent } from './articles-menu/articles-menu.component';
 import { ArticlesListComponent } from './articles-list/articles-list.component';
 import { ArticlesCommentsComponent } from './articles-comments/articles-comments.component';
@@ -17,9 +17,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
-    MainComponent,
-    DetailsComponent,
-    ByCategoryComponent,
+    ArticlesMainComponent,
+    ArticlesDetailsComponent,
+    ArticlesByCategoryComponent,
     ArticlesMenuComponent,
     ArticlesListComponent,
     ArticlesCommentsComponent,

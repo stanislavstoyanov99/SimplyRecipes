@@ -27,6 +27,11 @@
         [Route(nameof(AuthenticateWithFb))]
         public async Task<ActionResult> AuthenticateWithFb(AuthenticateFbRequestModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return BadRequest(model);
+            }
+
             try
             {
                 var response = await this.externalAuthService.AuthenticateWithFbAsync(model);

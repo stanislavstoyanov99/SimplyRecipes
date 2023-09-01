@@ -1,7 +1,7 @@
 import { RouterModule, Routes } from "@angular/router";
-import { ByCategoryComponent } from "./by-category/by-category.component";
-import { DetailsComponent } from "./details/details.component";
-import { MainComponent } from "./main/main.component";
+import { ArticlesByCategoryComponent } from "./articles-by-category/articles-by-category.component";
+import { ArticlesDetailsComponent } from "./articles-details/articles-details.component";
+import { ArticlesMainComponent } from "./articles-main/articles-main.component";
 import { ArticleResolver } from "./resolvers/article.resolver";
 import { ByCategoryResolver } from "./resolvers/by-category.resolver";
 import { ArticlesSearchComponent } from "./articles-search/articles-search.component";
@@ -9,7 +9,7 @@ import { ArticlesSearchComponent } from "./articles-search/articles-search.compo
 const routes: Routes = [
   {
     path: 'main',
-    component: MainComponent,
+    component: ArticlesMainComponent,
     data: {
       title: 'Articles'
     }
@@ -19,7 +19,7 @@ const routes: Routes = [
     resolve: {
       article: ArticleResolver
     },
-    component: DetailsComponent,
+    component: ArticlesDetailsComponent,
     data: {
       title: 'Details'
     }
@@ -29,7 +29,7 @@ const routes: Routes = [
     resolve: {
       articlesByCategoryPaginated: ByCategoryResolver
     },
-    component: ByCategoryComponent,
+    component: ArticlesByCategoryComponent,
     data: {
       title: 'By Category'
     }

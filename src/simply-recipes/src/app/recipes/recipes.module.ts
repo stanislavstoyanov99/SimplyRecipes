@@ -4,7 +4,6 @@ import { MainComponent } from './main/main.component';
 import { SharedModule } from '../shared/shared.module';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { RecipesMenuComponent } from './recipes-menu/recipes-menu.component';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipesDetailsComponent } from './recipes-details/recipes-details.component';
 import { SubmitRecipeComponent } from './submit-recipe/submit-recipe.component';
@@ -34,7 +33,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CommonModule,
     SharedModule,
     RecipesRoutingModule,
-    FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
     MatStepperModule,

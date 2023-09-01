@@ -8,6 +8,9 @@ import { IUser } from 'src/app/shared/interfaces/user';
 import { FacebookLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ExternalAuthService } from 'src/app/services/external-auth.service';
 import { FacebookRequestModel } from '../models/fbRequest.model';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { LoginResponse } from '../interfaces/loginResponse';
 
 @Component({
   selector: 'app-login',
@@ -27,8 +30,10 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private socialAuthService: SocialAuthService,
-    private externalAuthService: ExternalAuthService) { 
-    this.loginRequestModel = new LoginRequestModel();
+    private externalAuthService: ExternalAuthService,
+    private library: FaIconLibrary) { 
+      this.loginRequestModel = new LoginRequestModel();
+      this.library.addIcons(faFacebook);
   }
 
   ngOnInit(): void {
@@ -40,17 +45,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginRequestModel).subscribe({
         next: (response) => 
         {
-          localStorage.setItem("token", response.token);
-          const user: IUser = {
-            id: response.userId,
-            email: response.email,
-            username: response.username,
-            isAdmin: response.isAdmin
-          };
-          
-          localStorage.setItem("user", JSON.stringify(user));
-          this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
-          this.router.navigate([this.returnUrl]);
+          this.login(response, 'user');   
         },
         error: (err: HttpErrorResponse) =>
         {
@@ -72,20 +67,12 @@ export class LoginComponent implements OnInit {
         requestModel.lastName = facebookUser.lastName;
         requestModel.userName = facebookUser.name;
 
+        return requestModel;
+      })
+      .then(requestModel => {
         this.externalAuthService.authenticateWithFb(requestModel).subscribe({
           next: (response) => {
-            localStorage.setItem("token", response.token);
-
-            const fbUser: IUser = {
-              id: response.userId,
-              email: response.email,
-              username: response.username,
-              isAdmin: response.isAdmin
-            };
-            
-            localStorage.setItem("fbUser", JSON.stringify(fbUser));
-            this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
-            this.router.navigate([this.returnUrl]);
+            this.login(response, 'fbUser');
           },
           error: (err: HttpErrorResponse) =>
           {
@@ -98,6 +85,21 @@ export class LoginComponent implements OnInit {
         this.errorMessage = error;
         this.showError = true;
       });
+  }
+
+  private login(response: LoginResponse, typeOfUser: string): void {
+    localStorage.setItem("token", response.token);
+
+    const user: IUser = {
+      id: response.userId,
+      email: response.email,
+      username: response.username,
+      isAdmin: response.isAdmin
+    };
+    
+    localStorage.setItem(typeOfUser, JSON.stringify(user));
+    this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
+    this.router.navigate([this.returnUrl]);
   }
 
 }

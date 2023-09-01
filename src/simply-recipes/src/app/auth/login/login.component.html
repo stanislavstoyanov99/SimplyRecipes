@@ -32,7 +32,9 @@
                 <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Log in</button>
             </div>
             <div class="form-group">
-                <button type="button" (click)="loginWithFacebook()" class="btn btn-secondary">Facebook Login</button>
+                <button type="button" (click)="loginWithFacebook()" class="btn btn-primary-facebook">
+                    <fa-icon [icon]="['fab', 'facebook']"></fa-icon> Facebook Login
+                </button>
             </div>
             <div class="form-group">
                 <p class="text-light">

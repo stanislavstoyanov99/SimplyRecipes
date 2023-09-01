@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { FacebookRequestModel } from '../auth/models/fbRequest.model';
-import { FacebookResponseModel } from '../auth/models/fbResponse.model';
+import { AuthService } from './auth.service';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { LoginResponse } from '../auth/interfaces/loginResponse';
 
 const apiURL = environment.apiURL;
 
@@ -11,9 +13,19 @@ const apiURL = environment.apiURL;
 })
 export class ExternalAuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private socialAuthService: SocialAuthService) { }
 
   public authenticateWithFb(fbRequestModel: FacebookRequestModel) {
-    return this.http.post<FacebookResponseModel>(`${apiURL}/externalauth/authenticatewithfb`, fbRequestModel);
+    return this.http.post<LoginResponse>(`${apiURL}/externalauth/authenticatewithfb`, fbRequestModel);
+  }
+
+  public fbLogout(): void {
+    this.socialAuthService.signOut(true);
+    localStorage.removeItem("token");
+    localStorage.removeItem("fbUser");
+    this.authService.sendAuthStateChangeNotification(false);
   }
 }

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { ContactComponent } from './contact/contact.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -19,6 +18,7 @@ import { JwtModule } from "@auth0/angular-jwt";
 import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AgmCoreModule } from '@agm/core';
+import { SocialLoginModule } from '@abacritt/angularx-social-login';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -37,7 +37,6 @@ export function tokenGetter() {
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    FontAwesomeModule,
     NgxScrollTopModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR-API-KEY-HERE'
@@ -49,7 +48,8 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         allowedDomains: ["localhost:5001"]
       }
-    })
+    }),
+    SocialLoginModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [

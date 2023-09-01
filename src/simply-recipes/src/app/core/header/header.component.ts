@@ -5,6 +5,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faUtensils, faUser } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
+import { ExternalAuthService } from 'src/app/services/external-auth.service';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +23,8 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private library: FaIconLibrary,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private externalAuthService: ExternalAuthService) {
     this.library.addIcons(faUtensils, faUser);
   }
 
@@ -46,7 +48,12 @@ export class HeaderComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout();
+    if (localStorage.getItem("fbUser")) {
+      this.externalAuthService.fbLogout();
+    } else {
+      this.authService.logout();
+    }
+
     this.router.navigate(["/"]);
   }
 

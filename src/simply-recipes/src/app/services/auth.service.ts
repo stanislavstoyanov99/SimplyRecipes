@@ -50,10 +50,9 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${apiURL}/identity/login`, loginRequestModel);
   }
 
-  public logout() {
+  public logout(): void {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("fbUser");
     this.sendAuthStateChangeNotification(false);
   }
 }

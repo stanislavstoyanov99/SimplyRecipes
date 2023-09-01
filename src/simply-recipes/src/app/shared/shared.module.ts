@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FileTypeValidatorDirective } from './custom-validators/file-type-validator.directive';
+import { FacebookLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 
 
 
@@ -35,7 +36,22 @@ import { FileTypeValidatorDirective } from './custom-validators/file-type-valida
     GalleryComponent,
     NgxSpinnerModule,
     MatDialogModule,
-    NgbModule
+    NgbModule,
+    FontAwesomeModule,
+  ],
+  providers: [
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('6916590581697654'),
+          },
+        ],
+      } as SocialAuthServiceConfig,
+    },
   ]
 })
 export class SharedModule { }

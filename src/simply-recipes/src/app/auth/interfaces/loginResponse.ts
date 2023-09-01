@@ -5,4 +5,5 @@ export interface LoginResponse {
     isAdmin: boolean;
     token: string;
     isAuthSuccessful: boolean;
+    errors: string;
 }

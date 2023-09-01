@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarDirective } from './directives/navbar.directive';
@@ -21,7 +20,6 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
   imports: [
     AppRoutingModule,
     CommonModule,
-    FontAwesomeModule,
     HttpClientModule,
     NgbCollapseModule,
     SharedModule

@@ -12,26 +12,26 @@
             </button>
             <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item ps-2">
+                    <li class="nav-item ps-2" [ngClass]="{ 'padding-bottom-2 padding-top-2': !isMenuCollapsed }">
                         <a href class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="isMenuCollapsed = true">Home</a>
                     </li>
-                    <li class="nav-item ps-2">
+                    <li class="nav-item ps-2" [ngClass]="{ 'padding-bottom-2': !isMenuCollapsed }">
                         <a href class="nav-link" routerLink="/recipes/main" routerLinkActive="active" (click)="isMenuCollapsed = true">Recipes</a>
                     </li>
-                    <li class="nav-item ps-2">
+                    <li class="nav-item ps-2" [ngClass]="{ 'padding-bottom-2': !isMenuCollapsed }">
                         <a href class="nav-link" routerLink="/articles/main" routerLinkActive="active" (click)="isMenuCollapsed = true">Articles</a>
                     </li>
-                    <li class="nav-item ps-2">
+                    <li class="nav-item ps-2" [ngClass]="{ 'padding-bottom-2': !isMenuCollapsed }">
                         <a href class="nav-link" routerLink="/contacts" routerLinkActive="active" (click)="isMenuCollapsed = true">Contact</a>
                     </li>
-                    <li class="nav-item ps-2">
+                    <li class="nav-item ps-2" [ngClass]="{ 'padding-bottom-2': !isMenuCollapsed }">
                         <a href class="nav-link" routerLink="/privacy" routerLinkActive="active" (click)="isMenuCollapsed = true">Privacy</a>
                     </li>
-                    <li class="nav-item ps-2">
+                    <li class="nav-item ps-2" [ngClass]="{ 'padding-bottom-2': !isMenuCollapsed }">
                         <a href class="nav-link" routerLink="/faq" routerLinkActive="active" (click)="isMenuCollapsed = true">FAQ</a>
                     </li>
                     <ng-container *ngIf="!isUserAuthenticated">
-                        <li class="nav-item ps-2" *ngIf="!isUserAuthenticated">
+                        <li class="nav-item ps-2" [ngClass]="{ 'padding-bottom-2': !isMenuCollapsed }" *ngIf="!isUserAuthenticated">
                             <a href class="nav-link" routerLink="/auth/register" routerLinkActive="active" (click)="isMenuCollapsed = true">Register</a>
                         </li>
                         <li class="nav-item ps-2" *ngIf="!isUserAuthenticated">

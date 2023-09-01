@@ -1,14 +1,14 @@
 import { RouterModule, Routes } from "@angular/router";
-import { MainComponent } from "./main/main.component";
+import { RecipesMainComponent } from "./recipes-main/recipes-main.component";
 import { RecipesDetailsComponent } from "./recipes-details/recipes-details.component";
 import { RecipeResolver } from "./resolvers/recipe.resolver";
-import { SubmitRecipeComponent } from "./submit-recipe/submit-recipe.component";
+import { RecipesSubmitRecipeComponent } from "./recipes-submit-recipe/recipes-submit-recipe.component";
 import { RecipesViewComponent } from "./recipes-view/recipes-view.component";
 
 const routes: Routes = [
   {
     path: 'main',
-    component: MainComponent,
+    component: RecipesMainComponent,
     data: {
       title: 'Recipes'
     }
@@ -25,7 +25,7 @@ const routes: Routes = [
   },
   {
     path: 'submit',
-    component: SubmitRecipeComponent,
+    component: RecipesSubmitRecipeComponent,
     data: {
       title: 'Submit Recipe'
     }

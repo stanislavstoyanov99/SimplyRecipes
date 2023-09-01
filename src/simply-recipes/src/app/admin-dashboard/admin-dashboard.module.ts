@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main/main.component';
+import { AdminDashboardMainComponent } from './admin-dashboard-main/admin-dashboard-main.component';
 import { AdminDashboardRoutingModule } from './admin-dashboard-routing.module';
-import { NavigationComponent } from './navigation/navigation.component';
+import { AdminDashboardNavigationComponent } from './admin-dashboard-navigation/admin-dashboard-navigation.component';
 import { CreateRecipeComponent } from './create-recipe/create-recipe.component';
 import { GetAllRecipesComponent } from './get-all-recipes/get-all-recipes.component';
 import { CreateArticleComponent } from './create-article/create-article.component';
@@ -30,8 +30,8 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
-    MainComponent,
-    NavigationComponent,
+    AdminDashboardMainComponent,
+    AdminDashboardNavigationComponent,
     CreateRecipeComponent,
     GetAllRecipesComponent,
     CreateArticleComponent,

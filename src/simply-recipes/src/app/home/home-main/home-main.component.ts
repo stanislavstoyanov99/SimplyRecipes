@@ -4,11 +4,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-home-main',
+  templateUrl: './home-main.component.html',
+  styleUrls: ['./home-main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class HomeMainComponent implements OnInit {
 
   public isUserAuthenticated!: boolean;
   slides: number[] = [];

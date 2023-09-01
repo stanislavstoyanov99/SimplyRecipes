@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MainComponent } from './main/main.component';
+import { RecipesMainComponent } from './recipes-main/recipes-main.component';
 import { SharedModule } from '../shared/shared.module';
 import { RecipesRoutingModule } from './recipes-routing.module';
 import { RecipesMenuComponent } from './recipes-menu/recipes-menu.component';
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipesDetailsComponent } from './recipes-details/recipes-details.component';
-import { SubmitRecipeComponent } from './submit-recipe/submit-recipe.component';
+import { RecipesSubmitRecipeComponent } from './recipes-submit-recipe/recipes-submit-recipe.component';
 import { RecipesViewComponent } from './recipes-view/recipes-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -22,11 +22,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
-    MainComponent,
+    RecipesMainComponent,
     RecipesMenuComponent,
     RecipesListComponent,
     RecipesDetailsComponent,
-    SubmitRecipeComponent,
+    RecipesSubmitRecipeComponent,
     RecipesViewComponent
   ],
   imports: [

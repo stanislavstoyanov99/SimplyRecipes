@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'admin-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.scss']
+  selector: 'app-admin-dashboard-navigation',
+  templateUrl: './admin-dashboard-navigation.component.html',
+  styleUrls: ['./admin-dashboard-navigation.component.scss']
 })
-export class NavigationComponent {
+export class AdminDashboardNavigationComponent {
 
   isRecipesClicked: boolean = false;
   isArticlesClicked: boolean = false;

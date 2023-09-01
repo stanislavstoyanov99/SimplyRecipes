@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { MainComponent } from './main/main.component';
+import { HomeMainComponent } from './home-main/home-main.component';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { HomeRoutingModule } from './home-routing.module';
@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    MainComponent,
+    HomeMainComponent,
     CalorieCalculatorComponent
   ],
   imports: [

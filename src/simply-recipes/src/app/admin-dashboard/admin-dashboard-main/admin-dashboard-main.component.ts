@@ -10,11 +10,11 @@ import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-
 import { IStatistics } from 'src/app/shared/interfaces/admin-dashboard/statistics';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-admin-dashboard-main',
+  templateUrl: './admin-dashboard-main.component.html',
+  styleUrls: ['./admin-dashboard-main.component.scss']
 })
-export class MainComponent implements OnInit {
+export class AdminDashboardMainComponent implements OnInit {
 
   statistics: IStatistics = {
     recipesCount: 0,

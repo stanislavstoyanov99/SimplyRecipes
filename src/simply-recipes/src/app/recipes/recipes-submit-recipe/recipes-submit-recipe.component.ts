@@ -12,11 +12,11 @@ import { FileTypeValidatorDirective } from 'src/app/shared/custom-validators/fil
 import { Difficulty } from 'src/app/shared/enums/difficulty';
 
 @Component({
-  selector: 'app-submit-recipe',
-  templateUrl: './submit-recipe.component.html',
-  styleUrls: ['./submit-recipe.component.scss']
+  selector: 'app-recipes-submit-recipe',
+  templateUrl: './recipes-submit-recipe.component.html',
+  styleUrls: ['./recipes-submit-recipe.component.scss']
 })
-export class SubmitRecipeComponent implements OnInit {
+export class RecipesSubmitRecipeComponent implements OnInit {
 
   difficulties: string[] = Object.keys(Difficulty).filter((key) => Number.isNaN(parseInt(key, 10)));
   categories: ICategoryList[] = [];

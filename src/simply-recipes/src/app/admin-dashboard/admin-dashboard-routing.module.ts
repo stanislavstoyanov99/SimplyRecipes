@@ -1,5 +1,5 @@
 import { RouterModule, Routes } from "@angular/router";
-import { MainComponent } from "./main/main.component";
+import { AdminDashboardMainComponent } from "./admin-dashboard-main/admin-dashboard-main.component";
 import { CreateRecipeComponent } from "./create-recipe/create-recipe.component";
 import { GetAllRecipesComponent } from "./get-all-recipes/get-all-recipes.component";
 import { CreateArticleComponent } from "./create-article/create-article.component";
@@ -15,7 +15,7 @@ import { EditPrivacyComponent } from "./edit-privacy/edit-privacy.component";
 const routes: Routes = [
   {
     path: 'main',
-    component: MainComponent,
+    component: AdminDashboardMainComponent,
     data: {
       title: 'Main'
     },

@@ -11,6 +11,11 @@
             <div class="float-end">
                 <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
                 <span>&nbsp;{{comment.createdOn | date:'short'}}</span>
+                <ng-container *ngIf="isUserAuthenticated">
+                    <a type="button" class="right-btn-re" (click)="onReplyCommentHandler(comment.id)">
+                        <fa-icon [icon]="['fas', 'reply']"></fa-icon>
+                    </a>
+                </ng-container>
             </div>
             <div class="des-l" [innerHTML]="comment.sanitizedContent"></div>
         </div>
@@ -20,7 +25,7 @@
     <h3>Leave your comment</h3>
     <div>
         <ng-container *ngIf="isUserAuthenticated">
-            <form class="comment-form-respond row" #commentForm="ngForm" (ngSubmit)="onSubmitHandler(commentForm)">
+            <form id="comment-form" class="comment-form-respond row" #commentForm="ngForm" (ngSubmit)="onSubmitHandler(commentForm)">
                 <div class="col-12">
                     <div class="form-group col-9">
                         <textarea type="text" id="content-textarea" name="content" #content="ngModel" ngModel class="form-control" placeholder="Your Comment" required [maxlength]="300"></textarea>

@@ -8,7 +8,7 @@
 
         public const string PrivacyViewModelNotFound = "Privacy view model is not found.";
 
-        public const string FaqAlreadyExists = "Faq with question {0} and answer {1} already exists";
+        public const string FaqAlreadyExists = "Faq with question {0} and answer {1} already exists.";
 
         public const string FaqNotFound = "Faq with id {0} is not found.";
 
@@ -26,7 +26,7 @@
 
         public const string ArticleNotFound = "Article with id {0} is not found.";
 
-        public const string DifficultyInvalidType = "Difficulty type {0} is invalid";
+        public const string DifficultyInvalidType = "Difficulty type {0} is invalid.";
 
         public const string ArticleCommentAlreadyExists = "Article comment with article id {0} and content {1} already exists";
 
@@ -40,6 +40,16 @@
 
         public const string SimplyRecipesUserNotFound = "User with id {0} is not found.";
 
-        public const string GenderInvalidType = "Gender type {0} is invalid";
+        public const string GenderInvalidType = "Gender type {0} is invalid.";
+
+        public const string InvalidToken = "Invalid token.";
+
+        public const string MissingJWTToken = "Missing JWT token.";
+
+        public const string MissingUser = "User does not exist.";
+
+        public const string InvalidCredentials = "Invalid username or password.";
+
+        public const string MissingJWTRefreshToken = "Missing JWT Refresh token.";
     }
 }

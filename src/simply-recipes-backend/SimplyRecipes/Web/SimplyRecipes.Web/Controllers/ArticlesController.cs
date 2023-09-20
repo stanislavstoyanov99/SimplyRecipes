@@ -179,11 +179,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromForm] ArticleCreateInputModel articleCreateInputModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(articleCreateInputModel);
-            }
-
             try
             {
                 var user = await this.userManager.GetUserAsync(this.User);
@@ -205,11 +200,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromForm] ArticleEditViewModel articleEditViewModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(articleEditViewModel);
-            }
-
             try
             {
                 var user = await this.userManager.GetUserAsync(this.User);

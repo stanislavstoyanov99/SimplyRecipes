@@ -32,11 +32,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromBody] FaqCreateInputModel faqCreateInputModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(faqCreateInputModel);
-            }
-
             try
             {
                 var faq = await this.faqService.CreateAsync(faqCreateInputModel);
@@ -57,11 +52,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromBody] FaqEditViewModel faqEditViewModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(faqEditViewModel);
-            }
-
             try
             {
                 var faq = await this.faqService.EditAsync(faqEditViewModel);

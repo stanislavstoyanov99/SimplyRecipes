@@ -44,12 +44,12 @@
 
             if (user == null)
             {
-                throw new NullReferenceException("User does not exist.");
+                throw new NullReferenceException(ExceptionMessages.MissingUser);
             }
 
             if (!await this.userManager.CheckPasswordAsync(user, model.Password))
             {
-                throw new ArgumentException("Invalid username or password.");
+                throw new ArgumentException(ExceptionMessages.InvalidCredentials);
             }
 
             var roles = await this.userManager.GetRolesAsync(user);
@@ -57,13 +57,13 @@
             var token = this.jwtService.GenerateToken(user.Id, user.UserName, roles);
             if (token == null)
             {
-                throw new NullReferenceException("Missing JWT token.");
+                throw new NullReferenceException(ExceptionMessages.MissingJWTToken);
             }
 
             var refreshToken = await this.jwtService.GenerateRefreshTokenAsync(ipAddress, user.Id);
             if (refreshToken == null)
             {
-                throw new NullReferenceException("Missing JWT Refresh token.");
+                throw new NullReferenceException(ExceptionMessages.MissingJWTRefreshToken);
             }
 
             user.RefreshTokens.Add(refreshToken);
@@ -151,7 +151,7 @@
 
             if (!refreshToken.IsActive)
             {
-                throw new ArgumentException("Invalid token");
+                throw new ArgumentException(ExceptionMessages.InvalidToken);
             }
 
             // replace old refresh token with a new one (rotate token)
@@ -168,7 +168,7 @@
             var jwtToken = this.jwtService.GenerateToken(user.Id, user.UserName, roles);
             if (jwtToken == null)
             {
-                throw new NullReferenceException("Missing JWT token.");
+                throw new NullReferenceException(ExceptionMessages.MissingJWTToken);
             }
 
             var isAdmin = await this.userManager.IsInRoleAsync(user, appConfig.Value.AdministratorRoleName);
@@ -192,7 +192,7 @@
 
             if (!refreshToken.IsActive)
             {
-                throw new ArgumentException("Invalid token");
+                throw new ArgumentException(ExceptionMessages.InvalidToken);
             }
 
             RevokeRefreshToken(refreshToken, ipAddress, "Revoked without replacement");
@@ -224,7 +224,7 @@
 
             if (user == null)
             {
-                throw new ArgumentException("Invalid token");
+                throw new ArgumentException(ExceptionMessages.InvalidToken);
             }
 
             return user;

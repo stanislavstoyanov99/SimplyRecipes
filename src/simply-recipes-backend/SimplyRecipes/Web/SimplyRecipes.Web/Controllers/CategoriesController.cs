@@ -32,11 +32,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromForm] CategoryCreateInputModel categoryCreateInputModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(categoryCreateInputModel);
-            }
-
             try
             {
                 var category = await this.categoriesService.CreateAsync(categoryCreateInputModel);
@@ -57,11 +52,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromForm] CategoryEditViewModel categoryEditViewModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(categoryEditViewModel);
-            }
-
             try
             {
                 var category = await this.categoriesService.EditAsync(categoryEditViewModel);

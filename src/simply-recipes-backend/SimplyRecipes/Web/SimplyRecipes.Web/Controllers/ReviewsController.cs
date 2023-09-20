@@ -30,11 +30,6 @@
         [Route("submit")]
         public async Task<ActionResult> Submit([FromBody] CreateReviewInputModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(model);
-            }
-
             try
             {
                 var userId = this.userManager.GetUserId(this.User);

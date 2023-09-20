@@ -6,17 +6,21 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
 
+    using SimplyRecipes.Common.Config;
     using SimplyRecipes.Models.ViewModels.Identity;
     using SimplyRecipes.Services.Data.Interfaces;
 
     public class IdentityController : ApiController
     {
         private readonly IIdentityService identityService;
+        private readonly IOptions<ApplicationConfig> appConfig;
 
-        public IdentityController(IIdentityService identityService)
+        public IdentityController(IIdentityService identityService, IOptions<ApplicationConfig> appConfig)
         {
             this.identityService = identityService;
+            this.appConfig = appConfig;
         }
 
         [AllowAnonymous]
@@ -127,7 +131,7 @@
             }
             else
             {
-                return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
+                return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
             }
         }
 
@@ -136,7 +140,7 @@
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(7)
+                Expires = DateTime.UtcNow.AddDays(this.appConfig.Value.RefreshTokenExpiration)
             };
 
             Response.Cookies.Append("refreshToken", token, cookieOptions);

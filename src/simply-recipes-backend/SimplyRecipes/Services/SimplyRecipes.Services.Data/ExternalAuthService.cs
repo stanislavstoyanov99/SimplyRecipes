@@ -13,6 +13,7 @@
     using SimplyRecipes.Data.Common.Repositories;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.ViewModels.ExternalAuth;
+    using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
 
     public class ExternalAuthService : IExternalAuthService
@@ -90,7 +91,7 @@
 
             if (token == null)
             {
-                throw new NullReferenceException("Missing JWT token.");
+                throw new NullReferenceException(ExceptionMessages.MissingJWTToken);
             }
 
             var responseModel = new ExternalAuthAuthenticateResponseModel

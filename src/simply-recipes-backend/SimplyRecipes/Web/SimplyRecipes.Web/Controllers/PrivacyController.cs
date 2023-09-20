@@ -39,11 +39,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromBody] PrivacyCreateInputModel privacyCreateInputModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(privacyCreateInputModel);
-            }
-
             try
             {
                 var privacy = await this.privacyService.CreateAsync(privacyCreateInputModel);
@@ -63,11 +58,6 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromBody] PrivacyEditViewModel privacyEditViewModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(privacyEditViewModel);
-            }
-
             try
             {
                 var privacy = await this.privacyService.EditAsync(privacyEditViewModel);

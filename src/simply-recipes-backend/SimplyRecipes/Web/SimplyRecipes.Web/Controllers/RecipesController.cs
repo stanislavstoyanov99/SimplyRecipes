@@ -109,11 +109,6 @@
         [HttpPost("submit")]
         public async Task<ActionResult> Submit([FromForm] RecipeCreateInputModel recipeCreateInputModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(recipeCreateInputModel);
-            }
-
             try
             {
                 var user = await this.userManager.GetUserAsync(this.User);
@@ -151,11 +146,6 @@
         [HttpPut("edit")]
         public async Task<ActionResult> Edit([FromForm] RecipeEditViewModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(model);
-            }
-
             try
             {
                 var recipe = await this.recipesService.EditAsync(model);

@@ -68,11 +68,6 @@
         [HttpPut("edit")]
         public async Task<ActionResult> Edit([FromBody] SimplyRecipesUserEditViewModel model)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(model);
-            }
-
             try
             {
                 var user = await this.userManager.FindByIdAsync(model.UserId);

@@ -20,11 +20,6 @@
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] ContactFormEntryViewModel contactFormViewModel)
         {
-            if (!this.ModelState.IsValid)
-            {
-                return this.BadRequest(contactFormViewModel);
-            }
-
             try
             {
                 await this.contactsService.SendContactToAdminAsync(contactFormViewModel);

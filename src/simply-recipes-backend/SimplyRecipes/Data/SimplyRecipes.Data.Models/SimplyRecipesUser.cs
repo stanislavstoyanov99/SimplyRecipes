@@ -3,8 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
     using Microsoft.AspNetCore.Identity;
+    using Newtonsoft.Json;
 
     using SimplyRecipes.Data.Common.Models;
     using SimplyRecipes.Data.Models.Enumerations;
@@ -25,6 +25,7 @@
             this.Recipes = new HashSet<Recipe>();
             this.Reviews = new HashSet<Review>();
             this.ReviewComments = new HashSet<ReviewComment>();
+            this.RefreshTokens = new HashSet<RefreshToken>();
         }
 
         [MaxLength(UserValidation.FirstNameMaxLength)]
@@ -67,5 +68,8 @@
         public string FacebookIdentifierLoginId { get; set; }
 
         public virtual FacebookIdentifierLogin FacebookIdentifierLogin { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }

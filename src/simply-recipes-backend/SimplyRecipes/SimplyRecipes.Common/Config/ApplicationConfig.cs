@@ -4,6 +4,16 @@
     {
         public string JwtSecret { get; set; }
 
+        // jwt time to live (in minutes)
+        public int JwtTTL { get; set; }
+
+        // refresh token time to live (in days), inactive tokens are
+        // automatically deleted from the database after this time
+        public int RefreshTokenTTL { get; set; }
+
+        // refresh token expiration time (in days)
+        public int RefreshTokenExpiration { get; set; }
+
         public string AdministratorUserName { get; set; }
 
         public string AdministratorEmail { get; set; }

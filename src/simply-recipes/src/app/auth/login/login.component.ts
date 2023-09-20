@@ -10,7 +10,6 @@ import { ExternalAuthService } from 'src/app/services/external-auth.service';
 import { FacebookRequestModel } from '../models/fbRequest.model';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
-import { LoginResponse } from '../interfaces/loginResponse';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +44,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginRequestModel).subscribe({
         next: (response) => 
         {
-          this.login(response, 'user');   
+          this.router.navigate([this.returnUrl]);
         },
         error: (err: HttpErrorResponse) =>
         {
@@ -72,7 +71,18 @@ export class LoginComponent implements OnInit {
       .then(requestModel => {
         this.externalAuthService.authenticateWithFb(requestModel).subscribe({
           next: (response) => {
-            this.login(response, 'fbUser');
+            localStorage.setItem("token", response.token);
+
+            const user: IUser = {
+              id: response.userId,
+              email: response.email,
+              username: response.username,
+              isAdmin: response.isAdmin
+            };
+
+            localStorage.setItem("fbUser", JSON.stringify(user));
+            this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
+            this.router.navigate([this.returnUrl]);
           },
           error: (err: HttpErrorResponse) =>
           {
@@ -85,21 +95,6 @@ export class LoginComponent implements OnInit {
         this.errorMessage = error;
         this.showError = true;
       });
-  }
-
-  private login(response: LoginResponse, typeOfUser: string): void {
-    localStorage.setItem("token", response.token);
-
-    const user: IUser = {
-      id: response.userId,
-      email: response.email,
-      username: response.username,
-      isAdmin: response.isAdmin
-    };
-    
-    localStorage.setItem(typeOfUser, JSON.stringify(user));
-    this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
-    this.router.navigate([this.returnUrl]);
   }
 
 }

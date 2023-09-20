@@ -49,14 +49,14 @@ export class AuthService {
   }
 
   public login(loginRequestModel: LoginRequestModel): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${apiURL}/identity/login`, loginRequestModel, { withCredentials: true })
+    return this.http.post<LoginResponse>(`${apiURL}/identity/login`, loginRequestModel)
       .pipe(map((response) => {
         return this.processLogin(response);
       }));
   }
 
   public logout(): void {
-    this.http.post<RevokeTokenResponse>(`${apiURL}/identity/revoke-token`, {}, { withCredentials: true }).subscribe();
+    this.http.post<RevokeTokenResponse>(`${apiURL}/identity/revoke-token`, {}).subscribe();
     this.stopRefreshTokenTimer();
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -64,7 +64,7 @@ export class AuthService {
   }
 
   refreshToken(): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${apiURL}/identity/refresh-token`, {}, { withCredentials: true })
+    return this.http.post<LoginResponse>(`${apiURL}/identity/refresh-token`, {})
         .pipe(map((response) => {
           return this.processLogin(response);
         }));

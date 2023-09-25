@@ -11,6 +11,7 @@ namespace SimplyRecipes.Web
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Services.Mapping;
     using SimplyRecipes.Web.Infrastructure.Extensions;
+    using Microsoft.AspNetCore.Http;
 
     public class Program
     {
@@ -29,6 +30,11 @@ namespace SimplyRecipes.Web
                 .AddDatabase(configuration)
                 .AddCustomRouting()
                 .AddIdentity()
+                .ConfigureApplicationCookie(options =>
+                {
+                    options.Cookie.SameSite = SameSiteMode.None;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+                })
                 .AddAuthentication(services.GetApplicationConfig(configuration))
                 .AddCors(options =>
                 {

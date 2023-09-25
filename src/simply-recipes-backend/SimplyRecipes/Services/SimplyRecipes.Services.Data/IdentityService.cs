@@ -23,19 +23,22 @@
         private readonly SignInManager<SimplyRecipesUser> signInManager;
         private readonly IJwtService jwtService;
         private readonly IDeletableEntityRepository<SimplyRecipesUser> users;
+        private readonly IRepository<RefreshToken> refreshTokens;
 
         public IdentityService(
             IOptions<ApplicationConfig> appConfig,
             UserManager<SimplyRecipesUser> userManager,
             SignInManager<SimplyRecipesUser> signInManager,
             IJwtService jwtService,
-            IDeletableEntityRepository<SimplyRecipesUser> users)
+            IDeletableEntityRepository<SimplyRecipesUser> users,
+            IRepository<RefreshToken> refreshTokens)
         {
             this.appConfig = appConfig;
             this.userManager = userManager;
             this.jwtService = jwtService;
             this.signInManager = signInManager;
             this.users = users;
+            this.refreshTokens = refreshTokens;
         }
 
         public async Task<LoginResponseModel> LoginAsync(LoginRequestModel model, string ipAddress)
@@ -197,8 +200,8 @@
 
             RevokeRefreshToken(refreshToken, ipAddress, "Revoked without replacement");
 
-            this.users.Update(user);
-            await this.users.SaveChangesAsync();
+            this.refreshTokens.Update(refreshToken);
+            await this.refreshTokens.SaveChangesAsync();
 
             var response = new RevokeTokenResponseModel { IsRevoked = true };
 

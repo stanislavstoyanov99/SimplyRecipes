@@ -140,7 +140,9 @@
             var cookieOptions = new CookieOptions
             {
                 HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(this.appConfig.Value.RefreshTokenExpiration)
+                Expires = DateTime.UtcNow.AddDays(this.appConfig.Value.RefreshTokenExpiration),
+                SameSite = SameSiteMode.None,
+                Secure = true
             };
 
             Response.Cookies.Append("refreshToken", token, cookieOptions);

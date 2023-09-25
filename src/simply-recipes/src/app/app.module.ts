@@ -20,6 +20,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AgmCoreModule } from '@agm/core';
 import { SocialLoginModule } from '@abacritt/angularx-social-login';
 import { WithCredentialsInterceptor } from './shared/interceptors/with-credentials.interceptor';
+import { JwtInterceptor } from './shared/interceptors/jwt.interceptor';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -71,6 +72,11 @@ export function tokenGetter() {
   {
     provide: HTTP_INTERCEPTORS,
     useClass: WithCredentialsInterceptor,
+    multi: true
+  },
+  {
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
     multi: true
   },
   ReCaptchaV3Service],

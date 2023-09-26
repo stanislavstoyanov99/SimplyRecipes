@@ -4,7 +4,6 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRequestModel } from '../models/loginRequest.model';
-import { IUser } from 'src/app/shared/interfaces/user';
 import { FacebookLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { ExternalAuthService } from 'src/app/services/external-auth.service';
 import { FacebookRequestModel } from '../models/fbRequest.model';

@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   public getUser = (): IUser | null => {
-    const user = localStorage.getItem('user');
+    const user = localStorage.getItem('user') || localStorage.getItem('fbUser');
     if (user === null) {
       return null;
     }

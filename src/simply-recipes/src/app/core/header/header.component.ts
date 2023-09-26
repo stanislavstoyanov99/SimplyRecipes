@@ -14,7 +14,7 @@ import { ExternalAuthService } from 'src/app/services/external-auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  isMenuCollapsed = true;
+  public isMenuCollapsed = true;
   public isUserAuthenticated: boolean = false;
   public isUserAdmin: boolean | undefined = false;
   public username: string | undefined;

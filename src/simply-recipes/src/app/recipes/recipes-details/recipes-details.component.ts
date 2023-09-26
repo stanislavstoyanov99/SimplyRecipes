@@ -12,6 +12,7 @@ import { ReviewsService } from 'src/app/services/reviews.service';
 import { IUser } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfirmDialogModel, ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-recipes-details',
@@ -29,6 +30,7 @@ export class RecipesDetailsComponent implements OnInit {
   rate = rate;
 
   constructor(
+    public loadingService: LoadingService,
     private activatedRoute: ActivatedRoute,
     private library: FaIconLibrary,
     private dialog: MatDialog,
@@ -85,6 +87,8 @@ export class RecipesDetailsComponent implements OnInit {
       data: dialogData
     });
 
+    this.loadingService.setLoading(true);
+    
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
         this.reviewService.removeReview(reviewId).subscribe({
@@ -92,6 +96,7 @@ export class RecipesDetailsComponent implements OnInit {
             const indexOfDeletedReview = this.recipe?.reviews.findIndex(x => x.id === reviewId);
             this.recipe?.reviews.splice(indexOfDeletedReview!, 1);
             this.recipe!.rate = newRate;
+            this.loadingService.setLoading(false);
           },
           error: (err: string) => {
             this.dialog.open(ErrorDialogComponent, {

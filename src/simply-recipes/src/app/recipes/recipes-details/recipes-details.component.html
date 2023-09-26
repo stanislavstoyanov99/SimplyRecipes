@@ -52,6 +52,9 @@
             <h2 class="centered"><strong>Reviews:</strong></h2>
             <div class="row reviewsPanel">
                 <ng-container *ngIf="recipe?.reviews?.length">
+                    <ng-container *ngIf="loadingService.isLoading$ | async">
+                        <ngx-spinner [fullScreen]="false" color="#fff" size="medium" class="spinner"></ngx-spinner>
+                    </ng-container>
                     <div class="col-12 col-lg-4 review-card" *ngFor="let review of recipe?.reviews">
                         <div class="review-header">
                             <span>

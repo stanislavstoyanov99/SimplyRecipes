@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
 
+    using SimplyRecipes.Common;
     using SimplyRecipes.Common.Config;
     using SimplyRecipes.Models.ViewModels.Identity;
     using SimplyRecipes.Services.Data.Interfaces;
@@ -56,8 +57,11 @@
         {
             try
             {
-                var response = await this.identityService.LoginAsync(model, GetIpAddress());
-                this.SetTokenCookie(response.RefreshToken);
+                var ipAddress = Utils.GetIpAddress(Request.Headers, HttpContext.Connection.RemoteIpAddress);
+                var response = await this.identityService.LoginAsync(model, ipAddress);
+
+                var cookieOptions = Utils.CreateTokenCookie(this.appConfig.Value.RefreshTokenExpiration);
+                Response.Cookies.Append("refreshToken", response.RefreshToken, cookieOptions);
 
                 return Ok(response);
             }
@@ -82,8 +86,11 @@
             {
                 var refreshToken = Request.Cookies["refreshToken"];
 
-                var response = await this.identityService.RefreshTokenAsync(refreshToken, GetIpAddress());
-                SetTokenCookie(response.RefreshToken);
+                var ipAddress = Utils.GetIpAddress(Request.Headers, HttpContext.Connection.RemoteIpAddress);
+                var response = await this.identityService.RefreshTokenAsync(refreshToken, ipAddress);
+
+                var cookieOptions = Utils.CreateTokenCookie(this.appConfig.Value.RefreshTokenExpiration);
+                Response.Cookies.Append("refreshToken", response.RefreshToken, cookieOptions);
 
                 return Ok(response);
             }
@@ -110,10 +117,11 @@
 
                 if (string.IsNullOrEmpty(token))
                 {
-                    return BadRequest(new RevokeTokenResponseModel { IsRevoked = false, Errors = "Token is required" });
+                    return BadRequest(new RevokeTokenResponseModel { IsRevoked = false, Errors = "Token is required." });
                 }
 
-                var response = await this.identityService.RevokeToken(token, GetIpAddress());
+                var ipAddress = Utils.GetIpAddress(Request.Headers, HttpContext.Connection.RemoteIpAddress);
+                var response = await this.identityService.RevokeToken(token, ipAddress);
 
                 return Ok(response);
             }
@@ -121,31 +129,6 @@
             {
                 return BadRequest(new RevokeTokenResponseModel { IsRevoked = false, Errors = ae.Message });
             }
-        }
-
-        private string GetIpAddress()
-        {
-            if (Request.Headers.ContainsKey("X-Forwarded-For"))
-            {
-                return Request.Headers["X-Forwarded-For"];
-            }
-            else
-            {
-                return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
-            }
-        }
-
-        private void SetTokenCookie(string token)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(this.appConfig.Value.RefreshTokenExpiration),
-                SameSite = SameSiteMode.None,
-                Secure = true
-            };
-
-            Response.Cookies.Append("refreshToken", token, cookieOptions);
         }
     }
 }

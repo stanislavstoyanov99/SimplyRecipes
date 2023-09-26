@@ -6,11 +6,12 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
 
     using SimplyRecipes.Common.Config;
+    using SimplyRecipes.Common;
     using SimplyRecipes.Models.ViewModels.ExternalAuth;
     using SimplyRecipes.Services.Data.Interfaces;
-    using Microsoft.Extensions.Options;
 
     public class ExternalAuthController : ApiController
     {
@@ -33,8 +34,11 @@
         {
             try
             {
-                var response = await this.externalAuthService.AuthenticateWithFbAsync(model, GetIpAddress());
-                this.SetTokenCookie(response.RefreshToken);
+                var ipAddress = Utils.GetIpAddress(Request.Headers, HttpContext.Connection.RemoteIpAddress);
+                var response = await this.externalAuthService.AuthenticateWithFbAsync(model, ipAddress);
+
+                var cookieOptions = Utils.CreateTokenCookie(this.appConfig.Value.RefreshTokenExpiration);
+                Response.Cookies.Append("refreshToken", response.RefreshToken, cookieOptions);
 
                 return Ok(response);
             }
@@ -46,31 +50,6 @@
             {
                 return Unauthorized(new ExternalAuthAuthenticateResponseModel { IsAuthSuccessful = false, Errors = aex.Message });
             }
-        }
-
-        private string GetIpAddress()
-        {
-            if (Request.Headers.ContainsKey("X-Forwarded-For"))
-            {
-                return Request.Headers["X-Forwarded-For"];
-            }
-            else
-            {
-                return HttpContext.Connection.RemoteIpAddress?.MapToIPv4().ToString();
-            }
-        }
-
-        private void SetTokenCookie(string token)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = DateTime.UtcNow.AddDays(this.appConfig.Value.RefreshTokenExpiration),
-                SameSite = SameSiteMode.None,
-                Secure = true
-            };
-
-            Response.Cookies.Append("refreshToken", token, cookieOptions);
         }
     }
 }

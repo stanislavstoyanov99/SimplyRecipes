@@ -141,15 +141,16 @@
 
         public async Task<LoginResponseModel> RefreshTokenAsync(string token, string ipAddress)
         {
-            var user = await GetUserByRefreshTokenAsync(token);
+            var user = await this.GetUserByRefreshTokenAsync(token);
             var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
 
             if (refreshToken.IsRevoked)
             {
                 // revoke all descendant tokens in case this token has been compromised
                 RevokeDescendantRefreshTokens(refreshToken, user, ipAddress, $"Attempted reuse of revoked ancestor token: {token}");
-                this.users.Update(user);
-                await this.users.SaveChangesAsync();
+
+                this.refreshTokens.Update(refreshToken);
+                await this.refreshTokens.SaveChangesAsync();
             }
 
             if (!refreshToken.IsActive)
@@ -190,7 +191,7 @@
 
         public async Task<RevokeTokenResponseModel> RevokeToken(string token, string ipAddress)
         {
-            var user = await GetUserByRefreshTokenAsync(token);
+            var user = await this.GetUserByRefreshTokenAsync(token);
             var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
 
             if (!refreshToken.IsActive)

@@ -71,17 +71,6 @@ export class LoginComponent implements OnInit {
       .then(requestModel => {
         this.externalAuthService.authenticateWithFb(requestModel).subscribe({
           next: (response) => {
-            localStorage.setItem("token", response.token);
-
-            const user: IUser = {
-              id: response.userId,
-              email: response.email,
-              username: response.username,
-              isAdmin: response.isAdmin
-            };
-
-            localStorage.setItem("fbUser", JSON.stringify(user));
-            this.authService.sendAuthStateChangeNotification(response.isAuthSuccessful);
             this.router.navigate([this.returnUrl]);
           },
           error: (err: HttpErrorResponse) =>

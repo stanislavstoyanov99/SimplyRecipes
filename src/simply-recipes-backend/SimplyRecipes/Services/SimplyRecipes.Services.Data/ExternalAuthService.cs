@@ -38,7 +38,8 @@
             this.facebookLogins = facebookLogins;
         }
 
-        public async Task<ExternalAuthAuthenticateResponseModel> AuthenticateWithFbAsync(AuthenticateFbRequestModel model)
+        public async Task<ExternalAuthAuthenticateResponseModel> AuthenticateWithFbAsync(
+            AuthenticateFbRequestModel model, string ipAddress)
         {
             SimplyRecipesUser fbUser = null;
 
@@ -88,11 +89,24 @@
             }
 
             var token = await this.GenerateJwtTokenAsync(fbUser);
-
             if (token == null)
             {
                 throw new NullReferenceException(ExceptionMessages.MissingJWTToken);
             }
+
+            var refreshToken = await this.jwtService.GenerateRefreshTokenAsync(ipAddress, fbUser.Id);
+            if (refreshToken == null)
+            {
+                throw new NullReferenceException(ExceptionMessages.MissingJWTRefreshToken);
+            }
+
+            fbUser.RefreshTokens.Add(refreshToken);
+
+            this.users.Update(fbUser);
+            await this.users.SaveChangesAsync();
+
+            RemoveOldRefreshTokens(fbUser);
+            await this.users.SaveChangesAsync();
 
             var responseModel = new ExternalAuthAuthenticateResponseModel
             {
@@ -100,6 +114,7 @@
                 Email = fbUser.Email,
                 Username = fbUser.UserName,
                 IsAdmin = await this.userManager.IsInRoleAsync(fbUser, appConfig.Value.AdministratorRoleName),
+                RefreshToken = refreshToken.Token,
                 Token = token,
                 IsAuthSuccessful = true
             };
@@ -134,6 +149,16 @@
             }
 
             return true;
+        }
+
+        private void RemoveOldRefreshTokens(SimplyRecipesUser user)
+        {
+            var refreshTokens = user.RefreshTokens.ToList();
+
+            // remove old inactive refresh tokens from user based on TTL in app settings
+            refreshTokens.RemoveAll(x =>
+                !x.IsActive &&
+                x.CreatedOn.AddDays(appConfig.Value.RefreshTokenTTL) <= DateTime.UtcNow);
         }
     }
 }

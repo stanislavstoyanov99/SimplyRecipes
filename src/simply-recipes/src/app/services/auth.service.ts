@@ -63,7 +63,7 @@ export class AuthService {
     this.sendAuthStateChangeNotification(false);
   }
 
-  refreshToken(): Observable<LoginResponse> {
+  public refreshToken(): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${apiURL}/identity/refresh-token`, {})
         .pipe(map((response) => {
           return this.processLogin(response);

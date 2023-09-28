@@ -3,8 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-
+    using AngleSharp.Html.Parser;
     using Microsoft.EntityFrameworkCore;
 
     using SimplyRecipes.Data.Common.Repositories;
@@ -63,6 +64,8 @@
                 .UploadAsync(articleCreateInputModel.Image, articleCreateInputModel.Title + Suffixes.ArticleSuffix);
             article.ImagePath = imageUrl;
 
+            article.SearchText = this.GetSearchText(article);
+
             await this.articlesRepository.AddAsync(article);
             await this.articlesRepository.SaveChangesAsync();
 
@@ -110,6 +113,7 @@
             article.Description = articleEditViewModel.Description;
             article.UserId = userId;
             article.CategoryId = articleEditViewModel.CategoryId;
+            article.SearchText = this.GetSearchText(article);
 
             this.articlesRepository.Update(article);
             await this.articlesRepository.SaveChangesAsync();
@@ -178,6 +182,27 @@
             }
 
             return articlesViewModel;
+        }
+
+        private string GetSearchText(Article article)
+        {
+            // Get only text from content
+            var parser = new HtmlParser();
+            var document = parser.ParseDocument($"<html><body>{article.Description}</body></html>");
+
+            // Append title
+            var text = article.Title + " " + document.Body.TextContent;
+            text = text.ToLower();
+
+            // Remove all non-alphanumeric characters
+            var regex = new Regex(@"[^\w\d]", RegexOptions.Compiled);
+            text = regex.Replace(text, " ");
+
+            // Split words and remove duplicate values
+            var words = text.Split(' ', StringSplitOptions.RemoveEmptyEntries).Where(x => x.Length > 1).Distinct();
+
+            // Combine all words
+            return string.Join(" ", words);
         }
     }
 }

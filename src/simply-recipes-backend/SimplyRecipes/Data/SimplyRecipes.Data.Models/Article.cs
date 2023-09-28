@@ -35,6 +35,8 @@
 
         public virtual SimplyRecipesUser User { get; set; }
 
+        public string SearchText { get; set; }
+
         public virtual ICollection<ArticleComment> ArticleComments { get; set; }
     }
 }

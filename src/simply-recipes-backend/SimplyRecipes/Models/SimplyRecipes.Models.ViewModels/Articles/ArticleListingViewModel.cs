@@ -40,6 +40,8 @@
 
         public string CategoryName { get; set; }
 
+        public string SearchText { get; set; }
+
         public IEnumerable<PostArticleCommentViewModel> ArticleComments { get; set; }
     }
 }

@@ -121,3 +121,9 @@
 .right-side-blog .recent-box-blog a:hover h4 {
     color: #540404;
 }
+
+.spinner {
+    position: relative; 
+    left: 50%;
+    transform: translateX(-50%);
+}

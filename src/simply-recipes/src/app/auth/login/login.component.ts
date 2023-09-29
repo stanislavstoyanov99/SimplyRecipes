@@ -9,6 +9,7 @@ import { ExternalAuthService } from 'src/app/services/external-auth.service';
 import { FacebookRequestModel } from '../models/fbRequest.model';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faFacebook } from '@fortawesome/free-brands-svg-icons';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
   public showError: boolean = false;
   
   constructor(
+    public loadingService: LoadingService,
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,

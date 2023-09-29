@@ -35,6 +35,8 @@
                           {
                               new RolesSeeder(),
                               new UsersSeeder(),
+                              new CategoriesSeeder(),
+                              new ArticlesSeeder(new Random())
                           };
 
             foreach (var seeder in seeders)

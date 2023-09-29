@@ -111,3 +111,9 @@
     background-color: #540404;
     border-color: #fff;
 }
+
+.spinner {
+    position: relative; 
+    left: 50%;
+    transform: translateX(-50%);
+}

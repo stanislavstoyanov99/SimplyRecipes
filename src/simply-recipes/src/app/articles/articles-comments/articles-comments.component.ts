@@ -10,6 +10,7 @@ import { IPostArticleComment } from 'src/app/shared/interfaces/article-comments/
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { debounceTime, fromEvent, take } from 'rxjs';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-articles-comments',
@@ -28,6 +29,7 @@ export class ArticlesCommentsComponent implements OnInit {
   private parentId: number | null = null;
 
   constructor(
+    public loadingService: LoadingService,
     private authService: AuthService,
     private router: Router,
     private library: FaIconLibrary,

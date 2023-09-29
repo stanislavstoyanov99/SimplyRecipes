@@ -17,8 +17,6 @@
     using SimplyRecipes.Models.InputModels.Administration.Articles;
     using SimplyRecipes.Common;
     using SimplyRecipes.Models.Common;
-    using CloudinaryDotNet;
-    using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
     public class ArticlesController : ApiController
     {
@@ -125,8 +123,9 @@
 
             var articles = this.articlesService
                 .GetAllArticlesAsQueryeable<ArticleListingViewModel>();
+
             var words = searchTitle?.Split(' ').Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x) && x.Length >= 2).ToList();
+                .Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
             if (words != null)
             {

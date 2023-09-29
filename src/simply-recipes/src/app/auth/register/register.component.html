@@ -1,6 +1,9 @@
 <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6 mt-120 ch-border bg-dark">
+        <ng-container *ngIf="loadingService.isLoading$ | async">
+            <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="true" color="#540404" size="medium"></ngx-spinner>
+        </ng-container>
         <h1 class="text-light">Register</h1>
         <h4 class="text-light">Create a new account.</h4>
         <hr style="background-color: white;" />
@@ -103,7 +106,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+                <button type="submit" class="btn btn-primary" [disabled]="registerForm.invalid || (loadingService.isLoading$ | async)">Register</button>
             </div>
         </form>
     </div>

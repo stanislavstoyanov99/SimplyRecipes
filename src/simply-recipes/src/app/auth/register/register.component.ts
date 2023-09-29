@@ -4,6 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegisterRequestModel } from '../models/registerRequest.model';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +17,10 @@ export class RegisterComponent {
   public errorMessage: string = '';
   public showError: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { 
+  constructor(
+    public loadingService: LoadingService,
+    private authService: AuthService,
+    private router: Router) { 
     this.registerRequestModel = new RegisterRequestModel();
   }
 

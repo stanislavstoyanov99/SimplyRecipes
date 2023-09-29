@@ -7,6 +7,7 @@ import { faSearch, faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PageResult } from 'src/app/shared/utils/utils';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-articles-search',
@@ -27,6 +28,7 @@ export class ArticlesSearchComponent implements OnInit {
   searchTitle!: string;
 
   constructor(
+    public loadingService: LoadingService,
     private articlesService: ArticlesService,
     private route: ActivatedRoute,
     private library: FaIconLibrary,

@@ -1,5 +1,8 @@
 <div class="blog-comment-box">
     <h3><fa-icon [icon]="['fas', 'comments']"></fa-icon> Comments ({{articleComments.length}})</h3>
+    <ng-container *ngIf="loadingService.isLoading$ | async">
+        <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="false" color="#540404" size="medium" class="spinner"></ngx-spinner>
+    </ng-container>
     <div class="comment-item children" *ngFor="let comment of articleComments">
         <div class="comment-item-left">
             <img id="avatar-img" src="./assets/images/avt-img-2.jpg" alt="User image for {{comment.userUserName}}">
@@ -40,7 +43,7 @@
                     </div>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 pt-2">
-                    <button class="btn btn-primary" type="submit" [disabled]="commentForm.invalid">Submit comment</button>
+                    <button class="btn btn-primary" type="submit" [disabled]="commentForm.invalid || (loadingService.isLoading$ | async)">Submit comment</button>
                 </div>
             </form>
         </ng-container>

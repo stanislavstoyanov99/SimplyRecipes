@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faCalendar, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { ArticlesService } from 'src/app/services/articles.service';
+import { LoadingService } from 'src/app/services/loading.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { IArticleSidebar } from 'src/app/shared/interfaces/articles/article-sidebar';
 
@@ -17,6 +18,7 @@ export class ArticlesSidebarComponent implements OnInit {
   sidebar: IArticleSidebar | null = null;
 
   constructor(
+    public loadingService: LoadingService,
     private library: FaIconLibrary,
     private articlesService: ArticlesService,
     private router: Router,

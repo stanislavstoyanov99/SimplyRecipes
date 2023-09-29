@@ -115,10 +115,9 @@
                                 </div> 
                             </div>
                             <div class="submit-button text-center">
-                                <button class="btn btn-common" [disabled]="contactForm.invalid" type="submit">
+                                <button class="btn btn-common" [disabled]="contactForm.invalid || (loadingService.isLoading$ | async)" type="submit">
                                     Send Message
                                 </button>
-                                <div class="clearfix"></div>
                             </div>
                         </div>
                     </div>

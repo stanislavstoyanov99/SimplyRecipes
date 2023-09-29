@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from '../shared/dialogs/error-dialog/error-dialog.component';
+import { LoadingService } from '../services/loading.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   private subscription!: Subscription;
 
   constructor(
+    public loadingService: LoadingService,
     private contactService: ContactService,
     private recaptchaV3Service: ReCaptchaV3Service,
     private spinner: NgxSpinnerService,

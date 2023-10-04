@@ -41,9 +41,10 @@ export class ArticlesSidebarComponent implements OnInit {
     });
   }
 
-  onSearchHandler(value: string): void {
-    if (value) {
-      this.router.navigate([`/articles/search/${value}/1`]);
+  onSearchHandler(query: string): void {
+    if (query) {
+      this.router.navigate(['/articles/search'],
+        { queryParams: { query: query, pageNumber: 1 } });
     }
   }
 }

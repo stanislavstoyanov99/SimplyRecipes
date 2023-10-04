@@ -20,5 +20,7 @@
         IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>();
 
         Task<IEnumerable<TViewModel>> GetRecentArticlesAsync<TViewModel>(int count = 0);
+
+        IQueryable<ArticleListingViewModel> GetAllArticlesAsQueryeableBySearchQuery(string searchQuery);
     }
 }

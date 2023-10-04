@@ -1,23 +1,36 @@
 namespace SimplyRecipes.Web
 {
+    using System.Reflection;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using System.Reflection;
+    using Microsoft.AspNetCore.Http;
+
     using Newtonsoft.Json;
 
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Services.Mapping;
     using SimplyRecipes.Web.Infrastructure.Extensions;
-    using Microsoft.AspNetCore.Http;
 
     public class Program
     {
         public static void Main(string[] args)
         {
+            // Uncomment when Serilog logging is needed
+            //var logConnection = Environment.GetEnvironmentVariable("LogConnection");
+
+            //Log.Logger = new LoggerConfiguration()
+            //    .Enrich.FromLogContext()
+            //    .WriteTo.Http(logConnection, null)
+            //    .WriteTo.Console()
+            //    .CreateLogger();
+
             var builder = WebApplication.CreateBuilder(args);
+            //builder.Host.UseSerilog();
+
             ConfigureServices(builder.Services, builder.Configuration);
             var app = builder.Build();
             Configure(app);
@@ -46,6 +59,8 @@ namespace SimplyRecipes.Web
                         .SetIsOriginAllowed((host) => true));
                 })
                 .AddApplicationServices(configuration)
+                // Uncomment when needed
+                //.AddFullTextSearch<ArticleFullTextSearchModel>(configuration)
                 .AddSwagger()
                 .AddControllers()
                 .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
@@ -61,6 +76,8 @@ namespace SimplyRecipes.Web
             }
 
             app
+                // Uncomment when needed
+               //.UseSerilogRequestLogging()
                .UseSwaggerUI()
                .UseRouting()
                .UseCors("AllowSpecificOrigin")

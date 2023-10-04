@@ -113,27 +113,27 @@
         }
 
         [HttpGet]
-        [Route("search/{searchTitle}/{pageNumber?}")]
-        public async Task<ActionResult> Search(string searchTitle, int? pageNumber)
+        [Route("search")]
+        public async Task<ActionResult> Search([FromQuery] string query, [FromQuery] int? pageNumber)
         {
-            if (string.IsNullOrEmpty(searchTitle))
+            if (string.IsNullOrEmpty(query))
             {
                 return this.NotFound();
             }
 
+            // Full-text search via introducing new column SearchText (will full-text index) directly in SQL Server
             var articles = this.articlesService
-                .GetAllArticlesAsQueryeable<ArticleListingViewModel>();
+                .GetAllArticlesAsQueryeableBySearchQuery(query);
 
-            var words = searchTitle?.Split(' ').Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            // Full-text search via ElasticSearch (in production needs to be paied)
+            //var fullTextSearch = await this.fullTextSearch
+            //    .Query<ArticleFullTextSearchModel>(
+            //        a => a.Description,
+            //        searchTitle);
 
-            if (words != null)
-            {
-                foreach (var word in words)
-                {
-                    articles = articles.Where(a => EF.Functions.FreeText(a.SearchText, word));
-                }
-            }
+            //var ids = fullTextSearch.Select(a => a.ArticleId);
+
+            //articles = articles.Where(a => ids.Contains(a.Id));
 
             var articlesPaginated = await PaginatedList<ArticleListingViewModel>
                 .CreateAsync(articles, pageNumber ?? 1, ArticlesInSearchPage);

@@ -69,6 +69,13 @@
             await this.articlesRepository.AddAsync(article);
             await this.articlesRepository.SaveChangesAsync();
 
+            // Uncomment when ElasticSearch is used
+            //await this.fullTextSearch.Index(new ArticleFullTextSearchModel
+            //{
+            //    ArticleId = article.Id,
+            //    Description = article.SearchText
+            //});
+
             var viewModel = await this.GetViewModelByIdAsync<ArticleDetailsViewModel>(article.Id);
 
             return viewModel;
@@ -117,6 +124,13 @@
 
             this.articlesRepository.Update(article);
             await this.articlesRepository.SaveChangesAsync();
+
+            // Uncomment when ElasticSearch is used
+            //await this.fullTextSearch.Index(new ArticleFullTextSearchModel
+            //{
+            //    ArticleId = article.Id,
+            //    Description = article.SearchText
+            //});
 
             var viewModel = await this.GetViewModelByIdAsync<ArticleDetailsViewModel>(article.Id);
 
@@ -182,6 +196,28 @@
             }
 
             return articlesViewModel;
+        }
+
+        public IQueryable<ArticleListingViewModel> GetAllArticlesAsQueryeableBySearchQuery(string searchQuery)
+        {
+            var articles = this.articlesRepository
+               .All()
+               .OrderBy(x => x.Title)
+               .ThenByDescending(x => x.CreatedOn)
+               .To<ArticleListingViewModel>();
+
+            var words = searchQuery?.Split(' ').Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+
+            if (words != null)
+            {
+                foreach (var word in words)
+                {
+                    articles = articles.Where(a => EF.Functions.FreeText(a.SearchText, word));
+                }
+            }
+
+            return articles;
         }
     }
 }

@@ -35,7 +35,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'search/:searchTitle/:pageNumber',
+    path: 'search',
     component: ArticlesSearchComponent,
     data: {
       title: 'Search Results'

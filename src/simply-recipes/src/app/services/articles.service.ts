@@ -37,8 +37,8 @@ export class ArticlesService {
     return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/by-category/${categoryName}/${pageNumber}`);
   }
 
-  getArticlesBySearchTitle(searchTitle: string, pageNumber?: number): Observable<PageResult<IArticleListing>> {
-    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/search/${searchTitle}/${pageNumber}`);
+  getArticlesBySearchQuery(query: string, pageNumber?: number): Observable<PageResult<IArticleListing>> {
+    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/search?query=${query}&pageNumber=${pageNumber}`);
   }
 
   getArticleCategories(): Observable<ICategoryList[]> {

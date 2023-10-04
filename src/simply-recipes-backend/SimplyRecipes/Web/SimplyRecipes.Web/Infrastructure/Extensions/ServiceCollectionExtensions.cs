@@ -5,7 +5,11 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
+
     using CloudinaryDotNet;
+    using Nest;
+    using Swashbuckle.AspNetCore.Filters;
+
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
@@ -21,14 +25,15 @@
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Data.Repositories;
     using SimplyRecipes.Services.Data;
+    using SimplyRecipes.Services.Data.Common;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Messaging;
     using SimplyRecipes.Web.Infrastructure.Services;
 
-    using Swashbuckle.AspNetCore.Filters;
-
     public static class ServiceCollectionExtensions
     {
+        private static IElasticClient elasticClient;
+
         public static ApplicationConfig GetApplicationConfig(
             this IServiceCollection services,
             IConfiguration configuration)
@@ -135,7 +140,7 @@
 
             services
                .AddScoped(typeof(IDeletableEntityRepository<>), typeof(EfDeletableEntityRepository<>))
-               .AddScoped(typeof(IRepository<>), typeof(EfRepository<>))
+               .AddScoped(typeof(Data.Common.Repositories.IRepository<>), typeof(EfRepository<>))
                .AddScoped<ICurrentUserService, CurrentUserService>()
                .AddTransient<IEmailSender>(
                     serviceProvider => new SendGridEmailSender(configuration["SendGridSimplyRecipes:ApiKey"], logger))
@@ -193,6 +198,35 @@
         public static IServiceCollection AddCustomRouting(this IServiceCollection services)
         {
             services.AddRouting(options => options.LowercaseUrls = true);
+
+            return services;
+        }
+
+        public static IServiceCollection AddFullTextSearch<TModel>(
+            this IServiceCollection services,
+            IConfiguration configuration)
+            where TModel : class
+        {
+            var indexName = $"{typeof(TModel).Name.ToLower()}_index";
+
+            if (elasticClient == null)
+            {
+                var connectionString = configuration["ElasticSearchConfig:ConnectionURL"];
+
+                var node = new Uri(connectionString);
+                var settings = new ConnectionSettings(node)
+                    .DefaultMappingFor<TModel>(s => s.IndexName(indexName));
+
+                elasticClient = new ElasticClient(settings);
+            }
+
+            elasticClient.Indices.Create(
+                indexName,
+                index => index.Map<TModel>(p => p.AutoMap()));
+
+            services.AddSingleton(elasticClient);
+
+            services.AddTransient<IFullTextSearch, FullTextSearch>();
 
             return services;
         }

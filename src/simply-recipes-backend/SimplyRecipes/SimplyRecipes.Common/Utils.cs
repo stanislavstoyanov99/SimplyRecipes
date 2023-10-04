@@ -48,7 +48,6 @@
 
             // Append title
             result.Append(article.Title + " " + document.Body.TextContent);
-            //var text = article.Title + " " + document.Body.TextContent;
             var text = result.ToString().ToLower();
 
             // Remove all non-alphanumeric characters

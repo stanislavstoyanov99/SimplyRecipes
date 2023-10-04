@@ -8,6 +8,7 @@ import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-
 import { MatDialog } from '@angular/material/dialog';
 import { PageResult } from 'src/app/shared/utils/utils';
 import { LoadingService } from 'src/app/services/loading.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-articles-search',
@@ -25,37 +26,41 @@ export class ArticlesSearchComponent implements OnInit {
   pageNumber: number = 1;
   pageSize: number = 5;
   count: number = 0;
-  searchTitle!: string;
+  query!: string;
 
   constructor(
     public loadingService: LoadingService,
     private articlesService: ArticlesService,
     private route: ActivatedRoute,
     private library: FaIconLibrary,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private location: Location) {
       this.library.addIcons(faSearch, faCalendar);
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.searchTitle = params["searchTitle"];
+    this.route.queryParams
+      .subscribe(params => {
+        this.query = params["query"];
     });
 
-    this.getArticlesPaginated(this.searchTitle, 1);
+    this.getArticlesPaginated(this.query, 1);
   }
 
-  onSearchHandler(value: string): void {
-    if (value) {
-      this.getArticlesPaginated(value, 1);
+  onSearchHandler(query: string): void {
+    if (query) {
+      this.getArticlesPaginated(query, 1);
+      this.location.go(`/articles/search?query=${query}&pageNumber=1`);
     }
   }
 
   onPageChange(pageNumber: number): void {
-    this.getArticlesPaginated(this.searchTitle, pageNumber);
+    this.getArticlesPaginated(this.query, pageNumber);
+    this.location.go(`/articles/search?query=${this.query}&pageNumber=${pageNumber}`);
   }
 
-  private getArticlesPaginated(searchTitle: string, pageNumber?: number) {
-    this.articlesService.getArticlesBySearchTitle(searchTitle, pageNumber).subscribe({
+  private getArticlesPaginated(query: string, pageNumber?: number) {
+    this.articlesService.getArticlesBySearchQuery(query, pageNumber).subscribe({
       next: (articlesPaginated) => {
         this.articlesPaginated = articlesPaginated;
         this.pageNumber = this.articlesPaginated.pageNumber;

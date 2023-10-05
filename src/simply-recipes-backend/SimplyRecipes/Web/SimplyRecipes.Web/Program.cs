@@ -53,10 +53,12 @@ namespace SimplyRecipes.Web
                 {
                     options.AddPolicy("AllowSpecificOrigin", builder =>
                     builder
+                        .WithOrigins(
+                            configuration["CorsConfig:LocalServerURL"],
+                            configuration["CorsConfig:ProductionServerURL"])
                         .AllowCredentials()
                         .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .SetIsOriginAllowed((host) => true));
+                        .AllowAnyHeader());
                 })
                 .AddApplicationServices(configuration)
                 // Uncomment when needed

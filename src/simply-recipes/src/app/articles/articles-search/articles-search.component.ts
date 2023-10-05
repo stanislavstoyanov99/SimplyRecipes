@@ -44,7 +44,7 @@ export class ArticlesSearchComponent implements OnInit {
         this.query = params["query"];
     });
 
-    this.getArticlesPaginated(this.query, 1);
+    this.getArticlesPaginated(this.query, this.pageNumber);
   }
 
   onSearchHandler(query: string): void {
@@ -54,9 +54,9 @@ export class ArticlesSearchComponent implements OnInit {
     }
   }
 
-  onPageChange(pageNumber: number): void {
-    this.getArticlesPaginated(this.query, pageNumber);
-    this.location.go(`/articles/search?query=${this.query}&pageNumber=${pageNumber}`);
+  onPageChange(pageNumber: number, query: string): void {
+    this.getArticlesPaginated(query ? query : this.query, pageNumber);
+    this.location.go(`/articles/search?query=${query ? query : this.query}&pageNumber=${pageNumber}`);
   }
 
   private getArticlesPaginated(query: string, pageNumber?: number) {

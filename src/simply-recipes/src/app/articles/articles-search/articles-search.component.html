@@ -49,7 +49,7 @@
                         <div [innerHTML]="article.sanitizedShortDescription"></div>
                     </div>
                 </li>
-                <pagination-controls class="articles-search-pagination-links" (pageChange)="onPageChange($event)" [responsive]="true"></pagination-controls>
+                <pagination-controls class="articles-search-pagination-links" (pageChange)="onPageChange($event, searchInput.value)" [responsive]="true"></pagination-controls>
             </ul>
         </ng-container>
     </div>

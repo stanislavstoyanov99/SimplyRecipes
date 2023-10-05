@@ -6,10 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="1.0.5" />
-    <PackageReference Include="HtmlSanitizer" Version="8.0.718" />
-    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+    <PackageReference Include="AngleSharp" Version="0.17.1" />
+    <PackageReference Include="HtmlSanitizer" Version="8.0.723" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>

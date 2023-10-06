@@ -1,27 +1,15 @@
 <div class="blog-comment-box">
-    <h3><fa-icon [icon]="['fas', 'comments']"></fa-icon> Comments ({{articleComments.length}})</h3>
+    <h3><fa-icon [icon]="['fas', 'comments']"></fa-icon> Comments ({{commentsLength}})</h3>
     <ng-container *ngIf="loadingService.isLoading$ | async">
         <ngx-spinner bdColor="rgba(0,0,0,0)" [fullScreen]="false" color="#540404" size="medium" class="spinner"></ngx-spinner>
     </ng-container>
-    <div class="comment-item children" *ngFor="let comment of articleComments">
-        <div class="comment-item-left">
-            <img id="avatar-img" src="./assets/images/avt-img-2.jpg" alt="User image for {{comment.userUserName}}">
-        </div>
-        <div class="comment-item-right">
-            <div class="float-start">
-                <strong>{{comment.userUserName}}</strong>
-            </div>
-            <div class="float-end">
-                <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
-                <span>&nbsp;{{comment.createdOn | date:'short'}}</span>
-                <ng-container *ngIf="isUserAuthenticated">
-                    <a type="button" class="right-btn-re" (click)="onReplyCommentHandler(comment.id)">
-                        <fa-icon [icon]="['fas', 'reply']"></fa-icon>
-                    </a>
-                </ng-container>
-            </div>
-            <div class="des-l" [innerHTML]="comment.sanitizedContent"></div>
-        </div>
+    <div class="comment-item children" *ngFor="let comment of rootArticleComments">
+        <app-articles-comment
+            [comment]="comment"
+            [articleComments]="articleComments"
+            (parentIdEvent)="setCommentParentId($event)"
+            [element]="element">
+        </app-articles-comment>
     </div>
 </div>
 <div class="comment-respond-box">

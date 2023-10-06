@@ -1,16 +1,15 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
-import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faComments, faCalendarAlt, faReply } from '@fortawesome/free-solid-svg-icons';
 import { ArticleCommentsService } from 'src/app/services/article-comments.service';
 import { NgForm } from '@angular/forms';
 import { IArticleComment } from 'src/app/shared/interfaces/article-comments/article-comment';
 import { IPostArticleComment } from 'src/app/shared/interfaces/article-comments/post-article-comment';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
-import { debounceTime, fromEvent, take } from 'rxjs';
 import { LoadingService } from 'src/app/services/loading.service';
+import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { faComments } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-articles-comments',
@@ -25,23 +24,27 @@ export class ArticlesCommentsComponent implements OnInit {
 
   public isUserAuthenticated!: boolean;
   public returnUrl!: string;
+  public rootArticleComments: IArticleComment[] = [];
+  public commentsLength!: number;
 
   private parentId: number | null = null;
 
   constructor(
     public loadingService: LoadingService,
+    public element: ElementRef,
     private authService: AuthService,
     private router: Router,
-    private library: FaIconLibrary,
     private articleCommentsService: ArticleCommentsService,
     private dialog: MatDialog,
-    private el: ElementRef) {
+    private library: FaIconLibrary) {
     this.returnUrl = this.router.routerState.snapshot.url;
-    this.library.addIcons(faComments, faCalendarAlt, faReply);
+    this.library.addIcons(faComments);
   }
 
   ngOnInit(): void {
     this.isUserAuthenticated = this.authService.isUserAuthenticated();
+    this.rootArticleComments = this.articleComments.filter((comment) => !comment.parentId);
+    this.commentsLength = this.articleComments.length;
   }
 
   onSubmitHandler(form: NgForm): void {
@@ -56,16 +59,20 @@ export class ArticlesCommentsComponent implements OnInit {
     this.postComment(form, articleComment);
   }
 
-  onReplyCommentHandler(commentId: number): void {
-    this.scrollToCommentSubmitForm();
-    this.parentId = commentId;
+  setCommentParentId(parentId: number): void {
+    this.parentId = parentId;
   }
 
   private postComment(form: NgForm, articleComment: IPostArticleComment): void {
     this.articleCommentsService.postComment(articleComment).subscribe({
       next: (articleComment) => {
-        this.articleComments = [...this.articleComments, articleComment];
+        if (!articleComment.parentId) {
+          this.rootArticleComments = [...this.rootArticleComments, articleComment];
+        } else {
+          this.articleComments = [...this.articleComments, articleComment];
+        }
         this.parentId = null;
+        this.commentsLength++;
         form.reset();
       },
       error: (err: string) => {
@@ -76,32 +83,5 @@ export class ArticlesCommentsComponent implements OnInit {
         });
       }
     });
-  }
-
-  private scrollToCommentSubmitForm(): void {
-    const commentFormElement: HTMLElement = this.el.nativeElement.querySelector(
-      "#comment-form"
-    );
-    const commentTextareaElement: HTMLElement = this.el.nativeElement.querySelector(
-      "#content-textarea"
-    );
-
-    window.scroll({
-      top: this.getTopOffset(commentFormElement),
-      left: 0,
-      behavior: "smooth"
-    });
-
-    fromEvent(window, "scroll")
-      .pipe(
-        debounceTime(100),
-        take(1)
-      )
-      .subscribe(() => commentTextareaElement.focus());
-  }
-
-  private getTopOffset(controlEl: HTMLElement): number {
-    const labelOffset = 100;
-    return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
   }
 }

@@ -12,6 +12,7 @@ import { ArticlesCommentsComponent } from './articles-comments/articles-comments
 import { ArticlesSidebarComponent } from './articles-sidebar/articles-sidebar.component';
 import { ArticlesSearchComponent } from './articles-search/articles-search.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ArticlesCommentComponent } from './articles-comment/articles-comment.component';
 
 
 
@@ -24,7 +25,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ArticlesListComponent,
     ArticlesCommentsComponent,
     ArticlesSidebarComponent,
-    ArticlesSearchComponent
+    ArticlesSearchComponent,
+    ArticlesCommentComponent
   ],
   imports: [
     CommonModule,

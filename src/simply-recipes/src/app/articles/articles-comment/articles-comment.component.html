@@ -1,0 +1,49 @@
+<div class="comment-item-left">
+    <img id="avatar-img" src="./assets/images/avt-img-2.jpg" alt="User image for {{comment.userUserName}}">
+</div>
+<div class="comment-item-right">
+    <div class="float-start">
+        <strong>{{comment.userUserName}}</strong>
+    </div>
+    <div class="float-end">
+        <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
+        <span>&nbsp;{{comment.createdOn | date:'short'}}</span>
+        <ng-container *ngIf="isUserAuthenticated">
+            <a type="button" class="right-btn-re" (click)="onReplyCommentHandler(comment.id)">
+                <fa-icon [icon]="['fas', 'reply']"></fa-icon>
+            </a>
+        </ng-container>
+    </div>
+    <div class="des-l" [innerHTML]="comment.sanitizedContent"></div>
+    <ng-container
+        *ngFor="let reply of getCommentReplies(comment.id)"
+        [ngTemplateOutlet]="replies"
+        [ngTemplateOutletContext]="{ $implicit: reply }">
+    </ng-container>
+</div>
+
+<ng-template #replies let-reply>
+    <div class="comment-item-left">
+        <img id="avatar-img" src="./assets/images/avt-img-2.jpg" alt="User image for {{reply.userUserName}}">
+    </div>
+    <div class="comment-item-right">
+        <div class="float-start">
+            <strong>{{reply.userUserName}}</strong>
+        </div>
+        <div class="float-end">
+            <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon>
+            <span>&nbsp;{{reply.createdOn | date:'short'}}</span>
+            <ng-container *ngIf="isUserAuthenticated">
+                <a type="button" class="right-btn-re" (click)="onReplyCommentHandler(reply.id)">
+                    <fa-icon [icon]="['fas', 'reply']"></fa-icon>
+                </a>
+            </ng-container>
+        </div>
+        <div class="des-l" [innerHTML]="reply.sanitizedContent"></div>
+        <ng-container 
+            *ngFor="let reply of getCommentReplies(reply.id)"
+            [ngTemplateOutlet]="replies"
+            [ngTemplateOutletContext]="{ $implicit: reply }">
+        </ng-container>
+    </div>
+</ng-template>

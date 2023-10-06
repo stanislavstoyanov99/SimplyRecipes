@@ -1,0 +1,51 @@
+.comment-item-left {
+    float: left;
+    width: 90px;
+    height: 90px;
+}
+
+.comment-item-right {
+    padding-left: 60px;
+    padding-bottom: 10px;
+    color:#540404;
+}
+
+.comment-item-right .float-end {
+    margin-right: 60px;
+}
+
+.comment-item-right a {
+    position: absolute;
+    font-weight: 500;
+}
+
+#avatar-img {
+    max-width: 65px;
+    border-radius: 50px;
+}
+
+.right-btn-re {
+    float: right;
+    font-style: italic;
+    text-align: right;
+    padding: 5px 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    margin-left: 10px;
+}
+
+.right-btn-re:hover {
+    background: #540404;
+    color: #fff;
+}
+
+.des-l {
+    display: inline-block;
+    width: 90%;
+    margin-bottom: 38px;
+}
+
+.comment-item-left img {
+    width: 100%;
+    border-radius: 20px;
+}

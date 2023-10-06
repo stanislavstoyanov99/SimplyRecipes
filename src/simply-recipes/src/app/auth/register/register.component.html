@@ -62,7 +62,7 @@
             </div>
             <div class="form-group">
                 <label class="text-light" for="password">Password</label>
-                <input id="password" name="password" [(ngModel)]="registerRequestModel.password" #password="ngModel" placeholder="Enter password"
+                <input id="password" name="password" type="password" [(ngModel)]="registerRequestModel.password" #password="ngModel" placeholder="Enter password"
                     required minlength="6" maxlength="100" class="form-control" />
                 <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
                     <div *ngIf="password.errors?.['required']">
@@ -78,7 +78,7 @@
             </div>
             <div class="form-group">
                 <label class="text-light" for="confirmPassword">Confirm Password</label>
-                <input id="confirmPassword" name="confirmPassword" [(ngModel)]="registerRequestModel.confirmPassword" #confirmPassword="ngModel" placeholder="Enter confirm password"
+                <input id="confirmPassword" name="confirmPassword" type="password" [(ngModel)]="registerRequestModel.confirmPassword" #confirmPassword="ngModel" placeholder="Enter confirm password"
                     required class="form-control" appPasswordConfirmationValidator="{{registerRequestModel.password}}" />
                 <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)" class="alert">
                     <div *ngIf="confirmPassword.errors?.['required']">

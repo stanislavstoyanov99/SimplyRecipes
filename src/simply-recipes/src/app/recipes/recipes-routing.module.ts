@@ -7,7 +7,7 @@ import { RecipesViewComponent } from "./recipes-view/recipes-view.component";
 
 const routes: Routes = [
   {
-    path: 'main',
+    path: 'all',
     component: RecipesMainComponent,
     data: {
       title: 'Recipes'
@@ -36,7 +36,7 @@ const routes: Routes = [
     data: {
       title: 'View Own Recipes'
     }
-  },
+  }
 ];
 
 export const RecipesRoutingModule = RouterModule.forChild(routes);

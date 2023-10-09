@@ -13,7 +13,7 @@
 				<a routerLink="/admin-dashboard/main/create-recipe" routerLinkActive="active">Create recipe</a>
 			</div>
 			<div>
-				<a routerLink="/admin-dashboard/main/recipes/get-all" routerLinkActive="active">List recipes</a>
+				<a routerLink="/admin-dashboard/main/recipes/get-all" [queryParams]="{pageNumber: 1}" routerLinkActive="active">List recipes</a>
 			</div>
 		</div>
 	</li>
@@ -25,7 +25,7 @@
 				<a routerLink="/admin-dashboard/main/create-article" routerLinkActive="active">Create article</a>
 			</div>
 			<div>
-				<a routerLink="/admin-dashboard/main/articles/get-all" routerLinkActive="active">List articles</a>
+				<a routerLink="/admin-dashboard/main/articles/get-all" [queryParams]="{pageNumber: 1}" routerLinkActive="active">List articles</a>
 			</div>
 		</div>
 	</li>
@@ -46,7 +46,7 @@
 		<button class="admin-nav" (click)="onUsersButtonClick()">Application Users</button>
 		<div class="nav-panel" [ngStyle]="isUsersClicked ? {'display': 'block'} : {'display': 'none'}">
 			<div>
-				<a routerLink="/admin-dashboard/main/users/list" routerLinkActive="active">List Application Users</a>
+				<a routerLink="/admin-dashboard/main/users/list" [queryParams]="{pageNumber: 1}" routerLinkActive="active">List Application Users</a>
 			</div>
 		</div>
 	</li>

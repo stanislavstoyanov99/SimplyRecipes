@@ -16,7 +16,7 @@ export class UsersService {
   constructor(private httpClient: HttpClient) { }
 
   getAllUsers(pageNumber?: number): Observable<PageResult<IUserDetails>> {
-    return this.httpClient.get<PageResult<IUserDetails>>(`${apiURL}/applicationUsers/all/${pageNumber}`);
+    return this.httpClient.get<PageResult<IUserDetails>>(`${apiURL}/applicationUsers/get-all?pageNumber=${pageNumber}`);
   }
 
   editUser(userEditModel: UserEditModel): Observable<IUserDetails> {

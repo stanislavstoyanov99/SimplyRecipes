@@ -17,11 +17,11 @@ export class RecipesService {
   constructor(private httpClient: HttpClient) { }
 
   getAllRecipes(pageNumber?: number): Observable<PageResult<IRecipeDetails>> {
-    return this.httpClient.get<PageResult<IRecipeDetails>>(`${apiURL}/recipes/all/${pageNumber}`);
+    return this.httpClient.get<PageResult<IRecipeDetails>>(`${apiURL}/recipes/get-all?pageNumber=${pageNumber}`);
   }
 
   getAllRecipesPaginated(categoryName: string, pageNumber?: number): Observable<PageResult<IRecipeListing>> {
-    return this.httpClient.get<PageResult<IRecipeListing>>(`${apiURL}/recipes/all/${categoryName}/${pageNumber}`);
+    return this.httpClient.get<PageResult<IRecipeListing>>(`${apiURL}/recipes/all?categoryName=${categoryName}&pageNumber=${pageNumber}`);
   }
   
   getRecipeDetails(recipeId: number): Observable<IRecipeDetails> {

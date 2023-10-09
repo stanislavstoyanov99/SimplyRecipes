@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { PageResult } from 'src/app/shared/utils/utils';
 import { ArticlesService } from 'src/app/services/articles.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-articles-by-category',
@@ -23,14 +24,15 @@ export class ArticlesByCategoryComponent implements OnInit {
     pageSize: 0
   };
   pageNumber: number = 1;
-  pageSize: number = 6;
+  pageSize: number = 5;
   count: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private library: FaIconLibrary,
     private dialog: MatDialog,
-    private articlesService: ArticlesService) {
+    private articlesService: ArticlesService,
+    private location: Location) {
     this.library.addIcons(faUser, faCalendar, faComments);
   }
 
@@ -58,6 +60,7 @@ export class ArticlesByCategoryComponent implements OnInit {
   onPageChange(pageNumber: number): void {
     this.articlesService.getArticlesByCategoryName(this.categoryName, pageNumber).subscribe({
       next: (articlesByCategoryPaginated) => {
+        this.location.go(`/articles/by-category?categoryName=${this.categoryName}&pageNumber=${pageNumber}`);
         this.articlesByCategoryPaginated = articlesByCategoryPaginated;
         this.pageNumber = this.articlesByCategoryPaginated.pageNumber;
         this.count = this.articlesByCategoryPaginated.count;

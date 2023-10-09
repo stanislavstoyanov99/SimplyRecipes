@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.loginRequestModel).subscribe({
         next: (response) => 
         {
-          this.router.navigate([this.returnUrl]);
+          this.router.navigateByUrl(this.returnUrl);
         },
         error: (err: HttpErrorResponse) =>
         {
@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
       .then(requestModel => {
         this.externalAuthService.authenticateWithFb(requestModel).subscribe({
           next: (response) => {
-            this.router.navigate([this.returnUrl]);
+            this.router.navigateByUrl(this.returnUrl);
           },
           error: (err: HttpErrorResponse) =>
           {

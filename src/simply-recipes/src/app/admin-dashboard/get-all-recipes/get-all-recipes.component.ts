@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RecipesService } from 'src/app/services/recipes.service';
@@ -26,7 +27,8 @@ export class GetAllRecipesComponent implements OnInit {
 
   constructor(
     private recipesService: RecipesService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getRecipesPaginated(1);
@@ -88,6 +90,7 @@ export class GetAllRecipesComponent implements OnInit {
   private getRecipesPaginated(pageNumber?: number) {
     this.recipesService.getAllRecipes(pageNumber).subscribe({
       next: (recipesPaginated) => {
+        this.location.go(`/admin-dashboard/main/recipes/get-all?pageNumber=${pageNumber}`);
         this.recipesPaginated = recipesPaginated;
         this.pageNumber = this.recipesPaginated.pageNumber;
         this.count = this.recipesPaginated.count;

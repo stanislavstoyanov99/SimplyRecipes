@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ArticlesService } from 'src/app/services/articles.service';
@@ -26,7 +27,8 @@ export class GetAllArticlesComponent implements OnInit {
 
   constructor(
     private articlesService: ArticlesService,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private location: Location) { }
 
     ngOnInit(): void {
       this.getArticlesPaginated(1);
@@ -88,6 +90,7 @@ export class GetAllArticlesComponent implements OnInit {
     private getArticlesPaginated(pageNumber?: number) {
       this.articlesService.getAllArticles(pageNumber).subscribe({
         next: (articlesPaginated) => {
+          this.location.go(`/admin-dashboard/main/articles/get-all?pageNumber=${pageNumber}`);
           this.articlesPaginated = articlesPaginated;
           this.pageNumber = this.articlesPaginated.pageNumber;
           this.count = this.articlesPaginated.count;

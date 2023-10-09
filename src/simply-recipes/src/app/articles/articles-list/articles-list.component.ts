@@ -7,6 +7,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { PageResult } from 'src/app/shared/utils/utils';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-articles-list',
@@ -29,7 +30,8 @@ export class ArticlesListComponent implements OnInit {
     public loadingService: LoadingService,
     private articlesService: ArticlesService,
     private library: FaIconLibrary,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private location: Location) {
       this.library.addIcons(faUser, faCalendar);
   }
 
@@ -44,6 +46,7 @@ export class ArticlesListComponent implements OnInit {
   getArticlesPaginated(pageNumber?: number) {
     this.articlesService.getArticles(pageNumber).subscribe({
       next: (articlesPaginated) => {
+        this.location.go(`/articles/main?pageNumber=${pageNumber}`);
         this.articlesPaginated = articlesPaginated;
         this.pageNumber = this.articlesPaginated.pageNumber;
         this.count = this.articlesPaginated.count;

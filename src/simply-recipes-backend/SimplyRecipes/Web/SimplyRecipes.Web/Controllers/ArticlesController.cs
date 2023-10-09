@@ -23,7 +23,7 @@
         private const int PageSize = 9;
         private const int AdminPageSize = 10;
         private const int RecentArticlesCount = 6;
-        private const int ArticlesByCategoryCount = 6;
+        private const int ArticlesByCategoryCount = 5;
         private const int ArticlesInSearchPage = 5;
 
         private readonly IArticlesService articlesService;
@@ -40,8 +40,8 @@
             this.userManager = userManager;
         }
 
-        [HttpGet("{pageNumber?}")]
-        public async Task<ActionResult> Get([FromRoute] int? pageNumber)
+        [HttpGet("main")]
+        public async Task<ActionResult> Main([FromQuery] int? pageNumber)
         {
             var allArticles = this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>();
 
@@ -59,8 +59,9 @@
             return Ok(responseModel);
         }
 
-        [HttpGet("all/{pageNumber?}")]
-        public async Task<ActionResult> All(int? pageNumber)
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpGet("get-all")]
+        public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
             var articles = this.articlesService.GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
 
@@ -150,8 +151,8 @@
         }
 
         [HttpGet]
-        [Route("by-category/{categoryName}/{pageNumber?}")]
-        public async Task<ActionResult> ByCategory(string categoryName, int? pageNumber)
+        [Route("by-category")]
+        public async Task<ActionResult> ByCategory([FromQuery] string categoryName, [FromQuery] int? pageNumber)
         {
             var articlesByCategoryName = this.articlesService
                 .GetAllArticlesByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName);
@@ -175,8 +176,8 @@
             return this.Ok(responseModel);
         }
 
-        [HttpGet("submit")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpGet("submit")]
         public async Task<ActionResult> Submit()
         {
             var categories = await this.categoriesService
@@ -185,8 +186,8 @@
             return this.Ok(categories);
         }
 
-        [HttpPost("submit")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpPost("submit")]
         public async Task<ActionResult> Submit([FromForm] ArticleCreateInputModel articleCreateInputModel)
         {
             try
@@ -206,8 +207,8 @@
             }
         }
 
-        [HttpPut("edit")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpPut("edit")]
         public async Task<ActionResult> Edit([FromForm] ArticleEditViewModel articleEditViewModel)
         {
             try
@@ -227,8 +228,8 @@
             }
         }
 
-        [HttpDelete("remove/{id}")]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        [HttpDelete("remove/{id}")]
         public async Task<ActionResult> Remove(int id)
         {
             try

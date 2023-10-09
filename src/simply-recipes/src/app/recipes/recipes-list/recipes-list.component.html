@@ -5,8 +5,8 @@
     <div class="col-3">
         <div class="nav nav-pills" id="v-pills-tab" role="tabpanel" aria-orientation="vertical">
             <div id="myTab" class="nav flex-column nav-tabs" role="tablist">
-                <a class="nav-link mb-1" type="button" routerLink="/recipes/main" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="onAllClickHandler()">All</a>
-                <a class="nav-link mb-1" type="button" routerLink="/recipes/main" [queryParams]="{categoryName: category.name}"
+                <a class="nav-link mb-1" type="button" routerLink="/recipes/all" [queryParams]="{categoryName: 'All', pageNumber: 1}" routerLinkActive="active" (click)="onAllClickHandler()">All</a>
+                <a class="nav-link mb-1" type="button" routerLink="/recipes/all" [queryParams]="{categoryName: category.name, pageNumber: 1}"
                     routerLinkActive="active" *ngFor="let category of categories" (click)="onCategoryClickHandler(category.name)">{{category.name}}
                 </a>
             </div>

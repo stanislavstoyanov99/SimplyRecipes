@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { UsersService } from 'src/app/services/users.service';
@@ -28,7 +29,8 @@ export class ListUsersComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private usersService: UsersService) { }
+    private usersService: UsersService,
+    private location: Location) { }
 
   ngOnInit(): void {
     this.getUsersPaginated(1);
@@ -116,6 +118,7 @@ export class ListUsersComponent implements OnInit {
   private getUsersPaginated(pageNumber?: number) {
     this.usersService.getAllUsers(pageNumber).subscribe({
       next: (usersPaginated) => {
+        this.location.go(`/admin-dashboard/main/users/list?pageNumber=${pageNumber}`);
         this.usersPaginated = usersPaginated;
         this.pageNumber = this.usersPaginated.pageNumber;
         this.count = this.usersPaginated.count;

@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
+    using SimplyRecipes.Common;
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.Common;
     using SimplyRecipes.Models.InputModels.Administration.Recipes;
@@ -49,8 +50,9 @@
             }
         }
 
-        [HttpGet("all/{pageNumber?}")]
-        public async Task<ActionResult> All(int? pageNumber)
+        [HttpGet("get-all")]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
             var recipes = this.recipesService.GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
             var recipesPaginated = await PaginatedList<RecipeDetailsViewModel>
@@ -67,8 +69,8 @@
             return this.Ok(responseModel);
         }
 
-        [HttpGet("all/{categoryName}/{pageNumber?}")]
-        public async Task<ActionResult> AllPaginated(string categoryName, int? pageNumber)
+        [HttpGet("all")]
+        public async Task<ActionResult> AllPaginated([FromQuery] string categoryName, [FromQuery] int? pageNumber)
         {
             var recipes = this.recipesService
                 .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);

@@ -18,11 +18,11 @@ export class ArticlesService {
   constructor(private httpClient: HttpClient) { }
 
   getArticles(pageNumber?: number): Observable<PageResult<IArticleListing>> {
-    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/${pageNumber}`);
+    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/main?pageNumber=${pageNumber}`);
   }
 
   getAllArticles(pageNumber?: number): Observable<PageResult<IArticleDetails>> {
-    return this.httpClient.get<PageResult<IArticleDetails>>(`${apiURL}/articles/all/${pageNumber}`);
+    return this.httpClient.get<PageResult<IArticleDetails>>(`${apiURL}/articles/get-all?pageNumber=${pageNumber}`);
   }
 
   getArticleById(id: number): Observable<IArticleListing> {
@@ -34,7 +34,7 @@ export class ArticlesService {
   }
 
   getArticlesByCategoryName(categoryName: string, pageNumber?: number): Observable<PageResult<IArticleListing>> {
-    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/by-category/${categoryName}/${pageNumber}`);
+    return this.httpClient.get<PageResult<IArticleListing>>(`${apiURL}/articles/by-category?categoryName=${categoryName}&pageNumber=${pageNumber}`);
   }
 
   getArticlesBySearchQuery(query: string, pageNumber?: number): Observable<PageResult<IArticleListing>> {

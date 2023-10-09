@@ -32,8 +32,8 @@
             this.simplyRecipesUsersService = simplyRecipesUsersService;
         }
 
-        [HttpGet("all/{pageNumber?}")]
-        public async Task<ActionResult> All(int? pageNumber)
+        [HttpGet("get-all")]
+        public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
             try
             {

@@ -11,6 +11,7 @@ import { PageResult, rate } from 'src/app/shared/utils/utils';
 import { IRecipeListing } from 'src/app/shared/interfaces/recipes/recipe-listing';
 import { ICategoryDetails } from 'src/app/shared/interfaces/categories/category-details';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-recipes-list',
@@ -38,24 +39,14 @@ export class RecipesListComponent implements OnInit {
     private recipesService: RecipesService,
     private categoriesService: CategoriesService,
     private library: FaIconLibrary,
-    private dialog: MatDialog) {
+    private dialog: MatDialog,
+    private location: Location) {
     this.library.addIcons(faListAlt, faStar, faTachometerAlt);
   }
 
   ngOnInit(): void {
     this.getRecipesPaginated(this.currentCategoryName, 1);
-    this.categoriesService.getAllCategories().subscribe({
-      next: (categories) => {
-        this.categories = categories;
-      },
-      error: (err: string) => {
-        this.dialog.open(ErrorDialogComponent, {
-          data: {
-            message: err
-          }
-        });
-      }
-    });
+    this.getAllCategories();
   }
 
   onCategoryClickHandler(categoryName: string): void {
@@ -75,9 +66,25 @@ export class RecipesListComponent implements OnInit {
   private getRecipesPaginated(categoryName: string, pageNumber?: number): void {
     this.recipesService.getAllRecipesPaginated(categoryName, pageNumber).subscribe({
       next: (recipesPaginated) => {
+        this.location.go(`/recipes/all?categoryName=${categoryName}&pageNumber=${pageNumber}`);
         this.recipesPaginated = recipesPaginated;
         this.pageNumber = this.recipesPaginated.pageNumber;
         this.count = this.recipesPaginated.count;
+      },
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
+      }
+    });
+  }
+
+  private getAllCategories(): void {
+    this.categoriesService.getAllCategories().subscribe({
+      next: (categories) => {
+        this.categories = categories;
       },
       error: (err: string) => {
         this.dialog.open(ErrorDialogComponent, {

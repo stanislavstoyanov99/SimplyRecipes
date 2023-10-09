@@ -7,7 +7,6 @@ import { ArticlesService } from 'src/app/services/articles.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ErrorDialogComponent } from 'src/app/shared/dialogs/error-dialog/error-dialog.component';
 import { IArticleSidebar } from 'src/app/shared/interfaces/articles/article-sidebar';
-
 @Component({
   selector: 'app-articles-sidebar',
   templateUrl: './articles-sidebar.component.html',
@@ -15,7 +14,10 @@ import { IArticleSidebar } from 'src/app/shared/interfaces/articles/article-side
 })
 export class ArticlesSidebarComponent implements OnInit {
 
-  sidebar: IArticleSidebar | null = null;
+  sidebar: IArticleSidebar = {
+    categories: [],
+    recentArticles: []
+  };
 
   constructor(
     public loadingService: LoadingService,

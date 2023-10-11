@@ -18,6 +18,7 @@
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Common.Config;
     using SimplyRecipes.Data;
@@ -227,6 +228,37 @@
             services.AddSingleton(elasticClient);
 
             services.AddTransient<IFullTextSearch, FullTextSearch>();
+
+            return services;
+        }
+
+        public static IServiceCollection ConfigureCookie(this IServiceCollection services)
+        {
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.SameSite = SameSiteMode.None;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection AddCors(
+            this IServiceCollection services,
+            IConfiguration configuration)
+        {
+            services
+                .AddCors(options =>
+                {
+                    options.AddPolicy("AllowSpecificOrigin", builder =>
+                        builder
+                            .WithOrigins(
+                                configuration["CorsConfig:LocalServerURL"],
+                                configuration["CorsConfig:ProductionServerURL"])
+                            .AllowCredentials()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
+                });
 
             return services;
         }

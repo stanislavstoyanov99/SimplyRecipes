@@ -7,7 +7,6 @@ namespace SimplyRecipes.Web
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.AspNetCore.Http;
 
     using Newtonsoft.Json;
 
@@ -43,29 +42,16 @@ namespace SimplyRecipes.Web
                 .AddDatabase(configuration)
                 .AddCustomRouting()
                 .AddIdentity()
-                .ConfigureApplicationCookie(options =>
-                {
-                    options.Cookie.SameSite = SameSiteMode.None;
-                    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                })
+                .ConfigureCookie()
                 .AddAuthentication(services.GetApplicationConfig(configuration))
-                .AddCors(options =>
-                {
-                    options.AddPolicy("AllowSpecificOrigin", builder =>
-                    builder
-                        .WithOrigins(
-                            configuration["CorsConfig:LocalServerURL"],
-                            configuration["CorsConfig:ProductionServerURL"])
-                        .AllowCredentials()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
-                })
+                .AddCors(configuration)
                 .AddApplicationServices(configuration)
                 // Uncomment when needed
                 //.AddFullTextSearch<ArticleFullTextSearchModel>(configuration)
                 .AddSwagger()
                 .AddControllers()
-                .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         private static void Configure(WebApplication app)

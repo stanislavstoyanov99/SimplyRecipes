@@ -25,7 +25,9 @@
         {
             using var serviceScope = appBuilder.ApplicationServices.CreateScope();
 
-            var dbContext = serviceScope.ServiceProvider.GetService<SimplyRecipesDbContext>();
+            var dbContext = serviceScope
+                .ServiceProvider
+                .GetService<SimplyRecipesDbContext>();
 
             dbContext.Database.Migrate();
 

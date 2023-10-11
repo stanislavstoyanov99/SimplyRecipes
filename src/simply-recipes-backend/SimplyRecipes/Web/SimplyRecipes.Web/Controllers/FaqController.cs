@@ -2,9 +2,11 @@
 {
     using System;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Common;
     using SimplyRecipes.Models.ViewModels.Faq;
@@ -21,6 +23,9 @@
         }
 
         [HttpGet("all")]
+        [ProducesResponseType(
+            typeof(IEnumerable<FaqDetailsViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> All()
         {
             var faqs = await this.faqService.GetAllFaqsAsync<FaqDetailsViewModel>();
@@ -29,6 +34,8 @@
         }
 
         [HttpPost("submit")]
+        [ProducesResponseType(typeof(FaqDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromBody] FaqCreateInputModel faqCreateInputModel)
         {
@@ -49,6 +56,8 @@
         }
 
         [HttpPut("edit")]
+        [ProducesResponseType(typeof(FaqDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromBody] FaqEditViewModel faqEditViewModel)
         {
@@ -65,6 +74,8 @@
         }
 
         [HttpDelete("remove/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Remove(int id)
         {

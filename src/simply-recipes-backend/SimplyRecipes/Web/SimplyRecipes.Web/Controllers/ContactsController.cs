@@ -3,6 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     using SimplyRecipes.Models.ViewModels.Contacts;
@@ -17,7 +18,9 @@
             this.contactsService = contactsService;
         }
 
-        [HttpPost]
+        [HttpPost("post")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Post([FromBody] ContactFormEntryViewModel contactFormViewModel)
         {
             try

@@ -18,17 +18,18 @@
         private readonly IIdentityService identityService;
         private readonly IOptions<ApplicationConfig> appConfig;
 
-        public IdentityController(IIdentityService identityService, IOptions<ApplicationConfig> appConfig)
+        public IdentityController(
+            IIdentityService identityService,
+            IOptions<ApplicationConfig> appConfig)
         {
             this.identityService = identityService;
             this.appConfig = appConfig;
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("register")]
         [ProducesResponseType(typeof(RegisterResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(RegisterResponseModel), StatusCodes.Status400BadRequest)]
-        [Route(nameof(Register))]
         public async Task<ActionResult> Register(RegisterRequestModel model)
         {
             try
@@ -48,11 +49,9 @@
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("login")]
         [ProducesResponseType(typeof(LoginResponseModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(LoginResponseModel), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(LoginResponseModel), StatusCodes.Status401Unauthorized)]
-        [Route(nameof(Login))]
         public async Task<ActionResult> Login(LoginRequestModel model)
         {
             try
@@ -67,7 +66,7 @@
             }
             catch (NullReferenceException nre)
             {
-                return BadRequest(new LoginResponseModel { IsAuthSuccessful = false, Errors = nre.Message });
+                return Unauthorized(new LoginResponseModel { IsAuthSuccessful = false, Errors = nre.Message });
             }
             catch (ArgumentException ae)
             {
@@ -76,10 +75,9 @@
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("refresh-token")]
         [ProducesResponseType(typeof(LoginResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(LoginResponseModel), StatusCodes.Status400BadRequest)]
-        [Route("refresh-token")]
         public async Task<ActionResult> RefreshToken()
         {
             try
@@ -105,10 +103,9 @@
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("revoke-token")]
         [ProducesResponseType(typeof(RevokeTokenResponseModel), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(RevokeTokenResponseModel), StatusCodes.Status400BadRequest)]
-        [Route("revoke-token")]
         public async Task<ActionResult> RevokeToken(RevokeTokenRequestModel model)
         {
             try
@@ -117,7 +114,11 @@
 
                 if (string.IsNullOrEmpty(token))
                 {
-                    return BadRequest(new RevokeTokenResponseModel { IsRevoked = false, Errors = "Token is required." });
+                    return BadRequest(new RevokeTokenResponseModel
+                        { 
+                            IsRevoked = false,
+                            Errors = "Token is required." 
+                        });
                 }
 
                 var ipAddress = Utils.GetIpAddress(Request.Headers, HttpContext.Connection.RemoteIpAddress);

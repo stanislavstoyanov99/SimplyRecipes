@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
@@ -25,9 +26,10 @@
             this.userManager = userManager;
         }
 
-        [HttpPost]
+        [HttpPost("submit")]
+        [ProducesResponseType(typeof(ReviewDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
-        [Route("submit")]
         public async Task<ActionResult> Submit([FromBody] CreateReviewInputModel model)
         {
             try
@@ -47,9 +49,10 @@
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("remove/{id}")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        [Route("remove/{id}")]
         public async Task<ActionResult> Remove(int id)
         {
             try

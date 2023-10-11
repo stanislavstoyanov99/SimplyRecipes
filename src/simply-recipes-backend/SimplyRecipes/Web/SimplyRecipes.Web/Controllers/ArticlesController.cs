@@ -3,11 +3,13 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Models.ViewModels.Articles;
@@ -41,6 +43,9 @@
         }
 
         [HttpGet("main")]
+        [ProducesResponseType(
+            typeof(PaginatedViewModel<ArticleListingViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> Main([FromQuery] int? pageNumber)
         {
             var allArticles = this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>();
@@ -59,8 +64,11 @@
             return Ok(responseModel);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet("get-all")]
+        [ProducesResponseType(
+            typeof(PaginatedViewModel<ArticleDetailsViewModel>),
+            StatusCodes.Status200OK)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
             var articles = this.articlesService.GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
@@ -80,6 +88,8 @@
         }
 
         [HttpGet("details/{id}")]
+        [ProducesResponseType(typeof(ArticleListingViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Details([FromRoute] int id)
         {
             try
@@ -96,6 +106,7 @@
         }
 
         [HttpGet("sidebar")]
+        [ProducesResponseType(typeof(ArticleSidebarViewModel), StatusCodes.Status200OK)]
         public async Task<ActionResult> Sidebar()
         {
             var categories = await this.categoriesService
@@ -113,8 +124,10 @@
             return this.Ok(responseModel);
         }
 
-        [HttpGet]
-        [Route("search")]
+        [HttpGet("search")]
+        [ProducesResponseType(
+            typeof(PaginatedViewModel<ArticleListingViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> Search([FromQuery] string query, [FromQuery] int? pageNumber)
         {
             if (string.IsNullOrEmpty(query))
@@ -150,8 +163,10 @@
             return this.Ok(responseModel);
         }
 
-        [HttpGet]
-        [Route("by-category")]
+        [HttpGet("by-category")]
+        [ProducesResponseType(
+            typeof(PaginatedViewModel<ArticleListingViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> ByCategory([FromQuery] string categoryName, [FromQuery] int? pageNumber)
         {
             var articlesByCategoryName = this.articlesService
@@ -176,8 +191,11 @@
             return this.Ok(responseModel);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpGet("submit")]
+        [ProducesResponseType(
+            typeof(IEnumerable<CategoryDetailsViewModel>),
+            StatusCodes.Status200OK)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit()
         {
             var categories = await this.categoriesService
@@ -186,8 +204,10 @@
             return this.Ok(categories);
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPost("submit")]
+        [ProducesResponseType(typeof(ArticleDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromForm] ArticleCreateInputModel articleCreateInputModel)
         {
             try
@@ -207,8 +227,10 @@
             }
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpPut("edit")]
+        [ProducesResponseType(typeof(ArticleDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromForm] ArticleEditViewModel articleEditViewModel)
         {
             try
@@ -228,8 +250,10 @@
             }
         }
 
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         [HttpDelete("remove/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Remove(int id)
         {
             try

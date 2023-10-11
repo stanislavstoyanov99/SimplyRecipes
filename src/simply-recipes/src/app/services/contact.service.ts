@@ -13,6 +13,6 @@ export class ContactService {
   constructor(private httpClient: HttpClient) { }
 
   sendContact(contact: ContactModel) {
-    return this.httpClient.post(`${apiURL}/contacts`, contact);
+    return this.httpClient.post(`${apiURL}/contacts/post`, contact);
   }
 }

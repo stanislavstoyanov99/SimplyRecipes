@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     using SimplyRecipes.Common;
@@ -21,6 +22,8 @@
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(PrivacyDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Privacy(int id)
         {
             try
@@ -36,12 +39,15 @@
         }
 
         [HttpPost("submit")]
+        [ProducesResponseType(typeof(PrivacyDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromBody] PrivacyCreateInputModel privacyCreateInputModel)
         {
             try
             {
                 var privacy = await this.privacyService.CreateAsync(privacyCreateInputModel);
+
                 return this.Ok(privacy);
             }
             catch (ArgumentException aex)
@@ -55,6 +61,8 @@
         }
 
         [HttpPut("edit")]
+        [ProducesResponseType(typeof(PrivacyDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromBody] PrivacyEditViewModel privacyEditViewModel)
         {

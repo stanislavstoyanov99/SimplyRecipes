@@ -1,9 +1,11 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
@@ -36,6 +38,9 @@
         }
 
         [HttpGet("details/{id}")]
+        [ProducesResponseType(typeof(RecipeDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<ActionResult> Details(int id)
         {
             try
@@ -51,6 +56,9 @@
         }
 
         [HttpGet("get-all")]
+        [ProducesResponseType(
+            typeof(PaginatedViewModel<RecipeDetailsViewModel>),
+            StatusCodes.Status200OK)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
@@ -70,6 +78,10 @@
         }
 
         [HttpGet("all")]
+        [ProducesResponseType(
+            typeof(PaginatedViewModel<RecipeListingViewModel>),
+            StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult> AllPaginated([FromQuery] string categoryName, [FromQuery] int? pageNumber)
         {
             var recipes = this.recipesService
@@ -90,6 +102,10 @@
         }
 
         [HttpGet("user-recipes")]
+        [ProducesResponseType(
+            typeof(IEnumerable<RecipeDetailsViewModel>),
+            StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult> UserRecipes()
         {
             var user = await this.userManager.GetUserAsync(this.User);
@@ -99,6 +115,10 @@
         }
 
         [HttpGet("submit")]
+        [ProducesResponseType(
+            typeof(IEnumerable<CategoryDetailsViewModel>),
+            StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<ActionResult> Submit()
         {
             var categories = await this.categoriesService
@@ -107,8 +127,10 @@
             return this.Ok(categories);
         }
 
-        [Authorize]
         [HttpPost("submit")]
+        [ProducesResponseType(typeof(RecipeDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<ActionResult> Submit([FromForm] RecipeCreateInputModel recipeCreateInputModel)
         {
             try
@@ -116,6 +138,7 @@
                 var user = await this.userManager.GetUserAsync(this.User);
 
                 var recipe = await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
+
                 return this.Ok(recipe);
             }
             catch (ArgumentException aex)
@@ -128,8 +151,10 @@
             }
         }
 
-        [Authorize]
         [HttpDelete("remove/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<ActionResult> Remove(int id)
         {
             try
@@ -144,13 +169,16 @@
             }
         }
 
-        [Authorize]
         [HttpPut("edit")]
+        [ProducesResponseType(typeof(RecipeDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [Authorize]
         public async Task<ActionResult> Edit([FromForm] RecipeEditViewModel model)
         {
             try
             {
                 var recipe = await this.recipesService.EditAsync(model);
+
                 return this.Ok(recipe);
             }
             catch (ArgumentException aex)

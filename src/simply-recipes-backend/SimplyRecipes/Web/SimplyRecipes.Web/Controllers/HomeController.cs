@@ -1,8 +1,10 @@
 ﻿namespace SimplyRecipes.Web.Controllers
 {
     using System;
+    using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     using SimplyRecipes.Models.ViewModels.Articles;
@@ -29,8 +31,10 @@
             this.recipesService = recipesService;
         }
 
-        [HttpGet]
-        [Route("top-recipes")]
+        [HttpGet("top-recipes")]
+        [ProducesResponseType(
+            typeof(IEnumerable<RecipeListingViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> GetTopRecipes()
         {
             var topRecipes = await this
@@ -39,8 +43,10 @@
             return this.Ok(topRecipes);
         }
 
-        [HttpGet]
-        [Route("recent-articles")]
+        [HttpGet("recent-articles")]
+        [ProducesResponseType(
+            typeof(IEnumerable<ArticleListingViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> GetRecentArticles()
         {
             var recentArticles = await this
@@ -49,8 +55,10 @@
             return this.Ok(recentArticles);
         }
 
-        [HttpGet]
-        [Route("gallery")]
+        [HttpGet("gallery")]
+        [ProducesResponseType(
+            typeof(IEnumerable<GalleryViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> GetGallery()
         {
             var gallery = await this
@@ -60,6 +68,8 @@
         }
 
         [HttpGet("privacy")]
+        [ProducesResponseType(typeof(PrivacyDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Privacy()
         {
             try

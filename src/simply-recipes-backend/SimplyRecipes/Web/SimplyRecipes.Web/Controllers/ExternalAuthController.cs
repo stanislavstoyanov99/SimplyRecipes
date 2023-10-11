@@ -18,18 +18,19 @@
         private readonly IExternalAuthService externalAuthService;
         private readonly IOptions<ApplicationConfig> appConfig;
 
-        public ExternalAuthController(IExternalAuthService externalAuthService, IOptions<ApplicationConfig> appConfig)
+        public ExternalAuthController(
+            IExternalAuthService externalAuthService,
+            IOptions<ApplicationConfig> appConfig)
         {
             this.externalAuthService = externalAuthService;
             this.appConfig = appConfig;
         }
 
         [AllowAnonymous]
-        [HttpPost]
+        [HttpPost("authenticate-with-fb")]
         [ProducesResponseType(typeof(ExternalAuthAuthenticateResponseModel), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [Route(nameof(AuthenticateWithFb))]
+        [ProducesResponseType(typeof(ExternalAuthAuthenticateResponseModel), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ExternalAuthAuthenticateResponseModel), StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult> AuthenticateWithFb(AuthenticateFbRequestModel model)
         {
             try

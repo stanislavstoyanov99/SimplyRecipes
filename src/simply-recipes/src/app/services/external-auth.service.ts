@@ -24,7 +24,7 @@ export class ExternalAuthService {
     private socialAuthService: SocialAuthService) { }
 
   public authenticateWithFb(fbRequestModel: FacebookRequestModel) {
-    return this.http.post<LoginResponse>(`${apiURL}/externalauth/authenticatewithfb`, fbRequestModel)
+    return this.http.post<LoginResponse>(`${apiURL}/externalauth/authenticate-with-fb`, fbRequestModel)
       .pipe(map((response) => {
         return this.processLogin(response);
       }));

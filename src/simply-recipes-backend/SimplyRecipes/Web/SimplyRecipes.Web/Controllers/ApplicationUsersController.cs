@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
@@ -33,6 +34,10 @@
         }
 
         [HttpGet("get-all")]
+        [ProducesResponseType(
+            typeof(PaginatedViewModel<SimplyRecipesUserDetailsViewModel>),
+            StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
             try
@@ -66,6 +71,8 @@
         }
 
         [HttpPut("edit")]
+        [ProducesResponseType(typeof(SimplyRecipesUserDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Edit([FromBody] SimplyRecipesUserEditViewModel model)
         {
             try
@@ -93,6 +100,8 @@
         }
 
         [HttpDelete("ban/{id}")]
+        [ProducesResponseType(typeof(SimplyRecipesUserDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Ban(string id)
         {
             try
@@ -115,6 +124,8 @@
         }
 
         [HttpDelete("unban/{id}")]
+        [ProducesResponseType(typeof(SimplyRecipesUserDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> Unban(string id)
         {
             try

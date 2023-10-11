@@ -18,6 +18,7 @@
                 .UseSwaggerUI(options =>
                 {
                     options.SwaggerEndpoint("/swagger/v1/swagger.json", "SimplyRecipes API V1");
+                    options.RoutePrefix = string.Empty;
                 });
         }
 

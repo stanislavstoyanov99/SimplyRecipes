@@ -6,6 +6,7 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
@@ -25,6 +26,8 @@
         }
 
         [HttpPost("comment")]
+        [ProducesResponseType(typeof(PostArticleCommentViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize]
         public async Task<ActionResult> Comment([FromBody] CreateArticleCommentInputModel model)
         {

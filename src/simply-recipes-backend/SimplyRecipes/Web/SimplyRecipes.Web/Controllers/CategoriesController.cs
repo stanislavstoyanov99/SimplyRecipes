@@ -2,9 +2,11 @@
 {
     using System;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.Categories;
@@ -21,6 +23,9 @@
         }
 
         [HttpGet("all")]
+        [ProducesResponseType(
+            typeof(IEnumerable<CategoryDetailsViewModel>),
+            StatusCodes.Status200OK)]
         public async Task<ActionResult> All()
         {
             var categories = await this.categoriesService.GetAllCategoriesAsync<CategoryDetailsViewModel>();
@@ -29,6 +34,8 @@
         }
 
         [HttpPost("submit")]
+        [ProducesResponseType(typeof(CategoryDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Submit([FromForm] CategoryCreateInputModel categoryCreateInputModel)
         {
@@ -49,6 +56,8 @@
         }
 
         [HttpPut("edit")]
+        [ProducesResponseType(typeof(CategoryDetailsViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Edit([FromForm] CategoryEditViewModel categoryEditViewModel)
         {
@@ -69,6 +78,8 @@
         }
 
         [HttpDelete("remove/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> Remove(int id)
         {

@@ -24,7 +24,7 @@ export class AuthService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   public isUserAuthenticated = (): boolean => {
-    const token = localStorage.getItem("token");
+    const token = this.getToken();
  
     if (token && !this.jwtHelper.isTokenExpired(token)) {
       return true;
@@ -70,6 +70,12 @@ export class AuthService {
         }));
   }
 
+  public getToken(): string | null {
+    const token = localStorage.getItem("token");
+
+    return token;
+  }
+
   private processLogin(loginResponse: LoginResponse): LoginResponse {
     localStorage.setItem("token", loginResponse.token);
           
@@ -89,7 +95,7 @@ export class AuthService {
 
   private startRefreshTokenTimer(): void {
     // parse json object from base64 encoded jwt token
-    const token = localStorage.getItem("token");
+    const token = this.getToken();
     const jwtBase64 = token!.split('.')[1];
     const jwtToken = JSON.parse(atob(jwtBase64));
 

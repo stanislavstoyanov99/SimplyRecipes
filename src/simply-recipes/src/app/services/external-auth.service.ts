@@ -66,7 +66,7 @@ export class ExternalAuthService {
 
   private startRefreshTokenTimer(): void {
     // parse json object from base64 encoded jwt token
-    const token = localStorage.getItem("token");
+    const token = this.authService.getToken();
     const jwtBase64 = token!.split('.')[1];
     const jwtToken = JSON.parse(atob(jwtBase64));
 

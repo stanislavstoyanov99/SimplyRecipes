@@ -9,6 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { PageResult } from 'src/app/shared/utils/utils';
 import { LoadingService } from 'src/app/services/loading.service';
 import { Location } from '@angular/common';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-articles-search',
@@ -39,12 +40,23 @@ export class ArticlesSearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams
-      .subscribe(params => {
-        this.query = params["query"];
+    this.route.queryParams.pipe(map(params => {
+      this.query = params["query"];
+      return this.query;
+    }), mergeMap(query => this.articlesService.getArticlesBySearchQuery(query, this.pageNumber))).subscribe({
+      next: (articlesPaginated) => {
+        this.articlesPaginated = articlesPaginated;
+        this.pageNumber = this.articlesPaginated.pageNumber;
+        this.count = this.articlesPaginated.count;
+      },
+      error: (err: string) => {
+        this.dialog.open(ErrorDialogComponent, {
+          data: {
+            message: err
+          }
+        });
+      }
     });
-
-    this.getArticlesPaginated(this.query, this.pageNumber);
   }
 
   onSearchHandler(query: string): void {

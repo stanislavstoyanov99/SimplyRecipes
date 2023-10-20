@@ -13,6 +13,7 @@ import { IUser } from 'src/app/shared/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConfirmDialogModel, ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { LoadingService } from 'src/app/services/loading.service';
+import { filter, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-recipes-details',
@@ -63,20 +64,20 @@ export class RecipesDetailsComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe(review => {
-      if (review) {
-        this.reviewService.submitReview(review).subscribe({
+    dialogRef.afterClosed().pipe(
+        filter(result => result),
+        mergeMap(review => this.reviewService.submitReview(review))).subscribe({
           next: (review) => {
+            this.loadingService.setLoading(true);
             this.recipe!.reviews = [...this.recipe!.reviews, review];
             this.recipe!.rate = review.recipe.rate;
+            this.loadingService.setLoading(false);
           },
           error: (err: string) => {
             this.dialog.open(ErrorDialogComponent, {
               data: { message: err }
             });
           }
-        });  
-      }
     });
   }
 
@@ -87,24 +88,21 @@ export class RecipesDetailsComponent implements OnInit {
       data: dialogData
     });
 
-    this.loadingService.setLoading(true);
-    
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if (dialogResult) {
-        this.reviewService.removeReview(reviewId).subscribe({
-          next: (newRate) => {
-            const indexOfDeletedReview = this.recipe?.reviews.findIndex(x => x.id === reviewId);
-            this.recipe?.reviews.splice(indexOfDeletedReview!, 1);
-            this.recipe!.rate = newRate;
-            this.loadingService.setLoading(false);
-          },
-          error: (err: string) => {
-            this.dialog.open(ErrorDialogComponent, {
-              data: { message: err }
-            });
-          }
-        });
-      }
+    dialogRef.afterClosed().pipe(
+      filter(result => result),
+      mergeMap(review => this.reviewService.removeReview(reviewId))).subscribe({
+        next: (newRate) => {
+          this.loadingService.setLoading(true);
+          const indexOfDeletedReview = this.recipe?.reviews.findIndex(x => x.id === reviewId);
+          this.recipe?.reviews.splice(indexOfDeletedReview!, 1);
+          this.recipe!.rate = newRate;
+          this.loadingService.setLoading(false);
+        },
+        error: (err: string) => {
+          this.dialog.open(ErrorDialogComponent, {
+            data: { message: err }
+          });
+        }
     });
   }
 }

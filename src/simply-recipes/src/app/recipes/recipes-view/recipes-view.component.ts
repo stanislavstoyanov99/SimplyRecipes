@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { filter, mergeMap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { RecipesService } from 'src/app/services/recipes.service';
 import { ConfirmDialogModel, ConfirmationDialogComponent } from 'src/app/shared/dialogs/confirmation-dialog/confirmation-dialog.component';
@@ -34,19 +35,18 @@ export class RecipesViewComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe(dialogResult => {
-      if (dialogResult) {
-        this.recipesService.removeRecipe(recipeId).subscribe({
-          next: () => {
-            this.getUserRecipes();
-          },
-          error: (err: string) => {
-            this.dialog.open(ErrorDialogComponent, {
-              data: { message: err }
-            });
-          }
-        });
-      }
+    dialogRef.afterClosed().pipe(
+      filter(result => result),
+      mergeMap(result => this.recipesService.removeRecipe(recipeId)),
+      mergeMap(result => this.recipesService.getUserRecipes())).subscribe({
+        next: (userRecipes) => {
+          this.userRecipes = userRecipes;
+        },
+        error: (err: string) => {
+          this.dialog.open(ErrorDialogComponent, {
+            data: { message: err }
+          });
+        }
     });
   }
 
@@ -58,20 +58,18 @@ export class RecipesViewComponent implements OnInit {
       data: dialogData
     });
 
-    dialogRef.afterClosed().subscribe(recipe => {
-      if (recipe) {
-        this.recipesService.editRecipe(recipe).subscribe({
-          next: (recipe) => {
+    dialogRef.afterClosed().pipe(
+      filter(result => result),
+      mergeMap(recipe => this.recipesService.editRecipe(recipe))).subscribe({
+        next: (recipe) => {
             const indexOfUpdatedRecipe = this.userRecipes.findIndex(x => x.id === recipe.id);
             this.userRecipes[indexOfUpdatedRecipe] = recipe;
           },
-          error: (err: string) => {
-            this.dialog.open(ErrorDialogComponent, {
-              data: { message: err }
-            });
-          }
-        });
-      }
+        error: (err: string) => {
+          this.dialog.open(ErrorDialogComponent, {
+            data: { message: err }
+          });
+        }
     });
   }
 

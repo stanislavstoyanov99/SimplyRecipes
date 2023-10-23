@@ -6,18 +6,17 @@
 
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
     using SimplyRecipes.Common;
-    using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.Common;
     using SimplyRecipes.Models.InputModels.Administration.Recipes;
     using SimplyRecipes.Models.ViewModels;
     using SimplyRecipes.Models.ViewModels.Categories;
     using SimplyRecipes.Models.ViewModels.Recipes;
     using SimplyRecipes.Services.Data.Interfaces;
+    using SimplyRecipes.Web.Infrastructure.Services;
 
     public class RecipesController : ApiController
     {
@@ -25,16 +24,16 @@
 
         private readonly IRecipesService recipesService;
         private readonly ICategoriesService categoriesService;
-        private readonly UserManager<SimplyRecipesUser> userManager;
+        private readonly ICurrentUserService currentUserService;
 
         public RecipesController(
             IRecipesService recipesService,
             ICategoriesService categoriesService,
-            UserManager<SimplyRecipesUser> userManager)
+            ICurrentUserService currentUserService)
         {
             this.recipesService = recipesService;
             this.categoriesService = categoriesService;
-            this.userManager = userManager;
+            this.currentUserService = currentUserService;
         }
 
         [HttpGet("details/{id}")]
@@ -45,7 +44,8 @@
         {
             try
             {
-                var recipe = await this.recipesService.GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
+                var recipe = await this.recipesService
+                    .GetViewModelByIdAsync<RecipeDetailsViewModel>(id);
 
                 return this.Ok(recipe);
             }
@@ -62,7 +62,8 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
-            var recipes = this.recipesService.GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
+            var recipes = this.recipesService
+                .GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
             var recipesPaginated = await PaginatedList<RecipeDetailsViewModel>
                 .CreateAsync(recipes, pageNumber ?? 1, PageSize);
 
@@ -108,8 +109,9 @@
         [Authorize]
         public async Task<ActionResult> UserRecipes()
         {
-            var user = await this.userManager.GetUserAsync(this.User);
-            var recipes = await this.recipesService.GetAllRecipesByUserId<RecipeDetailsViewModel>(user.Id);
+            var userId = this.currentUserService.GetId();
+            var recipes = await this.recipesService
+                .GetAllRecipesByUserId<RecipeDetailsViewModel>(userId);
 
             return this.Ok(recipes);
         }
@@ -135,9 +137,9 @@
         {
             try
             {
-                var user = await this.userManager.GetUserAsync(this.User);
-
-                var recipe = await this.recipesService.CreateAsync(recipeCreateInputModel, user.Id);
+                var userId = this.currentUserService.GetId();
+                var recipe = await this.recipesService
+                    .CreateAsync(recipeCreateInputModel, userId);
 
                 return this.Ok(recipe);
             }
@@ -177,7 +179,8 @@
         {
             try
             {
-                var recipe = await this.recipesService.EditAsync(model);
+                var recipe = await this.recipesService
+                    .EditAsync(model);
 
                 return this.Ok(recipe);
             }

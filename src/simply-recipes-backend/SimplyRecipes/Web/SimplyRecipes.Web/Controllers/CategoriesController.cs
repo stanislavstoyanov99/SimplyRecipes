@@ -28,7 +28,8 @@
             StatusCodes.Status200OK)]
         public async Task<ActionResult> All()
         {
-            var categories = await this.categoriesService.GetAllCategoriesAsync<CategoryDetailsViewModel>();
+            var categories = await this.categoriesService
+                .GetAllCategoriesAsync<CategoryDetailsViewModel>();
 
             return this.Ok(categories);
         }
@@ -41,7 +42,8 @@
         {
             try
             {
-                var category = await this.categoriesService.CreateAsync(categoryCreateInputModel);
+                var category = await this.categoriesService
+                    .CreateAsync(categoryCreateInputModel);
 
                 return this.Ok(category);
             }
@@ -63,7 +65,8 @@
         {
             try
             {
-                var category = await this.categoriesService.EditAsync(categoryEditViewModel);
+                var category = await this.categoriesService
+                    .EditAsync(categoryEditViewModel);
 
                 return this.Ok(category);
             }

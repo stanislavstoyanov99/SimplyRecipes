@@ -4,25 +4,24 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
 
-    using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.ArticleComments;
+    using SimplyRecipes.Web.Infrastructure.Services;
 
     public class ArticleCommentsController : ApiController
     {
         private readonly IArticleCommentsService articleCommentsService;
-        private readonly UserManager<SimplyRecipesUser> userManager;
+        private readonly ICurrentUserService currentUserService;
 
         public ArticleCommentsController(
             IArticleCommentsService articleCommentsService,
-            UserManager<SimplyRecipesUser> userManager)
+            ICurrentUserService currentUserService)
         {
             this.articleCommentsService = articleCommentsService;
-            this.userManager = userManager;
+            this.currentUserService = currentUserService;
         }
 
         [HttpPost("comment")]
@@ -41,7 +40,7 @@
                 }
             }
 
-            var userId = this.userManager.GetUserId(this.User);
+            var userId = this.currentUserService.GetId();
 
             try
             {

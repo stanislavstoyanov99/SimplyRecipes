@@ -37,8 +37,8 @@
             StatusCodes.Status200OK)]
         public async Task<ActionResult> GetTopRecipes()
         {
-            var topRecipes = await this
-                .recipesService.GetTopRecipesAsync<RecipeListingViewModel>(TopRecipesCounter);
+            var topRecipes = await this.recipesService
+                .GetTopRecipesAsync<RecipeListingViewModel>(TopRecipesCounter);
 
             return this.Ok(topRecipes);
         }
@@ -49,8 +49,8 @@
             StatusCodes.Status200OK)]
         public async Task<ActionResult> GetRecentArticles()
         {
-            var recentArticles = await this
-                .articlesService.GetRecentArticlesAsync<ArticleListingViewModel>(RecentArticlesCounter);
+            var recentArticles = await this.articlesService
+                .GetRecentArticlesAsync<ArticleListingViewModel>(RecentArticlesCounter);
 
             return this.Ok(recentArticles);
         }
@@ -61,8 +61,8 @@
             StatusCodes.Status200OK)]
         public async Task<ActionResult> GetGallery()
         {
-            var gallery = await this
-                .recipesService.GetAllRecipesAsync<GalleryViewModel>();
+            var gallery = await this.recipesService
+                .GetAllRecipesAsync<GalleryViewModel>();
 
             return this.Ok(gallery);
         }
@@ -74,7 +74,8 @@
         {
             try
             {
-                var responseModel = await this.privacyService.GetViewModelAsync<PrivacyDetailsViewModel>();
+                var responseModel = await this.privacyService
+                    .GetViewModelAsync<PrivacyDetailsViewModel>();
 
                 return this.Ok(responseModel);
             }

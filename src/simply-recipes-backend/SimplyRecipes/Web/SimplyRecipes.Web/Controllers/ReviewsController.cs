@@ -4,26 +4,25 @@
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Http;
 
-    using SimplyRecipes.Data.Models;
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Models.ViewModels.Reviews;
     using SimplyRecipes.Common;
+    using SimplyRecipes.Web.Infrastructure.Services;
 
     public class ReviewsController : ApiController
     {
         private readonly IReviewsService reviewsService;
-        private readonly UserManager<SimplyRecipesUser> userManager;
+        private readonly ICurrentUserService currentUserService;
 
         public ReviewsController(
             IReviewsService reviewsService,
-            UserManager<SimplyRecipesUser> userManager)
+            ICurrentUserService currentUserService)
         {
             this.reviewsService = reviewsService;
-            this.userManager = userManager;
+            this.currentUserService = currentUserService;
         }
 
         [HttpPost("submit")]
@@ -34,8 +33,9 @@
         {
             try
             {
-                var userId = this.userManager.GetUserId(this.User);
-                var review = await this.reviewsService.CreateAsync(model, userId);
+                var userId = this.currentUserService.GetId();
+                var review = await this.reviewsService
+                    .CreateAsync(model, userId);
 
                 return this.Ok(review);
             }

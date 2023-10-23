@@ -7,7 +7,6 @@
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Http;
 
@@ -15,10 +14,10 @@
     using SimplyRecipes.Models.ViewModels.Articles;
     using SimplyRecipes.Models.ViewModels.Categories;
     using SimplyRecipes.Services.Data.Interfaces;
-    using SimplyRecipes.Data.Models;
     using SimplyRecipes.Models.InputModels.Administration.Articles;
     using SimplyRecipes.Common;
     using SimplyRecipes.Models.Common;
+    using SimplyRecipes.Web.Infrastructure.Services;
 
     public class ArticlesController : ApiController
     {
@@ -30,16 +29,16 @@
 
         private readonly IArticlesService articlesService;
         private readonly ICategoriesService categoriesService;
-        private readonly UserManager<SimplyRecipesUser> userManager;
+        private readonly ICurrentUserService currentUserService;
 
         public ArticlesController(
             IArticlesService articlesService,
             ICategoriesService categoriesService,
-            UserManager<SimplyRecipesUser> userManager)
+            ICurrentUserService currentUserService)
         {
             this.articlesService = articlesService;
             this.categoriesService = categoriesService;
-            this.userManager = userManager;
+            this.currentUserService = currentUserService;
         }
 
         [HttpGet("main")]
@@ -48,7 +47,8 @@
             StatusCodes.Status200OK)]
         public async Task<ActionResult> Main([FromQuery] int? pageNumber)
         {
-            var allArticles = this.articlesService.GetAllArticlesAsQueryeable<ArticleListingViewModel>();
+            var allArticles = this.articlesService
+                .GetAllArticlesAsQueryeable<ArticleListingViewModel>();
 
             var articlesPaginated = await PaginatedList<ArticleListingViewModel>
                 .CreateAsync(allArticles, pageNumber ?? 1, PageSize);
@@ -71,7 +71,8 @@
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
-            var articles = this.articlesService.GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
+            var articles = this.articlesService
+                .GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
 
             var articlesPaginated = await PaginatedList<ArticleDetailsViewModel>
                 .CreateAsync(articles, pageNumber ?? 1, AdminPageSize);
@@ -212,8 +213,8 @@
         {
             try
             {
-                var user = await this.userManager.GetUserAsync(this.User);
-                var article = await this.articlesService.CreateAsync(articleCreateInputModel, user.Id);
+                var userId = this.currentUserService.GetId();
+                var article = await this.articlesService.CreateAsync(articleCreateInputModel, userId);
 
                 return this.Ok(article);
             }
@@ -235,8 +236,8 @@
         {
             try
             {
-                var user = await this.userManager.GetUserAsync(this.User);
-                var article = await this.articlesService.EditAsync(articleEditViewModel, user.Id);
+                var userId = this.currentUserService.GetId();
+                var article = await this.articlesService.EditAsync(articleEditViewModel, userId);
 
                 return this.Ok(article);
             }

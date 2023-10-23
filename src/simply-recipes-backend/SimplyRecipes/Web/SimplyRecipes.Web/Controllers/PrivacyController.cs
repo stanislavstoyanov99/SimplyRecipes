@@ -28,7 +28,8 @@
         {
             try
             {
-                var privacy = await this.privacyService.GetViewModelByIdAsync<PrivacyDetailsViewModel>(id);
+                var privacy = await this.privacyService
+                    .GetViewModelByIdAsync<PrivacyDetailsViewModel>(id);
 
                 return this.Ok(privacy);
             }
@@ -46,7 +47,8 @@
         {
             try
             {
-                var privacy = await this.privacyService.CreateAsync(privacyCreateInputModel);
+                var privacy = await this.privacyService
+                    .CreateAsync(privacyCreateInputModel);
 
                 return this.Ok(privacy);
             }
@@ -68,7 +70,8 @@
         {
             try
             {
-                var privacy = await this.privacyService.EditAsync(privacyEditViewModel);
+                var privacy = await this.privacyService
+                    .EditAsync(privacyEditViewModel);
 
                 return this.Ok(privacy);
             }

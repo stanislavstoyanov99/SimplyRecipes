@@ -45,11 +45,19 @@
             }
             catch (NullReferenceException nre)
             {
-                return BadRequest(new ExternalAuthAuthenticateResponseModel { IsAuthSuccessful = false, Errors = nre.Message });
+                return BadRequest(new ExternalAuthAuthenticateResponseModel
+                    { 
+                        IsAuthSuccessful = false,
+                        Errors = nre.Message
+                    });
             }
             catch (ArgumentException aex)
             {
-                return Unauthorized(new ExternalAuthAuthenticateResponseModel { IsAuthSuccessful = false, Errors = aex.Message });
+                return Unauthorized(new ExternalAuthAuthenticateResponseModel
+                    { 
+                        IsAuthSuccessful = false,
+                        Errors = aex.Message
+                    });
             }
         }
     }

@@ -44,7 +44,11 @@
             }
             catch (ArgumentException aex)
             {
-                return BadRequest(new RegisterResponseModel { Succeeded = false, Errors = aex.Message });
+                return BadRequest(new RegisterResponseModel
+                    { 
+                        Succeeded = false,
+                        Errors = aex.Message
+                    });
             }
         }
 
@@ -66,11 +70,19 @@
             }
             catch (NullReferenceException nre)
             {
-                return Unauthorized(new LoginResponseModel { IsAuthSuccessful = false, Errors = nre.Message });
+                return Unauthorized(new LoginResponseModel
+                    { 
+                        IsAuthSuccessful = false,
+                        Errors = nre.Message
+                    });
             }
             catch (ArgumentException ae)
             {
-                return Unauthorized(new LoginResponseModel { IsAuthSuccessful = false, Errors = ae.Message });
+                return Unauthorized(new LoginResponseModel
+                    { 
+                        IsAuthSuccessful = false,
+                        Errors = ae.Message
+                    });
             }
         }
 
@@ -94,11 +106,19 @@
             }
             catch (ArgumentException ae)
             {
-                return BadRequest(new LoginResponseModel { IsAuthSuccessful = false, Errors = ae.Message });
+                return BadRequest(new LoginResponseModel
+                    { 
+                        IsAuthSuccessful = false,
+                        Errors = ae.Message
+                    });
             }
             catch (NullReferenceException nre)
             {
-                return BadRequest(new LoginResponseModel { IsAuthSuccessful = false, Errors = nre.Message });
+                return BadRequest(new LoginResponseModel
+                    { 
+                        IsAuthSuccessful = false,
+                        Errors = nre.Message
+                    });
             }
         }
 
@@ -128,7 +148,11 @@
             }
             catch (ArgumentException ae)
             {
-                return BadRequest(new RevokeTokenResponseModel { IsRevoked = false, Errors = ae.Message });
+                return BadRequest(new RevokeTokenResponseModel
+                    { 
+                        IsRevoked = false,
+                        Errors = ae.Message
+                    });
             }
         }
     }

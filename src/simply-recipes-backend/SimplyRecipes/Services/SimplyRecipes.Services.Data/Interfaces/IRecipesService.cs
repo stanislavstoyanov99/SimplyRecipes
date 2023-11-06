@@ -15,12 +15,12 @@
 
         Task<IEnumerable<TViewModel>> GetAllRecipesAsync<TViewModel>();
 
-        IQueryable<TViewModel> GetAllRecipesAsQueryeable<TViewModel>();
+        IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>();
 
-        IQueryable<TViewModel> GetAllRecipesByFilterAsQueryeable<TViewModel>(string categoryName = null);
+        IQueryable<TViewModel> GetAllByFilterAsQueryeable<TViewModel>(string categoryName = null);
 
         Task<IEnumerable<TViewModel>> GetTopRecipesAsync<TViewModel>(int count = 0);
 
-        Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(string userId);
+        Task<IEnumerable<TViewModel>> GetAllByUserId<TViewModel>(string userId);
     }
 }

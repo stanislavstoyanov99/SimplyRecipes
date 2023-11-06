@@ -28,7 +28,7 @@
             StatusCodes.Status200OK)]
         public async Task<ActionResult> All()
         {
-            var faqs = await this.faqService.GetAllFaqsAsync<FaqDetailsViewModel>();
+            var faqs = await this.faqService.GetAllAsync<FaqDetailsViewModel>();
 
             return this.Ok(faqs);
         }

@@ -29,7 +29,7 @@
         public async Task<ActionResult> All()
         {
             var categories = await this.categoriesService
-                .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+                .GetAllAsync<CategoryDetailsViewModel>();
 
             return this.Ok(categories);
         }

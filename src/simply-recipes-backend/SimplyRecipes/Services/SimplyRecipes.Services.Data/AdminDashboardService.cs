@@ -50,16 +50,16 @@
             return registeredAdminsPerMonth;
         }
 
-        public Dictionary<string, int> GetRegisteredUsersPerMonth()
+        public async Task<Dictionary<string, int>> GetRegisteredUsersPerMonthAsync()
         {
             var registeredUsersPerMonth = new Dictionary<string, int>();
             var monthNames = this.GetMonthNames();
 
             for (var i = 0; i < monthNames.Count; ++i)
             {
-                var countOfUsers = this.usersRepository
+                var countOfUsers = await this.usersRepository
                     .All()
-                    .Count(x => x.CreatedOn.Month == i + 1);
+                    .CountAsync(x => x.CreatedOn.Month == i + 1);
                 registeredUsersPerMonth.Add(monthNames[i], countOfUsers);
             }
 

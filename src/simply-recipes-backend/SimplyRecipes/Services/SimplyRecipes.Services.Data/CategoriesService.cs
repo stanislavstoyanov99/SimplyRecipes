@@ -87,7 +87,7 @@
             return viewModel;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllCategoriesAsync<TEntity>()
+        public async Task<IEnumerable<TEntity>> GetAllAsync<TEntity>()
         {
             var categories = await this.categoriesRepository
                .All()

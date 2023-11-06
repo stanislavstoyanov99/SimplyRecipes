@@ -13,6 +13,7 @@
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Mapping;
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
+    using System.Collections.Generic;
 
     public class SimplyRecipesUsersService : ISimplyRecipesUsersService
     {
@@ -67,7 +68,7 @@
             return viewModel;
         }
 
-        public IQueryable<TViewModel> GetAllSimplyRecipesUsersAsQueryeable<TViewModel>()
+        public IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>()
         {
             var users = this.simplyRecipesUsersRepository
               .AllWithDeleted()
@@ -93,12 +94,12 @@
         }
 
         public async Task<string> GetCurrentUserRoleNameAsync(
-            SimplyRecipesUserDetailsViewModel user, string userId)
+            IEnumerable<IdentityUserRole<string>> roles, string userId)
         {
-            var userRole = user.Roles.FirstOrDefault(x => x.UserId == userId);
+            var userRole = roles.FirstOrDefault(x => x.UserId == userId);
             var currUserRole = await this.roleManager.FindByIdAsync(userRole.RoleId);
 
-            return currUserRole.Name;
+            return currUserRole?.Name;
         }
     }
 }

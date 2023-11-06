@@ -63,7 +63,7 @@
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
             var recipes = this.recipesService
-                .GetAllRecipesAsQueryeable<RecipeDetailsViewModel>();
+                .GetAllAsQueryeable<RecipeDetailsViewModel>();
             var recipesPaginated = await PaginatedList<RecipeDetailsViewModel>
                 .CreateAsync(recipes, pageNumber ?? 1, PageSize);
 
@@ -86,7 +86,7 @@
         public async Task<ActionResult> AllPaginated([FromQuery] string categoryName, [FromQuery] int? pageNumber)
         {
             var recipes = this.recipesService
-                .GetAllRecipesByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
+                .GetAllByFilterAsQueryeable<RecipeListingViewModel>(categoryName);
 
             var recipesPaginated = await PaginatedList<RecipeListingViewModel>
                 .CreateAsync(recipes, pageNumber ?? 1, PageSize);
@@ -111,7 +111,7 @@
         {
             var userId = this.currentUserService.GetId();
             var recipes = await this.recipesService
-                .GetAllRecipesByUserId<RecipeDetailsViewModel>(userId);
+                .GetAllByUserId<RecipeDetailsViewModel>(userId);
 
             return this.Ok(recipes);
         }
@@ -124,7 +124,7 @@
         public async Task<ActionResult> Submit()
         {
             var categories = await this.categoriesService
-                .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+                .GetAllAsync<CategoryDetailsViewModel>();
 
             return this.Ok(categories);
         }

@@ -142,7 +142,7 @@
             return viewModel;
         }
 
-        public IQueryable<TViewModel> GetAllRecipesAsQueryeable<TViewModel>()
+        public IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>()
         {
             var recipes = this.recipesRepository
                 .All()
@@ -174,7 +174,7 @@
             return topRecipes;
         }
 
-        public IQueryable<TViewModel> GetAllRecipesByFilterAsQueryeable<TViewModel>(string categoryName = null)
+        public IQueryable<TViewModel> GetAllByFilterAsQueryeable<TViewModel>(string categoryName = null)
         {
             var recipesByFilter = Enumerable.Empty<TViewModel>().AsQueryable();
 
@@ -187,7 +187,7 @@
             }
             else
             {
-                recipesByFilter = this.GetAllRecipesAsQueryeable<TViewModel>();
+                recipesByFilter = this.GetAllAsQueryeable<TViewModel>();
             }
 
             return recipesByFilter;
@@ -209,7 +209,7 @@
             return recipeViewModel;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllRecipesByUserId<TViewModel>(string userId)
+        public async Task<IEnumerable<TViewModel>> GetAllByUserId<TViewModel>(string userId)
         {
             var recipes = await this.recipesRepository
                 .All()

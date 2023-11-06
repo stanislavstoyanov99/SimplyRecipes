@@ -7,7 +7,7 @@
 
     public interface IAdminDashboardService
     {
-        Dictionary<string, int> GetRegisteredUsersPerMonth();
+        Task<Dictionary<string, int>> GetRegisteredUsersPerMonthAsync();
 
         Task<Dictionary<string, int>> GetRegisteredAdminsPerMonthAsync();
 

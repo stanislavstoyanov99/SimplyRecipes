@@ -48,7 +48,7 @@
         public async Task<ActionResult> Main([FromQuery] int? pageNumber)
         {
             var allArticles = this.articlesService
-                .GetAllArticlesAsQueryeable<ArticleListingViewModel>();
+                .GetAllAsQueryeable<ArticleListingViewModel>();
 
             var articlesPaginated = await PaginatedList<ArticleListingViewModel>
                 .CreateAsync(allArticles, pageNumber ?? 1, PageSize);
@@ -72,7 +72,7 @@
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
             var articles = this.articlesService
-                .GetAllArticlesAsQueryeable<ArticleDetailsViewModel>();
+                .GetAllAsQueryeable<ArticleDetailsViewModel>();
 
             var articlesPaginated = await PaginatedList<ArticleDetailsViewModel>
                 .CreateAsync(articles, pageNumber ?? 1, AdminPageSize);
@@ -111,7 +111,7 @@
         public async Task<ActionResult> Sidebar()
         {
             var categories = await this.categoriesService
-                .GetAllCategoriesAsync<CategoryListingViewModel>();
+                .GetAllAsync<CategoryListingViewModel>();
 
             var recentArticles = await this.articlesService
                 .GetRecentArticlesAsync<RecentArticleListingViewModel>(RecentArticlesCount);
@@ -138,7 +138,7 @@
 
             // Full-text search via introducing new column SearchText (will full-text index) directly in SQL Server
             var articles = this.articlesService
-                .GetAllArticlesAsQueryeableBySearchQuery(query);
+                .GetAllAsQueryeableBySearchQuery(query);
 
             // Full-text search via ElasticSearch (in production needs to be paied)
             //var fullTextSearch = await this.fullTextSearch
@@ -171,7 +171,7 @@
         public async Task<ActionResult> ByCategory([FromQuery] string categoryName, [FromQuery] int? pageNumber)
         {
             var articlesByCategoryName = this.articlesService
-                .GetAllArticlesByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName);
+                .GetAllByCategoryNameAsQueryeable<ArticleListingViewModel>(categoryName);
 
             if (articlesByCategoryName.Count() == 0)
             {
@@ -200,7 +200,7 @@
         public async Task<ActionResult> Submit()
         {
             var categories = await this.categoriesService
-                .GetAllCategoriesAsync<CategoryDetailsViewModel>();
+                .GetAllAsync<CategoryDetailsViewModel>();
 
             return this.Ok(categories);
         }

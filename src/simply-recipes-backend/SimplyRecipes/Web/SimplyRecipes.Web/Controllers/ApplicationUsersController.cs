@@ -6,7 +6,6 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Http;
 
     using SimplyRecipes.Data.Models;
@@ -37,37 +36,29 @@
         [ProducesResponseType(
             typeof(PaginatedViewModel<SimplyRecipesUserDetailsViewModel>),
             StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult> All([FromQuery] int? pageNumber)
         {
-            try
+            var users = this.simplyRecipesUsersService
+                .GetAllAsQueryeable<SimplyRecipesUserDetailsViewModel>();
+
+            var usersPaginated = await PaginatedList<SimplyRecipesUserDetailsViewModel>
+                .CreateAsync(users, pageNumber ?? 1, PageSize);
+
+            foreach (var currUser in usersPaginated)
             {
-                var users = this.simplyRecipesUsersService
-                    .GetAllSimplyRecipesUsersAsQueryeable<SimplyRecipesUserDetailsViewModel>();
-
-                foreach (var currUser in users)
-                {
-                    currUser.Role = await this.simplyRecipesUsersService
-                        .GetCurrentUserRoleNameAsync(currUser, currUser.Id);
-                }
-
-                var usersPaginated = await PaginatedList<SimplyRecipesUserDetailsViewModel>
-                    .CreateAsync(users, pageNumber ?? 1, PageSize);
-
-                var responseModel = new PaginatedViewModel<SimplyRecipesUserDetailsViewModel>
-                {
-                    Items = usersPaginated,
-                    PageNumber = pageNumber ?? 1,
-                    PageSize = PageSize,
-                    Count = await users.CountAsync()
-                };
-
-                return this.Ok(responseModel);
+                currUser.Role = await this.simplyRecipesUsersService
+                    .GetCurrentUserRoleNameAsync(currUser.Roles, currUser.Id);
             }
-            catch (ArgumentException aex)
+
+            var responseModel = new PaginatedViewModel<SimplyRecipesUserDetailsViewModel>
             {
-                return this.BadRequest(aex.Message);
-            }
+                Items = usersPaginated,
+                PageNumber = pageNumber ?? 1,
+                PageSize = PageSize,
+                Count = usersPaginated.Count
+            };
+
+            return this.Ok(responseModel);
         }
 
         [HttpPut("edit")]
@@ -109,7 +100,7 @@
                 var user = await this.simplyRecipesUsersService.BanByIdAsync(id);
 
                 user.Role = await this.simplyRecipesUsersService
-                    .GetCurrentUserRoleNameAsync(user, user.Id);
+                    .GetCurrentUserRoleNameAsync(user.Roles, user.Id);
 
                 return this.Ok(user);
             }
@@ -133,7 +124,7 @@
                 var user = await this.simplyRecipesUsersService.UnbanByIdAsync(id);
 
                 user.Role = await this.simplyRecipesUsersService
-                    .GetCurrentUserRoleNameAsync(user, user.Id);
+                    .GetCurrentUserRoleNameAsync(user.Roles, user.Id);
 
                 return this.Ok(user);
             }

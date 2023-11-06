@@ -1,7 +1,10 @@
 ﻿namespace SimplyRecipes.Services.Data.Interfaces
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
 
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
 
@@ -11,10 +14,10 @@
 
         Task<SimplyRecipesUserDetailsViewModel> UnbanByIdAsync(string id);
 
-        IQueryable<TViewModel> GetAllSimplyRecipesUsersAsQueryeable<TViewModel>();
+        IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>();
 
         Task<TViewModel> GetViewModelByIdAsync<TViewModel>(string id);
 
-        Task<string> GetCurrentUserRoleNameAsync(SimplyRecipesUserDetailsViewModel user, string userId);
+        Task<string> GetCurrentUserRoleNameAsync(IEnumerable<IdentityUserRole<string>> roles, string userId);
     }
 }

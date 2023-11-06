@@ -12,6 +12,6 @@
 
         Task<FaqDetailsViewModel> EditAsync(FaqEditViewModel faqEditViewModel);
 
-        Task<IEnumerable<TEntity>> GetAllFaqsAsync<TEntity>();
+        Task<IEnumerable<TEntity>> GetAllAsync<TEntity>();
     }
 }

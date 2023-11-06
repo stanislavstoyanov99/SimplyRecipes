@@ -85,7 +85,7 @@
             return viewModel;
         }
 
-        public async Task<IEnumerable<TEntity>> GetAllFaqsAsync<TEntity>()
+        public async Task<IEnumerable<TEntity>> GetAllAsync<TEntity>()
         {
             var faqs = await this.faqEntriesRepository
                .All()

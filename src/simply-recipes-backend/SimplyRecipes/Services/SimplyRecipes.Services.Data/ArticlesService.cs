@@ -137,7 +137,7 @@
             return viewModel;
         }
 
-        public IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>()
+        public IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>()
         {
             var articles = this.articlesRepository
                 .All()
@@ -159,7 +159,7 @@
             return articles;
         }
 
-        public IQueryable<TViewModel> GetAllArticlesByCategoryNameAsQueryeable<TViewModel>(string categoryName)
+        public IQueryable<TViewModel> GetAllByCategoryNameAsQueryeable<TViewModel>(string categoryName)
         {
             var articles = this.articlesRepository
                 .All()
@@ -198,7 +198,7 @@
             return articlesViewModel;
         }
 
-        public IQueryable<ArticleListingViewModel> GetAllArticlesAsQueryeableBySearchQuery(string searchQuery)
+        public IQueryable<ArticleListingViewModel> GetAllAsQueryeableBySearchQuery(string searchQuery)
         {
             var articles = this.articlesRepository
                .All()

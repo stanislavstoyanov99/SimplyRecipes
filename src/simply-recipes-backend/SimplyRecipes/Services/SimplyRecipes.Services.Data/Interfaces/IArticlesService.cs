@@ -15,12 +15,12 @@
 
         Task<IEnumerable<TViewModel>> GetAllArticlesAsync<TViewModel>();
 
-        IQueryable<TViewModel> GetAllArticlesByCategoryNameAsQueryeable<TViewModel>(string categoryName);
+        IQueryable<TViewModel> GetAllByCategoryNameAsQueryeable<TViewModel>(string categoryName);
 
-        IQueryable<TViewModel> GetAllArticlesAsQueryeable<TViewModel>();
+        IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>();
 
         Task<IEnumerable<TViewModel>> GetRecentArticlesAsync<TViewModel>(int count = 0);
 
-        IQueryable<ArticleListingViewModel> GetAllArticlesAsQueryeableBySearchQuery(string searchQuery);
+        IQueryable<ArticleListingViewModel> GetAllAsQueryeableBySearchQuery(string searchQuery);
     }
 }

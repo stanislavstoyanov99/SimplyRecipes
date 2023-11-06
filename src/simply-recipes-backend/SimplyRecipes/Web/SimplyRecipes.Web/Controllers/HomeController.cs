@@ -74,10 +74,10 @@
         {
             try
             {
-                var responseModel = await this.privacyService
+                var privacy = await this.privacyService
                     .GetViewModelAsync<PrivacyDetailsViewModel>();
 
-                return this.Ok(responseModel);
+                return this.Ok(privacy);
             }
             catch (NullReferenceException nre)
             {

@@ -6,6 +6,7 @@
 
     public interface IExternalAuthService
     {
-        Task<ExternalAuthAuthenticateResponseModel> AuthenticateWithFbAsync(AuthenticateFbRequestModel model, string ipAddress);
+        Task<ExternalAuthAuthenticateResponseModel> AuthenticateWithFbAsync(
+            AuthenticateFbRequestModel model, string ipAddress);
     }
 }

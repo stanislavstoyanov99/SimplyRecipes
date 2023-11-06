@@ -147,7 +147,11 @@
             if (refreshToken.IsRevoked)
             {
                 // revoke all descendant tokens in case this token has been compromised
-                RevokeDescendantRefreshTokens(refreshToken, user, ipAddress, $"Attempted reuse of revoked ancestor token: {token}");
+                RevokeDescendantRefreshTokens(
+                    refreshToken,
+                    user,
+                    ipAddress,
+                    $"Attempted reuse of revoked ancestor token: {token}");
 
                 this.refreshTokens.Update(refreshToken);
                 await this.refreshTokens.SaveChangesAsync();
@@ -189,7 +193,7 @@
             };
         }
 
-        public async Task<RevokeTokenResponseModel> RevokeToken(string token, string ipAddress)
+        public async Task<RevokeTokenResponseModel> RevokeTokenAsync(string token, string ipAddress)
         {
             var user = await this.GetUserByRefreshTokenAsync(token);
             var refreshToken = user.RefreshTokens.Single(x => x.Token == token);
@@ -234,12 +238,14 @@
             return user;
         }
 
-        private void RevokeDescendantRefreshTokens(RefreshToken refreshToken, SimplyRecipesUser user, string ipAddress, string reason)
+        private void RevokeDescendantRefreshTokens(
+            RefreshToken refreshToken, SimplyRecipesUser user, string ipAddress, string reason)
         {
             // recursively traverse the refresh token chain and ensure all descendants are revoked
             if (!string.IsNullOrEmpty(refreshToken.ReplacedByToken))
             {
-                var childToken = user.RefreshTokens.SingleOrDefault(x => x.Token == refreshToken.ReplacedByToken);
+                var childToken = user.RefreshTokens
+                    .SingleOrDefault(x => x.Token == refreshToken.ReplacedByToken);
 
                 if (childToken.IsActive)
                 {
@@ -252,7 +258,8 @@
             }
         }
 
-        private void RevokeRefreshToken(RefreshToken token, string ipAddress, string reason = null, string replacedByToken = null)
+        private void RevokeRefreshToken(
+            RefreshToken token, string ipAddress, string reason = null, string replacedByToken = null)
         {
             token.RevokedDate = DateTime.UtcNow;
             token.RevokedByIp = ipAddress;
@@ -260,7 +267,8 @@
             token.ReplacedByToken = replacedByToken;
         }
 
-        private async Task<RefreshToken> RotateRefreshTokenAsync(RefreshToken refreshToken, string ipAddress, string userId)
+        private async Task<RefreshToken> RotateRefreshTokenAsync(
+            RefreshToken refreshToken, string ipAddress, string userId)
         {
             var newRefreshToken = await this.jwtService.GenerateRefreshTokenAsync(ipAddress, userId);
             RevokeRefreshToken(refreshToken, ipAddress, "Replaced by new token", newRefreshToken.Token);

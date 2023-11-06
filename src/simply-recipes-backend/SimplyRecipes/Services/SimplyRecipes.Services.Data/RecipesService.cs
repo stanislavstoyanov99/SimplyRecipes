@@ -33,7 +33,8 @@
             this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task<RecipeDetailsViewModel> CreateAsync(RecipeCreateInputModel recipeCreateInputModel, string userId)
+        public async Task<RecipeDetailsViewModel> CreateAsync(
+            RecipeCreateInputModel recipeCreateInputModel, string userId)
         {
             if (!Enum.TryParse(recipeCreateInputModel.Difficulty, true, out Difficulty difficulty))
             {
@@ -151,7 +152,7 @@
             return recipes;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllRecipesAsync<TViewModel>()
+        public async Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>()
         {
             var recipes = await this.recipesRepository
                .All()
@@ -162,7 +163,7 @@
             return recipes;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetTopRecipesAsync<TViewModel>(int count = 0)
+        public async Task<IEnumerable<TViewModel>> GetTopAsync<TViewModel>(int count = 0)
         {
             var topRecipes = await this.recipesRepository
                .All()

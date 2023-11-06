@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
+    using System.Collections.Generic;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.AspNetCore.Identity;
@@ -13,7 +14,6 @@
     using SimplyRecipes.Services.Data.Interfaces;
     using SimplyRecipes.Services.Mapping;
     using SimplyRecipes.Models.ViewModels.SimplyRecipesUsers;
-    using System.Collections.Generic;
 
     public class SimplyRecipesUsersService : ISimplyRecipesUsersService
     {

@@ -69,7 +69,6 @@
             var category = await this.categoriesRepository
                 .All()
                 .FirstOrDefaultAsync(c => c.Id == categoryEditViewModel.Id);
-
             if (category == null)
             {
                 throw new NullReferenceException(

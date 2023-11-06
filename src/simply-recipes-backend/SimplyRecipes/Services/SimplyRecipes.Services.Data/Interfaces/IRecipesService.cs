@@ -13,13 +13,13 @@
 
         Task<RecipeDetailsViewModel> EditAsync(RecipeEditViewModel recipeEditViewModel);
 
-        Task<IEnumerable<TViewModel>> GetAllRecipesAsync<TViewModel>();
+        Task<IEnumerable<TViewModel>> GetAllAsync<TViewModel>();
 
         IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>();
 
         IQueryable<TViewModel> GetAllByFilterAsQueryeable<TViewModel>(string categoryName = null);
 
-        Task<IEnumerable<TViewModel>> GetTopRecipesAsync<TViewModel>(int count = 0);
+        Task<IEnumerable<TViewModel>> GetTopAsync<TViewModel>(int count = 0);
 
         Task<IEnumerable<TViewModel>> GetAllByUserId<TViewModel>(string userId);
     }

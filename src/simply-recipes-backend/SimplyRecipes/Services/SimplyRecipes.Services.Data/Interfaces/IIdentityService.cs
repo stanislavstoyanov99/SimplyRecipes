@@ -13,6 +13,6 @@
 
         Task<LoginResponseModel> RefreshTokenAsync(string token, string ipAddress);
 
-        Task<RevokeTokenResponseModel> RevokeToken(string token, string ipAddress);
+        Task<RevokeTokenResponseModel> RevokeTokenAsync(string token, string ipAddress);
     }
 }

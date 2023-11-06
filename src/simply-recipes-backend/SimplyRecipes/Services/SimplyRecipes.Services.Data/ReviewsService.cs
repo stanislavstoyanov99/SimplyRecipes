@@ -16,7 +16,6 @@
 
     public class ReviewsService : IReviewsService
     {
-        private const int TopReviewsFilter = 4;
         private readonly IDeletableEntityRepository<Review> reviewsRepository;
         private readonly IDeletableEntityRepository<Recipe> recipesRepository;
 
@@ -28,7 +27,8 @@
             this.recipesRepository = recipesRepository;
         }
 
-        public async Task<ReviewDetailsViewModel> CreateAsync(CreateReviewInputModel createReviewInputModel, string userId)
+        public async Task<ReviewDetailsViewModel> CreateAsync(
+            CreateReviewInputModel createReviewInputModel, string userId)
         {
             var review = new Review
             {
@@ -107,17 +107,6 @@
             }
 
             return reviewViewModel;
-        }
-
-        public async Task<IEnumerable<TViewModel>> GetTopReviews<TViewModel>()
-        {
-            var topReviews = await this.reviewsRepository
-               .All()
-               .Where(r => r.Rate >= TopReviewsFilter)
-               .To<TViewModel>()
-               .ToListAsync();
-
-            return topReviews;
         }
 
         private async Task<int> CalculateRatingAsync(int recipeId)

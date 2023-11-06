@@ -13,8 +13,6 @@
 
         Task<ArticleDetailsViewModel> EditAsync(ArticleEditViewModel articlesEditViewModel, string userId);
 
-        Task<IEnumerable<TViewModel>> GetAllArticlesAsync<TViewModel>();
-
         IQueryable<TViewModel> GetAllByCategoryNameAsQueryeable<TViewModel>(string categoryName);
 
         IQueryable<TViewModel> GetAllAsQueryeable<TViewModel>();

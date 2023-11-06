@@ -142,7 +142,7 @@
                 }
 
                 var ipAddress = Utils.GetIpAddress(Request.Headers, HttpContext.Connection.RemoteIpAddress);
-                var response = await this.identityService.RevokeToken(token, ipAddress);
+                var response = await this.identityService.RevokeTokenAsync(token, ipAddress);
 
                 return Ok(response);
             }

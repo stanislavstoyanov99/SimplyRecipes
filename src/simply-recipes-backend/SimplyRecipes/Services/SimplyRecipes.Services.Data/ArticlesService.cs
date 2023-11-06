@@ -148,17 +148,6 @@
             return articles;
         }
 
-        public async Task<IEnumerable<TViewModel>> GetAllArticlesAsync<TViewModel>()
-        {
-            var articles = await this.articlesRepository
-              .All()
-              .OrderBy(a => a.Title)
-              .To<TViewModel>()
-              .ToListAsync();
-
-            return articles;
-        }
-
         public IQueryable<TViewModel> GetAllByCategoryNameAsQueryeable<TViewModel>(string categoryName)
         {
             var articles = this.articlesRepository
@@ -206,8 +195,11 @@
                .ThenByDescending(x => x.CreatedOn)
                .To<ArticleListingViewModel>();
 
-            var words = searchQuery?.Split(' ').Select(x => x.Trim())
-                .Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            var words = searchQuery?
+                .Split(' ')
+                .Select(x => x.Trim())
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .ToList();
 
             if (words != null)
             {

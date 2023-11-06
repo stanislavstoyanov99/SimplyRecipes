@@ -38,7 +38,7 @@
         public async Task<ActionResult> GetTopRecipes()
         {
             var topRecipes = await this.recipesService
-                .GetTopRecipesAsync<RecipeListingViewModel>(TopRecipesCounter);
+                .GetTopAsync<RecipeListingViewModel>(TopRecipesCounter);
 
             return this.Ok(topRecipes);
         }
@@ -62,7 +62,7 @@
         public async Task<ActionResult> GetGallery()
         {
             var gallery = await this.recipesService
-                .GetAllRecipesAsync<GalleryViewModel>();
+                .GetAllAsync<GalleryViewModel>();
 
             return this.Ok(gallery);
         }

@@ -34,12 +34,16 @@
 
             bool doesFaqExist = await this.faqEntriesRepository
                 .All()
-                .AnyAsync(x => x.Question == faqCreateInputModel.Question && x.Answer == faqCreateInputModel.Answer);
+                .AnyAsync(x => x.Question == faqCreateInputModel.Question &&
+                    x.Answer == faqCreateInputModel.Answer);
 
             if (doesFaqExist)
             {
                 throw new ArgumentException(
-                    string.Format(ExceptionMessages.FaqAlreadyExists, faqCreateInputModel.Question, faqCreateInputModel.Answer));
+                    string.Format(
+                        ExceptionMessages.FaqAlreadyExists,
+                        faqCreateInputModel.Question,
+                        faqCreateInputModel.Answer));
             }
 
             await this.faqEntriesRepository.AddAsync(faq);
@@ -52,7 +56,9 @@
 
         public async Task DeleteByIdAsync(int id)
         {
-            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(fe => fe.Id == id);
+            var faq = await this.faqEntriesRepository
+                .All()
+                .FirstOrDefaultAsync(fe => fe.Id == id);
 
             if (faq == null)
             {
@@ -66,7 +72,9 @@
 
         public async Task<FaqDetailsViewModel> EditAsync(FaqEditViewModel faqEditViewModel)
         {
-            var faq = await this.faqEntriesRepository.All().FirstOrDefaultAsync(fe => fe.Id == faqEditViewModel.Id);
+            var faq = await this.faqEntriesRepository
+                .All()
+                .FirstOrDefaultAsync(fe => fe.Id == faqEditViewModel.Id);
 
             if (faq == null)
             {

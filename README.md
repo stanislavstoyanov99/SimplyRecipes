@@ -1,5 +1,6 @@
 # Angular Simply Recipes
 
+[![Build Status](https://dev.azure.com/DyNaMiXx7/Simply%20Recipes/_apis/build/status%2Fstanislavstoyanov99.SimplyRecipes?branchName=main)](https://dev.azure.com/DyNaMiXx7/Simply%20Recipes/_build/latest?definitionId=4&branchName=main)
 [![GitHub license](https://img.shields.io/github/license/stanislavstoyanov99/SimplyRecipes?color=brightgreen)](https://github.com/stanislavstoyanov99/SimplyRecipes/blob/master/LICENSE)
 
 ## :point_right: Project Introduction :point_left:

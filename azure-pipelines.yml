@@ -35,4 +35,4 @@ steps:
   displayName: Artifact
   inputs:
     targetPath: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'Simply Recipes'
+    artifactName: 'myWebsiteName'

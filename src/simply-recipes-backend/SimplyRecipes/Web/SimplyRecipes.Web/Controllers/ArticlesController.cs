@@ -50,7 +50,7 @@
             var allArticles = this.articlesService
                 .GetAllAsQueryeable<ArticleListingViewModel>();
 
-            allArticles = allArticles.Take(1);
+            allArticles = allArticles.Take(2);
 
             var articlesPaginated = await PaginatedList<ArticleListingViewModel>
                 .CreateAsync(allArticles, pageNumber ?? 1, PageSize);

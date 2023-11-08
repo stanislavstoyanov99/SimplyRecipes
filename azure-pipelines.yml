@@ -13,7 +13,7 @@ steps:
   displayName: Build
   inputs:
     command: build
-    projects: 'SimplyRecipes.sln'
+    projects: '**/SimplyRecipes.sln'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2

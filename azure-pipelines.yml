@@ -18,7 +18,7 @@ steps:
   inputs:
     sourceFolder: "$(Agent.TempDirectory)"
     contents: "appsettings.Production.json"
-    targetFolder: "$(Agent.BuildDirectory)"
+    targetFolder: "$(Build.ArtifactStagingDirectory)"
   displayName: "Import Appsettings file"
 
 - task: DotNetCoreCLI@2

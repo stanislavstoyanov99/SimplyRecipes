@@ -24,17 +24,17 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DownloadSecureFile@1
-    name: "Download secure file"
-    inputs:
-      secureFile: 'appsettings.Production.json'
+  name: "Download secure file"
+  inputs:
+    secureFile: 'appsettings.Production.json'
     displayName: "Download appsettings.Production.json"
 
 - task: CopyFiles@2
-    inputs:
-      sourceFolder: "$(Agent.TempDirectory)"
-      contents: "appsettings.Production.json"
-      targetFolder: "$(Agent.BuildDirectory)"
-    displayName: "Import Appsettings file"
+  inputs:
+    sourceFolder: "$(Agent.TempDirectory)"
+    contents: "appsettings.Production.json"
+    targetFolder: "$(Agent.BuildDirectory)"
+  displayName: "Import Appsettings file"
 
 - task: DotNetCoreCLI@2
   displayName: Publish

@@ -96,9 +96,9 @@
 
         public static IServiceCollection AddAuthentication(
             this IServiceCollection services,
-            ApplicationConfig appConfig)
+            IConfiguration configuration)
         {
-            var key = Encoding.ASCII.GetBytes(appConfig.JwtSecret);
+            var key = Encoding.ASCII.GetBytes(configuration["ApplicationConfig:JwtSecret"]);
 
             services
                 .AddAuthentication(options =>
@@ -123,8 +123,8 @@
                 .AddCookie()
                 .AddFacebook(options =>
                 {
-                    options.AppId = appConfig.FacebookAppId;
-                    options.AppSecret = appConfig.FacebookAppSecret;
+                    options.AppId = configuration["ApplicationConfig:FacebookAppId"];
+                    options.AppSecret = configuration["ApplicationConfig:FacebookAppSecret"];
                 });
 
             return services;

@@ -43,7 +43,7 @@ namespace SimplyRecipes.Web
                 .AddCustomRouting()
                 .AddIdentity()
                 .ConfigureCookie()
-                .AddAuthentication(services.GetApplicationConfig(configuration))
+                .AddAuthentication(configuration)
                 .AddCors(configuration)
                 .AddApplicationServices(configuration)
                 // Uncomment when needed

@@ -24,7 +24,6 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DownloadSecureFile@1
-  name: "Download secure file"
   inputs:
     secureFile: 'appsettings.Production.json'
     displayName: "Download appsettings.Production.json"

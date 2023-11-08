@@ -35,14 +35,14 @@
     {
         private static IElasticClient elasticClient;
 
-        public static ApplicationConfig GetApplicationConfig(
+        public static IServiceCollection AddApplicationConfig(
             this IServiceCollection services,
             IConfiguration configuration)
         {
             var appConfigSection = configuration.GetSection("ApplicationConfig");
             services.Configure<ApplicationConfig>(appConfigSection);
 
-            return appConfigSection.Get<ApplicationConfig>();
+            return services;
         }
 
         public static IServiceCollection AddDatabase(

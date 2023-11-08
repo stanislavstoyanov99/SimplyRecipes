@@ -39,6 +39,7 @@ namespace SimplyRecipes.Web
         private static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
             services
+                .AddApplicationConfig(configuration)
                 .AddDatabase(configuration)
                 .AddCustomRouting()
                 .AddIdentity()

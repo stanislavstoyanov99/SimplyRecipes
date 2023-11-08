@@ -9,18 +9,6 @@ variables:
 
 steps:
 
-- task: DownloadSecureFile@1
-  inputs:
-    secureFile: 'appsettings.Production.json'
-    displayName: "Download appsettings.Production.json"
-
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: "$(Agent.TempDirectory)"
-    contents: "appsettings.Production.json"
-    targetFolder: "$(Build.SourcesDirectory)"
-  displayName: "Import Appsettings file"
-
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:

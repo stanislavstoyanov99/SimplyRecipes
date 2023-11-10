@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.33027.164
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{13EBE2D0-168C-45CB-BFF2-94DC71006396}"
 EndProject
@@ -27,15 +27,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Common", "Sim
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{F9BC59A2-6AE5-4082-9D50-CA52CAAF03D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Models.InputModels", "Models\SimplyRecipes.Models.InputModels\SimplyRecipes.Models.InputModels.csproj", "{00C794A2-E553-4025-B7FA-5291D397FA6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Models.InputModels", "Models\SimplyRecipes.Models.InputModels\SimplyRecipes.Models.InputModels.csproj", "{00C794A2-E553-4025-B7FA-5291D397FA6F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Models.ViewModels", "Models\SimplyRecipes.Models.ViewModels\SimplyRecipes.Models.ViewModels.csproj", "{4FDE6E8D-9C63-4B4D-B053-711AB9FB0D94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Models.ViewModels", "Models\SimplyRecipes.Models.ViewModels\SimplyRecipes.Models.ViewModels.csproj", "{4FDE6E8D-9C63-4B4D-B053-711AB9FB0D94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Models.Common", "Models\SimplyRecipes.Models.Common\SimplyRecipes.Models.Common.csproj", "{9BCBE75F-7814-40E1-8AED-0674C031CF07}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimplyRecipes.Models.Common", "Models\SimplyRecipes.Models.Common\SimplyRecipes.Models.Common.csproj", "{9BCBE75F-7814-40E1-8AED-0674C031CF07}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4254A53D-229C-4EF4-A459-CF16DC894AB7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Tests", "Tests\SimplyRecipes.Tests\SimplyRecipes.Tests.csproj", "{8329C7AD-59AD-448C-B05A-E5DE82D4FACD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimplyRecipes.Services.Data.Tests", "Tests\SimplyRecipes.Services.Data.Tests\SimplyRecipes.Services.Data.Tests.csproj", "{262B852A-806C-4392-B9BF-CE06DB28F896}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,10 +87,10 @@ Global
 		{9BCBE75F-7814-40E1-8AED-0674C031CF07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9BCBE75F-7814-40E1-8AED-0674C031CF07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9BCBE75F-7814-40E1-8AED-0674C031CF07}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8329C7AD-59AD-448C-B05A-E5DE82D4FACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8329C7AD-59AD-448C-B05A-E5DE82D4FACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8329C7AD-59AD-448C-B05A-E5DE82D4FACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8329C7AD-59AD-448C-B05A-E5DE82D4FACD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{262B852A-806C-4392-B9BF-CE06DB28F896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{262B852A-806C-4392-B9BF-CE06DB28F896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{262B852A-806C-4392-B9BF-CE06DB28F896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{262B852A-806C-4392-B9BF-CE06DB28F896}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -106,7 +106,7 @@ Global
 		{00C794A2-E553-4025-B7FA-5291D397FA6F} = {F9BC59A2-6AE5-4082-9D50-CA52CAAF03D9}
 		{4FDE6E8D-9C63-4B4D-B053-711AB9FB0D94} = {F9BC59A2-6AE5-4082-9D50-CA52CAAF03D9}
 		{9BCBE75F-7814-40E1-8AED-0674C031CF07} = {F9BC59A2-6AE5-4082-9D50-CA52CAAF03D9}
-		{8329C7AD-59AD-448C-B05A-E5DE82D4FACD} = {4254A53D-229C-4EF4-A459-CF16DC894AB7}
+		{262B852A-806C-4392-B9BF-CE06DB28F896} = {4254A53D-229C-4EF4-A459-CF16DC894AB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9C55B9FB-DD7F-47AE-AB3B-C61AEE061196}

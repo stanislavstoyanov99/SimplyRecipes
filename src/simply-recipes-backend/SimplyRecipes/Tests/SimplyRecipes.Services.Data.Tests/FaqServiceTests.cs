@@ -40,7 +40,7 @@ namespace SimplyRecipes.Services.Data.Tests
             await this.faqService.CreateAsync(model);
             var count = await this.faqEntriesRepository.All().CountAsync();
 
-            Assert.Equal(1, count);
+            Assert.Equal(2, count);
         }
 
         public async ValueTask DisposeAsync()

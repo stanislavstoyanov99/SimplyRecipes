@@ -55,7 +55,7 @@
 
             foreach (var article in articles)
             {
-                article.SearchText = Utils.GetSearchText(article);
+                article.SearchText = Utils.GetSearchText(article.Description, article.Title);
                 await dbContext.Articles.AddAsync(article);
             }
 

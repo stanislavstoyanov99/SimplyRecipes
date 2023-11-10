@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <Content Include="appsettings.Development.json">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
@@ -49,6 +49,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\SimplyRecipes.Data\SimplyRecipes.Data.csproj" />
     <ProjectReference Include="..\..\Services\SimplyRecipes.Services.Data\SimplyRecipes.Services.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Test.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

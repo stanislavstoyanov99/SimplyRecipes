@@ -64,7 +64,7 @@
                 .UploadAsync(articleCreateInputModel.Image, articleCreateInputModel.Title + Suffixes.ArticleSuffix);
             article.ImagePath = imageUrl;
 
-            article.SearchText = Utils.GetSearchText(article);
+            article.SearchText = Utils.GetSearchText(article.Description, article.Title);
 
             await this.articlesRepository.AddAsync(article);
             await this.articlesRepository.SaveChangesAsync();
@@ -120,7 +120,7 @@
             article.Description = articleEditViewModel.Description;
             article.UserId = userId;
             article.CategoryId = articleEditViewModel.CategoryId;
-            article.SearchText = Utils.GetSearchText(article);
+            article.SearchText = Utils.GetSearchText(article.Description, article.Title);
 
             this.articlesRepository.Update(article);
             await this.articlesRepository.SaveChangesAsync();

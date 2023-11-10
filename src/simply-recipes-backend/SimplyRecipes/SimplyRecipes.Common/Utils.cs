@@ -38,16 +38,16 @@
             return cookieOptions;
         }
 
-        public static string GetSearchText(Article article)
+        public static string GetSearchText(string description, string title)
         {
             // Get only text from content
             var parser = new HtmlParser();
-            var document = parser.ParseDocument($"<html><body>{article.Description}</body></html>");
+            var document = parser.ParseDocument($"<html><body>{description}</body></html>");
 
             StringBuilder result = new StringBuilder();
 
             // Append title
-            result.Append(article.Title + " " + document.Body.TextContent);
+            result.Append(title + " " + document.Body.TextContent);
             var text = result.ToString().ToLower();
 
             // Remove all non-alphanumeric characters

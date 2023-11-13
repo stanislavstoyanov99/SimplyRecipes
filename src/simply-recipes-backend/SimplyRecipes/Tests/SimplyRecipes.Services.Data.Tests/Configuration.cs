@@ -19,7 +19,7 @@
                     reloadOnChange: true)
                 .AddJsonFile(
                     path: "appsettings.tests.Development.json",
-                    optional: false,
+                    optional: true,
                     reloadOnChange: true)
                 .Build();
 

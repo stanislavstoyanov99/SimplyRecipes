@@ -350,4 +350,4 @@ MigrationBackup/
 .ionide/
 src/simply-recipes-backend/SimplyRecipes/Web/SimplyRecipes.Web/appsettings.Development.json
 src/simply-recipes-backend/SimplyRecipes/Web/SimplyRecipes.Web/appsettings.Production.json
-/src/simply-recipes-backend/SimplyRecipes/Tests/SimplyRecipes.Services.Data.Tests/appsettings.Development.json
+/src/simply-recipes-backend/SimplyRecipes/Tests/SimplyRecipes.Services.Data.Tests/appsettings.tests.Development.json

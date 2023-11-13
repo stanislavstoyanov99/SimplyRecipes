@@ -14,11 +14,11 @@
             this.ConfigurationRoot = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile(
-                    path: "appsettings.json",
+                    path: "appsettings.tests.json",
                     optional: false,
                     reloadOnChange: true)
                 .AddJsonFile(
-                    path: "appsettings.Development.json",
+                    path: "appsettings.tests.Development.json",
                     optional: false,
                     reloadOnChange: true)
                 .Build();

@@ -5,8 +5,9 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  buildConfiguration: 'Release'
 - group: JsonVariableGroup
+- name: buildConfiguration
+  value: 'Release'
 - name: Cloudinary.AppName
   value: '$(CloudinaryAppName)'
 - name: Cloudinary.AppKey
@@ -15,7 +16,6 @@ variables:
   value: '$(CloudinaryAppSecret)'
 
 steps:
-
 - task: FileTransform@1
   displayName: Tranform Appsettings
   inputs:

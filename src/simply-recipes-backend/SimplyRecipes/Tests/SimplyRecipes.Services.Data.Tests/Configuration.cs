@@ -17,10 +17,6 @@
                     path: "appsettings.tests.json",
                     optional: false,
                     reloadOnChange: true)
-                .AddJsonFile(
-                    path: "appsettings.tests.Development.json",
-                    optional: true,
-                    reloadOnChange: true)
                 .Build();
 
             serviceCollection.AddSingleton(this.ConfigurationRoot);

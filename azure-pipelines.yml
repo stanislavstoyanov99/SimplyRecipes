@@ -5,7 +5,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-- group: JsonVariableGroup
+- group: JsonTestsVariableGroup
 - name: buildConfiguration
   value: 'Release'
 - name: Cloudinary.AppName
@@ -17,7 +17,7 @@ variables:
 
 steps:
 - task: FileTransform@1
-  displayName: Tranform Appsettings
+  displayName: Tranform Test Appsettings
   inputs:
     folderPath: '**/*Tests/SimplyRecipes.Services.Data.Tests'
     fileType: 'json'

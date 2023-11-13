@@ -19,7 +19,7 @@ steps:
 - task: FileTransform@1
   displayName: Tranform Appsettings for Tests
   inputs:
-    folderPath: ''**/*Tests'
+    folderPath: '**/*Tests'
     fileType: 'json'
     targetFiles: 'appsettings.tests.json'
 

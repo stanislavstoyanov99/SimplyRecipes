@@ -19,7 +19,7 @@ steps:
 - task: FileTransform@1
   displayName: Tranform Appsettings
   inputs:
-    folderPath: '**/*Tests/*.json'
+    folderPath: '**/*Tests/SimplyRecipes.Services.Data.Tests'
     fileType: 'json'
     targetFiles: 'appsettings.tests.json'
 

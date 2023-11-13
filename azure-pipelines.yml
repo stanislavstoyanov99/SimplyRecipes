@@ -17,8 +17,9 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - task: FileTransform@1
+  displayName: Tranform Appsettings for Tests
   inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    folderPath: ''**/*Tests'
     fileType: 'json'
     targetFiles: 'appsettings.tests.json'
 

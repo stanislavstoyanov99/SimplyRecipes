@@ -53,7 +53,7 @@
         }
 
         [Fact]
-        public async Task TestCreatingArticle()
+        public async Task CheckCreatingArticle()
         {
             await this.SeedUsers();
             await this.SeedCategories();
@@ -63,7 +63,7 @@
 
             using (var img = File.OpenRead(path))
             {
-                var testImage = new FormFile(img, 0, img.Length, "Test.jpg", img.Name)
+                var testImage = new FormFile(img, 0, img.Length, path, img.Name)
                 {
                     Headers = new HeaderDictionary(),
                     ContentType = "image/jpeg",
@@ -74,9 +74,9 @@
                     Title = this.firstArticle.Title,
                     Description = this.firstArticle.Description,
                     Image = testImage,
-                    CategoryId = 1,
+                    CategoryId = this.firstCategory.Id,
                 };
-                articleDetailsViewModel = await this.articlesService.CreateAsync(model, "1");
+                articleDetailsViewModel = await this.articlesService.CreateAsync(model, this.user.Id);
             }
 
             await this.cloudinaryService.DeleteImageAsync(
@@ -84,6 +84,169 @@
             var count = await this.articleRepisitory.All().CountAsync();
 
             Assert.Equal(1, count);
+        }
+
+        [Fact]
+        public async Task CheckCreatingArticleWithMissingCategory()
+        {
+            await this.SeedUsers();
+            await this.SeedCategories();
+
+            var path = "Test.jpg";
+            ArticleCreateInputModel model = null;
+
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, path, img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new ArticleCreateInputModel
+                {
+                    Title = this.firstArticle.Title,
+                    Description = this.firstArticle.Description,
+                    Image = testImage,
+                    CategoryId = 2,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () =>
+                    await this.articlesService.CreateAsync(model, this.user.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.CategoryNotFound, model.CategoryId), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckCreatingAlreadyExistingArticle()
+        {
+            await this.SeedDatabase();
+
+            var path = "Test.jpg";
+            ArticleCreateInputModel model = null;
+
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, path, img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                model = new ArticleCreateInputModel
+                {
+                    Title = this.firstArticle.Title,
+                    Description = this.firstArticle.Description,
+                    Image = testImage,
+                    CategoryId = this.firstCategory.Id,
+                };
+            }
+
+            var exception = await Assert
+                .ThrowsAsync<ArgumentException>(async () =>
+                    await this.articlesService.CreateAsync(model, this.user.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.ArticleAlreadyExists, model.Title), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfDeletingArticleWorksCorrectly()
+        {
+            await this.SeedDatabase();
+
+            await this.articlesService.DeleteByIdAsync(this.firstArticle.Id);
+
+            var count = await this.articleRepisitory.All().CountAsync();
+
+            Assert.Equal(0, count);
+        }
+
+        [Fact]
+        public async Task CheckIfDeletingArticleReturnsNullReferenceException()
+        {
+            await this.SeedDatabase();
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => await this.articlesService.DeleteByIdAsync(2));
+
+            Assert.Equal(string.Format(ExceptionMessages.ArticleNotFound, 2), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfEditingArticleWorksCorrectly()
+        {
+            await this.SeedDatabase();
+
+            var path = "Test.jpg";
+            ArticleDetailsViewModel articleDetailsViewModel = null;
+
+            using (var img = File.OpenRead(path))
+            {
+                var testImage = new FormFile(img, 0, img.Length, path, img.Name)
+                {
+                    Headers = new HeaderDictionary(),
+                    ContentType = "image/jpeg",
+                };
+
+                var model = new ArticleEditViewModel
+                {
+                    Id = this.firstArticle.Id,
+                    Title = "Changed Title",
+                    Description = "Changed Description",
+                    Image = testImage,
+                    CategoryId = this.firstCategory.Id,
+                };
+
+                articleDetailsViewModel = await this.articlesService.EditAsync(model, this.user.Id);
+            }
+
+            Assert.Equal(articleDetailsViewModel.Title, this.firstArticle.Title);
+            Assert.Equal(articleDetailsViewModel.Description, this.firstArticle.Description);
+            Assert.Equal(articleDetailsViewModel.ImagePath, this.firstArticle.ImagePath);
+        }
+
+        [Fact]
+        public async Task CheckIfEditingArticleReturnsNullReferenceException()
+        {
+            await this.SeedDatabase();
+
+            var articleEditViewModel = new ArticleEditViewModel
+            {
+                Id = 2
+            };
+
+            var exception = await Assert
+                .ThrowsAsync<NullReferenceException>(async () => 
+                    await this.articlesService.EditAsync(articleEditViewModel, this.user.Id));
+
+            Assert.Equal(string.Format(ExceptionMessages.ArticleNotFound, articleEditViewModel.Id), exception.Message);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllAsQueryeableWorksCorrectly()
+        {
+            await this.SeedDatabase();
+
+            var expected = this.articlesService.GetAllAsQueryeable<ArticleDetailsViewModel>();
+            var actualCount = await this.articleRepisitory.All().CountAsync();
+
+            Assert.Equal(expected.First().Title, this.firstArticle.Title);
+            Assert.Equal(expected.Count(), actualCount);
+        }
+
+        [Fact]
+        public async Task CheckIfGetAllByCategoryNameAsQueryeableWorksCorrectly()
+        {
+            await this.SeedDatabase();
+
+            var expected = this.articlesService
+                .GetAllByCategoryNameAsQueryeable<ArticleDetailsViewModel>("Vegetables");
+            var actualCount = await this.articleRepisitory.All().CountAsync();
+
+            Assert.Equal(expected.First().Category.Name, this.firstArticle.Category.Name);
+            Assert.Equal(expected.Count(), actualCount);
         }
 
         public async ValueTask DisposeAsync()
@@ -150,6 +313,13 @@
         {
             await this.categoriesRepository.AddAsync(this.firstCategory);
             await this.categoriesRepository.SaveChangesAsync();
+        }
+
+        private async Task SeedDatabase()
+        {
+            await this.SeedUsers();
+            await this.SeedCategories();
+            await this.SeedArticles();
         }
 
         private void InitializeMapper() => AutoMapperConfig

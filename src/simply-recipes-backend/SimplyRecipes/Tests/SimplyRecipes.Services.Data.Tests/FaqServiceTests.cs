@@ -32,7 +32,7 @@ namespace SimplyRecipes.Services.Data.Tests
         }
 
         [Fact]
-        public async Task TestAddingFaqEntry()
+        public async Task CheckAddingFaqEntry()
         {
             var model = new FaqCreateInputModel
             {
@@ -162,8 +162,8 @@ namespace SimplyRecipes.Services.Data.Tests
 
             var result = await this.faqService.GetAllAsync<FaqDetailsViewModel>();
 
-            var count = result.Count();
-            Assert.Equal(1, count);
+            var actualCount = result.Count();
+            Assert.Equal(1, actualCount);
         }
 
         [Fact]

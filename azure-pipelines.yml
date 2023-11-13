@@ -16,6 +16,12 @@ steps:
     projects: '**/SimplyRecipes.sln'
     arguments: '--configuration $(buildConfiguration)'
 
+- task: FileTransform@1
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    fileType: 'json'
+    targetFiles: 'appsettings.tests.json'
+
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:

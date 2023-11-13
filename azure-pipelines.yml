@@ -17,9 +17,9 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - task: FileTransform@1
-  displayName: Tranform Appsettings for Tests
+  displayName: Tranform Appsettings
   inputs:
-    folderPath: '**/*Tests'
+    folderPath: '**/*Tests/*.json'
     fileType: 'json'
     targetFiles: 'appsettings.tests.json'
 

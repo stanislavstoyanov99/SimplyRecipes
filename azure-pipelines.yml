@@ -9,19 +9,19 @@ variables:
 
 steps:
 
-- task: DotNetCoreCLI@2
-  displayName: Build
-  inputs:
-    command: build
-    projects: '**/SimplyRecipes.sln'
-    arguments: '--configuration $(buildConfiguration)'
-
 - task: FileTransform@1
   displayName: Tranform Appsettings
   inputs:
     folderPath: '**/*Tests/SimplyRecipes.Services.Data.Tests'
     fileType: 'json'
     targetFiles: 'appsettings.tests.json'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    command: build
+    projects: '**/SimplyRecipes.sln'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: Test

@@ -7,23 +7,21 @@
     padding-bottom: 40px;
 }
 
-.toArticle-box {
+.btn-articles {
     background-color: white;
-    color: black;
-    font-size: 30px;
-    position: relative;
-    margin-bottom: 30px;
-    min-height: 120px;
-    margin-left: 50px;
+    color: #540404;
 }
 
-#toArticleBtn {
-    position: absolute;
-    text-align: center;
+.btn-articles:hover {
+    background-color: #212529;
+    color: white;
+}
+
+.article-button-container {
     width: 100%;
-    height: 100%;
-    margin-left: -15px;
-    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0 0 0;
 }
 
 .blog-box {
@@ -89,7 +87,6 @@
 
 .blog-detail a {
     color: #ffffff;
-    margin-top: 20px;
 }
 
 .blog-box-inner .blog-detail:hover {

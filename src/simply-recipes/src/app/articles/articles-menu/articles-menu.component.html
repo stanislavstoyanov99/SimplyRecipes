@@ -3,7 +3,7 @@
         <div class="col-lg-12">
             <div class="heading-title text-center">
                 <h2 style="color:white">Articles</h2>
-                <p class="mb-3">If you are not hungry, feel free to browse our article section</p>
+                <p class="m-3">If you are not hungry, feel free to browse our article section</p>
             </div>
         </div>
         <div class="row d-flex h-100 ms-auto me-auto">
@@ -31,8 +31,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-3 toArticle-box" *ngIf="!(loadingService.isLoading$ | async)">
-                <a class="button" id="toArticleBtn" routerLink="/articles/main"><span>To Articles</span></a>
+            <div class="article-button-container" *ngIf="!(loadingService.isLoading$ | async)">
+                <div>
+                    <a class="btn btn-articles w-100" routerLink="/articles/main">To Articles</a>
+                </div>
             </div>
         </div>
     </div>

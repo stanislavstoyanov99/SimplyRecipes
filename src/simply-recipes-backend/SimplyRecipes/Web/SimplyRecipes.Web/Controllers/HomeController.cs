@@ -15,7 +15,7 @@
     public class HomeController : ApiController
     {
         private const int TopRecipesCounter = 6;
-        private const int RecentArticlesCounter = 2;
+        private const int RecentArticlesCounter = 3;
 
         private readonly IPrivacyService privacyService;
         private readonly IArticlesService articlesService;
